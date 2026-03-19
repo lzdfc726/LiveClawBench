@@ -1,0 +1,6 @@
+{
+  "result_contract_valid": 0.15,
+  "repair_accuracy": 0.4,
+  "evidence_trace": 0.3,
+  "workspace_update": 0.15
+}

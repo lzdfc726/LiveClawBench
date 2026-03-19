@@ -1,0 +1,27 @@
+{
+  "task_id": "pkb_hybrid_tool_memory_hard_001",
+  "topic_id": "speculative_decoding",
+  "db_path": "db/spec_decode_knowledge.db",
+  "required_evidence_ids": [
+    "browser:spec_exact_001",
+    "browser:self_spec_002",
+    "browser:spec_speed_003"
+  ],
+  "required_low_confidence_ids": [
+    "browser:spec_noise_001",
+    "browser:spec_noise_002"
+  ],
+  "required_source_ids": [
+    "source_02_video",
+    "browser:spec_exact_001",
+    "browser:self_spec_002",
+    "browser:spec_speed_003"
+  ],
+  "required_fact_values": {
+    "exactness_guarantee": "exact_target_preserving_acceleration",
+    "draft_requirement_status": "separate_draft_not_always_required",
+    "speedup_condition": "draft_cost_acceptance_and_system_fit",
+    "fallback_reason": "verification_overhead_or_low_acceptance",
+    "self_spec_definition": "same_model_or_partial_model_drafts_then_verifies"
+  }
+}

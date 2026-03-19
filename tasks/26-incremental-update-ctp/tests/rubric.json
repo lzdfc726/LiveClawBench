@@ -1,0 +1,7 @@
+{
+  "result_contract_valid": 0.15,
+  "delta_accuracy": 0.45,
+  "replacement_accuracy": 0.15,
+  "source_usage": 0.1,
+  "workspace_update": 0.15
+}

@@ -1,0 +1,19 @@
+{
+  "task_id": "pkb_conflict_repair_medium_001",
+  "topic_id": "speculative_decoding",
+  "incorrect_old_claim_ids": [
+    "speculative_is_cache_only",
+    "high_acceptance_implies_general_speedup",
+    "separate_draft_model_always_required"
+  ],
+  "corrected_claim_ids": [
+    "exact_target_preserving_acceleration",
+    "draft_cost_acceptance_and_system_fit",
+    "separate_draft_not_always_required"
+  ],
+  "required_evidence_ids": [
+    "browser:spec_exact_001",
+    "browser:spec_perf_002",
+    "browser:self_spec_003"
+  ]
+}

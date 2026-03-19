@@ -1,0 +1,7 @@
+{
+  "result_contract_valid": 0.15,
+  "database_integrity": 0.35,
+  "query_accuracy": 0.2,
+  "evidence_trace": 0.15,
+  "workspace_update": 0.15
+}

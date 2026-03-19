@@ -1,0 +1,6 @@
+{
+  "result_contract_valid": 0.1,
+  "noise_source_identification": 0.3,
+  "memory_correction": 0.45,
+  "workspace_update": 0.15
+}

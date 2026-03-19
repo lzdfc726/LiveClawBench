@@ -1,0 +1,15 @@
+{
+  "task_id": "pkb_live_web_research_hard_001",
+  "topic_id": "speculative_decoding",
+  "required_urls": {
+    "paper": "https://proceedings.mlr.press/v202/leviathan23a.html",
+    "video": "https://www.youtube.com/watch?v=i0EcdQT8Pvw"
+  },
+  "db_path": "db/spec_decode_live.db",
+  "required_fact_values": {
+    "paper_exactness": "exact_target_preserving_acceleration",
+    "paper_core_mechanism": "draft_propose_target_verify",
+    "paper_venue": "pmlr_v202_icml_2023",
+    "video_role": "public_explainer_for_speculative_decoding"
+  }
+}
