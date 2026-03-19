@@ -1,0 +1,470 @@
+[
+  {
+    "id": 1,
+    "timestamp": "2025-11-24T09:12:33+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251124-001",
+    "user_message": "Help me debug this segfault in the C++ module",
+    "agent_response": "The segfault is caused by a null pointer dereference at line 142. Add a null check before accessing the member.",
+    "tags": ["code"]
+  },
+  {
+    "id": 2,
+    "timestamp": "2025-11-24T10:30:45+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251124-001",
+    "user_message": "What's the status of the staging server?",
+    "agent_response": "Staging server is up. CPU at 34%, memory at 62%. Last deploy was 3 hours ago.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 3,
+    "timestamp": "2025-11-24T14:05:20+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251124-002",
+    "user_message": "Explain the difference between gRPC and REST",
+    "agent_response": "gRPC uses HTTP/2 and Protocol Buffers for binary serialization, while REST typically uses HTTP/1.1 with JSON...",
+    "tags": ["code"]
+  },
+  {
+    "id": 4,
+    "timestamp": "2025-11-25T09:45:10+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251125-001",
+    "user_message": "Check if the backup job ran last night",
+    "agent_response": "Backup job completed successfully at 02:15 AM. 45GB backed up to S3.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 5,
+    "timestamp": "2025-11-25T11:20:00+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251125-001",
+    "user_message": "How do I use Python's asyncio.gather?",
+    "agent_response": "asyncio.gather runs multiple coroutines concurrently. Example: results = await asyncio.gather(coro1(), coro2())",
+    "tags": ["code"]
+  },
+  {
+    "id": 6,
+    "timestamp": "2025-11-26T09:08:22+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251126-001",
+    "user_message": "Review this PR for the auth module, check for security issues and code style",
+    "agent_response": "PR #142 reviewed. Found 3 issues: 1) SQL injection risk in query builder, 2) missing input validation on email field, 3) inconsistent error handling. Suggest requesting changes.",
+    "tags": ["code-review"]
+  },
+  {
+    "id": 7,
+    "timestamp": "2025-11-26T09:42:15+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251126-001",
+    "user_message": "Also run pylint on the utils.py changes in that PR",
+    "agent_response": "Pylint results for utils.py: Score 8.5/10. 2 warnings (unused import, too-broad exception), 1 convention issue (line too long at L78).",
+    "tags": ["code-review"]
+  },
+  {
+    "id": 8,
+    "timestamp": "2025-11-26T14:30:00+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251126-002",
+    "user_message": "What's the difference between INNER JOIN and LEFT JOIN?",
+    "agent_response": "INNER JOIN returns only matching rows from both tables. LEFT JOIN returns all rows from the left table plus matching rows from the right...",
+    "tags": ["code"]
+  },
+  {
+    "id": 9,
+    "timestamp": "2025-11-27T10:15:30+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251127-001",
+    "user_message": "Set up monitoring alerts for the prod database",
+    "agent_response": "Alerts configured: CPU > 80%, memory > 90%, disk > 85%, connection count > 500. Notifications sent to #ops-alerts.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 10,
+    "timestamp": "2025-11-27T15:00:00+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251127-002",
+    "user_message": "How do I optimize this PostgreSQL query?",
+    "agent_response": "Add a composite index on (user_id, created_at). The sequential scan on the orders table is the bottleneck.",
+    "tags": ["code"]
+  },
+  {
+    "id": 11,
+    "timestamp": "2025-11-28T09:30:00+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251128-001",
+    "user_message": "Can you help me understand Kubernetes pod autoscaling?",
+    "agent_response": "HPA (Horizontal Pod Autoscaler) scales pods based on CPU/memory metrics. Set minReplicas, maxReplicas, and targetCPUUtilizationPercentage...",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 12,
+    "timestamp": "2025-11-28T16:10:45+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251128-002",
+    "user_message": "帮我生成本周的工作进展摘要，包括完成的任务和遇到的问题",
+    "agent_response": "本周工作摘要：\n1. 完成auth模块PR review，发现3个安全问题\n2. 配置了生产数据库监控告警\n3. 解决了C++模块segfault问题\n遇到的问题：staging服务器内存使用偏高，需要关注",
+    "tags": ["weekly-digest"]
+  },
+  {
+    "id": 13,
+    "timestamp": "2025-11-28T16:45:20+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251128-002",
+    "user_message": "再汇总一下这周关闭的issue和合并的PR数量",
+    "agent_response": "本周统计：关闭issue 7个，合并PR 4个（#140, #141, #142, #145）。待处理issue还有12个。",
+    "tags": ["weekly-digest"]
+  },
+  {
+    "id": 14,
+    "timestamp": "2025-12-01T09:20:00+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251201-001",
+    "user_message": "Write a Python decorator for rate limiting",
+    "agent_response": "Here's a token bucket rate limiter decorator using time.monotonic()...",
+    "tags": ["code"]
+  },
+  {
+    "id": 15,
+    "timestamp": "2025-12-01T11:00:30+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251201-001",
+    "user_message": "How do I set up SSH key forwarding?",
+    "agent_response": "Add 'ForwardAgent yes' to your ~/.ssh/config for the target host. Make sure ssh-agent is running with your key added.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 16,
+    "timestamp": "2025-12-01T14:45:00+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251201-002",
+    "user_message": "Explain Python's GIL and its impact on multithreading",
+    "agent_response": "The GIL ensures only one thread executes Python bytecode at a time. For CPU-bound work, use multiprocessing instead. For I/O-bound work, threading still helps...",
+    "tags": ["code"]
+  },
+  {
+    "id": 17,
+    "timestamp": "2025-12-02T09:30:00+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251202-001",
+    "user_message": "Check the disk usage trend for the past month",
+    "agent_response": "Disk usage trend: growing ~2GB/day on /data. At current rate, 85% threshold will be hit in ~12 days. Recommend archiving old logs.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 18,
+    "timestamp": "2025-12-02T13:15:00+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251202-002",
+    "user_message": "What's the best way to handle database migrations in Django?",
+    "agent_response": "Use Django's built-in migration framework: python manage.py makemigrations, then migrate. For complex changes, consider RunPython operations...",
+    "tags": ["code"]
+  },
+  {
+    "id": 19,
+    "timestamp": "2025-12-03T09:15:40+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251203-001",
+    "user_message": "Review the PR diff for the API refactor, focus on backward compatibility",
+    "agent_response": "PR #148 reviewed. Breaking changes found: 1) /api/v1/users response schema changed without versioning, 2) removed deprecated field 'legacy_id' without migration path. Recommend: add v2 endpoint, keep v1 for 2 releases.",
+    "tags": ["code-review"]
+  },
+  {
+    "id": 20,
+    "timestamp": "2025-12-03T09:55:30+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251203-001",
+    "user_message": "Run the full code review checklist on the data pipeline PR too",
+    "agent_response": "PR #150 code review:\n✓ Type hints present\n✓ Tests added (92% coverage)\n✗ Missing docstrings on 3 public functions\n✗ Hardcoded connection string (should use env var)\n✓ Error handling adequate\nOverall: Approve with minor changes.",
+    "tags": ["code-review"]
+  },
+  {
+    "id": 21,
+    "timestamp": "2025-12-03T14:00:00+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251203-002",
+    "user_message": "Help me write unit tests for the payment module",
+    "agent_response": "Here are unit tests covering the main payment flows: successful charge, declined card, refund processing, and partial refund...",
+    "tags": ["code"]
+  },
+  {
+    "id": 22,
+    "timestamp": "2025-12-04T10:00:00+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251204-001",
+    "user_message": "Rotate the SSL certificates for the API gateway",
+    "agent_response": "Certificates rotated. New cert valid until 2026-12-04. Old cert revoked. No downtime during rotation.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 23,
+    "timestamp": "2025-12-04T14:30:00+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251204-002",
+    "user_message": "What's the difference between useEffect and useLayoutEffect in React?",
+    "agent_response": "useEffect runs asynchronously after paint, useLayoutEffect runs synchronously before paint. Use useLayoutEffect for DOM measurements...",
+    "tags": ["code"]
+  },
+  {
+    "id": 24,
+    "timestamp": "2025-12-05T09:10:00+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251205-001",
+    "user_message": "Set up a cron job for log rotation",
+    "agent_response": "Cron job added: '0 2 * * * /usr/sbin/logrotate /etc/logrotate.d/app' — runs daily at 2 AM.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 25,
+    "timestamp": "2025-12-05T16:20:10+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251205-002",
+    "user_message": "生成本周的周报，包括完成的任务、代码review情况和下周计划",
+    "agent_response": "本周周报：\n【完成任务】\n1. API重构PR review，发现向后兼容性问题\n2. 数据管道PR review，提出改进建议\n3. SSL证书轮换完成\n4. 支付模块单元测试编写\n\n【代码Review】\n- PR #148: API重构，建议添加v2端点\n- PR #150: 数据管道，需补充文档\n\n【下周计划】\n- 完成支付模块集成测试\n- 处理日志归档",
+    "tags": ["weekly-digest"]
+  },
+  {
+    "id": 26,
+    "timestamp": "2025-12-05T16:55:00+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251205-002",
+    "user_message": "总结一下这周团队的代码提交统计",
+    "agent_response": "本周代码提交统计：\n- 总commit数: 47\n- 合并PR: 5个\n- 新开PR: 3个\n- 代码行数变化: +1,243 / -567\n- 最活跃贡献者: @zhangwei (18 commits)",
+    "tags": ["weekly-digest"]
+  },
+  {
+    "id": 27,
+    "timestamp": "2025-12-08T09:25:00+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251208-001",
+    "user_message": "Help me set up a Redis cluster for caching",
+    "agent_response": "For a Redis cluster, you need at least 6 nodes (3 masters, 3 replicas). Use redis-cli --cluster create...",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 28,
+    "timestamp": "2025-12-08T11:30:00+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251208-001",
+    "user_message": "How do I implement a bloom filter in Python?",
+    "agent_response": "A bloom filter uses multiple hash functions to test set membership with possible false positives but no false negatives...",
+    "tags": ["code"]
+  },
+  {
+    "id": 29,
+    "timestamp": "2025-12-08T15:00:00+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251208-002",
+    "user_message": "What's the difference between ACID and BASE in databases?",
+    "agent_response": "ACID provides strong consistency (Atomicity, Consistency, Isolation, Durability). BASE offers eventual consistency (Basically Available, Soft state, Eventually consistent)...",
+    "tags": ["code"]
+  },
+  {
+    "id": 30,
+    "timestamp": "2025-12-09T10:00:00+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251209-001",
+    "user_message": "Update the Nginx config to enable HTTP/2",
+    "agent_response": "Updated nginx.conf: added 'listen 443 ssl http2;' directive. Reload nginx with 'sudo nginx -s reload'.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 31,
+    "timestamp": "2025-12-09T14:20:00+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251209-002",
+    "user_message": "Explain Python's descriptor protocol",
+    "agent_response": "Descriptors define __get__, __set__, and/or __delete__ methods. They control attribute access on classes...",
+    "tags": ["code"]
+  },
+  {
+    "id": 32,
+    "timestamp": "2025-12-10T09:12:50+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251210-001",
+    "user_message": "Review the PR for the database migration scripts, check for data loss risks",
+    "agent_response": "PR #155 reviewed. High risk: ALTER TABLE drops column 'old_status' without data backup. Recommend: 1) Add migration to copy old_status to status_history table first, 2) Add rollback script, 3) Test on staging with production data snapshot.",
+    "tags": ["code-review"]
+  },
+  {
+    "id": 33,
+    "timestamp": "2025-12-10T09:48:30+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251210-001",
+    "user_message": "Check the code style and type annotations on the new models.py changes",
+    "agent_response": "Code style review for models.py:\n- 5 functions missing return type annotations\n- 2 places using 'Any' type where more specific types are possible\n- Naming convention violation: 'getData' should be 'get_data' (snake_case)\n- Missing __all__ export list\nMypy strict mode: 3 errors found.",
+    "tags": ["code-review"]
+  },
+  {
+    "id": 34,
+    "timestamp": "2025-12-10T13:45:00+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251210-002",
+    "user_message": "How do I implement a custom context manager in Python?",
+    "agent_response": "Use __enter__ and __exit__ methods, or the @contextmanager decorator from contextlib...",
+    "tags": ["code"]
+  },
+  {
+    "id": 35,
+    "timestamp": "2025-12-11T09:00:00+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251211-001",
+    "user_message": "Check the Kubernetes cluster health",
+    "agent_response": "Cluster health: 5/5 nodes Ready. 2 pods in CrashLoopBackOff (payment-service, notification-service). Resource utilization: CPU 45%, Memory 58%.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 36,
+    "timestamp": "2025-12-11T14:00:00+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251211-002",
+    "user_message": "Explain the CAP theorem with a practical example",
+    "agent_response": "CAP theorem states a distributed system can only provide 2 of 3: Consistency, Availability, Partition tolerance. Example: DynamoDB chooses AP...",
+    "tags": ["code"]
+  },
+  {
+    "id": 37,
+    "timestamp": "2025-12-12T10:30:00+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251212-001",
+    "user_message": "Update the firewall rules to allow the new microservice port",
+    "agent_response": "Firewall updated: allowed TCP 8443 for notification-service from internal subnet 10.0.3.0/24.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 38,
+    "timestamp": "2025-12-12T16:15:30+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251212-002",
+    "user_message": "帮我写这周的工作周报，重点突出代码review和基础设施变更",
+    "agent_response": "本周工作周报：\n\n【代码Review（重点）】\n1. PR #155 数据库迁移脚本 - 发现数据丢失风险，建议先备份old_status列\n2. models.py 代码风格审查 - 发现5处类型注解缺失\n\n【基础设施变更】\n1. K8s集群健康检查，发现2个pod异常\n2. 防火墙规则更新，开放8443端口\n\n【其他】\n- Redis集群搭建方案已完成\n- Nginx HTTP/2配置已上线",
+    "tags": ["weekly-digest"]
+  },
+  {
+    "id": 39,
+    "timestamp": "2025-12-12T16:50:00+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251212-002",
+    "user_message": "汇总本周的项目进展和风险点",
+    "agent_response": "本周项目进展与风险：\n\n【进展】\n- 数据管道重构完成80%\n- 支付模块测试覆盖率提升至92%\n- 基础设施优化3项\n\n【风险点】\n1. 数据库迁移脚本存在数据丢失风险（高）\n2. payment-service和notification-service持续重启（中）\n3. /data分区预计12天后超85%阈值（低）",
+    "tags": ["weekly-digest"]
+  },
+  {
+    "id": 40,
+    "timestamp": "2025-12-15T09:10:00+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251215-001",
+    "user_message": "Help me implement a circuit breaker pattern",
+    "agent_response": "A circuit breaker prevents cascading failures. States: Closed (normal), Open (failing, reject calls), Half-Open (test recovery)...",
+    "tags": ["code"]
+  },
+  {
+    "id": 41,
+    "timestamp": "2025-12-15T11:45:00+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251215-001",
+    "user_message": "How do I profile memory usage in Python?",
+    "agent_response": "Use memory_profiler: @profile decorator shows line-by-line memory usage. For heap analysis, use objgraph or tracemalloc...",
+    "tags": ["code"]
+  },
+  {
+    "id": 42,
+    "timestamp": "2025-12-15T14:30:00+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251215-002",
+    "user_message": "Check if the backup encryption is working properly",
+    "agent_response": "Backup encryption verified: AES-256-GCM, key rotation every 30 days. Last encrypted backup: 45.2GB, checksum valid.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 43,
+    "timestamp": "2025-12-16T09:30:00+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251216-001",
+    "user_message": "Explain the Saga pattern for distributed transactions",
+    "agent_response": "Saga breaks a transaction into local transactions with compensating actions. Two approaches: choreography (events) and orchestration (coordinator)...",
+    "tags": ["code"]
+  },
+  {
+    "id": 44,
+    "timestamp": "2025-12-16T13:00:00+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251216-002",
+    "user_message": "Resize the EBS volume for the staging database",
+    "agent_response": "EBS volume resized from 200GB to 500GB. Filesystem extended online. No reboot required.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 45,
+    "timestamp": "2025-12-17T09:05:15+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251217-001",
+    "user_message": "Review the frontend API integration PR, check error handling and loading states",
+    "agent_response": "PR #162 reviewed:\n✗ No error boundary around API calls - app crashes on network failure\n✗ Loading state not shown during fetch - poor UX\n✗ Retry logic missing for transient errors\n✓ API response types correctly defined\n✓ Auth token properly attached\nRecommend: Request changes, add error handling.",
+    "tags": ["code-review"]
+  },
+  {
+    "id": 46,
+    "timestamp": "2025-12-17T09:38:00+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251217-001",
+    "user_message": "Also run the code review on the new GraphQL resolvers",
+    "agent_response": "GraphQL resolvers review (PR #163):\n- N+1 query problem in userPosts resolver - use DataLoader\n- Missing input validation on mutation arguments\n- No rate limiting on expensive queries\n- Good: proper use of context for auth checks\nSuggested: approve with required changes on N+1 fix.",
+    "tags": ["code-review"]
+  },
+  {
+    "id": 47,
+    "timestamp": "2025-12-17T15:00:00+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251217-002",
+    "user_message": "How do I implement WebSocket authentication?",
+    "agent_response": "For WebSocket auth: send token in the initial HTTP upgrade request header or as first message. Validate before accepting the connection...",
+    "tags": ["code"]
+  },
+  {
+    "id": 48,
+    "timestamp": "2025-12-18T10:20:00+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251218-001",
+    "user_message": "Set up CloudWatch alarms for Lambda cold starts",
+    "agent_response": "CloudWatch alarms configured: Duration > 5s (cold start threshold), Error rate > 1%, Concurrent executions > 80% of reserved.",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 49,
+    "timestamp": "2025-12-18T14:15:00+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251218-002",
+    "user_message": "Explain event sourcing vs CRUD",
+    "agent_response": "CRUD directly modifies state. Event sourcing stores immutable events and derives state. Benefits: full audit trail, temporal queries, event replay...",
+    "tags": ["code"]
+  },
+  {
+    "id": 50,
+    "timestamp": "2025-12-19T09:45:00+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251219-001",
+    "user_message": "Clean up the Docker images on the CI server, we're running low on space",
+    "agent_response": "Cleaned up 23 dangling images (12.4GB freed). Pruned stopped containers (3.2GB). Current usage: 67% (was 94%).",
+    "tags": ["sysadmin"]
+  },
+  {
+    "id": 51,
+    "timestamp": "2025-12-19T16:05:25+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251219-002",
+    "user_message": "生成这周的weekly digest，要包含代码review、基础设施变更和关键风险",
+    "agent_response": "本周Weekly Digest：\n\n【代码Review】\n1. PR #162 前端API集成 - 缺少错误处理和加载状态\n2. PR #163 GraphQL resolvers - 发现N+1查询问题\n\n【基础设施变更】\n1. EBS卷扩容至500GB\n2. CloudWatch Lambda告警配置\n3. CI服务器Docker清理释放15.6GB\n\n【关键风险】\n- 前端无错误边界，网络故障时会崩溃\n- GraphQL缺少速率限制\n- Lambda冷启动超5秒需优化",
+    "tags": ["weekly-digest"]
+  },
+  {
+    "id": 52,
+    "timestamp": "2025-12-19T16:35:00+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251219-002",
+    "user_message": "帮我整理本周的工作总结，发给manager，用中文",
+    "agent_response": "给Manager的工作总结：\n\n本周主要完成了前端API集成和GraphQL resolvers的代码审查，发现多个需要改进的问题。基础设施方面完成了存储扩容和监控告警配置。\n\n重点关注事项：前端错误处理需加强，GraphQL查询性能待优化。建议下周优先处理这两项。\n\n下周计划：1) 前端error boundary实现 2) DataLoader集成 3) Lambda冷启动优化",
+    "tags": ["weekly-digest"]
+  }
+]

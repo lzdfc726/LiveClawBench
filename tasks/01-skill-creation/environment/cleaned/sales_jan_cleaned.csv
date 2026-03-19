@@ -1,0 +1,10 @@
+order_id,customer_name,date,product,quantity,amount
+1004,Charlie Lee,2026-01-12,Widget C,5,124.50
+1009,Grace Kim,2026-01-28,Widget C,4,99.60
+1006,Eve Martinez,2026-01-18,Widget B,3,89.97
+1007,Frank Wu,2026-01-22,Widget D,2,67.00
+1001,Alice Johnson,2026-01-05,Widget A,2,49.99
+1003,Alice Johnson,2026-01-05,Widget A,2,49.99
+1002,Bob Smith,2026-01-07,Widget B,1,29.99
+1008,Bob Smith,2026-01-07,Widget B,1,29.99
+1005,Diana Ross,2026-01-15,Widget A,1,24.99

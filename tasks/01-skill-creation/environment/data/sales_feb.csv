@@ -1,0 +1,14 @@
+order_id,customer_name,date,product,quantity,amount
+2001,Henry Park,02/03/2026,Widget B,2,59.98
+2002,Iris Chen,2026-02-05,Widget A,1,24.99
+
+2003,Jack Brown,Feb 8 2026,Widget D,3,100.50
+
+2004,Henry Park,02/03/2026,Widget B,2,59.98
+2005,Karen White,02-11-2026,Widget C,2,49.80
+2006,Leo Garcia,2026/02/14,Widget A,4,99.96
+2007,Mia Taylor,02/19/2026,Widget B,1,29.99
+2008,Jack Brown,Feb 8 2026,Widget D,3,100.50
+2009,Nancy Liu,02-25-2026,Widget C,5,124.50
+
+2010,Oscar Hill,2026-02-28,Widget A,2,49.99

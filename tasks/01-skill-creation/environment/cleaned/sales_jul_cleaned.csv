@@ -1,0 +1,12 @@
+order_id,customer_name,date,product,quantity,amount
+7009,Gina Hart,2026-07-25,Widget D,4,134.00
+7006,Ella Frost,2026-07-16,Widget A,5,124.95
+7003,Cleo Drake,2026-07-09,Widget B,3,89.97
+7008,Cleo Drake,2026-07-09,Widget B,3,89.97
+7001,Amy Blake,2026-07-03,Widget D,2,67.00
+7005,Amy Blake,2026-07-03,Widget D,2,67.00
+7007,Finn Grant,2026-07-20,Widget B,2,59.98
+7010,Hugo Ives,2026-07-30,Widget C,2,49.80
+7002,Ben Carter,2026-07-05,Widget A,1,24.99
+7004,Dan Ellis,2026-07-12,Widget C,1,24.90
+7011,Dan Ellis,2026-07-12,Widget C,1,24.90

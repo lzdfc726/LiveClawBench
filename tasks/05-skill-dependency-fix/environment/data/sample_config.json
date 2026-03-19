@@ -1,0 +1,14 @@
+{
+  "pipeline": "report-generator-pipeline",
+  "input_file": "sample_sales.csv",
+  "delimiter": ",",
+  "encoding": "utf-8",
+  "calc_type": "multiply",
+  "calc_columns": ["quantity", "unit_price"],
+  "calc_result_name": "revenue",
+  "filter_expr": "revenue>1000",
+  "group_by": "region",
+  "value_column": "revenue",
+  "metrics": ["mean", "median", "sum", "count", "min", "max"],
+  "output_format": "json"
+}

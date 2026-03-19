@@ -1,0 +1,14 @@
+order_id,customer_name,date,product,quantity,amount
+4001,Xander Cruz,04/01/2026,Widget A,2,49.99
+
+4002,Yuki Tanaka,2026-04-03,Widget B,1,29.99
+4003,Zara Ahmed,Apr 6 2026,Widget C,3,74.70
+4004,Aaron Bell,04-09-2026,Widget D,2,67.00
+4005,Xander Cruz,04/01/2026,Widget A,2,49.99
+4006,Bella Scott,2026/04/12,Widget B,5,149.95
+
+4007,Carl Evans,04/16/2026,Widget A,1,24.99
+4008,Zara Ahmed,Apr 6 2026,Widget C,3,74.70
+4009,Donna Reed,04-22-2026,Widget D,4,134.00
+
+4010,Earl Young,2026-04-27,Widget B,2,59.98

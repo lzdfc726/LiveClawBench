@@ -1,0 +1,501 @@
+transaction_id,date,product_id,product_name,category,quantity,unit_price,region,channel
+TXN-1000,2024-01-29,P999,USB-C Hub,Electronics,1,43.26,East,online
+TXN-1001,2024-01-04,P009,Whiteboard Markers (8pk),Office,3,-11.49,West,online
+TXN-1002,2024-03-24,P010,Ergonomic Chair Cushion,Furniture,1,27.38,South,wholesale
+TXN-1003,2024-01-21,P008,Webcam HD,Electronics,19,58.56,East,online
+TXN-1004,2024-01-12,P003,Mechanical Keyboard,Electronics,7,81.34,East,online
+TXN-1005,2024-02-28,P006,Desk Lamp LED,Furniture,20,34.85,East,online
+TXN-1006,2024-03-20,P007,Monitor Stand,Furniture,3,54.25,East,wholesale
+TXN-1007,2024-01-30,P004,Notebook A5,Office,3,5.98,North,wholesale
+TXN-1008,2024-02-28,P004,Notebook A5,Office,4,5.42,West,retail
+TXN-1009,2024-02-04,P006,Desk Lamp LED,Furniture,12,33.33,South,wholesale
+TXN-1010,2024-02-01,P999,USB-C Hub,Electronics,20,45.34,South,wholesale
+TXN-1011,2024-01-30,P009,Whiteboard Markers (8pk),Office,8,12.61,East,online
+TXN-1012,2024-03-13,P007,Monitor Stand,Furniture,9,53.82,North,online
+TXN-1013,2024-02-28,P004,Notebook A5,Office,4,5.42,West,retail
+TXN-1014,2024-02-21,P005,Ballpoint Pen (12pk),Office,19,8.99,West,wholesale
+TXN-1015,2024-01-07,P003,Mechanical Keyboard,Electronics,17,78.55,West,online
+TXN-1016,2024-02-18,P003,Mechanical Keyboard,Electronics,14,82.81,North,retail
+TXN-1017,2024-01-15,P005,Ballpoint Pen (12pk),Office,18,8.37,North,wholesale
+TXN-1018,2024-02-25,P999,Ballpoint Pen (12pk),Office,11,7.65,North,retail
+TXN-1019,2024-01-14,P005,Ballpoint Pen (12pk),Office,17,8.04,South,wholesale
+TXN-1020,2024-02-17,P009,Whiteboard Markers (8pk),Office,20,12.09,South,online
+TXN-1021,2024-02-04,P006,Desk Lamp LED,Furniture,12,33.33,South,wholesale
+TXN-1022,2024-01-11,P004,Notebook A5,Office,2,-5.53,South,wholesale
+TXN-1023,2024-03-25,P002,USB-C Hub,Electronics,18,46.61,South,online
+TXN-1024,2024-03-10,P005,Ballpoint Pen (12pk),Office,17,8.57,West,online
+TXN-1025,2024-03-07,P005,Ballpoint Pen (12pk),Office,13,7.98,East,retail
+TXN-1026,2024-03-11,P002,USB-C Hub,Electronics,11,44.14,North,wholesale
+TXN-1027,2024-01-05,P002,USB-C Hub,Electronics,2,43.02,South,online
+TXN-1028,2024-02-25,P999,Ballpoint Pen (12pk),Office,11,7.65,North,retail
+TXN-1029,2024-02-22,P010,Ergonomic Chair Cushion,Furniture,16,25.93,South,retail
+TXN-1030,2024-02-29,P007,Monitor Stand,Furniture,12,51.48,West,retail
+TXN-1031,2024-02-13,P002,USB-C Hub,Electronics,2,43.31,West,wholesale
+TXN-1032,2025-12-31,P004,Notebook A5,Office,7,5.51,West,online
+TXN-1033,2024-03-24,P002,USB-C Hub,Electronics,15,48.76,North,online
+TXN-1034,2024-03-03,P002,USB-C Hub,Electronics,8,48.98,South,retail
+TXN-1035,2024-02-19,P001,Wireless Mouse,Electronics,6,24.18,West,online
+TXN-1036,2024-03-12,P008,Webcam HD,Electronics,10,59.99,West,wholesale
+TXN-1037,2024-03-15,P004,Notebook A5,Office,10,5.15,South,online
+TXN-1038,2024-03-02,P006,Desk Lamp LED,Furniture,2,34.22,North,wholesale
+TXN-1039,2024-01-09,P003,Mechanical Keyboard,Electronics,2,85.61,North,online
+TXN-1040,2024-02-01,P004,Notebook A5,Office,13,5.13,North,wholesale
+TXN-1041,2024-01-27,P002,USB-C Hub,Electronics,14,44.85,East,retail
+TXN-1042,2024-03-23,P005,Ballpoint Pen (12pk),Office,13,8.07,South,wholesale
+TXN-1043,2024-03-13,P002,USB-C Hub,Electronics,1,43.04,West,wholesale
+TXN-1044,2024-02-14,P004,Notebook A5,Office,17,5.88,East,online
+TXN-1045,2024-03-10,P006,Desk Lamp LED,Furniture,10,32.95,South,retail
+TXN-1046,2024-01-14,P009,Whiteboard Markers (8pk),Office,1,11.3,East,wholesale
+TXN-1047,2024-02-06,P002,USB-C Hub,Electronics,4,47.87,South,retail
+TXN-1048,2024-01-07,P004,Notebook A5,Office,9,-5.47,West,retail
+TXN-1049,2024-01-17,P005,Ballpoint Pen (12pk),Office,2,7.99,North,retail
+TXN-1050,2024-02-14,P004,Notebook A5,Office,17,5.88,East,online
+TXN-1051,2024-03-15,P003,Mechanical Keyboard,Electronics,18,82.29,North,retail
+TXN-1052,2024-02-15,P001,Wireless Mouse,Electronics,10,22.18,East,online
+TXN-1053,2024-01-20,P002,USB-C Hub,Electronics,12,44.27,West,wholesale
+TXN-1054,2024-01-23,P003,Mechanical Keyboard,Electronics,6,80.98,West,online
+TXN-1055,2024-03-30,P007,Monitor Stand,Furniture,8,-58.84,East,online
+TXN-1056,2024-02-14,P008,Webcam HD,Electronics,8,62.99,South,retail
+TXN-1057,2024-01-25,P004,Notebook A5,Office,8,5.34,North,wholesale
+TXN-1058,2024-03-06,P002,USB-C Hub,Electronics,9,49.85,East,wholesale
+TXN-1059,2025-12-31,P009,Whiteboard Markers (8pk),Office,11,12.92,North,online
+TXN-1060,2024-02-25,P005,Ballpoint Pen (12pk),Office,2,8.7,North,wholesale
+TXN-1061,2024-03-14,P007,Monitor Stand,Furniture,20,51.39,North,retail
+TXN-1062,2024-02-25,,Monitor Stand,Furniture,1,56.97,South,retail
+TXN-1063,2024-01-16,P006,Desk Lamp LED,Furniture,20,31.32,East,wholesale
+TXN-1064,2024-03-30,P005,Ballpoint Pen (12pk),Office,14,7.81,East,retail
+TXN-1065,2024-03-13,P007,Monitor Stand,Furniture,13,55.92,South,wholesale
+TXN-1066,2024-02-25,P001,Wireless Mouse,Electronics,10,23.52,East,online
+TXN-1067,2024-03-27,P006,Desk Lamp LED,Furniture,15,32.23,West,retail
+TXN-1068,2024-03-25,P003,Mechanical Keyboard,Electronics,3,81.02,East,wholesale
+TXN-1069,2024-01-19,P004,Notebook A5,Office,,5.31,South,online
+TXN-1070,2024-02-23,P008,Webcam HD,Electronics,20,60.85,North,retail
+TXN-1071,2024-01-19,P007,Monitor Stand,Furniture,16,51.04,West,online
+TXN-1072,2024-03-30,P002,USB-C Hub,Electronics,14,42.87,South,online
+TXN-1073,2024-02-29,P004,Notebook A5,Office,4,5.98,West,online
+TXN-1074,2024-03-05,P010,Ergonomic Chair Cushion,Furniture,11,29.57,West,wholesale
+TXN-1075,2024-02-03,P008,Webcam HD,Electronics,6,63.43,West,retail
+TXN-1076,2024-01-31,P005,Ballpoint Pen (12pk),Office,17,7.75,West,wholesale
+TXN-1077,2024-02-10,P005,Ballpoint Pen (12pk),Office,8,7.75,East,retail
+TXN-1078,2024-01-20,P003,Mechanical Keyboard,Electronics,8,77.36,West,wholesale
+TXN-1079,2024-01-08,P007,Monitor Stand,Furniture,11,54.77,West,retail
+TXN-1080,2024-01-01,P010,Ergonomic Chair Cushion,Furniture,1,26.83,West,retail
+TXN-1081,2024-01-29,P007,Monitor Stand,Furniture,14,55.36,South,retail
+TXN-1082,2024-01-22,P007,Monitor Stand,Furniture,11,59.27,West,wholesale
+TXN-1083,2024-03-16,P010,Ergonomic Chair Cushion,Furniture,18,25.61,North,retail
+TXN-1084,2024-01-07,P007,Monitor Stand,Furniture,5,53.94,West,online
+TXN-1085,2024-02-05,P008,Webcam HD,Electronics,11,63.35,East,retail
+TXN-1086,2024-03-10,,Ballpoint Pen (12pk),Office,3,8.93,West,online
+TXN-1087,2024-02-01,P004,Notebook A5,Office,3,5.11,North,online
+TXN-1088,2025-12-31,P009,Whiteboard Markers (8pk),Office,11,12.92,North,online
+TXN-1089,2024-03-18,P005,Ballpoint Pen (12pk),Office,12,8.61,South,wholesale
+TXN-1090,2024-01-04,P003,Mechanical Keyboard,Electronics,10,84.26,North,wholesale
+TXN-1091,2024-03-16,P007,Monitor Stand,Furniture,13,56.64,South,online
+TXN-1092,2024-01-06,P002,USB-C Hub,Electronics,10,45.7,North,wholesale
+TXN-1093,2024-02-23,P006,Desk Lamp LED,Furniture,3,30.3,East,online
+TXN-1094,2024-01-23,P006,Desk Lamp LED,Furniture,15,34.81,South,retail
+TXN-1095,2024-02-25,P005,Ballpoint Pen (12pk),Office,20,8.44,West,retail
+TXN-1096,2024-02-27,P006,Desk Lamp LED,Furniture,8,32.18,North,retail
+TXN-1097,2024-03-04,P010,Ergonomic Chair Cushion,Furniture,13,26.31,East,online
+TXN-1098,2024-02-05,P004,Notebook A5,Office,12,5.72,East,retail
+TXN-1099,2024-01-25,P005,Ballpoint Pen (12pk),Office,18,-8.61,North,wholesale
+TXN-1100,2024-03-01,P008,Webcam HD,Electronics,18,60.03,South,wholesale
+TXN-1101,2024-02-21,P001,Wireless Mouse,Electronics,3,22.39,East,online
+TXN-1102,2024-03-08,P010,Ergonomic Chair Cushion,Furniture,12,29.97,West,wholesale
+TXN-1103,2024-02-28,P009,Whiteboard Markers (8pk),Office,11,11.53,East,wholesale
+TXN-1104,2024-03-09,P002,USB-C Hub,Electronics,7,47.67,East,online
+TXN-1105,2024-03-16,P004,Notebook A5,Office,7,5.56,West,retail
+TXN-1106,2024-01-30,P005,Ballpoint Pen (12pk),Office,4,8.05,South,retail
+TXN-1107,2024-01-07,P009,Whiteboard Markers (8pk),Office,5,12.4,East,online
+TXN-1108,2024-03-14,P003,Mechanical Keyboard,Electronics,16,82.95,North,online
+TXN-1109,2024-02-25,,Monitor Stand,Furniture,1,56.97,South,retail
+TXN-1110,2024-01-20,P002,USB-C Hub,Electronics,19,49.61,North,online
+TXN-1111,2024-02-23,P002,USB-C Hub,Electronics,8,48.42,North,wholesale
+TXN-1112,2024-02-26,P004,Notebook A5,Office,17,5.62,West,retail
+TXN-1113,2024-01-13,P007,Monitor Stand,Furniture,10,52.86,North,wholesale
+TXN-1114,2025-12-31,P004,Notebook A5,Office,9,5.16,North,online
+TXN-1115,2024-03-17,P001,Wireless Mouse,Electronics,14,21.36,West,wholesale
+TXN-1116,2024-03-28,P005,Ballpoint Pen (12pk),Office,10,8.0,West,online
+TXN-1117,2024-03-10,P010,Ergonomic Chair Cushion,Furniture,7,26.16,West,online
+TXN-1118,2024-01-22,P005,Ballpoint Pen (12pk),Office,5,8.44,North,online
+TXN-1119,2024-02-29,P010,Ergonomic Chair Cushion,Furniture,10,28.64,West,online
+TXN-1120,2024-01-11,P005,Ballpoint Pen (12pk),Office,17,8.84,West,retail
+TXN-1121,2024-01-12,P006,Desk Lamp LED,Furniture,20,33.28,East,online
+TXN-1122,2024-02-04,P010,Ergonomic Chair Cushion,Furniture,19,28.92,North,wholesale
+TXN-1123,2024-01-24,P003,Mechanical Keyboard,Electronics,16,82.38,West,retail
+TXN-1124,2024-02-22,P008,Webcam HD,Electronics,3,61.77,West,retail
+TXN-1125,2024-03-04,P003,Mechanical Keyboard,Electronics,11,89.25,West,wholesale
+TXN-1126,2024-02-10,P009,Whiteboard Markers (8pk),Office,2,11.27,West,online
+TXN-1127,2024-03-10,P007,Monitor Stand,Furniture,17,51.48,North,wholesale
+TXN-1128,2024-02-26,P009,Whiteboard Markers (8pk),Office,12,11.44,West,wholesale
+TXN-1129,2024-03-30,P009,Whiteboard Markers (8pk),Office,5,11.1,East,retail
+TXN-1130,2024-03-11,P010,Ergonomic Chair Cushion,Furniture,,27.33,South,retail
+TXN-1131,2024-03-23,P004,Notebook A5,Office,4,5.54,West,online
+TXN-1132,2024-03-02,P005,Ballpoint Pen (12pk),Office,17,7.97,East,retail
+TXN-1133,2024-03-17,P009,Whiteboard Markers (8pk),Office,5,12.75,West,online
+TXN-1134,2024-03-05,P002,USB-C Hub,Electronics,9,42.51,West,retail
+TXN-1135,2024-02-27,P005,Ballpoint Pen (12pk),Office,19,8.11,West,online
+TXN-1136,2024-02-11,P009,Whiteboard Markers (8pk),Office,18,12.95,West,retail
+TXN-1137,2024-02-22,P004,Notebook A5,Office,,5.76,West,online
+TXN-1138,2024-01-07,P007,Monitor Stand,Furniture,5,53.94,West,online
+TXN-1139,2024-02-28,P002,USB-C Hub,Electronics,,43.57,North,wholesale
+TXN-1140,2024-02-13,P003,Mechanical Keyboard,Electronics,3,81.86,West,retail
+TXN-1141,2024-03-21,P002,USB-C Hub,Electronics,11,48.19,West,retail
+TXN-1142,2024-03-21,P009,Whiteboard Markers (8pk),Office,2,11.6,North,online
+TXN-1143,2024-03-22,P004,Notebook A5,Office,3,5.18,West,online
+TXN-1144,2024-02-11,P003,Mechanical Keyboard,Electronics,10,80.45,North,online
+TXN-1145,2024-03-08,P006,Desk Lamp LED,Furniture,14,33.32,South,online
+TXN-1146,2024-03-19,P003,Mechanical Keyboard,Electronics,6,84.86,South,online
+TXN-1147,2024-02-29,P004,Notebook A5,Office,16,5.5,South,online
+TXN-1148,2024-03-10,P999,Wireless Mouse,Electronics,15,22.9,East,wholesale
+TXN-1149,2024-02-24,P006,Desk Lamp LED,Furniture,19,32.14,East,wholesale
+TXN-1150,2024-01-14,P005,Ballpoint Pen (12pk),Office,7,8.41,West,retail
+TXN-1151,2024-03-25,P010,Ergonomic Chair Cushion,Furniture,10,25.53,East,online
+TXN-1152,2024-01-30,P001,Wireless Mouse,Electronics,20,22.56,West,retail
+TXN-1153,2024-03-25,P004,Notebook A5,Office,20,5.21,East,wholesale
+TXN-1154,2024-01-05,P002,USB-C Hub,Electronics,2,47.98,East,retail
+TXN-1155,2025-12-31,P002,USB-C Hub,Electronics,10,43.48,East,wholesale
+TXN-1156,2024-02-02,P009,Whiteboard Markers (8pk),Office,12,12.88,East,online
+TXN-1157,2024-02-21,P001,Wireless Mouse,Electronics,3,22.39,East,online
+TXN-1158,2024-01-02,P009,Whiteboard Markers (8pk),Office,12,11.28,North,retail
+TXN-1159,2024-02-17,P006,Desk Lamp LED,Furniture,9,-30.97,West,wholesale
+TXN-1160,2024-01-29,P001,Wireless Mouse,Electronics,20,23.62,East,wholesale
+TXN-1161,2024-01-18,P008,Webcam HD,Electronics,,55.6,West,online
+TXN-1162,2024-01-07,P007,Monitor Stand,Furniture,5,53.94,West,online
+TXN-1163,2024-03-24,P007,Monitor Stand,Furniture,19,-55.39,South,retail
+TXN-1164,2024-02-17,P007,Monitor Stand,Furniture,9,54.99,North,wholesale
+TXN-1165,2024-02-17,P004,Notebook A5,Office,12,5.97,North,wholesale
+TXN-1166,2024-01-25,P006,Desk Lamp LED,Furniture,2,34.72,West,retail
+TXN-1167,2024-03-22,P008,Webcam HD,Electronics,3,55.45,South,wholesale
+TXN-1168,2024-01-27,,Desk Lamp LED,Furniture,8,33.76,South,wholesale
+TXN-1169,2024-02-12,P004,Notebook A5,Office,19,5.8,South,online
+TXN-1170,2024-01-17,P010,Ergonomic Chair Cushion,Furniture,1,29.08,East,online
+TXN-1171,2024-02-15,P002,USB-C Hub,Electronics,1,44.28,South,online
+TXN-1172,2024-02-22,P010,Ergonomic Chair Cushion,Furniture,16,25.93,South,retail
+TXN-1173,2024-03-06,P002,USB-C Hub,Electronics,16,45.88,West,retail
+TXN-1174,2024-03-25,P004,Notebook A5,Office,20,5.5,North,wholesale
+TXN-1175,2024-02-24,P001,Wireless Mouse,Electronics,2,23.08,West,retail
+TXN-1176,2024-02-17,P006,Desk Lamp LED,Furniture,9,-30.97,West,wholesale
+TXN-1177,2024-03-17,P010,Ergonomic Chair Cushion,Furniture,18,27.53,East,retail
+TXN-1178,2024-01-15,P010,Ergonomic Chair Cushion,Furniture,14,28.42,North,wholesale
+TXN-1179,2024-01-30,P009,Whiteboard Markers (8pk),Office,7,12.65,West,retail
+TXN-1180,2024-02-24,P007,Monitor Stand,Furniture,14,53.29,North,retail
+TXN-1181,2024-01-11,P003,Mechanical Keyboard,Electronics,16,-77.79,North,online
+TXN-1182,2024-03-12,P006,Desk Lamp LED,Furniture,5,33.26,North,wholesale
+TXN-1183,2024-01-07,P007,Monitor Stand,Furniture,12,56.39,West,wholesale
+TXN-1184,2024-03-25,P006,Desk Lamp LED,Furniture,4,34.19,South,online
+TXN-1185,2024-02-05,P006,Desk Lamp LED,Furniture,18,33.98,East,online
+TXN-1186,2024-03-25,P009,Whiteboard Markers (8pk),Office,20,11.56,North,wholesale
+TXN-1187,2024-02-14,P003,Mechanical Keyboard,Electronics,,88.23,East,retail
+TXN-1188,2024-03-22,P010,Ergonomic Chair Cushion,Furniture,13,25.9,North,online
+TXN-1189,2024-02-28,P009,Whiteboard Markers (8pk),Office,7,11.76,West,retail
+TXN-1190,2024-01-20,P999,Desk Lamp LED,Furniture,19,32.98,North,online
+TXN-1191,2024-02-24,P002,USB-C Hub,Electronics,9,45.81,West,wholesale
+TXN-1192,2024-03-25,P010,Ergonomic Chair Cushion,Furniture,10,25.53,East,online
+TXN-1193,2024-01-29,P008,Webcam HD,Electronics,17,61.08,East,online
+TXN-1194,2024-01-18,P001,Wireless Mouse,Electronics,7,22.33,East,online
+TXN-1195,2025-12-31,P002,USB-C Hub,Electronics,1,45.34,West,wholesale
+TXN-1196,2024-02-20,P004,Notebook A5,Office,17,5.13,East,online
+TXN-1197,2024-03-14,P001,Wireless Mouse,Electronics,15,22.76,North,retail
+TXN-1198,2024-01-03,P007,Monitor Stand,Furniture,10,52.54,North,retail
+TXN-1199,2024-02-25,P010,Ergonomic Chair Cushion,Furniture,15,26.59,East,online
+TXN-1200,2024-02-09,P010,Ergonomic Chair Cushion,Furniture,13,26.49,North,retail
+TXN-1201,2024-03-06,P003,Mechanical Keyboard,Electronics,3,86.97,North,wholesale
+TXN-1202,2024-01-19,P006,Desk Lamp LED,Furniture,5,30.65,South,online
+TXN-1203,2024-03-04,P003,Mechanical Keyboard,Electronics,3,84.1,South,wholesale
+TXN-1204,2024-02-10,P999,Ergonomic Chair Cushion,Furniture,15,25.8,East,wholesale
+TXN-1205,2024-01-08,P008,Webcam HD,Electronics,10,55.96,East,wholesale
+TXN-1206,2024-02-17,P008,Webcam HD,Electronics,15,55.99,North,online
+TXN-1207,2024-03-15,P002,USB-C Hub,Electronics,20,48.43,West,retail
+TXN-1208,2024-03-18,P001,Wireless Mouse,Electronics,15,21.81,South,retail
+TXN-1209,2024-01-11,P001,Wireless Mouse,Electronics,15,21.89,North,retail
+TXN-1210,2024-03-07,P004,Notebook A5,Office,15,5.42,West,wholesale
+TXN-1211,2024-03-27,P005,Ballpoint Pen (12pk),Office,13,8.71,West,retail
+TXN-1212,2024-03-12,P006,Desk Lamp LED,Furniture,3,31.23,East,online
+TXN-1213,2024-03-15,P010,Ergonomic Chair Cushion,Furniture,5,29.62,East,online
+TXN-1214,2024-01-11,P005,Ballpoint Pen (12pk),Office,13,8.15,South,wholesale
+TXN-1215,2024-03-26,P006,Desk Lamp LED,Furniture,5,31.64,North,wholesale
+TXN-1216,2024-02-13,P006,Desk Lamp LED,Furniture,10,32.29,South,online
+TXN-1217,2024-02-07,P004,Notebook A5,Office,5,5.18,South,online
+TXN-1218,2024-02-13,P009,Whiteboard Markers (8pk),Office,17,12.25,North,wholesale
+TXN-1219,2024-01-24,P010,Ergonomic Chair Cushion,Furniture,13,28.96,South,online
+TXN-1220,2024-02-16,P003,Mechanical Keyboard,Electronics,15,79.7,North,retail
+TXN-1221,2024-02-27,P008,Webcam HD,Electronics,20,57.57,East,wholesale
+TXN-1222,2024-03-14,P008,Webcam HD,Electronics,7,59.74,East,wholesale
+TXN-1223,2024-01-26,P005,Ballpoint Pen (12pk),Office,13,7.83,West,online
+TXN-1224,2024-03-11,P005,Ballpoint Pen (12pk),Office,2,8.6,West,retail
+TXN-1225,2024-01-21,P009,Whiteboard Markers (8pk),Office,4,12.81,East,online
+TXN-1226,2024-02-27,P003,Mechanical Keyboard,Electronics,14,89.05,North,online
+TXN-1227,2024-02-17,P007,Monitor Stand,Furniture,2,59.94,West,wholesale
+TXN-1228,2024-01-13,P006,Desk Lamp LED,Furniture,8,33.15,North,retail
+TXN-1229,2024-03-01,P003,Mechanical Keyboard,Electronics,5,78.36,North,retail
+TXN-1230,2024-01-03,P008,Webcam HD,Electronics,15,63.38,North,online
+TXN-1231,2024-02-06,P009,Whiteboard Markers (8pk),Office,20,11.28,West,online
+TXN-1232,2024-01-15,P004,Notebook A5,Office,14,5.54,West,online
+TXN-1233,2024-01-19,P009,Whiteboard Markers (8pk),Office,1,11.04,South,wholesale
+TXN-1234,2024-03-26,P006,Desk Lamp LED,Furniture,8,32.49,West,online
+TXN-1235,2024-03-01,P006,Desk Lamp LED,Furniture,,31.77,North,retail
+TXN-1236,2024-01-09,P006,Desk Lamp LED,Furniture,9,33.59,North,retail
+TXN-1237,2024-01-06,P002,USB-C Hub,Electronics,19,45.03,East,online
+TXN-1238,2024-01-24,P003,Mechanical Keyboard,Electronics,15,77.34,West,wholesale
+TXN-1239,2024-01-06,P008,Webcam HD,Electronics,2,63.88,East,online
+TXN-1240,2024-03-01,P006,Desk Lamp LED,Furniture,10,33.7,West,wholesale
+TXN-1241,2024-03-24,P004,Notebook A5,Office,10,5.2,East,online
+TXN-1242,2024-02-26,P006,Desk Lamp LED,Furniture,14,31.77,West,wholesale
+TXN-1243,2024-03-07,P003,Mechanical Keyboard,Electronics,16,77.61,West,retail
+TXN-1244,2024-01-24,P007,Monitor Stand,Furniture,3,53.88,West,wholesale
+TXN-1245,2024-02-27,P002,USB-C Hub,Electronics,11,45.69,East,retail
+TXN-1246,2024-02-15,P008,Webcam HD,Electronics,12,59.48,West,online
+TXN-1247,2024-03-06,P001,Wireless Mouse,Electronics,3,23.79,West,retail
+TXN-1248,2024-01-17,,Wireless Mouse,Electronics,5,24.16,West,online
+TXN-1249,2024-01-05,P006,Desk Lamp LED,Furniture,12,33.31,West,wholesale
+TXN-1250,2024-01-01,P010,Ergonomic Chair Cushion,Furniture,1,26.83,West,retail
+TXN-1251,2024-01-24,P005,Ballpoint Pen (12pk),Office,8,8.16,North,online
+TXN-1252,2024-02-27,P009,Whiteboard Markers (8pk),Office,4,12.23,East,retail
+TXN-1253,2024-01-10,P008,Webcam HD,Electronics,7,64.0,North,online
+TXN-1254,2024-02-14,P008,Webcam HD,Electronics,3,60.6,East,wholesale
+TXN-1255,2024-03-30,P005,Ballpoint Pen (12pk),Office,10,8.71,South,wholesale
+TXN-1256,2024-01-18,P009,Whiteboard Markers (8pk),Office,8,12.0,North,online
+TXN-1257,2024-03-24,P002,USB-C Hub,Electronics,15,48.76,North,online
+TXN-1258,2024-02-22,P005,Ballpoint Pen (12pk),Office,13,8.75,West,wholesale
+TXN-1259,2024-01-10,P002,USB-C Hub,Electronics,5,47.59,East,wholesale
+TXN-1260,2024-02-25,P006,Desk Lamp LED,Furniture,5,34.3,South,online
+TXN-1261,2024-01-22,P999,USB-C Hub,Electronics,17,49.5,South,retail
+TXN-1262,2024-02-02,P004,Notebook A5,Office,12,5.95,East,online
+TXN-1263,2024-03-09,P005,Ballpoint Pen (12pk),Office,5,-8.51,East,wholesale
+TXN-1264,2024-03-25,P010,Ergonomic Chair Cushion,Furniture,19,29.55,South,online
+TXN-1265,2024-01-11,P006,Desk Lamp LED,Furniture,,33.11,North,online
+TXN-1266,2024-02-23,P010,Ergonomic Chair Cushion,Furniture,9,25.63,South,wholesale
+TXN-1267,2024-02-01,P009,Whiteboard Markers (8pk),Office,10,12.38,East,retail
+TXN-1268,2024-01-08,P999,Ballpoint Pen (12pk),Office,15,8.2,North,wholesale
+TXN-1269,2024-01-19,P008,Webcam HD,Electronics,7,62.24,East,wholesale
+TXN-1270,2024-03-06,P006,Desk Lamp LED,Furniture,13,31.42,South,retail
+TXN-1271,2024-02-20,P004,Notebook A5,Office,17,5.13,East,online
+TXN-1272,2024-02-11,P010,Ergonomic Chair Cushion,Furniture,14,28.74,South,online
+TXN-1273,2024-02-29,P004,Notebook A5,Office,6,5.37,West,wholesale
+TXN-1274,2024-02-28,P001,Wireless Mouse,Electronics,3,22.05,West,wholesale
+TXN-1275,2024-03-04,P006,Desk Lamp LED,Furniture,2,34.17,North,retail
+TXN-1276,2024-02-14,P003,Mechanical Keyboard,Electronics,,88.23,East,retail
+TXN-1277,2024-01-07,P007,Monitor Stand,Furniture,12,52.74,North,retail
+TXN-1278,2024-03-05,P009,Whiteboard Markers (8pk),Office,10,12.11,North,retail
+TXN-1279,2024-01-13,P010,Ergonomic Chair Cushion,Furniture,20,29.07,North,online
+TXN-1280,2024-01-26,P006,Desk Lamp LED,Furniture,18,31.85,East,online
+TXN-1281,2024-02-12,P001,Wireless Mouse,Electronics,2,23.19,North,online
+TXN-1282,2024-03-19,P003,Mechanical Keyboard,Electronics,20,81.8,South,retail
+TXN-1283,2024-03-06,P010,Ergonomic Chair Cushion,Furniture,10,28.68,East,wholesale
+TXN-1284,2024-02-12,P005,Ballpoint Pen (12pk),Office,16,8.96,North,retail
+TXN-1285,2024-03-01,P010,Ergonomic Chair Cushion,Furniture,10,28.44,North,wholesale
+TXN-1286,2024-01-07,P010,Ergonomic Chair Cushion,Furniture,19,26.26,South,wholesale
+TXN-1287,2024-02-01,P010,Ergonomic Chair Cushion,Furniture,,29.76,South,wholesale
+TXN-1288,2024-02-10,P002,USB-C Hub,Electronics,7,45.59,North,retail
+TXN-1289,2024-01-08,P004,Notebook A5,Office,14,5.56,West,wholesale
+TXN-1290,2024-02-18,P009,Whiteboard Markers (8pk),Office,11,11.38,West,wholesale
+TXN-1291,2024-03-28,P009,Whiteboard Markers (8pk),Office,11,12.39,East,wholesale
+TXN-1292,2024-02-05,P010,Ergonomic Chair Cushion,Furniture,16,26.5,South,online
+TXN-1293,2024-03-03,P005,Ballpoint Pen (12pk),Office,10,8.11,South,wholesale
+TXN-1294,2024-03-27,P005,Ballpoint Pen (12pk),Office,10,8.85,North,wholesale
+TXN-1295,2024-01-06,P007,Monitor Stand,Furniture,12,57.42,South,retail
+TXN-1296,2024-03-02,P006,Desk Lamp LED,Furniture,15,34.09,East,wholesale
+TXN-1297,2024-01-14,P005,Ballpoint Pen (12pk),Office,18,8.43,East,online
+TXN-1298,2024-01-30,,Notebook A5,Office,2,5.46,South,wholesale
+TXN-1299,2024-03-11,P008,Webcam HD,Electronics,4,56.78,South,online
+TXN-1300,2024-02-11,P008,Webcam HD,Electronics,16,55.82,South,retail
+TXN-1301,2024-01-05,P002,USB-C Hub,Electronics,19,43.8,South,wholesale
+TXN-1302,2024-01-24,P003,Mechanical Keyboard,Electronics,2,89.48,West,retail
+TXN-1303,2024-03-13,P005,Ballpoint Pen (12pk),Office,2,8.89,North,retail
+TXN-1304,2024-03-10,P006,Desk Lamp LED,Furniture,10,34.41,West,wholesale
+TXN-1305,2024-01-25,P003,Mechanical Keyboard,Electronics,17,80.96,West,retail
+TXN-1306,2024-02-13,P008,Webcam HD,Electronics,9,60.78,South,online
+TXN-1307,2024-03-06,P004,Notebook A5,Office,6,5.45,West,retail
+TXN-1308,2024-02-11,P002,USB-C Hub,Electronics,6,42.54,South,retail
+TXN-1309,2024-02-12,P007,Monitor Stand,Furniture,8,57.5,West,retail
+TXN-1310,2024-01-31,,Wireless Mouse,Electronics,9,21.68,East,wholesale
+TXN-1311,2024-03-05,P005,Ballpoint Pen (12pk),Office,6,8.84,West,wholesale
+TXN-1312,2024-03-19,P005,Ballpoint Pen (12pk),Office,4,8.93,East,retail
+TXN-1313,2024-03-18,P008,Webcam HD,Electronics,5,62.08,West,wholesale
+TXN-1314,2024-03-28,P008,Webcam HD,Electronics,18,63.75,South,online
+TXN-1315,2024-02-16,,USB-C Hub,Electronics,17,46.72,West,wholesale
+TXN-1316,2024-02-23,P010,Ergonomic Chair Cushion,Furniture,9,25.63,South,wholesale
+TXN-1317,2024-03-15,P008,Webcam HD,Electronics,4,64.0,South,wholesale
+TXN-1318,2024-03-06,P008,Webcam HD,Electronics,2,60.74,West,online
+TXN-1319,2024-01-03,P009,Whiteboard Markers (8pk),Office,15,12.63,East,wholesale
+TXN-1320,2024-02-24,P004,Notebook A5,Office,19,5.15,North,online
+TXN-1321,2024-02-06,P001,Wireless Mouse,Electronics,3,24.12,West,online
+TXN-1322,2024-02-18,P007,Monitor Stand,Furniture,12,57.14,West,retail
+TXN-1323,2024-01-23,P009,Whiteboard Markers (8pk),Office,5,11.81,East,online
+TXN-1324,2024-02-08,P003,Mechanical Keyboard,Electronics,8,86.2,North,online
+TXN-1325,2024-02-01,P007,Monitor Stand,Furniture,18,52.39,West,online
+TXN-1326,2024-02-23,P004,Notebook A5,Office,4,5.93,North,wholesale
+TXN-1327,2024-01-13,P001,Wireless Mouse,Electronics,8,22.91,South,online
+TXN-1328,2024-02-26,P001,Wireless Mouse,Electronics,8,22.06,North,retail
+TXN-1329,2024-03-14,P001,Wireless Mouse,Electronics,5,23.48,East,online
+TXN-1330,2024-03-25,P006,Desk Lamp LED,Furniture,8,31.91,East,online
+TXN-1331,2024-03-27,P005,Ballpoint Pen (12pk),Office,2,8.31,South,wholesale
+TXN-1332,2024-02-23,P006,Desk Lamp LED,Furniture,13,31.32,East,wholesale
+TXN-1333,2024-01-29,P003,Mechanical Keyboard,Electronics,18,86.04,West,online
+TXN-1334,2024-03-12,P008,Webcam HD,Electronics,2,59.03,West,retail
+TXN-1335,2024-01-11,P005,Ballpoint Pen (12pk),Office,7,8.78,East,wholesale
+TXN-1336,2024-02-04,P002,USB-C Hub,Electronics,18,47.03,South,online
+TXN-1337,2024-03-26,P001,Wireless Mouse,Electronics,3,23.04,South,wholesale
+TXN-1338,2024-01-25,P006,Desk Lamp LED,Furniture,10,30.36,North,online
+TXN-1339,2024-01-31,P008,Webcam HD,Electronics,8,62.8,South,retail
+TXN-1340,2024-02-03,P007,Monitor Stand,Furniture,15,58.94,East,retail
+TXN-1341,2024-01-27,P008,Webcam HD,Electronics,4,59.28,West,retail
+TXN-1342,2024-02-03,P010,Ergonomic Chair Cushion,Furniture,8,28.12,South,online
+TXN-1343,2024-02-12,P007,Monitor Stand,Furniture,10,56.12,South,online
+TXN-1344,2024-03-03,P004,Notebook A5,Office,16,5.67,East,retail
+TXN-1345,2024-02-15,P999,Webcam HD,Electronics,15,62.26,South,wholesale
+TXN-1346,2024-01-05,P008,Webcam HD,Electronics,6,55.97,North,wholesale
+TXN-1347,2024-03-21,P001,Wireless Mouse,Electronics,1,23.89,West,online
+TXN-1348,2024-01-08,P001,Wireless Mouse,Electronics,7,23.74,West,retail
+TXN-1349,2024-01-01,P010,Ergonomic Chair Cushion,Furniture,16,27.34,West,online
+TXN-1350,2024-02-06,P001,Wireless Mouse,Electronics,,24.29,East,wholesale
+TXN-1351,2024-01-19,P008,Webcam HD,Electronics,7,62.24,East,wholesale
+TXN-1352,2024-01-11,P005,Ballpoint Pen (12pk),Office,12,8.19,East,retail
+TXN-1353,2024-03-28,P010,Ergonomic Chair Cushion,Furniture,8,25.85,South,retail
+TXN-1354,2024-02-18,P001,Wireless Mouse,Electronics,3,21.45,West,retail
+TXN-1355,2024-02-25,P001,Wireless Mouse,Electronics,6,22.48,North,retail
+TXN-1356,2024-01-28,P002,USB-C Hub,Electronics,17,47.68,North,online
+TXN-1357,2024-01-10,P010,Ergonomic Chair Cushion,Furniture,16,26.75,East,online
+TXN-1358,2024-02-10,P009,Whiteboard Markers (8pk),Office,,11.45,North,online
+TXN-1359,2024-01-21,P003,Mechanical Keyboard,Electronics,13,84.14,North,retail
+TXN-1360,2024-01-18,P007,Monitor Stand,Furniture,18,57.19,East,retail
+TXN-1361,2024-01-13,P002,USB-C Hub,Electronics,17,48.78,East,online
+TXN-1362,2024-01-04,P006,Desk Lamp LED,Furniture,20,33.85,West,retail
+TXN-1363,2024-03-11,P008,Webcam HD,Electronics,16,59.45,South,retail
+TXN-1364,2024-02-07,P010,Ergonomic Chair Cushion,Furniture,13,28.7,North,wholesale
+TXN-1365,2024-03-22,P999,USB-C Hub,Electronics,9,45.41,South,retail
+TXN-1366,2024-02-09,P006,Desk Lamp LED,Furniture,4,33.74,North,online
+TXN-1367,2024-02-25,P002,USB-C Hub,Electronics,5,46.65,North,online
+TXN-1368,2024-02-15,P007,Monitor Stand,Furniture,4,56.36,North,online
+TXN-1369,2024-02-22,P006,Desk Lamp LED,Furniture,13,30.19,North,retail
+TXN-1370,2024-02-18,P999,Whiteboard Markers (8pk),Office,8,11.57,South,wholesale
+TXN-1371,2024-01-22,P005,Ballpoint Pen (12pk),Office,16,8.21,South,online
+TXN-1372,2024-02-01,P008,Webcam HD,Electronics,3,60.07,East,retail
+TXN-1373,2024-01-18,P010,Ergonomic Chair Cushion,Furniture,7,29.76,West,online
+TXN-1374,2024-02-26,P006,Desk Lamp LED,Furniture,20,34.02,West,retail
+TXN-1375,2024-03-18,P010,Ergonomic Chair Cushion,Furniture,5,26.4,East,retail
+TXN-1376,2024-02-07,P006,Desk Lamp LED,Furniture,6,33.06,West,retail
+TXN-1377,2024-02-05,P010,Ergonomic Chair Cushion,Furniture,8,27.26,East,retail
+TXN-1378,2025-12-31,P002,USB-C Hub,Electronics,19,48.25,South,wholesale
+TXN-1379,2024-02-07,P001,Wireless Mouse,Electronics,15,21.5,South,retail
+TXN-1380,2024-02-08,P007,Monitor Stand,Furniture,16,56.92,South,wholesale
+TXN-1381,2024-03-17,P007,Monitor Stand,Furniture,13,54.6,North,retail
+TXN-1382,2024-03-30,P009,Whiteboard Markers (8pk),Office,14,12.09,North,retail
+TXN-1383,2024-03-26,P002,USB-C Hub,Electronics,4,47.34,South,wholesale
+TXN-1384,2024-02-25,P001,Wireless Mouse,Electronics,19,-21.61,West,retail
+TXN-1385,2024-02-17,P004,Notebook A5,Office,17,5.79,South,retail
+TXN-1386,2024-01-04,P010,Ergonomic Chair Cushion,Furniture,17,26.82,South,retail
+TXN-1387,2024-02-09,P002,USB-C Hub,Electronics,4,48.37,South,retail
+TXN-1388,2024-01-13,P009,Whiteboard Markers (8pk),Office,16,12.4,East,retail
+TXN-1389,2024-01-15,P006,Desk Lamp LED,Furniture,,31.54,East,online
+TXN-1390,2024-01-23,P002,USB-C Hub,Electronics,6,44.97,South,wholesale
+TXN-1391,2025-12-31,P007,Monitor Stand,Furniture,15,56.75,South,retail
+TXN-1392,2024-03-19,P007,Monitor Stand,Furniture,13,55.04,North,wholesale
+TXN-1393,2024-01-28,P007,Monitor Stand,Furniture,13,57.76,North,wholesale
+TXN-1394,2024-01-24,P002,USB-C Hub,Electronics,19,43.97,North,wholesale
+TXN-1395,2024-03-22,P002,USB-C Hub,Electronics,9,45.41,West,wholesale
+TXN-1396,2024-02-15,P007,Monitor Stand,Furniture,19,56.55,North,retail
+TXN-1397,2024-01-18,P005,Ballpoint Pen (12pk),Office,20,7.96,North,wholesale
+TXN-1398,2024-01-19,P002,USB-C Hub,Electronics,6,45.63,East,wholesale
+TXN-1399,2024-01-24,P003,Mechanical Keyboard,Electronics,19,83.75,West,retail
+TXN-1400,2024-01-03,P008,Webcam HD,Electronics,15,63.38,North,online
+TXN-1401,2024-02-01,P010,Ergonomic Chair Cushion,Furniture,,29.76,South,wholesale
+TXN-1402,2024-03-03,P009,Whiteboard Markers (8pk),Office,16,12.68,West,wholesale
+TXN-1403,2024-01-04,P008,Webcam HD,Electronics,6,57.39,North,wholesale
+TXN-1404,2024-02-06,P999,Wireless Mouse,Electronics,9,22.96,South,wholesale
+TXN-1405,2024-01-15,P008,Webcam HD,Electronics,18,60.54,North,wholesale
+TXN-1406,2024-02-26,P006,Desk Lamp LED,Furniture,18,34.94,North,wholesale
+TXN-1407,2024-02-27,P002,USB-C Hub,Electronics,8,48.96,East,online
+TXN-1408,2024-01-27,P002,USB-C Hub,Electronics,15,46.9,North,online
+TXN-1409,2024-03-16,P004,Notebook A5,Office,7,5.56,West,retail
+TXN-1410,2024-02-05,P001,Wireless Mouse,Electronics,19,21.87,East,wholesale
+TXN-1411,2024-03-27,P005,Ballpoint Pen (12pk),Office,10,7.82,East,wholesale
+TXN-1412,2024-01-17,P007,Monitor Stand,Furniture,2,52.19,East,wholesale
+TXN-1413,2024-02-20,P003,Mechanical Keyboard,Electronics,11,84.29,South,wholesale
+TXN-1414,2024-01-10,P005,Ballpoint Pen (12pk),Office,14,8.83,West,retail
+TXN-1415,2024-02-17,P002,USB-C Hub,Electronics,13,46.15,East,wholesale
+TXN-1416,2024-02-28,P010,Ergonomic Chair Cushion,Furniture,1,28.63,North,wholesale
+TXN-1417,2024-02-24,P002,USB-C Hub,Electronics,18,46.2,West,online
+TXN-1418,2024-01-04,P008,Webcam HD,Electronics,6,57.39,North,wholesale
+TXN-1419,2024-03-21,P006,Desk Lamp LED,Furniture,2,32.15,North,online
+TXN-1420,2024-01-01,P002,USB-C Hub,Electronics,6,45.7,West,retail
+TXN-1421,2024-01-12,P003,Mechanical Keyboard,Electronics,10,79.87,South,retail
+TXN-1422,2024-03-21,P006,Desk Lamp LED,Furniture,6,33.41,North,retail
+TXN-1423,2024-01-13,P004,Notebook A5,Office,,5.52,North,wholesale
+TXN-1424,2024-03-28,P003,Mechanical Keyboard,Electronics,19,76.6,South,wholesale
+TXN-1425,2024-01-17,P006,Desk Lamp LED,Furniture,4,30.94,West,wholesale
+TXN-1426,2024-02-17,P002,USB-C Hub,Electronics,4,43.52,North,retail
+TXN-1427,2024-03-13,P003,Mechanical Keyboard,Electronics,,85.27,North,wholesale
+TXN-1428,2024-01-20,P008,Webcam HD,Electronics,12,61.25,South,wholesale
+TXN-1429,2024-01-18,P008,Webcam HD,Electronics,7,60.99,North,online
+TXN-1430,2024-01-18,P007,Monitor Stand,Furniture,12,56.79,West,retail
+TXN-1431,2024-01-04,P004,Notebook A5,Office,18,5.68,East,wholesale
+TXN-1432,2024-02-20,P005,Ballpoint Pen (12pk),Office,7,7.72,South,wholesale
+TXN-1433,2024-01-31,P004,Notebook A5,Office,16,5.63,West,online
+TXN-1434,2024-01-17,P009,Whiteboard Markers (8pk),Office,1,12.68,East,retail
+TXN-1435,2024-01-10,P007,Monitor Stand,Furniture,,51.6,South,retail
+TXN-1436,2024-02-20,P005,Ballpoint Pen (12pk),Office,7,8.49,North,online
+TXN-1437,2024-02-21,P009,Whiteboard Markers (8pk),Office,14,-12.09,West,wholesale
+TXN-1438,2024-02-09,,Ergonomic Chair Cushion,Furniture,5,29.63,East,online
+TXN-1439,2024-03-16,P003,Mechanical Keyboard,Electronics,18,87.76,East,retail
+TXN-1440,2024-01-31,,USB-C Hub,Electronics,10,43.14,West,wholesale
+TXN-1441,2024-03-18,,Monitor Stand,Furniture,4,56.99,West,wholesale
+TXN-1442,2024-01-18,P003,Mechanical Keyboard,Electronics,4,78.7,North,wholesale
+TXN-1443,2024-02-22,P004,Notebook A5,Office,,5.76,West,online
+TXN-1444,2024-02-04,P002,USB-C Hub,Electronics,1,44.46,East,retail
+TXN-1445,2024-03-06,P010,Ergonomic Chair Cushion,Furniture,3,27.74,West,retail
+TXN-1446,2024-02-02,P010,Ergonomic Chair Cushion,Furniture,6,29.51,East,online
+TXN-1447,2024-01-02,P002,USB-C Hub,Electronics,8,46.03,North,online
+TXN-1448,2024-03-11,P007,Monitor Stand,Furniture,5,57.42,South,online
+TXN-1449,2024-02-23,P007,Monitor Stand,Furniture,8,53.87,East,online
+TXN-1450,2024-03-05,P002,USB-C Hub,Electronics,19,42.89,East,online
+TXN-1451,2024-01-09,P004,Notebook A5,Office,17,5.87,North,retail
+TXN-1452,2024-02-28,P005,Ballpoint Pen (12pk),Office,,7.91,North,wholesale
+TXN-1453,2024-02-17,P010,Ergonomic Chair Cushion,Furniture,10,27.71,South,retail
+TXN-1454,2024-01-01,P004,Notebook A5,Office,18,5.11,South,online
+TXN-1455,2024-01-01,P009,Whiteboard Markers (8pk),Office,12,11.77,North,retail
+TXN-1456,2024-01-31,P005,Ballpoint Pen (12pk),Office,4,8.94,South,wholesale
+TXN-1457,2024-01-30,P003,Mechanical Keyboard,Electronics,9,83.51,North,online
+TXN-1458,2024-01-13,P006,Desk Lamp LED,Furniture,15,33.09,North,wholesale
+TXN-1459,2024-03-25,P007,Monitor Stand,Furniture,3,53.12,North,retail
+TXN-1460,2024-02-11,P005,Ballpoint Pen (12pk),Office,11,8.01,West,wholesale
+TXN-1461,2024-01-14,P999,USB-C Hub,Electronics,7,43.72,South,wholesale
+TXN-1462,2024-03-09,P008,Webcam HD,Electronics,11,62.75,West,online
+TXN-1463,2024-01-16,P008,Webcam HD,Electronics,10,-63.11,West,retail
+TXN-1464,2024-03-12,P006,Desk Lamp LED,Furniture,5,33.26,North,wholesale
+TXN-1465,2024-02-08,P007,Monitor Stand,Furniture,17,59.91,North,wholesale
+TXN-1466,2024-03-11,P001,Wireless Mouse,Electronics,13,22.97,West,wholesale
+TXN-1467,2024-01-20,P999,Desk Lamp LED,Furniture,19,32.98,North,online
+TXN-1468,2024-01-03,P002,USB-C Hub,Electronics,19,43.97,East,online
+TXN-1469,2024-01-16,P008,Webcam HD,Electronics,,59.74,North,retail
+TXN-1470,2024-02-20,P003,Mechanical Keyboard,Electronics,19,81.66,West,wholesale
+TXN-1471,2024-01-24,P007,Monitor Stand,Furniture,6,55.0,East,online
+TXN-1472,2024-02-07,P003,Mechanical Keyboard,Electronics,2,88.41,South,wholesale
+TXN-1473,2024-02-28,P005,Ballpoint Pen (12pk),Office,,7.91,North,wholesale
+TXN-1474,2024-02-15,P009,Whiteboard Markers (8pk),Office,8,12.56,North,retail
+TXN-1475,2025-12-31,P006,Desk Lamp LED,Furniture,19,31.42,East,retail
+TXN-1476,2024-03-01,P004,Notebook A5,Office,1,5.78,East,online
+TXN-1477,2024-03-25,P004,Notebook A5,Office,6,5.57,North,online
+TXN-1478,2025-12-31,P001,Wireless Mouse,Electronics,8,23.46,West,retail
+TXN-1479,2024-03-30,P006,Desk Lamp LED,Furniture,19,32.72,North,wholesale
+TXN-1480,2024-03-10,P003,Mechanical Keyboard,Electronics,19,83.11,South,retail
+TXN-1481,2024-01-29,P002,USB-C Hub,Electronics,,46.08,South,wholesale
+TXN-1482,2024-02-13,P006,Desk Lamp LED,Furniture,20,34.56,South,online
+TXN-1483,2024-03-16,P006,Desk Lamp LED,Furniture,2,30.48,North,online
+TXN-1484,2024-02-17,P002,USB-C Hub,Electronics,17,47.46,East,online
+TXN-1485,2024-01-26,P005,Ballpoint Pen (12pk),Office,13,7.83,West,online
+TXN-1486,2024-03-12,P008,Webcam HD,Electronics,11,64.3,South,wholesale
+TXN-1487,2024-02-09,P006,Desk Lamp LED,Furniture,8,31.29,South,retail
+TXN-1488,2025-12-31,P003,Mechanical Keyboard,Electronics,1,80.79,West,wholesale
+TXN-1489,2024-01-19,P010,Ergonomic Chair Cushion,Furniture,8,25.84,North,retail
+TXN-1490,2024-01-12,P006,Desk Lamp LED,Furniture,11,33.26,South,wholesale
+TXN-1491,2024-01-27,P006,Desk Lamp LED,Furniture,15,30.1,North,retail
+TXN-1492,2024-02-19,P005,Ballpoint Pen (12pk),Office,4,8.21,North,online
+TXN-1493,2024-02-14,P003,Mechanical Keyboard,Electronics,14,77.86,West,retail
+TXN-1494,2024-02-27,,Webcam HD,Electronics,19,63.49,South,online
+TXN-1495,2024-01-14,,Ballpoint Pen (12pk),Office,1,7.87,East,retail
+TXN-1496,2024-01-12,P007,Monitor Stand,Furniture,6,59.86,North,wholesale
+TXN-1497,2024-01-22,P008,Webcam HD,Electronics,1,59.47,West,wholesale
+TXN-1498,2024-01-25,P001,Wireless Mouse,Electronics,4,23.32,East,online
+TXN-1499,2024-01-31,P009,Whiteboard Markers (8pk),Office,9,-11.81,East,retail

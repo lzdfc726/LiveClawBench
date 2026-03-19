@@ -1,0 +1,74 @@
+{
+  "products": [
+    {
+      "id": "P001",
+      "name": "Wireless Mouse",
+      "category": "Electronics",
+      "unit_cost": 8.5,
+      "list_price": 24.99
+    },
+    {
+      "id": "P002",
+      "name": "USB-C Hub",
+      "category": "Electronics",
+      "unit_cost": 15.0,
+      "list_price": 49.99
+    },
+    {
+      "id": "P003",
+      "name": "Mechanical Keyboard",
+      "category": "Electronics",
+      "unit_cost": 35.0,
+      "list_price": 89.99
+    },
+    {
+      "id": "P004",
+      "name": "Notebook A5",
+      "category": "Office",
+      "unit_cost": 1.2,
+      "list_price": 5.99
+    },
+    {
+      "id": "P005",
+      "name": "Ballpoint Pen (12pk)",
+      "category": "Office",
+      "unit_cost": 2.0,
+      "list_price": 8.99
+    },
+    {
+      "id": "P006",
+      "name": "Desk Lamp LED",
+      "category": "Furniture",
+      "unit_cost": 12.0,
+      "list_price": 34.99
+    },
+    {
+      "id": "P007",
+      "name": "Monitor Stand",
+      "category": "Furniture",
+      "unit_cost": 18.0,
+      "list_price": 59.99
+    },
+    {
+      "id": "P008",
+      "name": "Webcam HD",
+      "category": "Electronics",
+      "unit_cost": 20.0,
+      "list_price": 64.99
+    },
+    {
+      "id": "P009",
+      "name": "Whiteboard Markers (8pk)",
+      "category": "Office",
+      "unit_cost": 3.0,
+      "list_price": 12.99
+    },
+    {
+      "id": "P010",
+      "name": "Ergonomic Chair Cushion",
+      "category": "Furniture",
+      "unit_cost": 10.0,
+      "list_price": 29.99
+    }
+  ]
+}

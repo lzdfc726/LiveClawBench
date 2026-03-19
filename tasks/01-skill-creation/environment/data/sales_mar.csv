@@ -1,0 +1,15 @@
+order_id,customer_name,date,product,quantity,amount
+3001,Paul Adams,03/02/2026,Widget C,1,24.90
+3002,Quinn Davis,2026-03-04,Widget A,3,74.97
+
+3003,Rachel Fox,Mar 7 2026,Widget B,2,59.98
+3004,Sam Wilson,03-10-2026,Widget D,1,33.50
+3005,Paul Adams,03/02/2026,Widget C,1,24.90
+3006,Tina Moore,2026/03/13,Widget A,2,49.99
+
+3007,Uma Patel,03/17/2026,Widget B,4,119.96
+3008,Victor Diaz,03-20-2026,Widget C,3,74.70
+3009,Rachel Fox,Mar 7 2026,Widget B,2,59.98
+
+3010,Wendy Ng,2026-03-25,Widget D,2,67.00
+3011,Sam Wilson,03-10-2026,Widget D,1,33.50

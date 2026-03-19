@@ -1,0 +1,14 @@
+order_id,customer_name,date,product,quantity,amount
+6001,Nora Oliver,06/01/2026,Widget B,2,59.98
+
+6002,Pete Quinn,2026-06-03,Widget A,1,24.99
+6003,Rita Stone,Jun 6 2026,Widget D,3,100.50
+6004,Steve Turner,06-09-2026,Widget C,2,49.80
+
+6005,Nora Oliver,06/01/2026,Widget B,2,59.98
+6006,Uma Vance,2026/06/14,Widget A,4,99.96
+6007,Vicky Walsh,06/18/2026,Widget B,1,29.99
+6008,Rita Stone,Jun 6 2026,Widget D,3,100.50
+
+6009,Will Xu,06-23-2026,Widget C,5,124.50
+6010,Yara Zane,2026-06-29,Widget A,2,49.99

@@ -1,0 +1,2220 @@
+[
+  {
+    "id": 1,
+    "timestamp": "2025-11-21T09:15:14+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251121-002",
+    "user_message": "Can you explain Python's MRO?",
+    "agent_response": "Method Resolution Order determines the order in which base classes are searched...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 2,
+    "timestamp": "2025-11-21T09:45:40+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251121-001",
+    "user_message": "Check disk space on the server",
+    "agent_response": "Disk usage: / 67% used (134GB/200GB), /data 82% used (820GB/1TB).",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 3,
+    "timestamp": "2025-11-21T11:04:57+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251121-001",
+    "user_message": "Can you help me set up a CI/CD pipeline?",
+    "agent_response": "For GitHub Actions, create a .github/workflows/ci.yml file...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 4,
+    "timestamp": "2025-11-21T11:37:14+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251121-001",
+    "user_message": "Set up firewall rules for the new subnet",
+    "agent_response": "Firewall rules updated: allowed 10.0.2.0/24 on ports 80, 443, 8080.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 5,
+    "timestamp": "2025-11-21T13:01:37+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251121-009",
+    "user_message": "When is my next dentist appointment?",
+    "agent_response": "Your next dentist appointment is on December 18 at 10:30 AM.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 6,
+    "timestamp": "2025-11-22T11:06:06+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251122-007",
+    "user_message": "Check if the conference room is available Friday afternoon",
+    "agent_response": "Room A is available Friday 1-5 PM. Room B is booked until 3 PM.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 7,
+    "timestamp": "2025-11-22T11:17:42+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251122-008",
+    "user_message": "Set up file watchers for the source directory",
+    "agent_response": "File watchers configured for 5 directories.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 8,
+    "timestamp": "2025-11-22T11:34:08+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251122-008",
+    "user_message": "Help me write a context manager",
+    "agent_response": "Implement __enter__ and __exit__ methods, or use contextlib.contextmanager decorator...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 9,
+    "timestamp": "2025-11-22T11:50:30+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251122-007",
+    "user_message": "How does OAuth 2.0 work?",
+    "agent_response": "OAuth 2.0 allows third-party apps to access resources on behalf of users through authorization grants...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 10,
+    "timestamp": "2025-11-22T21:21:04+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251122-009",
+    "user_message": "What is a reverse proxy?",
+    "agent_response": "A reverse proxy sits in front of servers, handling load balancing, SSL termination, and caching...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 11,
+    "timestamp": "2025-11-23T08:25:46+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251123-006",
+    "user_message": "Find all Python files larger than 1MB in this project",
+    "agent_response": "Found 3 Python files larger than 1MB: data_loader.py (2.3MB), model.py (1.8MB)...",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 12,
+    "timestamp": "2025-11-23T13:27:26+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251123-008",
+    "user_message": "How do I read a CSV file with pandas?",
+    "agent_response": "You can use pd.read_csv('filename.csv') to read a CSV file...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 13,
+    "timestamp": "2025-11-23T20:55:06+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251123-004",
+    "user_message": "How do I set up unit tests with pytest?",
+    "agent_response": "Create a test file prefixed with test_, define functions starting with test_...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 14,
+    "timestamp": "2025-11-23T21:46:03+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251123-002",
+    "user_message": "List all open network ports",
+    "agent_response": "Open ports: 22 (ssh), 80 (http), 443 (https), 5432 (postgres), 6379 (redis).",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 15,
+    "timestamp": "2025-11-24T09:03:41+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251124-009",
+    "user_message": "What is domain-driven design?",
+    "agent_response": "DDD focuses on modeling software around the business domain using ubiquitous language...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 16,
+    "timestamp": "2025-11-24T09:15:40+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251124-001",
+    "user_message": "Help me check this week's paper updates on arXiv for LLM-related papers",
+    "agent_response": "I found 12 new papers on arXiv related to LLM this week. Here are the highlights: 1) 'Scaling Laws for Neural Language Models' discusses...",
+    "tags": [
+      "paper",
+      "arxiv",
+      "LLM",
+      "weekly-review"
+    ]
+  },
+  {
+    "id": 17,
+    "timestamp": "2025-11-24T09:35:20+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251124-005",
+    "user_message": "Check my calendar for this week's meetings",
+    "agent_response": "This week you have: Monday standup 9:30, Wednesday design review 2:00...",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 18,
+    "timestamp": "2025-11-24T10:27:11+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251124-005",
+    "user_message": "Show me my calendar for next week",
+    "agent_response": "Next week's schedule: Monday - 3 meetings, Tuesday - 2 meetings...",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 19,
+    "timestamp": "2025-11-24T11:12:34+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251124-008",
+    "user_message": "Split this large log file into daily chunks",
+    "agent_response": "Split access.log into 30 daily files.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 20,
+    "timestamp": "2025-11-24T15:15:55+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251124-002",
+    "user_message": "How do I handle exceptions in async Python code?",
+    "agent_response": "In async code, you can use try/except blocks within async functions...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 21,
+    "timestamp": "2025-11-24T15:51:55+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251124-009",
+    "user_message": "How do I use type hints effectively?",
+    "agent_response": "Use typing module for complex types like List[str], Optional[int], Dict[str, Any]...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 22,
+    "timestamp": "2025-11-25T10:24:00+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251125-007",
+    "user_message": "How do container orchestration tools like Kubernetes work?",
+    "agent_response": "Kubernetes manages container deployment, scaling, and networking across clusters...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 23,
+    "timestamp": "2025-11-25T10:26:31+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251125-008",
+    "user_message": "Generate a histogram of order values",
+    "agent_response": "Histogram generated. Most orders between $20-50 (42%). Mean: $67.30.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 24,
+    "timestamp": "2025-11-25T11:55:25+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251125-001",
+    "user_message": "Create a FAQ section for the documentation",
+    "agent_response": "FAQ: Q: How do I reset my password? A: Click 'Forgot Password' on the login page...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 25,
+    "timestamp": "2025-11-25T21:00:05+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251125-004",
+    "user_message": "How do I serialize Python objects to JSON?",
+    "agent_response": "Implement a custom JSONEncoder or add a to_dict method to your classes...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 26,
+    "timestamp": "2025-11-26T11:18:13+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251126-001",
+    "user_message": "What's the difference between a list and a tuple in Python?",
+    "agent_response": "Lists are mutable and use square brackets, while tuples are immutable and use parentheses...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 27,
+    "timestamp": "2025-11-26T12:27:44+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251126-009",
+    "user_message": "Compress the logs directory into a tar.gz archive",
+    "agent_response": "Created archive logs_20251201.tar.gz (45MB).",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 28,
+    "timestamp": "2025-11-26T12:59:50+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251126-008",
+    "user_message": "Help me write a regex to validate email addresses",
+    "agent_response": "Here's a regex pattern for basic email validation...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 29,
+    "timestamp": "2025-11-26T17:47:34+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251126-001",
+    "user_message": "What time is it in San Francisco right now?",
+    "agent_response": "It's currently 6:30 PM PST (UTC-8) in San Francisco.",
+    "tags": [
+      "misc"
+    ]
+  },
+  {
+    "id": 30,
+    "timestamp": "2025-11-26T18:45:31+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251126-003",
+    "user_message": "Search for open source alternatives to Jira",
+    "agent_response": "Alternatives: Linear, Plane, Taiga, OpenProject, WeKan. Linear most popular for startups.",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 31,
+    "timestamp": "2025-11-27T10:03:32+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251127-002",
+    "user_message": "Delete temporary files older than 30 days",
+    "agent_response": "Deleted 23 temporary files older than 30 days.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 32,
+    "timestamp": "2025-11-27T17:30:32+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251127-009",
+    "user_message": "What is the difference between processes and threads?",
+    "agent_response": "Processes have separate memory spaces; threads share memory within a process...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 33,
+    "timestamp": "2025-11-27T18:55:15+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251127-007",
+    "user_message": "Compute the moving average for stock prices",
+    "agent_response": "Calculated 7-day and 30-day moving averages. Golden cross detected on Dec 10.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 34,
+    "timestamp": "2025-11-27T19:20:03+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251127-001",
+    "user_message": "Help me set up a logging configuration",
+    "agent_response": "Use logging.config.dictConfig() for structured logging setup...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 35,
+    "timestamp": "2025-11-27T21:11:04+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251127-002",
+    "user_message": "Copy the configuration files to the backup directory",
+    "agent_response": "Copied 5 configuration files to /backup/config/.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 36,
+    "timestamp": "2025-11-28T09:56:36+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251128-004",
+    "user_message": "Find comparison between React and Vue.js in 2025",
+    "agent_response": "React vs Vue in 2025: React leads in enterprise adoption, Vue in developer satisfaction...",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 37,
+    "timestamp": "2025-11-28T13:59:16+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251128-004",
+    "user_message": "What is a microservices architecture?",
+    "agent_response": "Microservices decompose applications into small, independent services that communicate via APIs...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 38,
+    "timestamp": "2025-11-28T14:42:37+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251128-009",
+    "user_message": "Search for machine learning conference deadlines",
+    "agent_response": "Upcoming deadlines: ICML 2026 (Jan 23), NeurIPS 2026 (May 15), AAAI 2026 (Aug 8).",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 39,
+    "timestamp": "2025-11-28T17:38:02+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251128-002",
+    "user_message": "Block 2 hours tomorrow morning for focused coding",
+    "agent_response": "Blocked 9:00-11:00 AM tomorrow for focused coding.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 40,
+    "timestamp": "2025-11-29T08:29:39+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251129-002",
+    "user_message": "Backup the database dump to cloud storage",
+    "agent_response": "Uploaded db_dump_20251215.sql (340MB) to S3.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 41,
+    "timestamp": "2025-11-29T09:34:13+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251129-009",
+    "user_message": "What are WebSockets and when to use them?",
+    "agent_response": "WebSockets provide full-duplex communication over a single TCP connection, ideal for real-time apps...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 42,
+    "timestamp": "2025-11-29T12:25:08+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251129-005",
+    "user_message": "Check the SSL certificate expiration date",
+    "agent_response": "SSL certificate for example.com expires on 2026-03-15 (92 days remaining).",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 43,
+    "timestamp": "2025-11-29T15:20:59+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251129-002",
+    "user_message": "Build a simple regression model for price prediction",
+    "agent_response": "Model R²=0.82. Key features: square footage (0.65), bedrooms (0.12), location (0.05).",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 44,
+    "timestamp": "2025-11-29T18:45:20+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251129-004",
+    "user_message": "How do message queues work?",
+    "agent_response": "Message queues decouple producers and consumers, providing async communication and buffering...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 45,
+    "timestamp": "2025-11-30T09:56:15+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251130-006",
+    "user_message": "Can you review this code for potential memory leaks?",
+    "agent_response": "I see a few issues: the file handle isn't closed properly, and there's a circular reference...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 46,
+    "timestamp": "2025-11-30T12:08:59+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251130-006",
+    "user_message": "Help me optimize this database query",
+    "agent_response": "Looking at your query, we can add an index on the frequently filtered columns...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 47,
+    "timestamp": "2025-11-30T12:10:28+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251130-009",
+    "user_message": "How do I implement rate limiting?",
+    "agent_response": "Use a token bucket algorithm or the ratelimit library...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 48,
+    "timestamp": "2025-11-30T19:19:39+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251130-009",
+    "user_message": "Draft a proposal for the infrastructure upgrade",
+    "agent_response": "Proposal: Infrastructure Modernization. Current state: 3 bare metal servers...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 49,
+    "timestamp": "2025-12-01T08:42:52+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251201-009",
+    "user_message": "Change file permissions to 644 for all config files",
+    "agent_response": "Updated permissions for 8 config files.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 50,
+    "timestamp": "2025-12-01T09:08:07+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251201-001",
+    "user_message": "Can you look up the latest papers on large language models from this past week?",
+    "agent_response": "Here are this week's top LLM papers from arXiv: 1) A new approach to RLHF training... 2) Efficient fine-tuning methods...",
+    "tags": [
+      "paper",
+      "arxiv",
+      "LLM",
+      "weekly-review"
+    ]
+  },
+  {
+    "id": 51,
+    "timestamp": "2025-12-01T10:16:07+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251201-002",
+    "user_message": "Generate a system performance report",
+    "agent_response": "Performance report generated: cpu_avg=28%, mem_avg=45%, disk_io=moderate.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 52,
+    "timestamp": "2025-12-01T12:38:13+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251201-006",
+    "user_message": "Help me write release notes for version 2.5",
+    "agent_response": "Release Notes v2.5: New Features: Dark mode support, API rate limiting...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 53,
+    "timestamp": "2025-12-01T12:59:42+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251201-002",
+    "user_message": "Add a note to tomorrow's standup: discuss deployment timeline",
+    "agent_response": "Note added to tomorrow's standup agenda.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 54,
+    "timestamp": "2025-12-01T19:35:09+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251201-005",
+    "user_message": "Create a sprint planning event for next Monday at 10 AM",
+    "agent_response": "Sprint planning created for Monday 10:00 AM, 1.5 hours.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 55,
+    "timestamp": "2025-12-02T08:00:21+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251202-003",
+    "user_message": "How do I implement a producer-consumer pattern?",
+    "agent_response": "You can use queue.Queue for thread-safe producer-consumer...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 56,
+    "timestamp": "2025-12-02T09:40:27+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251202-005",
+    "user_message": "Create a README for this open source project",
+    "agent_response": "README.md: # Project Name\n\nA brief description of what this project does...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 57,
+    "timestamp": "2025-12-02T11:43:40+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251202-005",
+    "user_message": "Set up a daily reminder at 5 PM to update the task board",
+    "agent_response": "Daily reminder set for 5:00 PM: Update Task Board.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 58,
+    "timestamp": "2025-12-02T16:31:16+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251202-001",
+    "user_message": "Summarize the customer feedback survey results",
+    "agent_response": "523 responses. Overall satisfaction: 4.2/5. Top concern: response time.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 59,
+    "timestamp": "2025-12-02T18:16:10+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251202-008",
+    "user_message": "Convert all .txt files to .md format",
+    "agent_response": "Converted 6 .txt files to .md format.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 60,
+    "timestamp": "2025-12-03T08:07:04+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251203-003",
+    "user_message": "What's on my agenda for today?",
+    "agent_response": "Today's agenda: 9:30 standup, 11:00 code review, 2:00 PM 1-on-1 with manager.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 61,
+    "timestamp": "2025-12-03T14:22:15+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251203-002",
+    "user_message": "I read an interesting paper about transformer architectures yesterday. Can you find it on arXiv?",
+    "agent_response": "I found several recent papers on transformer architectures. Could you provide more details...",
+    "tags": [
+      "paper"
+    ]
+  },
+  {
+    "id": 62,
+    "timestamp": "2025-12-03T16:02:53+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251203-006",
+    "user_message": "How do I implement a binary search in Python?",
+    "agent_response": "Here's a standard binary search implementation...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 63,
+    "timestamp": "2025-12-03T16:45:27+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251203-009",
+    "user_message": "Look up the latest Docker Desktop release",
+    "agent_response": "Docker Desktop 4.35 released with improved WSL2 integration and resource management...",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 64,
+    "timestamp": "2025-12-03T17:35:09+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251203-007",
+    "user_message": "Run a t-test on these two groups",
+    "agent_response": "t-statistic: 2.45, p-value: 0.018. Significant difference at alpha=0.05.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 65,
+    "timestamp": "2025-12-04T10:02:19+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251204-006",
+    "user_message": "What's the best practice for error handling in REST APIs?",
+    "agent_response": "Use appropriate HTTP status codes and return structured error responses...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 66,
+    "timestamp": "2025-12-04T11:43:15+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251204-002",
+    "user_message": "Set up a cron job for daily database backups at 2 AM",
+    "agent_response": "Cron job created: 0 2 * * * /scripts/db_backup.sh",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 67,
+    "timestamp": "2025-12-04T13:49:35+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251204-007",
+    "user_message": "What meetings do I have this week?",
+    "agent_response": "You have 4 meetings this week: Monday standup, Wednesday design review...",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 68,
+    "timestamp": "2025-12-04T17:47:09+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251204-004",
+    "user_message": "Create meeting notes from this transcript",
+    "agent_response": "Meeting Notes - Dec 8: Attendees: Alice, Bob, Carol. Key decisions: 1)...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 69,
+    "timestamp": "2025-12-04T20:55:02+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251204-006",
+    "user_message": "Check if any processes are consuming too much memory",
+    "agent_response": "Top memory consumers: java (4.2GB), python3 (1.8GB), postgres (1.2GB).",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 70,
+    "timestamp": "2025-12-05T12:10:50+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251205-002",
+    "user_message": "Can you help me understand async/await in Python?",
+    "agent_response": "async defines a coroutine, await pauses execution until the awaited task completes...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 71,
+    "timestamp": "2025-12-05T14:01:11+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251205-006",
+    "user_message": "How many hours did I spend in meetings this week?",
+    "agent_response": "You spent 8.5 hours in meetings this week across 12 sessions.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 72,
+    "timestamp": "2025-12-05T20:59:26+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251205-004",
+    "user_message": "Find the documentation for the FastAPI framework",
+    "agent_response": "FastAPI docs at fastapi.tiangolo.com. Key sections: Tutorial, Advanced, Deployment...",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 73,
+    "timestamp": "2025-12-05T21:10:51+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251205-003",
+    "user_message": "What is the difference between symmetric and asymmetric encryption?",
+    "agent_response": "Symmetric uses the same key for encrypt/decrypt; asymmetric uses a public/private key pair...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 74,
+    "timestamp": "2025-12-06T11:01:42+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251206-004",
+    "user_message": "How does HTTPS work?",
+    "agent_response": "HTTPS uses TLS/SSL to encrypt HTTP traffic. The process involves: 1) TCP handshake...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 75,
+    "timestamp": "2025-12-06T11:12:52+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251206-008",
+    "user_message": "Draft an announcement for the new feature launch",
+    "agent_response": "Announcement: We're excited to introduce Smart Search, our latest feature...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 76,
+    "timestamp": "2025-12-06T13:19:52+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251206-004",
+    "user_message": "Proofread this paragraph for grammar errors",
+    "agent_response": "I found 3 issues: 1) 'their' should be 'there', 2) missing comma after...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 77,
+    "timestamp": "2025-12-06T14:21:17+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251206-002",
+    "user_message": "Plot a bar chart of user signups by day",
+    "agent_response": "Generated bar chart showing daily signups. Peak: 342 on December 5.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 78,
+    "timestamp": "2025-12-06T14:55:02+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251206-008",
+    "user_message": "What is CI/CD and why is it important?",
+    "agent_response": "CI/CD automates code integration, testing, and deployment, reducing manual errors and speeding delivery...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 79,
+    "timestamp": "2025-12-07T10:37:16+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251207-001",
+    "user_message": "What's the difference between deepcopy and shallow copy?",
+    "agent_response": "Shallow copy creates a new object but references the same nested objects...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 80,
+    "timestamp": "2025-12-07T13:01:07+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251207-005",
+    "user_message": "What's the best way to handle configuration files?",
+    "agent_response": "Use configparser for INI files, or python-dotenv for .env files...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 81,
+    "timestamp": "2025-12-07T14:43:53+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251207-009",
+    "user_message": "Look up the latest updates on WebAssembly",
+    "agent_response": "WASM updates: Component Model proposal advancing, WASI preview 2 released...",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 82,
+    "timestamp": "2025-12-07T20:17:22+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251207-009",
+    "user_message": "Generate a word cloud from customer reviews",
+    "agent_response": "Word cloud generated. Top terms: 'easy', 'fast', 'reliable', 'helpful', 'intuitive'.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 83,
+    "timestamp": "2025-12-08T08:55:01+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251208-001",
+    "user_message": "Please pull the recent arXiv papers related to LLM research",
+    "agent_response": "I've gathered the recent arXiv papers on LLM research. Notable ones include: 1) 'Constitutional AI: Harmlessness from AI Feedback'...",
+    "tags": [
+      "paper",
+      "arxiv",
+      "LLM",
+      "weekly-review"
+    ]
+  },
+  {
+    "id": 84,
+    "timestamp": "2025-12-08T09:20:45+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251208-001",
+    "user_message": "What tasks are on my sprint board for this week?",
+    "agent_response": "Current sprint tasks: 3 in progress, 5 to do, 2 in review...",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 85,
+    "timestamp": "2025-12-08T09:38:27+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251208-006",
+    "user_message": "What's the weather forecast for tomorrow?",
+    "agent_response": "Tomorrow: Partly cloudy, high 15°C, low 8°C. 20% chance of rain in the afternoon.",
+    "tags": [
+      "misc"
+    ]
+  },
+  {
+    "id": 86,
+    "timestamp": "2025-12-08T17:12:16+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251208-001",
+    "user_message": "Set a reminder for the team meeting at 3 PM today",
+    "agent_response": "Reminder set for 3:00 PM today: Team Meeting.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 87,
+    "timestamp": "2025-12-08T17:32:07+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251208-007",
+    "user_message": "Calculate the customer lifetime value",
+    "agent_response": "Average CLV: $1,230. Top segment CLV: $3,450. Bottom segment: $280.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 88,
+    "timestamp": "2025-12-08T19:27:00+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251208-009",
+    "user_message": "How does garbage collection work in Java?",
+    "agent_response": "Java's GC automatically reclaims memory from unreachable objects using mark-and-sweep...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 89,
+    "timestamp": "2025-12-08T19:50:20+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251208-007",
+    "user_message": "Explain the CAP theorem",
+    "agent_response": "The CAP theorem states that a distributed system can only guarantee two of three: Consistency, Availability, Partition tolerance.",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 90,
+    "timestamp": "2025-12-09T12:42:26+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251209-006",
+    "user_message": "Extract this zip file to the current directory",
+    "agent_response": "Extracted 15 files from archive.zip.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 91,
+    "timestamp": "2025-12-09T13:27:04+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251209-006",
+    "user_message": "List all files modified in the last 24 hours",
+    "agent_response": "Found 8 files modified in the last 24 hours...",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 92,
+    "timestamp": "2025-12-09T17:20:42+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251209-002",
+    "user_message": "Look up the current exchange rate for USD to EUR",
+    "agent_response": "Current USD/EUR rate: 0.92. The euro has strengthened 2% this month.",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 93,
+    "timestamp": "2025-12-09T19:57:19+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251209-009",
+    "user_message": "Cluster the customer segments using k-means",
+    "agent_response": "Identified 4 clusters: Power Users (12%), Regular (45%), Occasional (30%), At-risk (13%).",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 94,
+    "timestamp": "2025-12-09T20:34:43+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251209-004",
+    "user_message": "Find seasonal patterns in the usage data",
+    "agent_response": "Strong weekly seasonality: peaks Tuesday-Thursday. Monthly dip around holidays.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 95,
+    "timestamp": "2025-12-10T10:12:26+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251210-007",
+    "user_message": "Summarize the key points from today's meeting",
+    "agent_response": "Key points: 1) Deployment moved to Thursday, 2) New hire starts next week...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 96,
+    "timestamp": "2025-12-10T14:44:18+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251210-009",
+    "user_message": "Create a code review checklist",
+    "agent_response": "Code Review Checklist: [ ] Tests pass, [ ] No security vulnerabilities...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 97,
+    "timestamp": "2025-12-10T17:36:19+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251210-007",
+    "user_message": "Calculate the churn rate for each cohort",
+    "agent_response": "30-day churn: Jan cohort 18%, Feb 15%, Mar 12%. Trend improving.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 98,
+    "timestamp": "2025-12-10T18:47:57+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251210-003",
+    "user_message": "Write a technical specification for the new API endpoint",
+    "agent_response": "API Specification: POST /api/v2/analytics. Request body: { metrics: [...] }...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 99,
+    "timestamp": "2025-12-11T12:13:27+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251211-006",
+    "user_message": "What is eventual consistency?",
+    "agent_response": "Eventual consistency means all replicas will converge to the same state given enough time...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 100,
+    "timestamp": "2025-12-11T15:28:28+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251211-004",
+    "user_message": "How do I implement a trie data structure?",
+    "agent_response": "A trie uses nested dictionaries where each key is a character...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 101,
+    "timestamp": "2025-12-11T16:30:50+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251211-003",
+    "user_message": "Draft a response to this customer complaint",
+    "agent_response": "Dear Customer, Thank you for bringing this to our attention. We understand...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 102,
+    "timestamp": "2025-12-11T16:53:00+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251211-005",
+    "user_message": "What is a load balancer and how does it work?",
+    "agent_response": "A load balancer distributes incoming traffic across multiple servers using algorithms like round-robin...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 103,
+    "timestamp": "2025-12-11T18:05:18+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251211-009",
+    "user_message": "What is the difference between TCP and UDP?",
+    "agent_response": "TCP is connection-oriented with guaranteed delivery, while UDP is connectionless...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 104,
+    "timestamp": "2025-12-12T09:52:48+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251212-004",
+    "user_message": "Find the schedule for PyCon 2026",
+    "agent_response": "PyCon 2026: May 14-22 in Pittsburgh. Tutorials May 14-15, Conference May 16-18.",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 105,
+    "timestamp": "2025-12-12T10:01:02+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251212-004",
+    "user_message": "Block the last Friday of each month for retrospectives",
+    "agent_response": "Blocked the last Friday of each month 2-4 PM for retrospectives.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 106,
+    "timestamp": "2025-12-12T16:45:30+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251212-002",
+    "user_message": "Can you find the citation for the 'Attention Is All You Need' paper?",
+    "agent_response": "The citation is: Vaswani et al., 'Attention Is All You Need', NeurIPS 2017...",
+    "tags": [
+      "paper"
+    ]
+  },
+  {
+    "id": 107,
+    "timestamp": "2025-12-12T18:19:14+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251212-004",
+    "user_message": "Archive old project versions",
+    "agent_response": "Archived 3 old versions to /archive/.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 108,
+    "timestamp": "2025-12-12T18:40:39+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251212-006",
+    "user_message": "Create a countdown for the product launch on January 15",
+    "agent_response": "Countdown created: 31 days until product launch.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 109,
+    "timestamp": "2025-12-13T14:15:09+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251213-001",
+    "user_message": "Reschedule the client call to next Tuesday",
+    "agent_response": "Client call rescheduled to Tuesday, December 16 at 11:00 AM.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 110,
+    "timestamp": "2025-12-13T15:26:56+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251213-004",
+    "user_message": "Create a correlation matrix for these features",
+    "agent_response": "Correlation matrix generated. Strongest correlation: feature_a vs feature_b (0.89).",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 111,
+    "timestamp": "2025-12-13T15:39:54+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251213-002",
+    "user_message": "Compare this quarter's metrics with last quarter",
+    "agent_response": "Revenue +8%, Users +15%, Churn -2%. Retention improved from 82% to 87%.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 112,
+    "timestamp": "2025-12-13T19:44:24+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251213-008",
+    "user_message": "Explain the observer pattern",
+    "agent_response": "The observer pattern defines a one-to-many dependency where observers are notified of state changes...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 113,
+    "timestamp": "2025-12-13T20:55:49+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251213-002",
+    "user_message": "Can you explain Python metaclasses?",
+    "agent_response": "Metaclasses are classes of classes — they control class creation behavior...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 114,
+    "timestamp": "2025-12-14T08:35:15+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251214-002",
+    "user_message": "Merge these two CSV files into one",
+    "agent_response": "Merged output.csv created with 5,432 rows.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 115,
+    "timestamp": "2025-12-14T15:08:51+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251214-008",
+    "user_message": "Search for best practices for Kubernetes security",
+    "agent_response": "Top K8s security practices: 1) Use RBAC, 2) Scan images, 3) Network policies...",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 116,
+    "timestamp": "2025-12-14T18:33:35+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251214-006",
+    "user_message": "Check the status of the backup jobs",
+    "agent_response": "Last backup: 2 hours ago (success). Next scheduled: 2:00 AM tomorrow.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 117,
+    "timestamp": "2025-12-14T20:27:14+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251214-003",
+    "user_message": "Translate 'hello world' to Japanese",
+    "agent_response": "'Hello World' in Japanese: こんにちは世界 (Konnichiwa Sekai).",
+    "tags": [
+      "misc"
+    ]
+  },
+  {
+    "id": 118,
+    "timestamp": "2025-12-14T20:44:33+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251214-008",
+    "user_message": "Draft an email to the team about the upcoming sprint",
+    "agent_response": "Here's a draft email: Subject: Sprint 24 Kickoff - December 15...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 119,
+    "timestamp": "2025-12-15T09:12:47+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251215-001",
+    "user_message": "I need to catch up on this week's LLM paper updates",
+    "agent_response": "This week's LLM paper roundup from arXiv: 1) New benchmark for evaluating code generation... 2) Mixture-of-experts architecture improvements...",
+    "tags": [
+      "paper",
+      "arxiv",
+      "LLM",
+      "weekly-review"
+    ]
+  },
+  {
+    "id": 120,
+    "timestamp": "2025-12-15T14:53:58+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251215-009",
+    "user_message": "Analyze the sales data from last month",
+    "agent_response": "Last month's analysis: Total revenue $245K, up 12% MoM. Top product: Widget Pro.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 121,
+    "timestamp": "2025-12-15T15:16:48+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251215-004",
+    "user_message": "Calculate 15% tip on a $85 bill",
+    "agent_response": "15% tip on $85 = $12.75. Total with tip: $97.75.",
+    "tags": [
+      "misc"
+    ]
+  },
+  {
+    "id": 122,
+    "timestamp": "2025-12-15T15:57:10+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251215-008",
+    "user_message": "What's the difference between multiprocessing and threading?",
+    "agent_response": "Threading is for I/O-bound tasks, multiprocessing for CPU-bound tasks due to the GIL...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 123,
+    "timestamp": "2025-12-15T20:57:28+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251215-009",
+    "user_message": "Help me write a decorator for logging function calls",
+    "agent_response": "Here's a decorator that logs function entry and exit...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 124,
+    "timestamp": "2025-12-16T11:17:21+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251216-006",
+    "user_message": "Write a project status update for stakeholders",
+    "agent_response": "Project Status Update - Week 50: Milestone 3 completed on schedule...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 125,
+    "timestamp": "2025-12-16T15:04:45+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251216-005",
+    "user_message": "Look up salary benchmarks for senior software engineers",
+    "agent_response": "Senior SWE median salary 2025: US $185K, EU €85K, UK £75K. Varies by city and company size.",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 126,
+    "timestamp": "2025-12-16T15:40:15+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251216-005",
+    "user_message": "Rotate the log files",
+    "agent_response": "Rotated 8 log files. Old logs compressed and archived.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 127,
+    "timestamp": "2025-12-16T16:05:08+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251216-003",
+    "user_message": "Find information about the new EU AI Act regulations",
+    "agent_response": "The EU AI Act, effective from 2025, classifies AI systems by risk level...",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 128,
+    "timestamp": "2025-12-16T21:40:17+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251216-009",
+    "user_message": "Check the health of all microservices",
+    "agent_response": "All 7 services healthy. Last check: 30 seconds ago.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 129,
+    "timestamp": "2025-12-17T11:24:44+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251217-003",
+    "user_message": "How do I implement caching in my application?",
+    "agent_response": "Use functools.lru_cache for simple memoization, or Redis for distributed caching...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 130,
+    "timestamp": "2025-12-17T14:03:13+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251217-007",
+    "user_message": "Move all my afternoon meetings to the morning",
+    "agent_response": "Rescheduled 3 afternoon meetings to morning slots.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 131,
+    "timestamp": "2025-12-17T14:21:34+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251217-008",
+    "user_message": "What is the difference between monolith and microservices?",
+    "agent_response": "Monoliths are single deployable units; microservices are independent, loosely coupled services...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 132,
+    "timestamp": "2025-12-17T19:13:04+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251217-007",
+    "user_message": "Find the GitHub trending repositories this week",
+    "agent_response": "Trending: 1) awesome-llm (AI), 2) rust-web-framework, 3) python-best-practices...",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 133,
+    "timestamp": "2025-12-18T14:57:49+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251218-001",
+    "user_message": "Summarize this 10-page research paper",
+    "agent_response": "Key findings: The paper proposes a novel approach to...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 134,
+    "timestamp": "2025-12-18T15:00:22+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251218-005",
+    "user_message": "Check the disk usage of the data directory",
+    "agent_response": "The data directory uses 12.3GB across 1,247 files.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 135,
+    "timestamp": "2025-12-18T16:47:47+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251218-009",
+    "user_message": "Write a bug report template",
+    "agent_response": "Bug Report Template: **Description:** [Describe the bug]...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 136,
+    "timestamp": "2025-12-18T20:24:54+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251218-007",
+    "user_message": "Analyze the A/B test results",
+    "agent_response": "Variant B shows 3.2% higher conversion (p=0.03). Recommend rolling out to 100%.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 137,
+    "timestamp": "2025-12-18T21:56:48+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251218-007",
+    "user_message": "What's the best way to handle database migrations?",
+    "agent_response": "Use Alembic with SQLAlchemy for version-controlled schema migrations...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 138,
+    "timestamp": "2025-12-19T11:10:05+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251219-001",
+    "user_message": "My colleague mentioned a paper about prompt engineering. Can you search for it?",
+    "agent_response": "I found several papers on prompt engineering. The most cited recent one is...",
+    "tags": [
+      "paper"
+    ]
+  },
+  {
+    "id": 139,
+    "timestamp": "2025-12-19T15:01:24+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251219-006",
+    "user_message": "How do I profile my Python application?",
+    "agent_response": "Use cProfile for function-level profiling or line_profiler for line-by-line analysis...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 140,
+    "timestamp": "2025-12-19T15:14:17+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251219-007",
+    "user_message": "Rename all files in the downloads folder to lowercase",
+    "agent_response": "Renamed 12 files to lowercase in the downloads folder.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 141,
+    "timestamp": "2025-12-19T18:43:51+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251219-007",
+    "user_message": "Cancel my 4 PM meeting tomorrow",
+    "agent_response": "Your 4 PM meeting tomorrow has been cancelled.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 142,
+    "timestamp": "2025-12-19T20:38:57+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251219-004",
+    "user_message": "Check for broken symlinks in the project",
+    "agent_response": "Found 2 broken symbolic links...",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 143,
+    "timestamp": "2025-12-20T09:41:27+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251220-003",
+    "user_message": "Move all .log files from /tmp to /var/log/app/",
+    "agent_response": "Moved 7 .log files to /var/log/app/.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 144,
+    "timestamp": "2025-12-20T10:39:34+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251220-001",
+    "user_message": "View the last 50 lines of the application log",
+    "agent_response": "Displaying last 50 lines of /var/log/app/application.log...",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 145,
+    "timestamp": "2025-12-20T14:37:36+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251220-001",
+    "user_message": "Show CPU usage over the last hour",
+    "agent_response": "Average CPU: 34%. Peak: 78% at 14:23. Current: 22%.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 146,
+    "timestamp": "2025-12-20T19:10:53+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251220-008",
+    "user_message": "Watch this directory for new files",
+    "agent_response": "Monitoring directory for changes... New file detected: report_final.xlsx",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 147,
+    "timestamp": "2025-12-20T21:29:11+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251220-001",
+    "user_message": "Update all system packages",
+    "agent_response": "Updated 15 packages. 3 security patches applied.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 148,
+    "timestamp": "2025-12-21T08:47:34+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251221-001",
+    "user_message": "Recommend a good book on system design",
+    "agent_response": "I recommend 'Designing Data-Intensive Applications' by Martin Kleppmann.",
+    "tags": [
+      "misc"
+    ]
+  },
+  {
+    "id": 149,
+    "timestamp": "2025-12-21T12:24:20+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251221-004",
+    "user_message": "Create a pivot table from the transaction data",
+    "agent_response": "Pivot table created with 12 rows (months) x 5 columns (product categories).",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 150,
+    "timestamp": "2025-12-21T12:48:53+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251221-007",
+    "user_message": "How does DNS resolution work?",
+    "agent_response": "DNS resolves domain names to IPs through recursive queries: browser cache → OS cache → DNS resolver...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 151,
+    "timestamp": "2025-12-21T12:53:05+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251221-008",
+    "user_message": "Help me write a command-line argument parser",
+    "agent_response": "Use argparse: create a parser, add arguments, then parse_args()...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 152,
+    "timestamp": "2025-12-21T15:20:21+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251221-007",
+    "user_message": "Search for the latest Python 3.13 release notes",
+    "agent_response": "Python 3.13 was released in October 2025 with improvements to the JIT compiler...",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 153,
+    "timestamp": "2025-12-22T09:05:17+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251222-001",
+    "user_message": "Check the new papers on arXiv about language models published recently",
+    "agent_response": "Here are the latest language model papers from arXiv: 1) 'Direct Preference Optimization' proposes... 2) Token-free language modeling...",
+    "tags": [
+      "paper",
+      "arxiv",
+      "LLM",
+      "weekly-review"
+    ]
+  },
+  {
+    "id": 154,
+    "timestamp": "2025-12-22T09:30:10+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251222-005",
+    "user_message": "Can you pull the latest changes from the main branch?",
+    "agent_response": "Pulled latest changes from main. 5 commits, no conflicts.",
+    "tags": [
+      "git"
+    ]
+  },
+  {
+    "id": 155,
+    "timestamp": "2025-12-22T11:12:53+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251222-001",
+    "user_message": "Find files containing 'TODO' comments",
+    "agent_response": "Found 'TODO' in 11 files across the project.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 156,
+    "timestamp": "2025-12-22T13:14:41+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251222-002",
+    "user_message": "What is the difference between REST and GraphQL?",
+    "agent_response": "REST uses fixed endpoints returning full resources; GraphQL uses a single endpoint with flexible queries...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 157,
+    "timestamp": "2025-12-22T17:09:15+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251222-003",
+    "user_message": "Explain the concept of database sharding",
+    "agent_response": "Sharding horizontally partitions data across multiple databases based on a shard key...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 158,
+    "timestamp": "2025-12-22T20:41:02+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251222-001",
+    "user_message": "Set a deadline reminder for the project proposal on Dec 20",
+    "agent_response": "Reminder set for December 20: Project Proposal Deadline.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 159,
+    "timestamp": "2025-12-23T09:37:01+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251223-005",
+    "user_message": "Find a 1-hour slot for a meeting with the design team this week",
+    "agent_response": "Available slots: Wednesday 1-2 PM, Thursday 3-4 PM, Friday 10-11 AM.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 160,
+    "timestamp": "2025-12-23T10:38:38+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251223-002",
+    "user_message": "What are the SOLID principles?",
+    "agent_response": "SOLID: Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, Dependency Inversion.",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 161,
+    "timestamp": "2025-12-23T15:42:07+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251223-004",
+    "user_message": "Can you explain Python descriptors?",
+    "agent_response": "Descriptors define __get__, __set__, or __delete__ to customize attribute access...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 162,
+    "timestamp": "2025-12-23T15:44:16+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251223-006",
+    "user_message": "Find duplicate files in the project",
+    "agent_response": "Found 4 sets of duplicate files totaling 230MB...",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 163,
+    "timestamp": "2025-12-23T20:52:10+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251223-005",
+    "user_message": "Check network connectivity to the database server",
+    "agent_response": "Ping to db.internal: 2.3ms avg, 0% packet loss. Port 5432: open.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 164,
+    "timestamp": "2025-12-24T09:44:49+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251224-005",
+    "user_message": "How do I create a REST API with Flask?",
+    "agent_response": "Use Flask's route decorators and jsonify for response formatting...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 165,
+    "timestamp": "2025-12-24T14:45:12+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251224-002",
+    "user_message": "Help me implement a retry mechanism with exponential backoff",
+    "agent_response": "Here's a decorator that retries with exponential backoff...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 166,
+    "timestamp": "2025-12-24T17:43:58+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251224-007",
+    "user_message": "Help me write a retrospective summary",
+    "agent_response": "Sprint 23 Retrospective: What went well: CI/CD improvements saved 2 hours/day...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 167,
+    "timestamp": "2025-12-24T17:44:53+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251224-004",
+    "user_message": "Check for failed login attempts",
+    "agent_response": "12 failed login attempts in the last 24 hours from 3 IP addresses.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 168,
+    "timestamp": "2025-12-25T08:54:26+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251225-008",
+    "user_message": "Convert 100 pounds to kilograms",
+    "agent_response": "100 pounds = 45.36 kilograms.",
+    "tags": [
+      "misc"
+    ]
+  },
+  {
+    "id": 169,
+    "timestamp": "2025-12-25T09:32:41+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251225-006",
+    "user_message": "Schedule a code review session for Friday at 2 PM",
+    "agent_response": "Code review session scheduled for Friday 2:00 PM.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 170,
+    "timestamp": "2025-12-25T13:34:27+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251225-006",
+    "user_message": "How do I implement pagination in Django?",
+    "agent_response": "Django provides built-in pagination with the Paginator class...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 171,
+    "timestamp": "2025-12-25T20:36:50+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251225-001",
+    "user_message": "Predict next month's revenue based on trends",
+    "agent_response": "Based on linear regression: predicted revenue ~$262K (95% CI: $245K-$279K).",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 172,
+    "timestamp": "2025-12-25T21:43:38+08:00",
+    "weekday": "Thursday",
+    "session_id": "sess-20251225-002",
+    "user_message": "Help me write a cover letter for this job",
+    "agent_response": "Dear Hiring Manager, I am writing to express my interest in the...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 173,
+    "timestamp": "2025-12-26T09:27:23+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251226-008",
+    "user_message": "Restart the nginx service",
+    "agent_response": "nginx service restarted successfully. Status: active (running).",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 174,
+    "timestamp": "2025-12-26T17:51:58+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251226-009",
+    "user_message": "Monitor the API response times",
+    "agent_response": "Average response time: 145ms. P95: 320ms. P99: 890ms.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 175,
+    "timestamp": "2025-12-26T19:09:27+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251226-003",
+    "user_message": "Install the latest version of Node.js",
+    "agent_response": "Node.js v20.10.0 installed successfully. npm v10.2.3 included.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 176,
+    "timestamp": "2025-12-26T19:33:41+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251226-005",
+    "user_message": "What's the best ORM for Python?",
+    "agent_response": "SQLAlchemy is the most popular and feature-rich ORM for Python...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 177,
+    "timestamp": "2025-12-26T20:30:29+08:00",
+    "weekday": "Friday",
+    "session_id": "sess-20251226-007",
+    "user_message": "What's the capital of Kazakhstan?",
+    "agent_response": "The capital of Kazakhstan is Astana (formerly Nur-Sultan, renamed back in 2022).",
+    "tags": [
+      "misc"
+    ]
+  },
+  {
+    "id": 178,
+    "timestamp": "2025-12-27T12:56:28+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251227-004",
+    "user_message": "Help me plan a team building activity",
+    "agent_response": "Some ideas: escape room, cooking class, outdoor scavenger hunt, hackathon...",
+    "tags": [
+      "misc"
+    ]
+  },
+  {
+    "id": 179,
+    "timestamp": "2025-12-27T13:54:15+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251227-002",
+    "user_message": "List all running Docker containers",
+    "agent_response": "5 containers running: web-app, postgres, redis, nginx, celery-worker.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 180,
+    "timestamp": "2025-12-27T20:29:36+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251227-007",
+    "user_message": "What's the best way to structure a Python project?",
+    "agent_response": "Use src layout with separate directories for source, tests, and docs...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 181,
+    "timestamp": "2025-12-27T21:46:37+08:00",
+    "weekday": "Saturday",
+    "session_id": "sess-20251227-005",
+    "user_message": "How do I handle file uploads in FastAPI?",
+    "agent_response": "Use UploadFile type in your endpoint parameters...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 182,
+    "timestamp": "2025-12-28T10:31:13+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251228-006",
+    "user_message": "Show me the system memory usage",
+    "agent_response": "Memory: 12.4GB used / 32GB total (39%). Swap: 0.5GB / 8GB.",
+    "tags": [
+      "sysadmin"
+    ]
+  },
+  {
+    "id": 183,
+    "timestamp": "2025-12-28T13:01:31+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251228-006",
+    "user_message": "Look up recent CVEs for Log4j",
+    "agent_response": "Latest Log4j CVE: CVE-2025-XXXX. Affected versions: 2.0-2.17.0. Patch available.",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 184,
+    "timestamp": "2025-12-28T16:00:33+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251228-004",
+    "user_message": "Can you help me debug this TypeError in my Flask app?",
+    "agent_response": "The TypeError is likely caused by passing a string where an integer is expected...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 185,
+    "timestamp": "2025-12-28T17:44:56+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251228-005",
+    "user_message": "Create a new directory called 'reports' in the project root",
+    "agent_response": "Directory 'reports' has been created successfully.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 186,
+    "timestamp": "2025-12-28T20:16:21+08:00",
+    "weekday": "Sunday",
+    "session_id": "sess-20251228-005",
+    "user_message": "What are some good podcasts about technology?",
+    "agent_response": "Recommended tech podcasts: Lex Fridman, Syntax, Changelog, Software Engineering Daily.",
+    "tags": [
+      "misc"
+    ]
+  },
+  {
+    "id": 187,
+    "timestamp": "2025-12-29T09:15:46+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251229-007",
+    "user_message": "Create a recurring weekly standup at 9:30 AM",
+    "agent_response": "Recurring standup created for every weekday at 9:30 AM.",
+    "tags": [
+      "scheduling"
+    ]
+  },
+  {
+    "id": 188,
+    "timestamp": "2025-12-29T09:20:15+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251229-001",
+    "user_message": "Any new LLM papers on arXiv this week? Please summarize the key ones",
+    "agent_response": "This week's arXiv highlights for LLM research: 1) Multi-modal language model advances... 2) Efficient inference techniques for large models...",
+    "tags": [
+      "paper",
+      "arxiv",
+      "LLM",
+      "weekly-review"
+    ]
+  },
+  {
+    "id": 189,
+    "timestamp": "2025-12-29T15:35:48+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251229-004",
+    "user_message": "Explain the difference between SQL and NoSQL databases",
+    "agent_response": "SQL databases use structured schemas and relations, while NoSQL offers flexible schemas...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 190,
+    "timestamp": "2025-12-29T15:50:01+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251229-002",
+    "user_message": "Sync local files with the remote server",
+    "agent_response": "Synced 23 files, 3 new, 5 modified, 15 unchanged.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 191,
+    "timestamp": "2025-12-29T19:30:41+08:00",
+    "weekday": "Monday",
+    "session_id": "sess-20251229-008",
+    "user_message": "Clean and normalize the messy dataset",
+    "agent_response": "Cleaned 2,340 rows: removed 45 duplicates, filled 123 nulls, normalized 5 columns.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 192,
+    "timestamp": "2025-12-30T12:14:25+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251230-004",
+    "user_message": "Calculate the average response time from the API logs",
+    "agent_response": "Average response time: 234ms. Median: 180ms. Std dev: 95ms.",
+    "tags": [
+      "data-analysis"
+    ]
+  },
+  {
+    "id": 193,
+    "timestamp": "2025-12-30T12:42:37+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251230-006",
+    "user_message": "Write a changelog entry for the latest release",
+    "agent_response": "## [2.4.1] - 2025-12-10\n### Fixed\n- Memory leak in connection pool...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 194,
+    "timestamp": "2025-12-30T13:44:29+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251230-005",
+    "user_message": "Create a symbolic link from config.yml to /etc/app/config.yml",
+    "agent_response": "Symbolic link created successfully.",
+    "tags": [
+      "file-ops"
+    ]
+  },
+  {
+    "id": 195,
+    "timestamp": "2025-12-30T14:47:35+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251230-006",
+    "user_message": "Explain the concept of idempotency in APIs",
+    "agent_response": "An idempotent operation produces the same result regardless of how many times it's called...",
+    "tags": [
+      "general-qa"
+    ]
+  },
+  {
+    "id": 196,
+    "timestamp": "2025-12-30T15:35:33+08:00",
+    "weekday": "Tuesday",
+    "session_id": "sess-20251230-006",
+    "user_message": "Search for PostgreSQL 17 new features",
+    "agent_response": "PostgreSQL 17 adds: incremental backups, JSON improvements, partition pruning enhancements...",
+    "tags": [
+      "web-search"
+    ]
+  },
+  {
+    "id": 197,
+    "timestamp": "2025-12-31T11:13:47+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251231-008",
+    "user_message": "Help me write a pull request description",
+    "agent_response": "PR Description: This PR refactors the authentication module to support...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 198,
+    "timestamp": "2025-12-31T12:16:14+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251231-002",
+    "user_message": "Write a user guide for the admin dashboard",
+    "agent_response": "Admin Dashboard Guide: 1. Login at admin.example.com 2. Navigate to...",
+    "tags": [
+      "writing"
+    ]
+  },
+  {
+    "id": 199,
+    "timestamp": "2025-12-31T19:12:20+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251231-002",
+    "user_message": "What's the best way to parse JSON in Python?",
+    "agent_response": "Use the json module: json.loads() for strings, json.load() for files...",
+    "tags": [
+      "code"
+    ]
+  },
+  {
+    "id": 200,
+    "timestamp": "2025-12-31T19:34:48+08:00",
+    "weekday": "Wednesday",
+    "session_id": "sess-20251231-003",
+    "user_message": "Explain how Git branching strategies work",
+    "agent_response": "Common strategies: Git Flow (develop/release branches), GitHub Flow (feature branches off main)...",
+    "tags": [
+      "general-qa"
+    ]
+  }
+]

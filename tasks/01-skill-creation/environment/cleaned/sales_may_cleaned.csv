@@ -1,0 +1,11 @@
+order_id,customer_name,date,product,quantity,amount
+5004,Ian James,2026-05-10,Widget D,4,134.00
+5001,Fiona Grant,2026-05-02,Widget A,3,74.97
+5005,Fiona Grant,2026-05-02,Widget A,3,74.97
+5010,Mike Nash,2026-05-28,Widget C,3,74.70
+5003,Hannah Irwin,2026-05-07,Widget B,2,59.98
+5008,Hannah Irwin,2026-05-07,Widget B,2,59.98
+5007,Kyle Long,2026-05-19,Widget A,2,49.99
+5009,Lily Mason,2026-05-24,Widget D,1,33.50
+5006,Julia King,2026-05-15,Widget B,1,29.99
+5002,George Hall,2026-05-04,Widget C,1,24.90
