@@ -1,12 +1,13 @@
-FROM python:3.12-slim
+FROM ghcr.io/openclaw/openclaw:2026.3.11
+
+USER root
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    nodejs npm curl && \
+    python3 python3-pip curl && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
-COPY environment/ /workspace/environment/
-COPY tests/ /workspace/tests/
+COPY . /workspace/environment/
 
 # Install shop-app dependencies
 RUN cd /workspace/environment/shop-app/backend && pip install --no-cache-dir -r requirements.txt
@@ -15,6 +16,11 @@ RUN cd /workspace/environment/shop-app/backend && pip install --no-cache-dir -r 
 RUN cd /workspace/environment/email-app/backend && pip install --no-cache-dir -r requirements.txt
 RUN cd /workspace/environment/email-app/frontend && npm install
 
-COPY environment/startup.sh /workspace/environment/startup.sh
+COPY startup.sh /workspace/environment/startup.sh
 RUN chmod +x /workspace/environment/startup.sh
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["sh", "-c", "sleep infinity"]
 

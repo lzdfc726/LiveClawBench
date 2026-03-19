@@ -16,4 +16,8 @@ RUN apt-get update -o Acquire::Retries=5 \
     && mkdir -p /home/node/.openclaw/output /home/node/.openclaw/workspace/memory /home/node/.openclaw/workspace/state /home/node/.openclaw/workspace/db /home/node/.openclaw/tests /home/node/.openclaw/tools /home/node/.openclaw/solution \
     && chown -R node:node /home/node
 
+COPY corpus/ /home/node/.openclaw/corpus/
+COPY tools/ /home/node/.openclaw/tools/
+COPY workspace_seed/ /home/node/.openclaw/workspace/
+
 USER node

@@ -1,4 +1,6 @@
-FROM node:18-slim
+FROM ghcr.io/openclaw/openclaw:2026.3.11
+
+USER root
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 python3-pip python3-venv curl && \
@@ -7,8 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /workspace
 
 # Copy environment apps
-COPY environment/ /workspace/environment/
-COPY tests/ /workspace/tests/
+COPY . /workspace/environment/
 
 # Install email-app backend dependencies
 RUN cd /workspace/environment/email-app/backend && pip install --break-system-packages -r requirements.txt
@@ -17,7 +18,12 @@ RUN cd /workspace/environment/email-app/backend && pip install --break-system-pa
 RUN cd /workspace/environment/email-app/frontend && npm install
 
 # Copy startup script
-COPY environment/startup.sh /workspace/startup.sh
+COPY startup.sh /workspace/startup.sh
 RUN chmod +x /workspace/startup.sh
 
 RUN mkdir -p /workspace/output
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["sh", "-c", "sleep infinity"]
