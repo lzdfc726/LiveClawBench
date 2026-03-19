@@ -1,0 +1,1 @@
+I just arrived in LAX by plane, and I've been waiting a long time for my luggage, but I see that other passengers on my flight have already received theirs. Could you please help me register my luggage as lost on the GKD Airlines website (http://localhost:5173/, open it in browser)? My luggage is a 20-inch black rolling suitcase. Please notify me after you've registered it.
