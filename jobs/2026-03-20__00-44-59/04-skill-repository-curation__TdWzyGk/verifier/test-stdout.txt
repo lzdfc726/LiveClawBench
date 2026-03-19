@@ -1,0 +1,4 @@
+usage: evaluate.py [-h] --base-dir BASE_DIR --model-output MODEL_OUTPUT
+                   [--conversation-log CONVERSATION_LOG]
+                   [--output-json OUTPUT_JSON]
+evaluate.py: error: the following arguments are required: --base-dir

@@ -2,10 +2,10 @@
 
 ## Adding a New Task
 
-Each task must follow the Harbor format. Create a directory under `tasks/<id>-<task-name>/`:
+Each task must follow the Harbor format. Create a directory under `tasks/<task-name>/`:
 
 ```
-tasks/<id>-<task-name>/
+tasks/<task-name>/
 ├── task.toml          # Required: metadata & resource config
 ├── instruction.md     # Required: agent-facing task description
 ├── environment/
@@ -18,9 +18,8 @@ tasks/<id>-<task-name>/
 
 ### Naming Convention
 
-- Format: `<zero-padded-id>-<semantic-name>` (e.g., `09-flight-seat-selection`)
-- ID is a two-digit zero-padded integer, assigned sequentially
-- Semantic name uses kebab-case derived from the task's logical name
+- Format: `<semantic-name>` (e.g., `flight-seat-selection`)
+- Use kebab-case derived from the task's logical name
 
 ### task.toml Template
 
@@ -71,7 +70,7 @@ python scripts/validate_tasks.py
 
 The validator checks:
 - All four required files are present
-- Directory name matches `##-kebab-case` pattern
+- Directory name matches `kebab-case` pattern
 - TOML content: version, metadata fields (difficulty, case_id, domain), required sections
 - case_id uniqueness across all tasks
 - Stub detection warnings (short instruction.md, echo-only test.sh, missing solve.sh)

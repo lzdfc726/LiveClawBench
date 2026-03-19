@@ -1,0 +1,50 @@
+{
+    "task": {
+        "path": "../LiveClawBench/tasks/01-skill-creation",
+        "git_url": null,
+        "git_commit_id": null,
+        "overwrite": false,
+        "download_dir": null,
+        "source": null
+    },
+    "trial_name": "01-skill-creation__mHy45N4",
+    "trials_dir": "../LiveClawBench/jobs/2026-03-19__23-52-55",
+    "timeout_multiplier": 2.0,
+    "agent_timeout_multiplier": null,
+    "verifier_timeout_multiplier": null,
+    "agent_setup_timeout_multiplier": null,
+    "environment_build_timeout_multiplier": null,
+    "agent": {
+        "name": "openclaw",
+        "import_path": null,
+        "model_name": "volcengine-plan/kimi-k2-5-260127",
+        "override_timeout_sec": null,
+        "override_setup_timeout_sec": null,
+        "max_timeout_sec": null,
+        "kwargs": {},
+        "env": {
+            "VOLCANO_ENGINE_API_KEY": "50106bfe-c1be-49a2-ba5a-40cda9f9e38b"
+        }
+    },
+    "environment": {
+        "type": "docker",
+        "import_path": null,
+        "force_build": false,
+        "delete": true,
+        "override_cpus": null,
+        "override_memory_mb": null,
+        "override_storage_mb": null,
+        "override_gpus": null,
+        "suppress_override_warnings": false,
+        "mounts_json": null,
+        "env": {},
+        "kwargs": {}
+    },
+    "verifier": {
+        "override_timeout_sec": null,
+        "max_timeout_sec": null,
+        "disable": false
+    },
+    "artifacts": [],
+    "job_id": "58dcfa12-35bf-4249-8743-aebbe900bd2d"
+}

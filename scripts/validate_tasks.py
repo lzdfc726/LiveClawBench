@@ -21,7 +21,7 @@ REQUIRED_FILES = [
     "tests/test.sh",
 ]
 VALID_DIFFICULTIES = {"easy", "medium", "hard"}
-DIR_NAME_PATTERN = re.compile(r"^\d{2}-[a-z0-9-]+$")
+DIR_NAME_PATTERN = re.compile(r"^[a-z0-9-]+$")
 
 
 def validate_task(task_dir: Path) -> tuple[list[str], list[str]]:

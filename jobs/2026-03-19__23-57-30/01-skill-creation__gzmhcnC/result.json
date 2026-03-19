@@ -1,0 +1,101 @@
+{
+    "id": "077a9fc8-febb-43b6-8a2e-59799c6d4885",
+    "task_name": "01-skill-creation",
+    "trial_name": "01-skill-creation__gzmhcnC",
+    "trial_uri": "file:///Users/swordfaith/Documents/workspace/ClawBench/LiveClawBench/jobs/2026-03-19__23-57-30/01-skill-creation__gzmhcnC",
+    "task_id": {
+        "path": "../LiveClawBench/tasks/01-skill-creation"
+    },
+    "source": null,
+    "task_checksum": "17f4d04b18b4d0ebcb72f702ce5fb4bafc0deee0636d7088e5b631d394ed8653",
+    "config": {
+        "task": {
+            "path": "../LiveClawBench/tasks/01-skill-creation",
+            "git_url": null,
+            "git_commit_id": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "01-skill-creation__gzmhcnC",
+        "trials_dir": "../LiveClawBench/jobs/2026-03-19__23-57-30",
+        "timeout_multiplier": 2.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "openclaw",
+            "import_path": null,
+            "model_name": "volcengine-plan/kimi-k2.5",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {
+                "VOLCANO_ENGINE_API_KEY": "50106bfe-c1be-49a2-ba5a-40cda9f9e38b"
+            }
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "ca672a67-0fd4-4fe0-b2e0-0f564070218e"
+    },
+    "agent_info": {
+        "name": "openclaw",
+        "version": "2026.3.11",
+        "model_info": {
+            "name": "kimi-k2.5",
+            "provider": "volcengine-plan"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-03-19T15:57:30.933971Z",
+    "finished_at": "2026-03-19T15:58:08.163615Z",
+    "environment_setup": {
+        "started_at": "2026-03-19T15:57:30.937506Z",
+        "finished_at": "2026-03-19T15:57:34.230135Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-03-19T15:57:34.230267Z",
+        "finished_at": "2026-03-19T15:57:34.891475Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-03-19T15:57:34.891618Z",
+        "finished_at": "2026-03-19T15:57:56.879148Z"
+    },
+    "verifier": {
+        "started_at": "2026-03-19T15:57:56.879383Z",
+        "finished_at": "2026-03-19T15:57:57.419987Z"
+    }
+}

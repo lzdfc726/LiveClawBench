@@ -25,7 +25,7 @@ cd LiveClawBench
 harbor datasets list --registry-path registry.json
 
 # Run a single task
-harbor run --path tasks/ --task-name 09-flight-seat-selection --agent openclaw --model anthropic/claude-opus-4-6
+harbor run --path tasks/ --task-name flight-seat-selection --agent openclaw --model anthropic/claude-opus-4-6
 
 # Run the full benchmark
 harbor run --dataset liveclawbench@1.0 --registry-path registry.json --agent openclaw --model anthropic/claude-opus-4-6

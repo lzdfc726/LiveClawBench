@@ -1,0 +1,4 @@
+[diagnostic] lane task error: lane=main durationMs=308 error="FailoverError: Unknown model: volcengine-plan/kimi-k2-5-260127"
+[diagnostic] lane task error: lane=session:harbor durationMs=322 error="FailoverError: Unknown model: volcengine-plan/kimi-k2-5-260127"
+[model-fallback/decision] model fallback decision: decision=candidate_failed requested=volcengine-plan/kimi-k2-5-260127 candidate=volcengine-plan/kimi-k2-5-260127 reason=model_not_found next=none
+FailoverError: Unknown model: volcengine-plan/kimi-k2-5-260127

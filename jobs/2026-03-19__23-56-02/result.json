@@ -1,0 +1,33 @@
+{
+    "id": "a8f82957-7d0a-480f-a35b-3d94e5f166e4",
+    "started_at": "2026-03-19T23:56:02.455955",
+    "finished_at": "2026-03-19T23:56:19.894416",
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 1,
+        "evals": {
+            "openclaw__kimi-k2-5-260127__adhoc": {
+                "n_trials": 1,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "01-skill-creation__FGKB3WA"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "NonZeroAgentExitCodeError": [
+                        "01-skill-creation__FGKB3WA"
+                    ]
+                }
+            }
+        }
+    }
+}

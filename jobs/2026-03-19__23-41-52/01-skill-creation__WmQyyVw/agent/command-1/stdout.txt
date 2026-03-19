@@ -1,0 +1,4 @@
+[diagnostic] lane task error: lane=main durationMs=442 error="FailoverError: Unknown model: openai/kimi-k2.5"
+[diagnostic] lane task error: lane=session:harbor durationMs=460 error="FailoverError: Unknown model: openai/kimi-k2.5"
+[model-fallback/decision] model fallback decision: decision=candidate_failed requested=openai/kimi-k2.5 candidate=openai/kimi-k2.5 reason=model_not_found next=none
+FailoverError: Unknown model: openai/kimi-k2.5

@@ -1,0 +1,29 @@
+{
+    "id": "ca672a67-0fd4-4fe0-b2e0-0f564070218e",
+    "started_at": "2026-03-19T23:57:30.932302",
+    "finished_at": "2026-03-19T23:58:08.177983",
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 0,
+        "evals": {
+            "openclaw__kimi-k2.5__adhoc": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "01-skill-creation__gzmhcnC"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}
