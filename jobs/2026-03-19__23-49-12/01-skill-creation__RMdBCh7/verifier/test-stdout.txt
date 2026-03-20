@@ -1,8 +1,0 @@
-============================================================
-  OpenClaw Benchmark Case 1 — Evaluation Results
-============================================================
-  [FAIL] SKILL_CREATION
-         No SKILL.md found
-============================================================
-
-Score report written to: /workspace/output/eval_result.json
