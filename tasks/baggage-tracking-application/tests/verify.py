@@ -2,18 +2,18 @@
 """Verify baggage-tracking-application: check lost baggage registered"""
 import sys
 sys.path.insert(0, "/workspace/environment/airline-app/backend")
-from app import create_app, db
-from models import BaggageClaim
+from app import create_app
+from app.models.baggage import BaggageTracking
 
 app = create_app()
 
 def check():
     with app.app_context():
-        claim = BaggageClaim.query.first()
-        if claim:
-            print(f"PASS: Found baggage claim (id: {claim.id})")
+        report = BaggageTracking.query.first()
+        if report:
+            print(f"PASS: Found baggage tracking report (id: {report.id})")
             return 1.0
-        print("FAIL: No baggage claim found")
+        print("FAIL: No baggage tracking report found")
         return 0.0
 
 score = check()
