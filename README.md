@@ -2,7 +2,7 @@
 
 > Benchmarking LLM Agents on Complex, Real-World Assistant Tasks
 
-[![Paper](https://img.shields.io/badge/Paper-arXiv%20Submitted-orange)](https://arxiv.org/abs/TODO)
+[![Paper](https://img.shields.io/badge/Paper-Preprint-orange)](https://github.com/Mosi-AI/LiveClawBench/releases/download/v0.1-preprint/LiveClawBench.pdf)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 [![Tasks](https://img.shields.io/badge/Tasks-29-green)](tasks/)
 
@@ -22,7 +22,7 @@ annotations, controlled pairs, deterministic mock environments, and outcome-driv
 > Automated evaluation harness standardization is in progress — full automated testing support expected **week of March 24**.
 > Leaderboard, agent trajectories, and an updated preprint will follow **week of March 31**.
 
-**Paper**: [LiveClawBench: Benchmarking LLM Agents on Complex, Real-World Assistant Tasks](https://arxiv.org/abs/TODO) — arXiv preprint
+**Paper**: [LiveClawBench: Benchmarking LLM Agents on Complex, Real-World Assistant Tasks](https://github.com/Mosi-AI/LiveClawBench/releases/download/v0.1-preprint/LiveClawBench.pdf) — arXiv preprint (submission in progress)
 
 ## Triple-Axis Complexity Framework
 
