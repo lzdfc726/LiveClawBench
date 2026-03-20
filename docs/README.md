@@ -24,6 +24,12 @@ Core question: when real assistant tasks stack multiple complexity factors (envi
 | [`cases/personal_knowledge_base.md`](cases/personal_knowledge_base.md) | 5 PKB cases |
 | [`cases/coding_devops.md`](cases/coding_devops.md) | 4 coding & devops cases |
 
+## Evaluation & Operations
+
+| File | Content |
+|------|---------|
+| [`running-tasks.md`](running-tasks.md) | How to configure API keys, models, and run individual tasks with Harbor |
+
 ## Benchmark Documents
 
 | File | Content |

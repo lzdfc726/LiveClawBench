@@ -3,3 +3,7 @@ __pycache__/
 .DS_Store
 *.egg-info/
 .env
+
+# Harbor evaluation run artifacts (logs, trajectories, scores)
+jobs/*
+!jobs/.gitkeep
