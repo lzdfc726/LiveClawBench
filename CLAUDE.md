@@ -2,9 +2,124 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Overview
+## Project Overview
 
-This is the task corpus for ClawBench — 29 harbor-format benchmark tasks evaluating LLM agents on real-world assistant scenarios. The parent `CLAUDE.md` (one level up) covers the full project architecture including Harbor framework and OpenClaw adapter.
+**LiveClawBench** is a benchmark suite for evaluating LLM agents on complex, real-world assistant
+tasks. The core scientific question: how does agent capability degrade when tasks stack multiple
+complexity factors along three axes (Environment Complexity, Cognitive Demand, Runtime Adaptability)?
+
+### Three-Repo Architecture
+
+| Repository | Role | URL |
+|---|---|---|
+| **LiveClawBench** (this repo) | Task corpus — 29 harbor-format benchmark tasks | — |
+| **claw-harbor** | Evaluation framework (fork of harbor with OpenClaw support) | https://github.com/Mosi-AI/claw-harbor |
+| **OpenClaw** | Agent platform running inside task containers | https://github.com/openclaw/openclaw |
+
+The agent under evaluation is **OpenClaw**. Harbor orchestrates Docker containers, launches the
+OpenClaw agent inside each container, and verifies the result. LiveClawBench provides the tasks.
+
+## Setup
+
+### Quick Setup (recommended)
+
+```bash
+# From the LiveClawBench/ directory:
+./setup.sh
+```
+
+`setup.sh` will:
+1. Check prerequisites (git, uv, Docker, Python ≥ 3.12)
+2. Create a local `.venv` and install `harbor` from the claw-harbor GitHub URL
+3. Copy `.env.example` → `.env` for API key configuration
+
+Then activate the venv before running any `harbor` commands:
+
+```bash
+source .venv/bin/activate
+```
+
+### Manual Setup
+
+```bash
+uv venv .venv
+source .venv/bin/activate
+uv pip install "harbor @ git+https://github.com/Mosi-AI/claw-harbor.git"
+```
+
+### API Key Configuration
+
+Edit `.env` and uncomment the block for your provider. Keys are injected at runtime via `--ae`:
+
+| Provider | Model format | Key env var |
+|---|---|---|
+| VolcEngine | `volcengine/` or `volcengine-plan/<model-id>` | `VOLCANO_ENGINE_API_KEY` |
+| Anthropic | `anthropic/<model-id>` | `ANTHROPIC_API_KEY` |
+| OpenAI | `openai/<model-id>` | `OPENAI_API_KEY` |
+| Gemini | `gemini/<model-id>` | `GEMINI_API_KEY` |
+| Any OpenAI-compatible | `custom/<model-id>` | `CUSTOM_API_KEY` + `CUSTOM_BASE_URL` |
+
+## Running Tasks
+
+### Single Task
+
+```bash
+# Activate venv first (or prefix with .venv/bin/harbor)
+source .venv/bin/activate
+
+# Generic form — works with any OpenAI-compatible endpoint
+harbor run -p tasks/<task-name> -a openclaw \
+  -m custom/<YOUR_MODEL_ID> \
+  -n 1 -o jobs \
+  --ae CUSTOM_BASE_URL="<YOUR_BASE_URL>" \
+  --ae CUSTOM_API_KEY="<YOUR_API_KEY>" \
+  --timeout-multiplier 2.0 --debug
+
+# Example: VolcEngine (explicitly registered in the openclaw adapter)
+harbor run -p tasks/watch-shop -a openclaw \
+  -m volcengine-plan/kimi-k2.5 \
+  -n 1 -o jobs \
+  --ae VOLCANO_ENGINE_API_KEY="$VOLCANO_ENGINE_API_KEY" \
+  --debug
+```
+
+### Full Dataset
+
+```bash
+# Generic form
+harbor run --dataset liveclawbench@1.0 -a openclaw \
+  -m custom/<YOUR_MODEL_ID> \
+  --n-concurrent 4 \
+  -o jobs \
+  --ae CUSTOM_BASE_URL="<YOUR_BASE_URL>" \
+  --ae CUSTOM_API_KEY="<YOUR_API_KEY>"
+
+# Example: Anthropic
+harbor run --dataset liveclawbench@1.0 -a openclaw \
+  -m anthropic/claude-opus-4-1 \
+  --n-concurrent 4 \
+  --ae ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY"
+```
+
+### Check Results
+
+```bash
+cat jobs/*/logs/verifier/reward.txt   # 1.0 = solved, 0.5 = partial credit
+```
+
+### Common Flags
+
+| Flag | Purpose |
+|---|---|
+| `-p tasks/<name>` | Run a specific task directory |
+| `-a openclaw` | Use OpenClaw as the agent |
+| `-m <provider>/<model>` | Model to evaluate |
+| `-n <int>` | Number of attempts per task |
+| `-o jobs` | Output directory for job results |
+| `--ae KEY=VALUE` | Pass environment variable into the agent container |
+| `--timeout-multiplier 2.0` | Scale all `task.toml` timeouts (useful for hard tasks) |
+| `--debug` | Verbose logging |
+| `--n-concurrent <int>` | Parallel task execution |
 
 ## Task List
 
@@ -53,12 +168,27 @@ tasks/<task-name>/
 │   └── solve.sh        # Reference solution
 └── tests/
     ├── test.sh         # Extracts score from verify.py output → /logs/verifier/reward.txt
-    └── verify.py       # Scoring logic (scoring files vary by task — see docs/reference/task-format.md)
+    └── verify.py       # Scoring logic (varies by task — see docs/reference/task-format.md)
 ```
 
 ## Scoring Convention
 
-Tasks use one of three evaluation patterns (verify.py, evaluate.py, or LLM judge); all write a scalar 0.0–1.0 score to `/logs/verifier/reward.txt`. The most common pattern is `verify.py` which prints `Score: X.X/1.0` with partial credit. See `docs/reference/task-format.md` for details on all three patterns.
+Tasks use one of three evaluation patterns (verify.py, evaluate.py, or LLM judge); all write a
+scalar 0.0–1.0 score to `/logs/verifier/reward.txt`. The most common pattern is `verify.py`
+which prints `Score: X.X/1.0` with partial credit. See `docs/reference/task-format.md` for
+details on all three patterns.
+
+## Triple-Axis Complexity Framework
+
+Tasks are annotated along three axes. See `docs/reference/complexity-framework.md` for the full
+factor annotation table and controlled pair definitions.
+
+- **A1 — Cross-Service Dependency**: Task requires coordinating across multiple services
+- **A2 — Contaminated Initial State**: Environment starts in a broken/corrupt state
+- **B1 — Implicit Goal Resolution**: Goal is not explicit; agent must infer constraints
+- **B2 — Knowledge System Maintenance**: Task involves managing a persistent skill/knowledge repo
+
+Each `task.toml` encodes which factors apply (`factor_a1 = 1`, etc.).
 
 ## Adding a New Task
 
@@ -67,16 +197,30 @@ Tasks use one of three evaluation patterns (verify.py, evaluate.py, or LLM judge
 3. Set complexity factors (`factor_a1`, `factor_a2`, `factor_b1`, `factor_b2`) per the triple-axis framework
 4. Base Dockerfile on `ghcr.io/openclaw/openclaw:2026.3.11`
 5. `verify.py` must print `Score: X.X/1.0` and exit non-zero if score < 0.5
+6. Check `docs/metadata/cases_registry.csv` for the next available `case_id`
 
-## Running a Single Task
+## Validation & Tooling
 
 ```bash
-# From harbor/ directory
-harbor run -p ../LiveClawBench/tasks/<task-name> -a openclaw \
-  -m volcengine-plan/kimi-k2.5 -n 1 -o ../LiveClawBench/jobs \
-  --ae VOLCANO_ENGINE_API_KEY="$OPENAI_API_KEY" --timeout-multiplier 2.0 --debug
+python scripts/validate_tasks.py       # validates all tasks (required files, TOML fields, case_id uniqueness)
+python scripts/validate_annotations.py # cross-checks factor annotations across task.toml / complexity-framework.md / cases_registry.csv
 ```
+
+- `capability_dimension` field is deprecated — `validate_tasks.py` flags it as an error; do not add to new tasks
+
+## Ground Truth Numbers (verified from task.toml)
+
+29 implemented tasks: A1=10, A2=6, B1=4, B2=10. Including planned `skill-combination` (case_id=30): B2=11.
+Difficulty: Easy=10, Medium=9, Hard=10 (Medium becomes 10 when skill-combination is implemented).
 
 ## Known Issues
 
 - Tasks with `factor_a1=1` (Cross-Service Dependency) involve multiple running services in the same container — check Dockerfile for service startup scripts
+- The OpenClaw agent process does not auto-exit after completing its turns; harbor's agent timeout terminates it
+- `openclaw --timeout` is an idle timeout and will not fire while the agent is actively processing
+
+## Notes for Claude Code
+
+- Always `Read` a file before `Write`; the Write tool rejects edits to unread files
+- `docs/guide/` uses `custom/<MODEL>` + `CUSTOM_BASE_URL`/`CUSTOM_API_KEY` as the canonical provider-agnostic pattern — keep examples in this file consistent with that style
+- harbor CLI lives in `.venv/bin/harbor` (local venv, not global); activate with `source .venv/bin/activate` or invoke directly as `.venv/bin/harbor`

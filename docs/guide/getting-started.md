@@ -27,18 +27,13 @@ The script performs three steps:
 
 1. **Prerequisite checks** — verifies git, uv, Docker, and Python ≥ 3.12 are available. Exits with an error and install hint if any are missing.
 
-2. **Harbor installation** — clones `claw-harbor` into `../harbor/` (sibling of `LiveClawBench/`) if not already present, then installs the `harbor` CLI via `uv tool install`. This step is idempotent: running `setup.sh` a second time skips the clone.
+2. **Harbor installation** — creates a local `.venv` inside `LiveClawBench/` and installs the
+   `harbor` CLI directly from the [claw-harbor](https://github.com/Mosi-AI/claw-harbor) GitHub
+   URL. This step is idempotent: running `setup.sh` a second time skips venv creation if `.venv`
+   already exists.
 
-3. **.env setup** — copies `.env.example` to `.env` if `.env` does not exist. If `.env` already exists, the script reminds you to diff against the template for new variables.
-
-### PATH note
-
-`uv tool install` puts the `harbor` binary in uv's tool bin directory. If `harbor` is not found after setup, add it to your PATH:
-
-```bash
-export PATH="$(uv tool bin-dir):$PATH"
-# Add this line to ~/.zshrc or ~/.bashrc for persistence
-```
+3. **.env setup** — copies `.env.example` to `.env` if `.env` does not exist. If `.env` already
+   exists, the script reminds you to diff against the template for new variables.
 
 ## Editing `.env`
 
@@ -70,9 +65,10 @@ All keys are injected into the agent container via `--ae KEY="$KEY"` at run time
 
 ## Verifying Setup
 
-Check the harbor CLI is installed:
+Activate the venv, then check the harbor CLI is installed:
 
 ```bash
+source .venv/bin/activate
 harbor --version
 ```
 
@@ -109,13 +105,14 @@ A value of `1.0` means the task was solved. `0.5` means partial credit.
 ## Troubleshooting
 
 **`harbor: command not found`**
-Run `export PATH="$(uv tool bin-dir):$PATH"` and retry. For persistence, add to your shell profile.
+Activate the virtual environment first: `source .venv/bin/activate`. Alternatively, run harbor
+directly via `.venv/bin/harbor`.
 
 **`Cannot connect to the Docker daemon`**
 Start Docker Desktop (macOS/Windows) or run `sudo systemctl start docker` (Linux).
 
 **`Error: API key not found` / `401 Unauthorized`**
-Check that you passed `--ae KEY="$KEY"` on the command line and that the env var is set in your shell (`echo $VOLCANO_ENGINE_API_KEY`).
+Check that you passed `--ae KEY="$KEY"` on the command line and that the env var is set in your shell (e.g. `echo $CUSTOM_API_KEY` or `echo $VOLCANO_ENGINE_API_KEY`).
 
 **`allow_internet` errors**
 If a task needs to call external APIs but fails, check `task.toml` — `allow_internet = true` must be set under `[environment]`. All OpenClaw tasks already have this set.

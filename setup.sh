@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-# setup.sh — LiveClawBench development environment setup
+# setup.sh — LiveClawBench environment setup
 # Run from the LiveClawBench/ directory.
 set -euo pipefail
 
 HARBOR_REPO_URL="https://github.com/Mosi-AI/claw-harbor.git"
-HARBOR_DIR="$(cd "$(dirname "$0")/.." && pwd)/harbor"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+VENV_DIR="$SCRIPT_DIR/.venv"
 
 echo "==> LiveClawBench Setup"
 echo ""
@@ -25,8 +26,8 @@ check_cmd() {
     echo "  OK  $cmd ($(command -v "$cmd"))"
 }
 
-check_cmd git   "Install from https://git-scm.com/downloads"
-check_cmd uv    "Install from https://docs.astral.sh/uv/getting-started/installation/"
+check_cmd git    "Install from https://git-scm.com/downloads"
+check_cmd uv     "Install from https://docs.astral.sh/uv/getting-started/installation/"
 check_cmd docker "Install from https://docs.docker.com/get-docker/"
 
 # Python >= 3.12 check (uv manages Python, but verify host has one accessible)
@@ -43,29 +44,27 @@ echo "  OK  python3 ($PY_VERSION)"
 echo ""
 
 # ---------------------------------------------------------------------------
-# Step 2: Harbor installation (idempotent)
+# Step 2: Harbor installation into local .venv (idempotent)
 # ---------------------------------------------------------------------------
 echo "[2/3] Setting up Harbor framework..."
 
-if [ ! -d "$HARBOR_DIR" ]; then
-    echo "  Cloning Harbor into $HARBOR_DIR ..."
-    git clone "$HARBOR_REPO_URL" "$HARBOR_DIR"
+if [ ! -d "$VENV_DIR" ]; then
+    echo "  Creating virtual environment at .venv ..."
+    uv venv "$VENV_DIR" --quiet
 else
-    echo "  Harbor repo found at $HARBOR_DIR — skipping clone."
+    echo "  Virtual environment .venv already exists — skipping creation."
 fi
 
-echo "  Installing harbor CLI via uv tool..."
-(cd "$HARBOR_DIR" && uv tool install -e . --quiet)
+echo "  Installing harbor CLI from $HARBOR_REPO_URL ..."
+uv pip install --quiet --python "$VENV_DIR/bin/python" "harbor @ git+${HARBOR_REPO_URL}"
 
-if ! command -v harbor &>/dev/null; then
-    echo ""
-    echo "  WARNING: 'harbor' not found on PATH after install."
-    echo "  The uv tool bin dir may not be in your PATH."
-    echo "  Run:  export PATH=\"\$(uv tool bin-dir):\$PATH\""
-    echo "  Or add the above to your shell profile (~/.zshrc, ~/.bashrc)."
-else
-    echo "  harbor CLI: $(harbor --version 2>&1 | head -1)"
+HARBOR_BIN="$VENV_DIR/bin/harbor"
+if [ ! -f "$HARBOR_BIN" ]; then
+    echo "  ERROR: harbor binary not found at $HARBOR_BIN after install."
+    echo "         Please check your network connection and retry."
+    exit 1
 fi
+echo "  harbor CLI: $("$HARBOR_BIN" --version 2>&1 | head -1)"
 
 echo ""
 
@@ -73,8 +72,6 @@ echo ""
 # Step 3: .env setup
 # ---------------------------------------------------------------------------
 echo "[3/3] Configuring .env..."
-
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 if [ ! -f "$SCRIPT_DIR/.env" ]; then
     cp "$SCRIPT_DIR/.env.example" "$SCRIPT_DIR/.env"
@@ -97,9 +94,13 @@ echo "  Setup complete!"
 echo ""
 echo "  Next steps:"
 echo "    1. Edit .env with your API credentials"
-echo "    2. See docs/guide/getting-started.md for usage details"
+echo "    2. Activate the virtual environment:"
+echo "       source .venv/bin/activate"
 echo "    3. Run your first task:"
 echo "       harbor run -p tasks/watch-shop -a openclaw \\"
 echo "         -m volcengine-plan/kimi-k2.5 -n 1 -o jobs \\"
 echo "         --ae VOLCANO_ENGINE_API_KEY=\"\$VOLCANO_ENGINE_API_KEY\""
+echo ""
+echo "  Or run harbor directly without activating the venv:"
+echo "       .venv/bin/harbor run -p tasks/watch-shop ..."
 echo "================================================================"
