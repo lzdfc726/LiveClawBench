@@ -10,7 +10,7 @@ LiveClawBench evaluates LLM agents on realistic, multi-step assistant tasks usin
 
 ## Overview
 
-![LiveClawBench Overview](assets/LiveCodeBench_Overview.jpg)
+![LiveClawBench Overview](assets/LiveClawBench_Overview.jpg)
 
 LLM agents are increasingly expected to handle real-world assistant tasks, yet existing
 benchmarks evaluate them under isolated difficulty sources. LiveClawBench addresses this
@@ -86,7 +86,7 @@ Complexity factors: A1 Cross-Service Dependency (10), A2 Contaminated State (6),
 
 ## Case Study
 
-![Case Study: Flight Cancellation Claim](assets/LiveCodeBench_case1.jpg)
+![Case Study: Flight Cancellation Claim](assets/LiveClawBench_case1.jpg)
 
 **Task**: `flight-cancel-claim` (Hard · A1 + B1) — The agent must scan an inbox for a
 flight cancellation notice, verify the cancellation, locate the compensation policy, collect

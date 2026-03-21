@@ -23,11 +23,11 @@ Each task follows this standardised directory layout:
 
 **File responsibilities:**
 
-- `task.toml` — declares task metadata (difficulty, domain, capability dimension) and resource config (CPU, memory, timeouts)
+- `task.toml` — declares task metadata (difficulty, domain, complexity factors) and resource config (CPU, memory, timeouts)
 - `instruction.md` — the task description shown to the agent, simulating a user's natural language request
 - `Dockerfile` — builds the task runtime environment, including mock service startup, database init, and dependency installation
 - `solve.sh` — reference solution script used to verify task solvability (not exposed to the agent)
-- `test.sh` — verification script that checks environment state after agent execution
+- `test.sh` — verification entry point; scoring files vary by task (see [Evaluation Patterns](#evaluation-patterns) below)
 
 ---
 
@@ -37,11 +37,20 @@ Each task follows this standardised directory layout:
 version = "1.0"
 
 [metadata]
-difficulty = "medium"                    # easy | medium | hard
+difficulty = "medium"          # easy | medium | hard
 category = "open-world"
-tags = ["cross-env", "email", "airline"]
-capability_dimension = "cross_environment_composition"
+tags = ["e-commerce_daily_svcs", "communication_email"]
+
 domain = "E-commerce & Daily Svcs"
+domains_multi = ["E-commerce & Daily Svcs", "Communication & Email"]
+
+# Triple-Axis Complexity Factors (0 = absent, 1 = present)
+factor_a1 = 1   # A1: Cross-Service Dependency
+factor_a2 = 0   # A2: Contaminated Initial State
+factor_b1 = 0   # B1: Implicit Goal Resolution
+factor_b2 = 0   # B2: Knowledge System Maintenance
+
+case_id = 99    # Unique integer across all tasks (check docs/metadata/cases_registry.csv)
 
 [verifier]
 timeout_sec = 900.0
@@ -52,8 +61,8 @@ timeout_sec = 1800.0
 [environment]
 build_timeout_sec = 600.0
 cpus = 2
-memory = "4G"
-storage = "10G"
+memory_mb = 4096
+storage_mb = 10240
 allow_internet = true   # required if the agent needs LLM API access
 ```
 
@@ -61,7 +70,10 @@ allow_internet = true   # required if the agent needs LLM API access
 
 | Field | Description |
 |-------|-------------|
-| `capability_dimension` | One of: `cross_environment_composition`, `proactive_decision_making`, `multi_agent_coordination`, `reflective_diagnosis`, `skill_evolution` |
+| `case_id` | Unique integer identifier; check `docs/metadata/cases_registry.csv` before assigning |
+| `domain` | Primary task domain (e.g., `E-commerce & Daily Svcs`) |
+| `domains_multi` | All domains the task touches, including primary |
+| `factor_a1` .. `factor_b2` | Complexity factor flags per the Triple-Axis Framework |
 | `verifier.timeout_sec` | Maximum execution time for the verification script |
 | `agent.timeout_sec` | Maximum time the agent has to complete the task |
 | `environment.build_timeout_sec` | Docker environment build timeout |
@@ -103,3 +115,15 @@ The verification script checks environment state after task completion:
 - Each checkpoint is scored independently; completing partial steps yields partial credit
 - Example: the flight-info-change-notice task has three checkpoints — "identify change email", "find affected schedule", "send notification"
 - This provides fine-grained capability measurement and avoids all-or-nothing scoring
+
+### Evaluation Patterns
+
+LiveClawBench tasks use one of three evaluation patterns, each suited to different verification needs:
+
+| Pattern | Files in `tests/` | Score Source | Used By |
+|---------|-------------------|-------------|---------|
+| **verify.py** | `test.sh` + `verify.py` | `Score: X.X/1.0` | E-commerce, email, flight, calendar, blog, vue tasks (18) |
+| **evaluate.py** | `test.sh` + `evaluate.py` + `run_benchmark.sh` [+ `reference/`] | `TOTAL SCORE: X / 100` → normalized to 0.0–1.0 | skill-* tasks (5) |
+| **LLM judge** | `test.sh` + `deterministic_checks.py` + `llm_judge.py` + `answer_key.json` + `rubric.json` | Structured JSON → `reward.txt` | Research/complex tasks (6) |
+
+All patterns ultimately write a scalar score to `/logs/verifier/reward.txt`. The `verify.py` pattern is recommended for new tasks (see [Adding Tasks](../guide/adding-tasks.md) for the full contract).

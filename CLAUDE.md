@@ -39,6 +39,7 @@ This is the task corpus for ClawBench — 29 harbor-format benchmark tasks evalu
 | `incremental-update-ctp` | Documents & Knowledge | medium |
 | `live-web-research-sqlite-fts5` | Deep Research & Report | hard |
 | `conflict-repair-acb` | Documents & Knowledge | medium |
+| `skill-combination` *(planned)* | Documents & Knowledge | medium |
 
 ## Task Structure
 
@@ -52,12 +53,12 @@ tasks/<task-name>/
 │   └── solve.sh        # Reference solution
 └── tests/
     ├── test.sh         # Extracts score from verify.py output → /logs/verifier/reward.txt
-    └── verify.py       # Scoring logic; prints "Score: X.X/1.0"; exit 0 if score >= 0.5
+    └── verify.py       # Scoring logic (scoring files vary by task — see docs/reference/task-format.md)
 ```
 
 ## Scoring Convention
 
-`verify.py` uses partial credit: full score (1.0) for complete task, partial (0.5) for meaningful progress. `test.sh` extracts the score with `grep -oP 'Score:\s*\K[0-9.]+'` and writes it to `/logs/verifier/reward.txt`.
+Tasks use one of three evaluation patterns (verify.py, evaluate.py, or LLM judge); all write a scalar 0.0–1.0 score to `/logs/verifier/reward.txt`. The most common pattern is `verify.py` which prints `Score: X.X/1.0` with partial credit. See `docs/reference/task-format.md` for details on all three patterns.
 
 ## Adding a New Task
 
@@ -78,5 +79,4 @@ harbor run -p ../LiveClawBench/tasks/<task-name> -a openclaw \
 
 ## Known Issues
 
-- `skill-repository-curation`: `test.sh`'s `evaluate.py` is missing `--base-dir` parameter
 - Tasks with `factor_a1=1` (Cross-Service Dependency) involve multiple running services in the same container — check Dockerfile for service startup scripts

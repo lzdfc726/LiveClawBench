@@ -7,3 +7,6 @@ __pycache__/
 # Harbor evaluation run artifacts (logs, trajectories, scores)
 jobs/*
 !jobs/.gitkeep
+
+# Node.js dependencies
+**/node_modules/

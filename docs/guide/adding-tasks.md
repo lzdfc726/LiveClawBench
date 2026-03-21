@@ -236,9 +236,6 @@ All 29 existing tasks must continue to pass.
 
 ## Known Pitfalls
 
-**Missing `--base-dir` in test scripts**
-The `skill-repository-curation` task has a known bug where `test.sh` calls `evaluate.py` without `--base-dir`. When writing new skill-related tasks, always pass the base directory explicitly.
-
 **Service startup race conditions**
 If your Dockerfile starts background services, add a `sleep` in the entrypoint before signaling readiness. The standard pattern is a 5-second sleep in `startup.sh` before the agent begins.
 
