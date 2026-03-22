@@ -57,7 +57,7 @@ Edit `.env` and uncomment the block for your provider. Keys are injected at runt
 | Anthropic | `anthropic/<model-id>` | `ANTHROPIC_API_KEY` |
 | OpenAI | `openai/<model-id>` | `OPENAI_API_KEY` |
 | Gemini | `gemini/<model-id>` | `GEMINI_API_KEY` |
-| Any OpenAI-compatible | `custom/<model-id>` | `CUSTOM_API_KEY` + `CUSTOM_BASE_URL` |
+| Any OpenAI-compatible | `custom/<model-id>` | `CUSTOM_API_KEY` + `CUSTOM_BASE_URL` (+ optional `CUSTOM_CONTEXT_WINDOW` / `CUSTOM_MAX_TOKENS` / `CUSTOM_REASONING` / `CUSTOM_API`) |
 
 ## Running Tasks
 
@@ -156,6 +156,46 @@ cat jobs/*/logs/verifier/reward.txt   # 1.0 = solved, 0.5 = partial credit
 | `conflict-repair-acb` | Documents & Knowledge | medium |
 | `skill-combination` *(planned)* | Documents & Knowledge | medium |
 
+## Base Docker Image
+
+All task Dockerfiles inherit from `liveclawbench-base:latest` instead of directly
+from `ghcr.io/openclaw/openclaw:2026.3.11`. The base image (`docker/base/Dockerfile`) pre-bakes:
+
+- **Common packages**: `python3 python3-pip python3-venv curl sqlite3`
+- **Playwright Chromium** with all system deps (`--with-deps`), plus `/usr/bin/chromium` symlink so
+  openclaw's `findChromeExecutableLinux()` can discover it via standard system paths
+- **Directory scaffolding**: `/workspace` and `/workspace/output`
+
+Build order: **build base first**, then build task images that depend on it.
+
+```bash
+# Build the base image (one-time, or when docker/base/Dockerfile changes)
+docker build -t liveclawbench-base:latest docker/base/
+
+# Verify common packages
+docker run --rm liveclawbench-base:latest python3 --version
+docker run --rm liveclawbench-base:latest sqlite3 --version
+```
+
+> **Restricted network / proxy**: if your Docker daemon routes through a local proxy,
+> configure daemon-level HTTP/HTTPS proxy before building — see
+> `docs/guide/getting-started.md` (Troubleshooting → Docker Proxy Configuration).
+
+> **Upgrading openclaw**: if the upstream base version changes (e.g. `2026.4.x`),
+> update the `FROM` line in `docker/base/Dockerfile` only — all task Dockerfiles
+> inherit automatically.
+
+> **Harbor Dockerfile discovery**: harbor only builds `environment/Dockerfile` by default
+> (path is hardcoded; build context is the `environment/` directory). Subdirectory
+> Dockerfiles (e.g. `environment/browser_mock_sidecar/Dockerfile`) are **never built
+> automatically** — they are only built if the task author explicitly references them
+> in a custom `environment/docker-compose.yaml`. Files inside those subdirectories are
+> typically `COPY`'d into the main container as runtime assets.
+>
+> **browser_mock_sidecar** in `conflict-repair-acb` and `mixed-tool-memory` follows this
+> pattern: the sidecar directory is `COPY`'d into the main container and the Python
+> service runs in-process — there is no separate Docker image for it.
+
 ## Task Structure
 
 ```
@@ -163,7 +203,7 @@ tasks/<task-name>/
 ├── task.toml           # difficulty, domain, factor_a1/a2/b1/b2, timeouts, allow_internet
 ├── instruction.md      # Agent-facing prompt
 ├── environment/
-│   └── Dockerfile      # FROM ghcr.io/openclaw/openclaw:2026.3.11
+│   └── Dockerfile      # FROM liveclawbench-base:latest  (or ARG OPENCLAW_BASE_IMAGE=liveclawbench-base:latest)
 ├── solution/
 │   └── solve.sh        # Reference solution
 └── tests/
@@ -195,7 +235,7 @@ Each `task.toml` encodes which factors apply (`factor_a1 = 1`, etc.).
 1. Create `tasks/<task-name>/` with the structure above
 2. `task.toml` must set `allow_internet = true` under `[environment]` if the agent needs LLM API access
 3. Set complexity factors (`factor_a1`, `factor_a2`, `factor_b1`, `factor_b2`) per the triple-axis framework
-4. Base Dockerfile on `ghcr.io/openclaw/openclaw:2026.3.11`
+4. Base Dockerfile on `liveclawbench-base:latest` (build base image first — see above)
 5. `verify.py` must print `Score: X.X/1.0` and exit non-zero if score < 0.5
 6. Check `docs/metadata/cases_registry.csv` for the next available `case_id`
 
@@ -204,6 +244,9 @@ Each `task.toml` encodes which factors apply (`factor_a1 = 1`, etc.).
 ```bash
 python scripts/validate_tasks.py       # validates all tasks (required files, TOML fields, case_id uniqueness)
 python scripts/validate_annotations.py # cross-checks factor annotations across task.toml / complexity-framework.md / cases_registry.csv
+
+# Build base image (required before building any task image)
+docker build -t liveclawbench-base:latest docker/base/
 ```
 
 - `capability_dimension` field is deprecated — `validate_tasks.py` flags it as an error; do not add to new tasks

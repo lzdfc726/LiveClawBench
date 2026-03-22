@@ -86,20 +86,101 @@ allow_internet = true  # REQUIRED for all OpenClaw tasks (agent calls LLM APIs)
 
 ## Dockerfile Requirements
 
-```dockerfile
-FROM ghcr.io/openclaw/openclaw:2026.3.11
+All task Dockerfiles inherit from `liveclawbench-base:latest`, which pre-bakes the HTTPS apt source fix, `python3 python3-pip python3-venv curl`, Playwright Chromium at `/usr/bin/chromium`, and `/workspace/output`. **Build it once before building any task image:**
 
-# Install your task's dependencies
-RUN apt-get install -y ...
-
-# Copy environment files
-COPY environment/ /task/environment/
-
-# If your task has running services, start them via an entrypoint or startup script
+```bash
+docker build -t liveclawbench-base:latest docker/base/
 ```
 
-- Base image: `ghcr.io/openclaw/openclaw:2026.3.11` (provides the OpenClaw agent runtime)
-- For multi-service tasks: use a single `entrypoint.sh` that starts all services in the background and sleeps briefly before handing off to the main command
+There are four patterns in use across the 29 tasks — pick the one that matches your task type:
+
+### Pattern 1: Static file drop (skill-\*, blog-site-\*, vue-project-\*)
+
+No background services. The agent reads/writes files under `/workspace/environment/` directly. No `ENTRYPOINT` needed.
+
+```dockerfile
+FROM liveclawbench-base:latest
+
+HEALTHCHECK --interval=2s --timeout=1s --retries=1 CMD true
+USER root
+
+# Install task-specific tools only (python3/pip/venv/curl already in base)
+RUN apt-get update && apt-get install -y --no-install-recommends git && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY . /workspace/environment/
+```
+
+### Pattern 2: Python backend service (shop-app series)
+
+Single Python backend; `startup.sh` lives at `/workspace/environment/startup.sh`.
+
+```dockerfile
+FROM liveclawbench-base:latest
+
+COPY . /workspace/environment/
+# --no-cache-dir: reduce image layer size
+# --break-system-packages: required on Debian Bookworm (PEP 668) — system Python is marked
+#   "externally managed", so plain pip install fails without this flag
+RUN cd /workspace/environment/shop-app/backend && pip install --no-cache-dir --break-system-packages -r requirements.txt
+
+COPY startup.sh /workspace/environment/startup.sh
+RUN chmod +x /workspace/environment/startup.sh
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["sh", "-c", "sleep infinity"]
+```
+
+### Pattern 3: Full-stack service (airline-app / email-app series)
+
+Python backend + Node.js frontend; `startup.sh` lives at `/workspace/startup.sh`.
+
+```dockerfile
+FROM liveclawbench-base:latest
+
+COPY . /workspace/environment/
+# --no-cache-dir: reduce image layer size
+# --break-system-packages: required on Debian Bookworm (PEP 668)
+RUN cd /workspace/environment/your-app/backend && pip install --no-cache-dir --break-system-packages -r requirements.txt
+RUN cd /workspace/environment/your-app/frontend && npm install
+
+COPY startup.sh /workspace/startup.sh
+RUN chmod +x /workspace/startup.sh
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["sh", "-c", "sleep infinity"]
+```
+
+### Pattern 4: ARG override (knowledge / research tasks)
+
+Working directory is `/home/node/.openclaw/`; runs as `node` user; `ARG OPENCLAW_BASE_IMAGE` lets Harbor substitute the base image at runtime.
+
+```dockerfile
+ARG OPENCLAW_BASE_IMAGE=liveclawbench-base:latest
+FROM ${OPENCLAW_BASE_IMAGE}
+
+HEALTHCHECK --interval=2s --timeout=1s --retries=1 CMD true
+
+ENV HOME=/home/node \
+    OPENCLAW_ARK_BASE_URL=https://ark.cn-beijing.volces.com/api/coding/v3 \
+    OPENCLAW_ARK_MODEL=kimi-k2.5
+WORKDIR /home/node/.openclaw
+
+USER root
+RUN mkdir -p /home/node/.openclaw/output /home/node/.openclaw/workspace/memory \
+             /home/node/.openclaw/tests /home/node/.openclaw/tools /home/node/.openclaw/solution \
+    && chown -R node:node /home/node
+
+COPY corpus/ /home/node/.openclaw/corpus/
+COPY workspace_seed/ /home/node/.openclaw/workspace/
+
+USER node
+```
+
 - Services are accessible to the agent at `localhost:<port>`
 
 ## `verify.py` Contract
@@ -241,3 +322,6 @@ If your Dockerfile starts background services, add a `sleep` in the entrypoint b
 
 **case_id conflicts**
 Always check `docs/metadata/cases_registry.csv` before choosing a `case_id`. The validator will catch duplicates, but resolving conflicts after the fact is disruptive.
+
+**Entrypoint is not required for static tasks**
+Only tasks that run background services (web servers, databases) need `startup.sh`, `entrypoint.sh`, `ENTRYPOINT`, and `CMD`. Static file tasks (skill-*, blog-site-*, vue-project-*) have none of these — the agent accesses `/workspace/environment/` directly. Adding unnecessary entrypoint boilerplate to a static task does not break anything but wastes build time and confuses readers.
