@@ -113,6 +113,7 @@ def load_csv_annotations() -> dict[str, dict]:
                 "factor_a2": row.get("factor_A2", "0").strip() == "1",
                 "factor_b1": row.get("factor_B1", "0").strip() == "1",
                 "factor_b2": row.get("factor_B2", "0").strip() == "1",
+                "status": row.get("status", "implemented").strip(),
             }
     return results
 
@@ -155,9 +156,13 @@ def compare_sources(
                     f"toml={toml_ann.get(key)} vs csv={csv_ann.get(key)}"
                 )
 
-    # Check for framework entries not in toml (could be planned tasks)
+    # Check for framework entries not in toml (skip planned tasks)
     for case_name in framework_data:
         if case_name not in toml_data:
+            csv_name = case_name.replace("-", "_")
+            csv_entry = csv_data.get(case_name) or csv_data.get(csv_name)
+            if csv_entry and csv_entry.get("status") == "planned":
+                continue
             errors.append(f"[framework→toml] {case_name}: in framework but no task directory (planned?)")
 
     return errors

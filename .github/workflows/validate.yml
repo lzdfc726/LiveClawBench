@@ -1,0 +1,36 @@
+name: Validate Tasks
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "tasks/**"
+      - "docs/metadata/cases_registry.csv"
+      - "docs/reference/complexity-framework.md"
+      - "scripts/validate_tasks.py"
+      - "scripts/validate_annotations.py"
+  push:
+    branches: [main]
+    paths:
+      - "tasks/**"
+      - "docs/metadata/cases_registry.csv"
+      - "docs/reference/complexity-framework.md"
+      - "scripts/validate_tasks.py"
+      - "scripts/validate_annotations.py"
+
+jobs:
+  validate:
+    name: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate task structure
+        run: python scripts/validate_tasks.py
+
+      - name: Check annotation consistency
+        run: python scripts/validate_annotations.py
