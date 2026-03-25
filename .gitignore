@@ -3,6 +3,7 @@ __pycache__/
 .DS_Store
 *.egg-info/
 .env
+.claude
 
 # Harbor evaluation run artifacts (logs, trajectories, scores)
 jobs/*
