@@ -8,6 +8,9 @@ __pycache__/
 jobs/*
 !jobs/.gitkeep
 
+# Local run scripts (not tracked)
+run_*.sh
+
 # Node.js dependencies
 **/node_modules/
 
