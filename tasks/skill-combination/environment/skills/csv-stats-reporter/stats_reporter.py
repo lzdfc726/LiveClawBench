@@ -42,6 +42,8 @@ def compute_stats(values: list) -> dict:
     n = len(values)
     s = sorted(values)
     mean_val = sum(s) / n
+    # Population variance (divide by n, not n-1) — intentional for this
+    # benchmark fixture; the full dataset per group is available, not a sample.
     variance = sum((x - mean_val) ** 2 for x in s) / n if n > 1 else 0
     std_val = math.sqrt(variance)
 

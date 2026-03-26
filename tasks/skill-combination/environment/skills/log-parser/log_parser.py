@@ -86,10 +86,11 @@ def main():
             if start_t or end_t:
                 try:
                     ts = extract_time(entry.get("timestamp", ""))
-                    t = ts.replace(year=1900, month=1, day=1)
-                    if start_t and t < start_t:
+                    # Compare time-of-day only, ignoring the date component
+                    t_time = ts.time()
+                    if start_t and t_time < start_t.time():
                         continue
-                    if end_t and t > end_t:
+                    if end_t and t_time > end_t.time():
                         continue
                 except ValueError:
                     skipped += 1
