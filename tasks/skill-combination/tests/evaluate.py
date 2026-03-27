@@ -318,7 +318,6 @@ def check_unified_interface(model_dir: Path) -> Tuple[int, Dict[str, Any]]:
     return score, {"checks": details, "passed": passed, "total": len(checks)}
 
 
-
 # ============================================================================
 # Criterion 6: INTERFACE_ADAPTATION (15 pts)
 # The implementation handles the format bridge between the two skills.
