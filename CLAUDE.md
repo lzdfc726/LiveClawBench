@@ -104,7 +104,7 @@ harbor run --dataset liveclawbench@1.0 -a openclaw \
 ### Check Results
 
 ```bash
-cat jobs/*/logs/verifier/reward.txt   # 1.0 = solved, 0.5 = partial credit
+cat jobs/*/*/verifier/reward.txt   # 1.0 = solved, 0.5 = partial credit
 ```
 
 ### Common Flags
@@ -196,6 +196,46 @@ docker run --rm liveclawbench-base:latest sqlite3 --version
 > pattern: the sidecar directory is `COPY`'d into the main container and the Python
 > service runs in-process — there is no separate Docker image for it.
 
+## Base Docker Image
+
+All task Dockerfiles inherit from `liveclawbench-base:latest` instead of directly
+from `ghcr.io/openclaw/openclaw:2026.3.11`. The base image (`docker/base/Dockerfile`) pre-bakes:
+
+- **Common packages**: `python3 python3-pip python3-venv curl sqlite3`
+- **Playwright Chromium** with all system deps (`--with-deps`), plus `/usr/bin/chromium` symlink so
+  openclaw's `findChromeExecutableLinux()` can discover it via standard system paths
+- **Directory scaffolding**: `/workspace` and `/workspace/output`
+
+Build order: **build base first**, then build task images that depend on it.
+
+```bash
+# Build the base image (one-time, or when docker/base/Dockerfile changes)
+docker build -t liveclawbench-base:latest docker/base/
+
+# Verify common packages
+docker run --rm liveclawbench-base:latest python3 --version
+docker run --rm liveclawbench-base:latest sqlite3 --version
+```
+
+> **Restricted network / proxy**: if your Docker daemon routes through a local proxy,
+> configure daemon-level HTTP/HTTPS proxy before building — see
+> `docs/guide/getting-started.md` (Troubleshooting → Docker Proxy Configuration).
+
+> **Upgrading openclaw**: if the upstream base version changes (e.g. `2026.4.x`),
+> update the `FROM` line in `docker/base/Dockerfile` only — all task Dockerfiles
+> inherit automatically.
+
+> **Harbor Dockerfile discovery**: harbor only builds `environment/Dockerfile` by default
+> (path is hardcoded; build context is the `environment/` directory). Subdirectory
+> Dockerfiles (e.g. `environment/browser_mock_sidecar/Dockerfile`) are **never built
+> automatically** — they are only built if the task author explicitly references them
+> in a custom `environment/docker-compose.yaml`. Files inside those subdirectories are
+> typically `COPY`'d into the main container as runtime assets.
+>
+> **browser_mock_sidecar** in `conflict-repair-acb` and `mixed-tool-memory` follows this
+> pattern: the sidecar directory is `COPY`'d into the main container and the Python
+> service runs in-process — there is no separate Docker image for it.
+
 ## Task Structure
 
 ```
@@ -215,8 +255,15 @@ tasks/<task-name>/
 
 Tasks use one of three evaluation patterns (verify.py, evaluate.py, or LLM judge); all write a
 scalar 0.0–1.0 score to `/logs/verifier/reward.txt`. The most common pattern is `verify.py`
-which prints `Score: X.X/1.0` with partial credit. See `docs/reference/task-format.md` for
-details on all three patterns.
+which prints `Score: X.X/1.0` with partial credit.
+
+Tasks with sub-dimension scoring additionally write `/logs/verifier/reward.json`. Two conventions
+apply universally: the `reward` key is mandatory (canonical aggregate, `float ∈ [0.0, 1.0]`);
+non-numeric fields must use the `_meta_` prefix (harbor's verifier model enforces
+`dict[str, float | int]` — string values cause a `ValidationError`).
+
+See `docs/reference/task-format.md` for all three evaluation patterns and `docs/reference/jobs-output.md`
+for the full jobs/ output directory layout when debugging results.
 
 ## Triple-Axis Complexity Framework
 
@@ -250,6 +297,49 @@ docker build -t liveclawbench-base:latest docker/base/
 ```
 
 - `capability_dimension` field is deprecated — `validate_tasks.py` flags it as an error; do not add to new tasks
+
+## Code Quality
+
+All Python is formatted and linted with **ruff**, and `scripts/` is type-checked with **ty**.
+
+### Manual checks (without pre-commit)
+
+```bash
+# Install tools (one-time)
+uv pip install ruff ty
+
+# Format all Python in-place
+ruff format .
+
+# Lint (auto-fix safe issues)
+ruff check --fix .
+
+# Type-check infrastructure scripts
+ty check scripts/
+```
+
+### Set up pre-commit (recommended for contributors)
+
+```bash
+uv pip install pre-commit
+pre-commit install      # hooks run automatically on git commit — replaces manual checks above
+```
+
+### Scope
+
+| Target | ruff | ty |
+|---|---|---|
+| `scripts/` | ✓ | ✓ |
+| `tasks/*/tests/` | ✓ | future (TODO) |
+| `tasks/*/common/` | ✓ | — |
+| `tasks/*/environment/` | ✓ | — |
+| `tasks/skill-dependency-fix/environment/skills/` | excluded (intentional fixture) | — |
+| `tasks/skill-repository-curation/environment/.skill_snapshot/` | excluded (intentional fixture) | — |
+| `tasks/skill-repository-curation/environment/skills/` | excluded (intentional fixture) | — |
+
+> **ty and `tasks/*/tests/`**: `verify.py` files use `sys.path.insert(0, "/workspace/environment/...")` which
+> only resolves inside Docker containers, so ty cannot check them in CI without Docker. Tracked as a TODO in
+> `pyproject.toml`.
 
 ## Ground Truth Numbers (verified from task.toml)
 
