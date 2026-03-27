@@ -8,7 +8,7 @@ csv-stats-reporter) can be composed into a pipeline, and to proactively build
 a composite higher-order skill — while ignoring a distractor skill
 (text-sentiment-scorer).
 
-Max score: 100 points across 6 criteria.
+Max score: 85 points across 5 criteria.
 
 Usage:
     python tests/evaluate.py --model-output <path> [--dialogue <path>] [--output-json <path>]
@@ -21,7 +21,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, Tuple
 
 # ============================================================================
 # Criterion 1: COMPOSITE_SKILL_CREATED (20 pts)
@@ -318,90 +318,6 @@ def check_unified_interface(model_dir: Path) -> Tuple[int, Dict[str, Any]]:
     return score, {"checks": details, "passed": passed, "total": len(checks)}
 
 
-# ============================================================================
-# Criterion 5: PROACTIVE_PROPOSAL (15 pts)
-# The agent proactively proposes the combination before the explicit prompt.
-# ============================================================================
-
-
-def check_proactive_proposal(
-    dialogue_path: Optional[Path],
-) -> Tuple[int, Dict[str, Any]]:
-    """
-    Check dialogue for proactive skill-combination proposal.
-
-    This criterion examines the conversation log to determine whether the agent
-    proposed creating a composite skill BEFORE receiving the explicit instruction
-    in round 5.
-    """
-    if dialogue_path is None or not dialogue_path.exists():
-        return 0, {
-            "reason": "No dialogue file provided or found; cannot assess proactiveness"
-        }
-
-    dialogue_text = dialogue_path.read_text(encoding="utf-8")
-
-    # Try to parse structured dialogue (JSON array of rounds)
-    try:
-        rounds = json.loads(dialogue_text)
-        if isinstance(rounds, list):
-            # Look for proposal in rounds 1-4 (before round 5)
-            early_text = ""
-            for r in rounds:
-                rnum = r.get("round", 0)
-                if rnum <= 4:
-                    response = r.get("response", r.get("assistant", ""))
-                    early_text += str(response) + "\n"
-
-            proposal_pattern = r"combin|compos|chain|pipeline|merge.*skill|create.*skill.*both|unified.*skill|single.*step|orchestrat"
-            found = bool(re.search(proposal_pattern, early_text, re.IGNORECASE))
-
-            if found:
-                return 15, {"proactive": True, "found_in": "rounds 1-4"}
-            else:
-                return 0, {
-                    "proactive": False,
-                    "reason": "No combination proposal found in rounds 1-4",
-                }
-    except (json.JSONDecodeError, TypeError):
-        pass
-
-    # Fallback: parse markdown-style dialogue
-    # Look for assistant responses before the round-5 prompt
-    round5_markers = [
-        "same two-step process",
-        "combined skill",
-        "create a combined",
-        "round 5",
-    ]
-
-    # Find where round 5 starts in the dialogue
-    round5_pos = len(dialogue_text)
-    for marker in round5_markers:
-        pos = dialogue_text.lower().find(marker.lower())
-        if pos != -1 and pos < round5_pos:
-            round5_pos = pos
-
-    early_text = dialogue_text[:round5_pos]
-    proposal_pattern = r"combin|compos|chain|pipeline|merge.*skill|create.*(?:new|composite|combined).*skill|unif(?:y|ied).*skill|single.*step|orchestrat"
-    found = bool(re.search(proposal_pattern, early_text, re.IGNORECASE))
-
-    if found:
-        return 15, {"proactive": True, "found_before_round5": True}
-    else:
-        # Check if it was proposed at all (even in round 5) — partial credit
-        late_found = bool(re.search(proposal_pattern, dialogue_text, re.IGNORECASE))
-        if late_found:
-            return 5, {
-                "proactive": False,
-                "proposed_after_prompt": True,
-                "reason": "Combination proposed only after explicit prompt",
-            }
-        return 0, {
-            "proactive": False,
-            "reason": "No combination proposal found in dialogue",
-        }
-
 
 # ============================================================================
 # Criterion 6: INTERFACE_ADAPTATION (15 pts)
@@ -503,26 +419,26 @@ def check_interface_adaptation(model_dir: Path) -> Tuple[int, Dict[str, Any]]:
 # ============================================================================
 
 
-def evaluate(model_output: str, dialogue_file: Optional[str] = None) -> Dict[str, Any]:
+def evaluate(model_output: str) -> Dict[str, Any]:
     """Run full evaluation across all criteria."""
     model_dir = Path(model_output)
-    dialogue_path = Path(dialogue_file) if dialogue_file else None
 
     results = {
         "case": "sh_skill_combination",
         "task": "SKILL_COMBINATION",
-        "max_score": 100,
+        "max_score": 85,
         "total_score": 0,
         "criteria": {},
     }
 
     # Run all criteria
+    # NOTE: PROACTIVE_PROPOSAL removed — it requires a multi-turn dialogue log,
+    # but harbor's openclaw adapter only supports single-turn execution.
     criteria = [
         ("COMPOSITE_SKILL_CREATED", check_composite_skill_created, (model_dir,)),
         ("CORRECT_SKILLS_SELECTED", check_correct_skills_selected, (model_dir,)),
         ("PIPELINE_IMPLEMENTATION", check_pipeline_implementation, (model_dir,)),
         ("UNIFIED_INTERFACE", check_unified_interface, (model_dir,)),
-        ("PROACTIVE_PROPOSAL", check_proactive_proposal, (dialogue_path,)),
         ("INTERFACE_ADAPTATION", check_interface_adaptation, (model_dir,)),
     ]
 
@@ -544,11 +460,6 @@ def main():
         help="Path to model_response/ directory",
     )
     parser.add_argument(
-        "--dialogue",
-        default=None,
-        help="Path to dialogue/conversation log file (for proactiveness check)",
-    )
-    parser.add_argument(
         "--output-json",
         default="",
         help="Write results to JSON file",
@@ -559,7 +470,7 @@ def main():
         print(f"Error: directory not found: {args.model_output}", file=sys.stderr)
         sys.exit(2)
 
-    results = evaluate(args.model_output, args.dialogue)
+    results = evaluate(args.model_output)
 
     # Human-readable summary
     print("=" * 60)
@@ -571,7 +482,6 @@ def main():
         "CORRECT_SKILLS_SELECTED": 15,
         "PIPELINE_IMPLEMENTATION": 20,
         "UNIFIED_INTERFACE": 15,
-        "PROACTIVE_PROPOSAL": 15,
         "INTERFACE_ADAPTATION": 15,
     }
 

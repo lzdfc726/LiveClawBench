@@ -154,7 +154,7 @@ cat jobs/*/logs/verifier/reward.txt   # 1.0 = solved, 0.5 = partial credit
 | `incremental-update-ctp` | Documents & Knowledge | medium |
 | `live-web-research-sqlite-fts5` | Deep Research & Report | hard |
 | `conflict-repair-acb` | Documents & Knowledge | medium |
-| `skill-combination` *(planned)* | Documents & Knowledge | medium |
+| `skill-combination` | Documents & Knowledge | medium |
 
 ## Base Docker Image
 
@@ -253,8 +253,8 @@ docker build -t liveclawbench-base:latest docker/base/
 
 ## Ground Truth Numbers (verified from task.toml)
 
-29 implemented tasks: A1=10, A2=6, B1=4, B2=10. Including planned `skill-combination` (case_id=30): B2=11.
-Difficulty: Easy=10, Medium=9, Hard=10 (Medium becomes 10 when skill-combination is implemented).
+30 implemented tasks: A1=10, A2=6, B1=4, B2=11.
+Difficulty: Easy=10, Medium=10, Hard=10.
 
 ## Known Issues
 
