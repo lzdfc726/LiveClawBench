@@ -49,8 +49,8 @@ class MockPaymentGateway:
                 return False, "Invalid expiry month"
 
             # Check if card is expired
-            current_year = datetime.utcnow().year % 100
-            current_month = datetime.utcnow().month
+            current_year = datetime.now().year % 100
+            current_month = datetime.now().month
 
             if year < current_year or (year == current_year and month < current_month):
                 return False, "Card has expired"
@@ -114,7 +114,7 @@ class MockPaymentGateway:
                 "transaction_id": None,
                 "card_type": self.detect_card_type(card_number),
                 "gateway_response": json.dumps(
-                    {"error": error_message, "timestamp": datetime.utcnow().isoformat()}
+                    {"error": error_message, "timestamp": datetime.now().isoformat()}
                 ),
             }
 
@@ -126,10 +126,7 @@ class MockPaymentGateway:
                 "transaction_id": None,
                 "card_type": self.detect_card_type(card_number),
                 "gateway_response": json.dumps(
-                    {
-                        "error": "Invalid amount",
-                        "timestamp": datetime.utcnow().isoformat(),
-                    }
+                    {"error": "Invalid amount", "timestamp": datetime.now().isoformat()}
                 ),
             }
 
@@ -159,7 +156,7 @@ class MockPaymentGateway:
                         "card_type": card_type,
                         "card_last_four": card_number[-4:],
                         "amount": amount,
-                        "timestamp": datetime.utcnow().isoformat(),
+                        "timestamp": datetime.now().isoformat(),
                         "auth_code": "".join(
                             random.choices(string.ascii_uppercase + string.digits, k=6)
                         ),
@@ -184,7 +181,7 @@ class MockPaymentGateway:
                         "status": "declined",
                         "transaction_id": transaction_id,
                         "error": random.choice(failure_reasons),
-                        "timestamp": datetime.utcnow().isoformat(),
+                        "timestamp": datetime.now().isoformat(),
                     }
                 ),
             }
@@ -227,7 +224,7 @@ class MockPaymentGateway:
                         "original_transaction_id": transaction_id,
                         "amount": amount,
                         "reason": reason,
-                        "timestamp": datetime.utcnow().isoformat(),
+                        "timestamp": datetime.now().isoformat(),
                     }
                 ),
             }
@@ -241,7 +238,7 @@ class MockPaymentGateway:
                     {
                         "status": "failed",
                         "error": "Refund processing error",
-                        "timestamp": datetime.utcnow().isoformat(),
+                        "timestamp": datetime.now().isoformat(),
                     }
                 ),
             }

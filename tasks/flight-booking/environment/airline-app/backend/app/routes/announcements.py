@@ -22,7 +22,7 @@ def get_announcements():
         # Filter out expired announcements
         query = query.filter(
             (Announcement.expires_at.is_(None))
-            | (Announcement.expires_at > datetime.utcnow())
+            | (Announcement.expires_at > datetime.now())
         )
 
         query = query.order_by(

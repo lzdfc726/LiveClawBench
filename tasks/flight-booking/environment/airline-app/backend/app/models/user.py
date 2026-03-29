@@ -14,8 +14,6 @@ class User(BaseModel):
     last_name = db.Column(db.String(50), nullable=False)
     phone = db.Column(db.String(20))
     date_of_birth = db.Column(db.Date)
-    passport_number = db.Column(db.String(20))
-    passport_expiry = db.Column(db.Date)
     is_verified = db.Column(db.Boolean, default=False)
     is_active = db.Column(db.Boolean, default=True)
 
@@ -59,10 +57,6 @@ class User(BaseModel):
             "phone": self.phone,
             "date_of_birth": self.date_of_birth.isoformat()
             if self.date_of_birth
-            else None,
-            "passport_number": self.passport_number,
-            "passport_expiry": self.passport_expiry.isoformat()
-            if self.passport_expiry
             else None,
             "is_verified": self.is_verified,
             "is_active": self.is_active,
