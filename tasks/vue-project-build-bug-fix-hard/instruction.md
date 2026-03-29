@@ -1,12 +1,27 @@
-Here is a Customer Relationship Management project based on Vue.js. The source code is located at `/workspace/environment/vue-crm/`.
+## Task Description
 
-Your task:
-1. Install this project according to the information provided by README.md. Fix any dependency version conflicts and build issues that occur during installation. This version has more complex dependency problems.
-2. After successful installation, open the homepage at localhost in the browser. When you see the page titled "Vue Demo V3", it means success.
-3. After opening the page, find the following information and write it to `/workspace/output/answer_file.txt` in JSON format:
+You are asked build a CRM (Customer Relationship Management) project and extract information. The source code is located at `/workspace/vue-crm/`. This is a Vue web application that needs to be installed and run locally before extracting information.
+
+This project still has some bugs and errors that you need to identify and fix.
+
+## Your Tasks
+
+1. **Install the project** according to the README.md file. Try to fix any problems that occur during the installation process. Then start the development server and make sure it runs successfully. You should see output indicating the local server is running.
+
+2. **Open the homepage** in the browser at localhost. When you see a Dashboard page titled "Vue Demo V3", it means success. If you see "This page you are looking for could not be found.", there are still bugs to fix.
+
+3. **Extract dashboard data**: Find and record the following values from the Dashboard page:
    - "Total Growth" amount
-   - "Total Page Views" number
-   - "Total Sales" number
-4. Click the "Customer" button on the left side. Sign in with Username "admin@test.com" and Password "password". Find the email address, Membership level, and Rewards point of Betty Hammes.
-5. Write all results to `/workspace/output/answer_file.txt` with JSON format:
-   `{"Total Growth": xxx, "Total Page Views": xxx, "Total Sales": xxx, "Customer": {"Betty Hammes": {"Email": xxx, "Membership": xxx, "Reward": xxx}}}`
+   Write the result to `/workspace/answer_file.json` in JSON format:
+   ```json
+   {"Total Growth": xxx}
+   ```
+
+## Important Notes
+
+- The project root is `/workspace/vue-crm/`
+- You need to use browser automation tools to interact with the web interface
+- This project still has some bugs and errors that you need to identify and fix
+- Common issues might include: Vite plugin order problems / Incorrect base path configuration / Build configuration errors
+- Ensure the answer file is written in valid JSON format
+
