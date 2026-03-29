@@ -19,6 +19,15 @@ complexity factors along three axes (Environment Complexity, Cognitive Demand, R
 The agent under evaluation is **OpenClaw**. Harbor orchestrates Docker containers, launches the
 OpenClaw agent inside each container, and verifies the result. LiveClawBench provides the tasks.
 
+## Local Worktrees
+
+When creating additional Git worktrees for agent-driven branch work, place them under
+`./.worktrees/<branch-name>` at the repository root.
+
+- Do not create worktrees under `./.claude/`
+- Keep `./.claude/` for Claude-specific local settings/session data only
+- Treat `./.worktrees/` as disposable local workspace state and keep it untracked
+
 ## Setup
 
 ### Quick Setup (recommended)
@@ -49,7 +58,7 @@ uv pip install "harbor @ git+https://github.com/Mosi-AI/claw-harbor.git"
 
 ### API Key Configuration
 
-Edit `.env` and uncomment the block for your provider. Keys are injected at runtime via `--ae`:
+Edit `.env` and uncomment the block for your provider. Agent credentials are injected at runtime via `--ae`:
 
 | Provider | Model format | Key env var |
 |---|---|---|
@@ -86,19 +95,23 @@ harbor run -p tasks/watch-shop -a openclaw \
 ### Full Dataset
 
 ```bash
-# Generic form
+# Generic form (includes LLM judge credentials for the 5 judge tasks)
 harbor run --dataset liveclawbench@1.0 -a openclaw \
   -m custom/<YOUR_MODEL_ID> \
   --n-concurrent 4 \
   -o jobs \
   --ae CUSTOM_BASE_URL="<YOUR_BASE_URL>" \
-  --ae CUSTOM_API_KEY="<YOUR_API_KEY>"
+  --ae CUSTOM_API_KEY="<YOUR_API_KEY>" \
+  --ee JUDGE_BASE_URL="<JUDGE_BASE_URL>" \
+  --ee JUDGE_API_KEY="<JUDGE_API_KEY>"
 
 # Example: Anthropic
 harbor run --dataset liveclawbench@1.0 -a openclaw \
   -m anthropic/claude-opus-4-1 \
   --n-concurrent 4 \
-  --ae ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY"
+  --ae ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" \
+  --ee JUDGE_BASE_URL="<JUDGE_BASE_URL>" \
+  --ee JUDGE_API_KEY="<JUDGE_API_KEY>"
 ```
 
 ### Check Results
@@ -116,45 +129,57 @@ cat jobs/*/*/verifier/reward.txt   # 1.0 = solved, 0.5 = partial credit
 | `-m <provider>/<model>` | Model to evaluate |
 | `-n <int>` | Number of attempts per task |
 | `-o jobs` | Output directory for job results |
-| `--ae KEY=VALUE` | Pass environment variable into the agent container |
+| `--ae KEY=VALUE` | Pass environment variable into the **agent process** only (via `openclaw.json`); repeatable |
+| `--ee KEY=VALUE` | Pass environment variable into the **container environment** (agent + verifier both see it); repeatable |
 | `--timeout-multiplier 2.0` | Scale all `task.toml` timeouts (useful for hard tasks) |
 | `--debug` | Verbose logging |
 | `--n-concurrent <int>` | Parallel task execution |
 
+> **LLM-judge tasks** (5 tasks: `conflict-repair-acb`, `incremental-update-ctp`,
+> `live-web-research-sqlite-fts5`, `mixed-tool-memory`, `noise-filtering`) use `--ee` (not `--ae`)
+> for judge credentials because `llm_judge.py` runs in the verifier phase, outside the OpenClaw
+> agent process. **Missing `--ee` will cause the verifier to fail with
+> `RuntimeError: JUDGE_BASE_URL is not set`.**
+>
+> Required vars: `JUDGE_BASE_URL`, `JUDGE_API_KEY`;
+> optional: `JUDGE_MODEL_ID` (default `deepseek-v3.2`).
+> How to identify: if `tests/test.sh` calls `python3 /tests/llm_judge.py`, the task needs judge credentials.
+> See [`docs/guide/running-tasks.md`](docs/guide/running-tasks.md#llm-judge-tasks) for the full example.
+
 ## Task List
 
-| Task Dir | Domain | Difficulty |
-|---|---|---|
-| `watch-shop` | E-commerce & Daily Svcs | easy |
-| `washer-shop` | E-commerce & Daily Svcs | easy |
-| `info-change` | E-commerce & Daily Svcs | easy |
-| `washer-change` | E-commerce & Daily Svcs | easy |
-| `email-watch-shop` | E-commerce & Daily Svcs | medium |
-| `email-washer-change` | E-commerce & Daily Svcs | medium |
-| `email-writing` | Communication & Email | easy |
-| `email-reply` | Communication & Email | easy |
-| `schedule-change-request` | Calendar & Task Mgmt | hard |
-| `flight-booking` | E-commerce & Daily Svcs | easy |
-| `flight-info-change-notice` | Calendar & Task Mgmt | hard |
-| `flight-seat-selection` | E-commerce & Daily Svcs | medium |
-| `flight-seat-selection-failed` | E-commerce & Daily Svcs | hard |
-| `flight-cancel-claim` | E-commerce & Daily Svcs | hard |
-| `baggage-tracking-application` | E-commerce & Daily Svcs | medium |
-| `blog-site-from-scratch` | Coding & Software Dev | hard |
-| `blog-site-completion-from-starter` | Coding & Software Dev | medium |
-| `vue-project-build-bug-fix-easy` | DevOps & Env Repair | easy |
-| `vue-project-build-bug-fix-hard` | DevOps & Env Repair | hard |
-| `skill-creation` | Documents & Knowledge | easy |
-| `skill-repository-curation` | Documents & Knowledge | hard |
-| `skill-supplementation` | Documents & Knowledge | easy |
-| `skill-conflict-resolution` | Documents & Knowledge | medium |
-| `skill-dependency-fix` | Documents & Knowledge | hard |
-| `noise-filtering` | Deep Research & Report | medium |
-| `mixed-tool-memory` | Documents & Knowledge | hard |
-| `incremental-update-ctp` | Documents & Knowledge | medium |
-| `live-web-research-sqlite-fts5` | Deep Research & Report | hard |
-| `conflict-repair-acb` | Documents & Knowledge | medium |
-| `skill-combination` | Documents & Knowledge | medium |
+| Task Dir | Domain | Difficulty | Verifier |
+|---|---|---|---|
+| `watch-shop` | E-commerce & Daily Svcs | easy | verify.py |
+| `washer-shop` | E-commerce & Daily Svcs | easy | verify.py |
+| `info-change` | E-commerce & Daily Svcs | easy | verify.py |
+| `washer-change` | E-commerce & Daily Svcs | easy | verify.py |
+| `email-watch-shop` | E-commerce & Daily Svcs | medium | verify.py |
+| `email-washer-change` | E-commerce & Daily Svcs | medium | verify.py |
+| `email-writing` | Communication & Email | easy | verify.py |
+| `email-reply` | Communication & Email | easy | verify.py |
+| `schedule-change-request` | Calendar & Task Mgmt | hard | verify.py |
+| `flight-booking` | E-commerce & Daily Svcs | easy | verify.py |
+| `flight-info-change-notice` | Calendar & Task Mgmt | hard | verify.py |
+| `flight-seat-selection` | E-commerce & Daily Svcs | medium | verify.py |
+| `flight-seat-selection-failed` | E-commerce & Daily Svcs | hard | verify.py |
+| `flight-cancel-claim` | E-commerce & Daily Svcs | hard | verify.py |
+| `baggage-tracking-application` | E-commerce & Daily Svcs | medium | verify.py |
+| `blog-site-from-scratch` | Coding & Software Dev | hard | verify.py |
+| `blog-site-completion-from-starter` | Coding & Software Dev | medium | verify.py |
+| `vue-project-build-bug-fix-easy` | DevOps & Env Repair | easy | verify.py |
+| `vue-project-build-bug-fix-hard` | DevOps & Env Repair | hard | verify.py |
+| `skill-creation` | Documents & Knowledge | easy | evaluate.py |
+| `skill-repository-curation` | Documents & Knowledge | hard | evaluate.py |
+| `skill-supplementation` | Documents & Knowledge | easy | evaluate.py |
+| `skill-conflict-resolution` | Documents & Knowledge | medium | evaluate.py |
+| `skill-dependency-fix` | Documents & Knowledge | hard | evaluate.py |
+| `noise-filtering` | Deep Research & Report | medium | **llm_judge** |
+| `mixed-tool-memory` | Documents & Knowledge | hard | **llm_judge** |
+| `incremental-update-ctp` | Documents & Knowledge | medium | **llm_judge** |
+| `live-web-research-sqlite-fts5` | Deep Research & Report | hard | **llm_judge** |
+| `conflict-repair-acb` | Documents & Knowledge | medium | **llm_judge** |
+| `skill-combination` | Documents & Knowledge | medium | evaluate.py |
 
 ## Base Docker Image
 
@@ -207,8 +232,8 @@ tasks/<task-name>/
 ├── solution/
 │   └── solve.sh        # Reference solution
 └── tests/
-    ├── test.sh         # Extracts score from verify.py output → /logs/verifier/reward.txt
-    └── verify.py       # Scoring logic (varies by task — see docs/reference/task-format.md)
+    ├── test.sh         # Runs the task-specific verifier and writes /logs/verifier/reward.txt
+    └── verifier script # verify.py, evaluate.py, or llm_judge.py depending on the task
 ```
 
 ## Scoring Convention

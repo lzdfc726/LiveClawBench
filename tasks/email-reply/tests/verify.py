@@ -10,8 +10,9 @@ from models import Email
 
 def check():
     with app.app_context():
+        # email = Email.query.filter_by(recipient_email="lau@coop-division.parrot-ai.org").first()
         email = Email.query.filter_by(
-            recipient_email="lau@coop-division.parrot-ai.org"
+            recipient_email="lau@coop-division.parrot-ai.org", folder="sent"
         ).first()
         if email:
             print(
