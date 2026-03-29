@@ -319,7 +319,7 @@ def check_unified_interface(model_dir: Path) -> Tuple[int, Dict[str, Any]]:
 
 
 # ============================================================================
-# Criterion 6: INTERFACE_ADAPTATION (15 pts)
+# Criterion 5: INTERFACE_ADAPTATION (15 pts)
 # The implementation handles the format bridge between the two skills.
 # ============================================================================
 

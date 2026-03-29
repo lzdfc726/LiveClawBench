@@ -13,8 +13,6 @@ logs/
 run_*.sh
 
 # SSH keys — never commit (root-only to avoid matching id_mapping.csv etc.)
-/y
-/y.pub
 /*.pem
 /id_*
 /id_*.pub
