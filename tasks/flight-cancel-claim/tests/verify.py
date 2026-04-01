@@ -1,15 +1,32 @@
 #!/usr/bin/env python3
 """Verify flight-cancel-claim task: check if claim email sent correctly"""
 
+import importlib.util
 import sys
 
+# Import airline-app FIRST
 sys.path.insert(0, "/workspace/environment/airline-app/backend")
-sys.path.insert(0, "/workspace/environment/email-app/backend")
 from app import create_app
 from app.models.booking import Booking
 from app.models.flight import Flight
 from app.models.user import User
-from models import Email
+
+# Load `email-app` using an explicit file path, naming it as a standalone module.
+
+# Add email-app path so its internal imports work
+sys.path.insert(0, "/workspace/environment/email-app/backend")
+
+_spec = importlib.util.spec_from_file_location(
+    "email_app_module", "/workspace/environment/email-app/backend/app.py"
+)
+_email_app_mod = importlib.util.module_from_spec(_spec)
+sys.modules["email_app_module"] = _email_app_mod
+_spec.loader.exec_module(_email_app_mod)
+
+email_flask_app = _email_app_mod.app
+Email = (
+    _email_app_mod.Email
+)  # AttributeError here is intentional: email-app must export Email
 
 
 def check():
@@ -40,9 +57,7 @@ def check():
         print(f"  Booking ref: {booking.booking_reference}")
 
         # Now check the email
-        from app import app as email_app
-
-        with email_app.app_context():
+        with email_flask_app.app_context():
             claim_email = Email.query.filter_by(
                 recipient_email="claims@gkdairlines.com", folder="sent"
             ).first()
