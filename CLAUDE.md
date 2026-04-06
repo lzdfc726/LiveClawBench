@@ -167,8 +167,8 @@ cat jobs/*/*/verifier/reward.txt   # 1.0 = solved, 0.5 = partial credit
 | `baggage-tracking-application` | E-commerce & Daily Svcs | easy | verify.py |
 | `blog-site-from-scratch` | Coding & Software Dev | easy | verify.py |
 | `blog-site-completion-from-starter` | Coding & Software Dev | easy | verify.py |
-| `vue-project-build-bug-fix-easy` | DevOps & Env Repair | hard | verify.py |
-| `vue-project-build-bug-fix-hard` | DevOps & Env Repair | hard | verify.py |
+| `vue-build-fix-single` | DevOps & Env Repair | hard | verify.py |
+| `vue-build-fix-chain` | DevOps & Env Repair | hard | verify.py |
 | `skill-creation` | Documents & Knowledge | medium | evaluate.py |
 | `skill-repository-curation` | Documents & Knowledge | medium | evaluate.py |
 | `skill-supplementation` | Documents & Knowledge | medium | evaluate.py |

@@ -52,8 +52,8 @@ single, clean environment without structural complexity.
 |      20 | info-change                       |     E      |    |    |    |    | E-commerce & Daily Svcs    |
 |      21 | email-watch-shop                  |     H      | ✓  |    |    |    | E-commerce & Daily Svcs    |
 |      22 | email-washer-change               |     E      | ✓  |    |    |    | E-commerce & Daily Svcs    |
-|      23 | vue-project-build-bug-fix-easy    |     H      |    | ✓  |    |    | DevOps & Env Repair        |
-|      24 | vue-project-build-bug-fix-hard    |     H      |    | ✓  |    |    | DevOps & Env Repair        |
+|      23 | vue-build-fix-single              |     H      |    | ✓  |    |    | DevOps & Env Repair        |
+|      24 | vue-build-fix-chain               |     H      |    | ✓  |    |    | DevOps & Env Repair        |
 |      25 | noise-filtering                   |     M      |    | ✓  |    | ✓  | Deep Research & Report     |
 |      26 | incremental-update-ctp            |     E      |    | ✓  |    | ✓  | Documents & Knowledge      |
 |      27 | conflict-repair-acb               |     E      | ✓  | ✓  |    | ✓  | Documents & Knowledge      |
@@ -67,7 +67,7 @@ single, clean environment without structural complexity.
 | Factor | Description                    | Count | Percentage | Representative Cases                                          |
 |--------|--------------------------------|------:|-----------:|---------------------------------------------------------------|
 | A1     | Cross-Service Dependency       |    10 |      33.3% | flight-seat-selection, email-watch-shop, conflict-repair-acb  |
-| A2     | Contaminated Initial State     |     6 |      20.0% | blog-site-completion-from-starter, vue-project-build-bug-fix-easy, noise-filtering |
+| A2     | Contaminated Initial State     |     6 |      20.0% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering |
 | B1     | Implicit Goal Resolution       |     4 |      13.3% | flight-seat-selection-failed, flight-cancel-claim, flight-info-change-notice, baggage-tracking-application |
 | B2     | Knowledge System Maintenance   |    11 |      36.7% | skill-creation, skill-dependency-fix, noise-filtering         |
 
@@ -117,7 +117,7 @@ LiveClawBench includes 5 controlled pairs for isolating single-factor effects on
 |       1 | Shopping → Cross-env Shopping      | washer-shop (E)                     | +A1 (email integration)     | email-washer-change (E)                  |
 |       2 | Shopping → Cross-env Shopping      | watch-shop (E)                      | +A1 (email integration)     | email-watch-shop (H)                     |
 |       3 | Seat Selection → Failed Selection  | flight-seat-selection (E)           | +B1 (constraint failure)    | flight-seat-selection-failed (H)         |
-|       4 | Vue Fix easy → hard                | vue-project-build-bug-fix-easy (H)  | +A2 (more complex faults)   | vue-project-build-bug-fix-hard (H)       |
+|       4 | Vue Fix single → chain             | vue-build-fix-single (H)            | +A2 (more complex faults)   | vue-build-fix-chain (H)                  |
 |       5 | Skill Creation → Dependency Fix    | skill-creation (M)                  | +B2 (dependency chain)      | skill-dependency-fix (E)                 |
 
 Pair design rationale:
@@ -134,7 +134,7 @@ Pair design rationale:
 |:----------:|------:|-----------:|-------|
 | Easy       |    18 |      60.0% | skill-conflict-resolution, skill-dependency-fix, skill-combination *(planned)*, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory |
 | Medium     |     7 |      23.3% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5 |
-| Hard       |     5 |      16.7% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-project-build-bug-fix-easy, vue-project-build-bug-fix-hard |
+| Hard       |     5 |      16.7% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain |
 
 Factor count vs difficulty:
 
