@@ -29,36 +29,36 @@ single, clean environment without structural complexity.
 
 | case_id | Case Name                         | Difficulty | A1 | A2 | B1 | B2 | Primary Domain             |
 |--------:|-----------------------------------|:----------:|:--:|:--:|:--:|:--:|----------------------------|
-|       1 | skill-creation                    |     E      |    |    |    | ✓  | Documents & Knowledge      |
-|       2 | skill-supplementation             |     E      |    |    |    | ✓  | Documents & Knowledge      |
-|       3 | skill-conflict-resolution         |     M      |    |    |    | ✓  | Documents & Knowledge      |
-|       4 | skill-repository-curation         |     H      |    |    |    | ✓  | Documents & Knowledge      |
-|       5 | skill-dependency-fix              |     H      |    |    |    | ✓  | Documents & Knowledge      |
-|      30 | skill-combination *(planned)*     |     M      |    |    |    | ✓  | Documents & Knowledge      |
+|       1 | skill-creation                    |     M      |    |    |    | ✓  | Documents & Knowledge      |
+|       2 | skill-supplementation             |     M      |    |    |    | ✓  | Documents & Knowledge      |
+|       3 | skill-conflict-resolution         |     E      |    |    |    | ✓  | Documents & Knowledge      |
+|       4 | skill-repository-curation         |     M      |    |    |    | ✓  | Documents & Knowledge      |
+|       5 | skill-dependency-fix              |     E      |    |    |    | ✓  | Documents & Knowledge      |
+|      30 | skill-combination *(planned)*     |     E      |    |    |    | ✓  | Documents & Knowledge      |
 |       6 | email-writing                     |     E      |    |    |    |    | Communication & Email      |
 |       7 | email-reply                       |     E      |    |    |    |    | Communication & Email      |
-|       8 | flight-booking                    |     E      |    |    |    |    | E-commerce & Daily Svcs    |
-|       9 | flight-seat-selection             |     M      | ✓  |    |    |    | E-commerce & Daily Svcs    |
+|       8 | flight-booking                    |     M      |    |    |    |    | E-commerce & Daily Svcs    |
+|       9 | flight-seat-selection             |     E      | ✓  |    |    |    | E-commerce & Daily Svcs    |
 |      10 | flight-seat-selection-failed      |     H      | ✓  |    | ✓  |    | E-commerce & Daily Svcs    |
 |      11 | flight-cancel-claim               |     H      | ✓  |    | ✓  |    | E-commerce & Daily Svcs    |
-|      12 | flight-info-change-notice         |     H      | ✓  |    | ✓  |    | Calendar & Task Mgmt       |
-|      13 | baggage-tracking-application      |     M      |    |    | ✓  |    | E-commerce & Daily Svcs    |
-|      14 | schedule-change-request           |     H      | ✓  |    |    |    | Calendar & Task Mgmt       |
-|      15 | blog-site-from-scratch            |     H      |    |    |    |    | Coding & Software Dev      |
-|      16 | blog-site-completion-from-starter |     M      |    | ✓  |    |    | Coding & Software Dev      |
+|      12 | flight-info-change-notice         |     E      | ✓  |    | ✓  |    | Calendar & Task Mgmt       |
+|      13 | baggage-tracking-application      |     E      |    |    | ✓  |    | E-commerce & Daily Svcs    |
+|      14 | schedule-change-request           |     M      | ✓  |    |    |    | Calendar & Task Mgmt       |
+|      15 | blog-site-from-scratch            |     E      |    |    |    |    | Coding & Software Dev      |
+|      16 | blog-site-completion-from-starter |     E      |    | ✓  |    |    | Coding & Software Dev      |
 |      17 | washer-shop                       |     E      |    |    |    |    | E-commerce & Daily Svcs    |
 |      18 | watch-shop                        |     E      |    |    |    |    | E-commerce & Daily Svcs    |
 |      19 | washer-change                     |     E      |    |    |    |    | E-commerce & Daily Svcs    |
 |      20 | info-change                       |     E      |    |    |    |    | E-commerce & Daily Svcs    |
-|      21 | email-watch-shop                  |     M      | ✓  |    |    |    | E-commerce & Daily Svcs    |
-|      22 | email-washer-change               |     M      | ✓  |    |    |    | E-commerce & Daily Svcs    |
-|      23 | vue-project-build-bug-fix-easy    |     E      |    | ✓  |    |    | DevOps & Env Repair        |
+|      21 | email-watch-shop                  |     H      | ✓  |    |    |    | E-commerce & Daily Svcs    |
+|      22 | email-washer-change               |     E      | ✓  |    |    |    | E-commerce & Daily Svcs    |
+|      23 | vue-project-build-bug-fix-easy    |     H      |    | ✓  |    |    | DevOps & Env Repair        |
 |      24 | vue-project-build-bug-fix-hard    |     H      |    | ✓  |    |    | DevOps & Env Repair        |
 |      25 | noise-filtering                   |     M      |    | ✓  |    | ✓  | Deep Research & Report     |
-|      26 | incremental-update-ctp            |     M      |    | ✓  |    | ✓  | Documents & Knowledge      |
-|      27 | conflict-repair-acb               |     M      | ✓  | ✓  |    | ✓  | Documents & Knowledge      |
-|      28 | mixed-tool-memory                 |     H      | ✓  |    |    | ✓  | Documents & Knowledge      |
-|      29 | live-web-research-sqlite-fts5     |     H      | ✓  |    |    | ✓  | Deep Research & Report     |
+|      26 | incremental-update-ctp            |     E      |    | ✓  |    | ✓  | Documents & Knowledge      |
+|      27 | conflict-repair-acb               |     E      | ✓  | ✓  |    | ✓  | Documents & Knowledge      |
+|      28 | mixed-tool-memory                 |     E      | ✓  |    |    | ✓  | Documents & Knowledge      |
+|      29 | live-web-research-sqlite-fts5     |     M      | ✓  |    |    | ✓  | Deep Research & Report     |
 
 ---
 
@@ -114,17 +114,17 @@ LiveClawBench includes 5 controlled pairs for isolating single-factor effects on
 
 | Pair ID | Controlled Pair                    | Base Case (Difficulty)              | Added Factor                | Variant Case (Difficulty)                |
 |--------:|------------------------------------|-------------------------------------|-----------------------------|------------------------------------------|
-|       1 | Shopping → Cross-env Shopping      | washer-shop (E)                     | +A1 (email integration)     | email-washer-change (M)                  |
-|       2 | Shopping → Cross-env Shopping      | watch-shop (E)                      | +A1 (email integration)     | email-watch-shop (M)                     |
-|       3 | Seat Selection → Failed Selection  | flight-seat-selection (M)           | +B1 (constraint failure)    | flight-seat-selection-failed (H)         |
-|       4 | Vue Fix easy → hard                | vue-project-build-bug-fix-easy (E)  | +A2 (more complex faults)   | vue-project-build-bug-fix-hard (H)       |
-|       5 | Skill Creation → Dependency Fix    | skill-creation (E)                  | +B2 (dependency chain)      | skill-dependency-fix (H)                 |
+|       1 | Shopping → Cross-env Shopping      | washer-shop (E)                     | +A1 (email integration)     | email-washer-change (E)                  |
+|       2 | Shopping → Cross-env Shopping      | watch-shop (E)                      | +A1 (email integration)     | email-watch-shop (H)                     |
+|       3 | Seat Selection → Failed Selection  | flight-seat-selection (E)           | +B1 (constraint failure)    | flight-seat-selection-failed (H)         |
+|       4 | Vue Fix easy → hard                | vue-project-build-bug-fix-easy (H)  | +A2 (more complex faults)   | vue-project-build-bug-fix-hard (H)       |
+|       5 | Skill Creation → Dependency Fix    | skill-creation (M)                  | +B2 (dependency chain)      | skill-dependency-fix (E)                 |
 
 Pair design rationale:
-- **Pairs 1–2** validate A1 (Cross-Service Dependency): adding email notification to a simple shopping task raises difficulty from E to M
-- **Pair 3** validates B1 (Implicit Goal Resolution): seat selection with constraint failure requires the agent to autonomously decide on a fallback strategy, raising difficulty from M to H
-- **Pair 4** is an intensity gradient: both are A2 bug-fix tasks, but the hard variant has a more complex fault chain — difficulty jumps from E to H
-- **Pair 5** is an intensity gradient: from single skill creation to dependency-chain repair, B2 depth increases significantly, raising difficulty from E to H
+- **Pairs 1–2** validate A1 (Cross-Service Dependency): Pair 1 shows no empirical difficulty change (E→E), while Pair 2 shows a large jump (E→H), suggesting the impact of cross-environment integration varies by workflow complexity
+- **Pair 3** validates B1 (Implicit Goal Resolution): adding constraint failure to seat selection raises difficulty from E to H, confirming that autonomous fallback reasoning is empirically challenging
+- **Pair 4** is an intensity gradient: both variants are empirically H — the granularity of empirical difficulty tiers does not distinguish the fault-chain depth difference
+- **Pair 5** is an intensity gradient: empirically the variant (E) is easier than the base (M), suggesting agents find dependency-chain repair more tractable than open-ended skill creation
 
 ---
 
@@ -132,18 +132,20 @@ Pair design rationale:
 
 | Difficulty | Count | Percentage | Cases |
 |:----------:|------:|-----------:|-------|
-| Easy       |    10 |      33.3% | skill-creation, skill-supplementation, email-writing, email-reply, flight-booking, washer-shop, watch-shop, washer-change, info-change, vue-project-build-bug-fix-easy |
-| Medium     |    10 |      33.3% | skill-conflict-resolution, skill-combination *(planned)*, flight-seat-selection, baggage-tracking-application, blog-site-completion-from-starter, email-watch-shop, email-washer-change, noise-filtering, incremental-update-ctp, conflict-repair-acb |
-| Hard       |    10 |      33.3% | skill-repository-curation, skill-dependency-fix, flight-seat-selection-failed, flight-cancel-claim, flight-info-change-notice, schedule-change-request, blog-site-from-scratch, vue-project-build-bug-fix-hard, mixed-tool-memory, live-web-research-sqlite-fts5 |
+| Easy       |    18 |      60.0% | skill-conflict-resolution, skill-dependency-fix, skill-combination *(planned)*, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory |
+| Medium     |     7 |      23.3% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5 |
+| Hard       |     5 |      16.7% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-project-build-bug-fix-easy, vue-project-build-bug-fix-hard |
 
 Factor count vs difficulty:
 
 | Difficulty | Avg Factor Count | Baseline (0 factors) | Single Factor | Multi-Factor |
 |:----------:|:----------------:|:--------------------:|:-------------:|:------------:|
-| Easy       |             0.3  |          7           |       3       |       0      |
-| Medium     |             1.4  |          0           |       7       |       3      |
-| Hard       |             1.4  |          1           |       4       |       5      |
+| Easy       |             0.89 |          7           |       7       |       4      |
+| Medium     |             1.14 |          1           |       4       |       2      |
+| Hard       |             1.40 |          0           |       3       |       2      |
 
-Easy cases are predominantly baselines (70%), while Medium/Hard cases almost always carry
-at least one factor. The single Hard baseline (`blog-site-from-scratch`) derives its
-difficulty from task scale and openness rather than structural complexity factors.
+The empirical reclassification (based on average solve rates across models) shows that Easy
+cases dominate (60%). Easy cases include both baselines (38.9%) and factor-bearing tasks
+(61.1%), indicating that many structural complexity factors do not pose significant difficulty
+for current agents. Hard cases are concentrated in tasks requiring constraint failure handling
+(B1) or specific challenging environments (A2 in DevOps).
