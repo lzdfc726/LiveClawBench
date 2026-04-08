@@ -5,6 +5,7 @@
 [![Paper](https://img.shields.io/badge/Paper-Preprint-orange)](https://github.com/Mosi-AI/LiveClawBench/releases/download/v0.1-preprint/LiveClawBench.pdf)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 [![Tasks](https://img.shields.io/badge/Tasks-30-green)](tasks/)
+[![Dataset](https://img.shields.io/badge/HuggingFace-630_Trajectories-yellow)](https://huggingface.co/datasets/Mosi-AI/LiveClawBench)
 
 LiveClawBench evaluates LLM agents on realistic, multi-step assistant tasks using the [Harbor](https://github.com/Mosi-AI/claw-harbor) framework and the [OpenClaw](https://github.com/openclaw/openclaw) agent platform.
 
@@ -18,9 +19,9 @@ by introducing a **Triple-Axis Complexity Framework** derived from empirical ana
 production OpenClaw usage data, and building a pilot benchmark with explicit factor
 annotations, controlled pairs, deterministic mock environments, and outcome-driven evaluation.
 
-> **Status** (updated March 21, 2026): The 30 pilot tasks were manually constructed and validated by contributors.
-> Automated evaluation harness standardization is in progress — full automated testing support expected **week of March 24**.
-> Leaderboard, agent trajectories, and an updated preprint will follow **week of March 31**.
+> **Status** (updated April 8, 2026): v0.1.0 release. 30 pilot tasks validated, automated evaluation harness complete.
+> Leaderboard and 630 agent trajectories (7 models, ATIF-v1.2) published on
+> [HuggingFace](https://huggingface.co/datasets/Mosi-AI/LiveClawBench).
 
 **Paper**: [LiveClawBench: Benchmarking LLM Agents on Complex, Real-World Assistant Tasks](https://github.com/Mosi-AI/LiveClawBench/releases/download/v0.1-preprint/LiveClawBench.pdf) — arXiv preprint (submission in progress)
 
@@ -56,11 +57,32 @@ docker build -t liveclawbench-base:latest docker/base/
 
 # Edit .env with your API key, then run a task:
 source .venv/bin/activate
-harbor run -p tasks/watch-shop -a openclaw -m custom/<YOUR_MODEL_ID> \
+harbor run -p tasks/watch-shop -a openclaw -m moonshot/<YOUR_MODEL_ID> \
   -n 1 -o jobs \
   --ae CUSTOM_BASE_URL="<YOUR_BASE_URL>" \
   --ae CUSTOM_API_KEY="<YOUR_API_KEY>"
 ```
+
+To run all 30 tasks:
+
+```bash
+harbor run --dataset liveclawbench@0.1.0 -a openclaw \
+  -m moonshot/<YOUR_MODEL_ID> --n-concurrent 4 -o jobs \
+  --ae CUSTOM_BASE_URL="<YOUR_BASE_URL>" \
+  --ae CUSTOM_API_KEY="<YOUR_API_KEY>" \
+  --ee JUDGE_BASE_URL="<JUDGE_BASE_URL>" \
+  --ee JUDGE_API_KEY="<JUDGE_API_KEY>"
+```
+
+> **Model prefix selects the thinking API format:**
+> - `moonshot/<model>` — injects `thinking.type: enabled/disabled`
+> - `openrouter/<model>` — injects `reasoning.effort: <level>`
+> - `anthropic/<model>` — native Anthropic thinking API
+> - `openai/<model>` — native OpenAI API
+> - `custom/<model>` — no thinking parameter injection (any OpenAI-compatible endpoint)
+>
+> All prefixes except `anthropic` and `openai` accept `--ae CUSTOM_BASE_URL` / `--ae CUSTOM_API_KEY`.
+> See [Running Tasks → Provider Routing](docs/en/guide/running-tasks.md#provider-routing-for-thinkingreasoning) for details.
 
 See [docs/en/guide/getting-started.md](docs/en/guide/getting-started.md) for full setup details.
 
@@ -78,18 +100,41 @@ See [docs/en/guide/getting-started.md](docs/en/guide/getting-started.md) for ful
 
 ## Tasks (30 pilot)
 
-| Domain | Easy | Medium | Hard |
-|--------|------|--------|------|
-| E-commerce & Daily Svcs | 5 | 4 | 2 |
-| Communication & Email | 2 | — | — |
-| Calendar & Task Mgmt | — | — | 2 |
-| Coding & Software Dev | — | 1 | 1 |
-| DevOps & Env Repair | 1 | — | 1 |
-| Documents & Knowledge | 2 | 4 | 3 |
-| Deep Research & Report | — | 1 | 1 |
-| **Total** | **10** | **10** | **10** |
+| Domain | Easy | Medium | Hard | Total |
+|--------|------|--------|------|-------|
+| E-commerce & Daily Svcs | 7 | 1 | 3 | 11 |
+| Documents & Knowledge | 6 | 3 | — | 9 |
+| Communication & Email | 2 | — | — | 2 |
+| Calendar & Task Mgmt | 1 | 1 | — | 2 |
+| Coding & Software Dev | 2 | — | — | 2 |
+| DevOps & Env Repair | — | — | 2 | 2 |
+| Deep Research & Report | — | 2 | — | 2 |
+| **Total** | **18** | **7** | **5** | **30** |
 
 Complexity factors: A1 Cross-Service Dependency (10), A2 Contaminated State (6), B1 Implicit Goals (4), B2 Knowledge Maintenance (11).
+
+## Leaderboard
+
+Scores are Avg@3: mean of 3 independent runs per task, averaged across 30 tasks, rescaled to [0, 100].
+Evaluated with claw-harbor `v0.1.0` and OpenClaw `2026.3.11`.
+
+| Model | Avg@3 (0–100) |
+|-------|---------------|
+| Qwen3.5-397B-A17B | 72.6 |
+| MiniMax-M2.7 | 71.2 |
+| GLM-5 | 69.9 |
+| GLM-5-Turbo | 66.5 |
+| Qwen3.5-122B-A10B | 64.4 |
+| Qwen3.5-27B | 64.2 |
+| Qwen3.5-35B-A3B | 58.3 |
+
+**Key findings:**
+
+- **B1 (Implicit Goal Resolution)** causes -28.7 to -51.3 score degradation across all models
+- **DevOps & Env Repair** is the weakest domain (most models < 15%)
+- **Coding & Software Dev** achieves near-perfect scores on the current 2 routine tasks
+
+Full per-factor and per-domain breakdowns, plus all 630 trajectories → [HuggingFace](https://huggingface.co/datasets/Mosi-AI/LiveClawBench)
 
 ## Case Study
 
@@ -110,23 +155,19 @@ LiveClawBench is a living benchmark designed to evolve alongside the OpenClaw ec
 ### Infrastructure
 
 - [x] 30-task pilot benchmark with manual validation (March 2026)
-- [ ] Automated evaluation harness for all 30 tasks (week of March 24)
-- [ ] Public leaderboard with agent trajectory viewer (week of March 31)
+- [x] Automated evaluation harness for all 30 tasks (March 2026)
+- [x] Public leaderboard with agent trajectories on HuggingFace (April 2026)
+- [ ] Expand to 100+ tasks with broader domain and factor coverage (end of April 2026)
 - [ ] Community task submission pipeline
 
-### Broader Domains
+### Scale to 100+ Tasks (target: end of April 2026)
 
-Expand from 7 to 15+ domains:
+Expand from 7 to 15+ domains and add coverage for A3, A4, B3, C1, C2:
 
 - [ ] Finance & banking workflows
 - [ ] Healthcare & scheduling scenarios
 - [ ] Travel & logistics (beyond flight booking)
 - [ ] Home & smart device management
-
-### Fuller Complexity Coverage
-
-Axes A3, A4, B3, C1–C2 are not yet in the pilot:
-
 - [ ] A3: Temporal & Resource Constraints (deadline reasoning, rate-limit handling)
 - [ ] A4: Cross-Modal Interaction (images, PDFs, CAPTCHAs — requires vision-capable model)
 - [ ] B3: Multi-Agent Delegation (orchestrator/sub-agent patterns)
