@@ -1,7 +1,7 @@
 # LiveClawBench Complexity Framework
 
 This document is the single reference for task complexity annotations in LiveClawBench.
-It covers factor definitions, the full 30-case annotation table (29 implemented + 1 planned),
+It covers factor definitions, the full 30-case annotation table (30 implemented),
 summary statistics, domain coverage, and controlled pairs.
 
 ## Complexity Factor Definitions
@@ -25,7 +25,7 @@ single, clean environment without structural complexity.
 
 ## 1. 30-Case Factor Annotation Table
 
-`✓` indicates the case carries the corresponding factor. Cases marked *(planned)* are under development.
+`✓` indicates the case carries the corresponding factor.
 
 | case_id | Case Name                         | Difficulty | A1 | A2 | B1 | B2 | Primary Domain             |
 |--------:|-----------------------------------|:----------:|:--:|:--:|:--:|:--:|----------------------------|
@@ -34,7 +34,7 @@ single, clean environment without structural complexity.
 |       3 | skill-conflict-resolution         |     E      |    |    |    | ✓  | Documents & Knowledge      |
 |       4 | skill-repository-curation         |     M      |    |    |    | ✓  | Documents & Knowledge      |
 |       5 | skill-dependency-fix              |     E      |    |    |    | ✓  | Documents & Knowledge      |
-|      30 | skill-combination *(planned)*     |     E      |    |    |    | ✓  | Documents & Knowledge      |
+|      30 | skill-combination                 |     E      |    |    |    | ✓  | Documents & Knowledge      |
 |       6 | email-writing                     |     E      |    |    |    |    | Communication & Email      |
 |       7 | email-reply                       |     E      |    |    |    |    | Communication & Email      |
 |       8 | flight-booking                    |     M      |    |    |    |    | E-commerce & Daily Svcs    |
@@ -71,7 +71,7 @@ single, clean environment without structural complexity.
 | B1     | Implicit Goal Resolution       |     4 |      13.3% | flight-seat-selection-failed, flight-cancel-claim, flight-info-change-notice, baggage-tracking-application |
 | B2     | Knowledge System Maintenance   |    11 |      36.7% | skill-creation, skill-dependency-fix, noise-filtering         |
 
-> Percentages are relative to 30 total cases (29 implemented + 1 planned).
+> Percentages are relative to 30 implemented cases.
 
 Factor combination distribution:
 
@@ -107,24 +107,26 @@ Key observations:
 
 ## 4. Controlled Pairs
 
-LiveClawBench includes 5 controlled pairs for isolating single-factor effects on agent performance:
+LiveClawBench includes 2 controlled pairs with empirically validated difficulty gradients.
+Each pair shares the same core task logic; the variant adds exactly one complexity factor,
+and the resulting difficulty increase confirms the factor's measurable impact.
 
-- **Factor-addition pairs**: the variant adds exactly one new complexity factor over the base
-- **Intensity-gradient pairs**: both cases share the same factor, but at different depth/severity
-
-| Pair ID | Controlled Pair                    | Base Case (Difficulty)              | Added Factor                | Variant Case (Difficulty)                |
-|--------:|------------------------------------|-------------------------------------|-----------------------------|------------------------------------------|
-|       1 | Shopping → Cross-env Shopping      | washer-shop (E)                     | +A1 (email integration)     | email-washer-change (E)                  |
-|       2 | Shopping → Cross-env Shopping      | watch-shop (E)                      | +A1 (email integration)     | email-watch-shop (H)                     |
-|       3 | Seat Selection → Failed Selection  | flight-seat-selection (E)           | +B1 (constraint failure)    | flight-seat-selection-failed (H)         |
-|       4 | Vue Fix single → chain             | vue-build-fix-single (H)            | +A2 (more complex faults)   | vue-build-fix-chain (H)                  |
-|       5 | Skill Creation → Dependency Fix    | skill-creation (M)                  | +B2 (dependency chain)      | skill-dependency-fix (E)                 |
+| Pair | Controlled Pair                    | Base Case (Difficulty)              | Added Factor                | Variant Case (Difficulty)                |
+|-----:|------------------------------------|-------------------------------------|-----------------------------|------------------------------------------|
+|    1 | Shopping → Cross-env Shopping      | watch-shop (E)                      | +A1 (email integration)     | email-watch-shop (H)                     |
+|    2 | Seat Selection → Failed Selection  | flight-seat-selection (E)           | +B1 (constraint failure)    | flight-seat-selection-failed (H)         |
 
 Pair design rationale:
-- **Pairs 1–2** validate A1 (Cross-Service Dependency): Pair 1 shows no empirical difficulty change (E→E), while Pair 2 shows a large jump (E→H), suggesting the impact of cross-environment integration varies by workflow complexity
-- **Pair 3** validates B1 (Implicit Goal Resolution): adding constraint failure to seat selection raises difficulty from E to H, confirming that autonomous fallback reasoning is empirically challenging
-- **Pair 4** is an intensity gradient: both variants are empirically H — the granularity of empirical difficulty tiers does not distinguish the fault-chain depth difference
-- **Pair 5** is an intensity gradient: empirically the variant (E) is easier than the base (M), suggesting agents find dependency-chain repair more tractable than open-ended skill creation
+- **Pair 1** validates A1 (Cross-Service Dependency): adding email integration raises difficulty from E to H, confirming that cross-service coordination is empirically challenging
+- **Pair 2** validates B1 (Implicit Goal Resolution): adding constraint failure to seat selection raises difficulty from E to H, confirming that autonomous fallback reasoning is empirically challenging
+
+> **Coverage gap.** The pilot benchmark has no validated controlled pairs for A2
+> (Contaminated Initial State) or B2 (Knowledge System Maintenance). Three candidate
+> pairs were evaluated but lost their difficulty gradient after empirical recalibration
+> (PR #25): washer-shop→email-washer-change (A1, E→E), vue-build-fix-single→chain
+> (A2, H→H), skill-creation→skill-dependency-fix (B2, M→E inverted). Synthesizing
+> new A2 and B2 isolation pairs requires adding purpose-built tasks — see
+> [Future Factors roadmap](../roadmap/future_factors.md#controlled-pair-expansion).
 
 ---
 
@@ -132,7 +134,7 @@ Pair design rationale:
 
 | Difficulty | Count | Percentage | Cases |
 |:----------:|------:|-----------:|-------|
-| Easy       |    18 |      60.0% | skill-conflict-resolution, skill-dependency-fix, skill-combination *(planned)*, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory |
+| Easy       |    18 |      60.0% | skill-conflict-resolution, skill-dependency-fix, skill-combination, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory |
 | Medium     |     7 |      23.3% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5 |
 | Hard       |     5 |      16.7% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain |
 
