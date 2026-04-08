@@ -154,32 +154,32 @@ cat jobs/*/*/verifier/reward.txt   # 1.0 = solved, 0.5 = partial credit
 | `washer-shop` | E-commerce & Daily Svcs | easy | verify.py |
 | `info-change` | E-commerce & Daily Svcs | easy | verify.py |
 | `washer-change` | E-commerce & Daily Svcs | easy | verify.py |
-| `email-watch-shop` | E-commerce & Daily Svcs | medium | verify.py |
-| `email-washer-change` | E-commerce & Daily Svcs | medium | verify.py |
+| `email-watch-shop` | E-commerce & Daily Svcs | hard | verify.py |
+| `email-washer-change` | E-commerce & Daily Svcs | easy | verify.py |
 | `email-writing` | Communication & Email | easy | verify.py |
 | `email-reply` | Communication & Email | easy | verify.py |
-| `schedule-change-request` | Calendar & Task Mgmt | hard | verify.py |
-| `flight-booking` | E-commerce & Daily Svcs | easy | verify.py |
-| `flight-info-change-notice` | Calendar & Task Mgmt | hard | verify.py |
-| `flight-seat-selection` | E-commerce & Daily Svcs | medium | verify.py |
+| `schedule-change-request` | Calendar & Task Mgmt | medium | verify.py |
+| `flight-booking` | E-commerce & Daily Svcs | medium | verify.py |
+| `flight-info-change-notice` | Calendar & Task Mgmt | easy | verify.py |
+| `flight-seat-selection` | E-commerce & Daily Svcs | easy | verify.py |
 | `flight-seat-selection-failed` | E-commerce & Daily Svcs | hard | verify.py |
 | `flight-cancel-claim` | E-commerce & Daily Svcs | hard | verify.py |
-| `baggage-tracking-application` | E-commerce & Daily Svcs | medium | verify.py |
-| `blog-site-from-scratch` | Coding & Software Dev | hard | verify.py |
-| `blog-site-completion-from-starter` | Coding & Software Dev | medium | verify.py |
-| `vue-project-build-bug-fix-easy` | DevOps & Env Repair | easy | verify.py |
-| `vue-project-build-bug-fix-hard` | DevOps & Env Repair | hard | verify.py |
-| `skill-creation` | Documents & Knowledge | easy | evaluate.py |
-| `skill-repository-curation` | Documents & Knowledge | hard | evaluate.py |
-| `skill-supplementation` | Documents & Knowledge | easy | evaluate.py |
-| `skill-conflict-resolution` | Documents & Knowledge | medium | evaluate.py |
-| `skill-dependency-fix` | Documents & Knowledge | hard | evaluate.py |
+| `baggage-tracking-application` | E-commerce & Daily Svcs | easy | verify.py |
+| `blog-site-from-scratch` | Coding & Software Dev | easy | verify.py |
+| `blog-site-completion-from-starter` | Coding & Software Dev | easy | verify.py |
+| `vue-build-fix-single` | DevOps & Env Repair | hard | verify.py |
+| `vue-build-fix-chain` | DevOps & Env Repair | hard | verify.py |
+| `skill-creation` | Documents & Knowledge | medium | evaluate.py |
+| `skill-repository-curation` | Documents & Knowledge | medium | evaluate.py |
+| `skill-supplementation` | Documents & Knowledge | medium | evaluate.py |
+| `skill-conflict-resolution` | Documents & Knowledge | easy | evaluate.py |
+| `skill-dependency-fix` | Documents & Knowledge | easy | evaluate.py |
 | `noise-filtering` | Deep Research & Report | medium | **llm_judge** |
-| `mixed-tool-memory` | Documents & Knowledge | hard | **llm_judge** |
-| `incremental-update-ctp` | Documents & Knowledge | medium | **llm_judge** |
-| `live-web-research-sqlite-fts5` | Deep Research & Report | hard | **llm_judge** |
-| `conflict-repair-acb` | Documents & Knowledge | medium | **llm_judge** |
-| `skill-combination` | Documents & Knowledge | medium | evaluate.py |
+| `mixed-tool-memory` | Documents & Knowledge | easy | **llm_judge** |
+| `incremental-update-ctp` | Documents & Knowledge | easy | **llm_judge** |
+| `live-web-research-sqlite-fts5` | Deep Research & Report | medium | **llm_judge** |
+| `conflict-repair-acb` | Documents & Knowledge | easy | **llm_judge** |
+| `skill-combination` | Documents & Knowledge | easy | evaluate.py |
 
 ## Base Docker Image
 
@@ -330,7 +330,7 @@ pre-commit install      # hooks run automatically on git commit — replaces man
 ## Ground Truth Numbers (verified from task.toml)
 
 30 implemented tasks: A1=10, A2=6, B1=4, B2=11.
-Difficulty: Easy=10, Medium=10, Hard=10.
+Difficulty: Easy=18, Medium=7, Hard=5.
 
 ## Known Issues
 
