@@ -1,4 +1,4 @@
-FROM liveclawbench-base:latest
+FROM liveclawbench-flight-seat-selection-base:latest
 
 # Copy environment apps
 COPY . /workspace/environment/
@@ -19,10 +19,6 @@ RUN cd /workspace/environment/email-app/frontend && npm install --include=dev 2>
 RUN cd /workspace/environment/airline-app/backend && python3 scripts/inject_data.py
 RUN cd /workspace/environment/email-app/backend && python3 scripts/inject_data.py
 
-# Copy startup script
-COPY startup.sh /workspace/startup.sh
-RUN chmod +x /workspace/startup.sh
-
 # Install Playwright Chromium and symlink to /usr/bin/chromium so openclaw's
 # findChromeExecutableLinux() can detect it. openclaw only checks system paths
 # like /usr/bin/chromium — it does not scan the Playwright cache directory.
@@ -36,7 +32,4 @@ RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|g' /etc/apt/sources.l
 
 RUN mkdir -p /workspace/output
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
 CMD ["sh", "-c", "sleep infinity"]

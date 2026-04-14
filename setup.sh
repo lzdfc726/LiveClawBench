@@ -14,7 +14,7 @@ echo ""
 # ---------------------------------------------------------------------------
 # Step 1: Prerequisite checks
 # ---------------------------------------------------------------------------
-echo "[1/4] Checking prerequisites..."
+echo "[1/5] Checking prerequisites..."
 
 check_cmd() {
     local cmd="$1"
@@ -30,6 +30,7 @@ check_cmd() {
 check_cmd git    "Install from https://git-scm.com/downloads"
 check_cmd uv     "Install from https://docs.astral.sh/uv/getting-started/installation/"
 check_cmd docker "Install from https://docs.docker.com/get-docker/"
+check_cmd bun    "Install from https://bun.sh"
 
 # Python >= 3.12 check (uv manages Python, but verify host has one accessible)
 PY_VERSION=$(python3 --version 2>&1 | grep -oE '[0-9]+\.[0-9]+' | head -1)
@@ -47,7 +48,7 @@ echo ""
 # ---------------------------------------------------------------------------
 # Step 2: Harbor installation into local .venv (idempotent)
 # ---------------------------------------------------------------------------
-echo "[2/4] Setting up Harbor framework..."
+echo "[2/5] Setting up Harbor framework..."
 
 if [ ! -d "$VENV_DIR" ]; then
     echo "  Creating virtual environment at .venv ..."
@@ -72,7 +73,7 @@ echo ""
 # ---------------------------------------------------------------------------
 # Step 3: Build the shared base Docker image
 # ---------------------------------------------------------------------------
-echo "[3/4] Building liveclawbench-base Docker image..."
+echo "[3/5] Building liveclawbench-base Docker image..."
 echo "  This is required before running any task (image is local-only, not in a registry)."
 docker build -t liveclawbench-base:latest "$SCRIPT_DIR/docker/base/"
 echo "  liveclawbench-base:latest built successfully."
@@ -80,9 +81,27 @@ echo "  liveclawbench-base:latest built successfully."
 echo ""
 
 # ---------------------------------------------------------------------------
-# Step 4: .env setup
+# Step 4: Build Bun mock binaries and per-task Docker images
 # ---------------------------------------------------------------------------
-echo "[4/4] Configuring .env..."
+echo "[4/5] Building Bun mock binaries and per-task Docker images..."
+
+# Build binaries
+cd "$SCRIPT_DIR/mock-platform"
+bun install --silent
+bun run build
+
+# Build per-task images (dry-run to validate schema, then build images)
+bun run build:images
+cd "$SCRIPT_DIR"
+
+echo "  Mock binaries and per-task images built successfully."
+
+echo ""
+
+# ---------------------------------------------------------------------------
+# Step 5: .env setup
+# ---------------------------------------------------------------------------
+echo "[5/5] Configuring .env..."
 
 if [ ! -f "$SCRIPT_DIR/.env" ]; then
     cp "$SCRIPT_DIR/.env.example" "$SCRIPT_DIR/.env"
