@@ -39,11 +39,23 @@ export function getDb(options?: SqliteOptions): Database {
   if (_db !== null) return _db;
 
   const opts = { ...DEFAULT_OPTIONS, ...options };
-  _db = new Database(opts.path, { create: true });
+  try {
+    _db = new Database(opts.path, { create: true });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    throw new Error(`Failed to open SQLite database at ${opts.path}: ${message}`);
+  }
 
   // Enable WAL mode for better concurrent read performance
-  _db.run("PRAGMA journal_mode = WAL");
-  _db.run("PRAGMA foreign_keys = ON");
+  try {
+    _db.run("PRAGMA journal_mode = WAL");
+    _db.run("PRAGMA foreign_keys = ON");
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    _db.close();
+    _db = null;
+    throw new Error(`Failed to configure SQLite database: ${message}`);
+  }
 
   // Run migrations if autoMigrate is enabled (default behavior)
   if (opts.autoMigrate) {
@@ -68,7 +80,7 @@ export function resetDb(): void {
  * Creates common tables if they don't exist.
  * Actual migration logic will be added by migration tasks in Plan 2+.
  */
-function migrate(db: Database): void {
+export function migrate(db: Database): void {
   db.run(`
     CREATE TABLE IF NOT EXISTS _migrations (
       id INTEGER PRIMARY KEY AUTOINCREMENT,

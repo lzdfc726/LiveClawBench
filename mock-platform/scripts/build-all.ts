@@ -10,7 +10,7 @@
 
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { mkdirSync } from "node:fs";
+import { mkdirSync, existsSync } from "node:fs";
 
 const MOCKS_DIR = join(import.meta.dir, "..", "mocks");
 const DIST_DIR = join(import.meta.dir, "..", "dist");
@@ -32,16 +32,23 @@ async function discoverMocks(): Promise<string[]> {
 }
 
 async function compileMock(name: string): Promise<BuildResult> {
-  const entryPoint = join(MOCKS_DIR, name, "src", "index.ts");
+  // Support both .ts and .tsx entry points (shop uses TSX for Hono JSX rendering)
+  const tsPath = join(MOCKS_DIR, name, "src", "index.ts");
+  const tsxPath = join(MOCKS_DIR, name, "src", "index.tsx");
+  const entryPoint = existsSync(tsxPath) ? tsxPath : tsPath;
   const outputPath = join(DIST_DIR, `mock-${name}`);
 
   try {
-    // NOTE: Using --target bun-linux-x64 requires network access on first run
+    // Auto-detect host architecture for cross-compilation target selection
+    // ARM64 hosts build aarch64 binaries, x64 hosts build x86_64 binaries
+    const hostArch = process.arch; // 'arm64' or 'x64'
+    const target = hostArch === 'arm64' ? 'bun-linux-aarch64' : 'bun-linux-x64';
+
+    // NOTE: Using --target requires network access on first run
     // to download the Linux runtime bundle. Offline or restricted-network
-    // environments will fail with "Failed to download 'bun-linux-x64-v1.3.11'".
-    // This is a known limitation for Plan 1; Plan 2 can address offline builds.
+    // environments will fail with a "Failed to download" error.
     const proc = Bun.spawn([
-      "bun", "build", "--compile", "--target", "bun-linux-x64",
+      "bun", "build", "--compile", "--target", target,
       entryPoint, "--outfile", outputPath,
     ], {
       stdout: "pipe",
@@ -62,7 +69,7 @@ async function compileMock(name: string): Promise<BuildResult> {
 }
 
 /**
- * Binary isolation verification (AC-1.1).
+ * Binary isolation verification.
  *
  * Two-phase check per compiled binary:
  * 1. POSITIVE control: binary MUST contain its own sentinel route string
@@ -71,9 +78,10 @@ async function compileMock(name: string): Promise<BuildResult> {
  * This proves both that each binary is self-contained and that cross-contamination
  * did not occur during compilation.
  */
-async function verifyIsolation(results: BuildResult[]): Promise<{ violations: Map<string, string[]>; missingSentinels: string[] }> {
+async function verifyIsolation(results: BuildResult[]): Promise<{ violations: Map<string, string[]>; missingSentinels: string[]; readErrors: Map<string, string> }> {
   const violations = new Map<string, string[]>();
   const missingSentinels: string[] = [];
+  const readErrors = new Map<string, string>();
 
   // Sentinel routes registered by each mock stub — must match mocks/*/src/index.ts
   const sentinelPatterns: Record<string, string> = {
@@ -81,7 +89,7 @@ async function verifyIsolation(results: BuildResult[]): Promise<{ violations: Ma
     email: "/__mock_sentinel__/email",
     shop: "/__mock_sentinel__/shop",
     todolist: "/__mock_sentinel__/todolist",
-    "browser-portal": "/__mock_sentinel__/browser-portal",
+    "doc-search": "/__mock_sentinel__/doc-search",
   };
 
   const successfulMocks = results.filter((r) => r.success);
@@ -100,8 +108,8 @@ async function verifyIsolation(results: BuildResult[]): Promise<{ violations: Ma
         missingSentinels.push(result.name);
       }
     } catch (err) {
-      // If we can't read the binary, we can't verify sentinel
-      console.error(`Warning: Could not read ${result.name} for sentinel check: ${err}`);
+      console.error(`Error: Could not read ${result.name} for sentinel check: ${err}`);
+      readErrors.set(result.name, `Binary read failed: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
 
@@ -127,12 +135,13 @@ async function verifyIsolation(results: BuildResult[]): Promise<{ violations: Ma
           violations.set(result.name, foundViolations);
         }
       } catch (err) {
-        console.error(`Warning: Could not read ${result.name} for cross-contamination check: ${err}`);
+        console.error(`Error: Could not read ${result.name} for cross-contamination check: ${err}`);
+        readErrors.set(result.name, `Binary read failed: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
   }
 
-  return { violations, missingSentinels };
+  return { violations, missingSentinels, readErrors };
 }
 
 async function main() {
@@ -166,12 +175,20 @@ async function main() {
     }
   }
 
-  // Binary isolation verification (AC-1.1)
+  console.log(`\n=== Binary Isolation Verification ===`);
+  const { violations, missingSentinels, readErrors } = await verifyIsolation(results);
+
+  // Apply read errors to results (verifyIsolation no longer mutates its input)
+  for (const [name, errorMsg] of readErrors) {
+    const result = results.find((r) => r.name === name);
+    if (result) {
+      result.success = false;
+      result.error = errorMsg;
+    }
+  }
+
   const passed = results.filter((r) => r.success);
   const failed = results.filter((r) => !r.success);
-
-  console.log(`\n=== Binary Isolation Verification ===`);
-  const { violations, missingSentinels } = await verifyIsolation(results);
 
   // Report positive control failures
   if (missingSentinels.length > 0) {
@@ -189,7 +206,15 @@ async function main() {
     }
   }
 
-  const isolationPass = violations.size === 0 && missingSentinels.length === 0;
+  // Report binary read errors
+  if (readErrors.size > 0) {
+    console.log("FAIL: Binary read errors during isolation verification:");
+    for (const name of readErrors.keys()) {
+      console.log(`  mock-${name} could not be read for isolation check`);
+    }
+  }
+
+  const isolationPass = violations.size === 0 && missingSentinels.length === 0 && readErrors.size === 0;
   if (isolationPass) {
     console.log("PASS: All binaries contain own sentinel, no cross-contamination.");
   }
@@ -212,7 +237,7 @@ async function main() {
     process.exit(1);
   }
 
-  // Exit with error if isolation verification failed (AC-1.1 violation)
+  // Exit with error if isolation verification failed
   if (!isolationPass) {
     console.error("\nERROR: Isolation verification failed. Build pipeline cannot continue.");
     console.error("  Fix: Ensure each mock contains its own sentinel route and no foreign sentinels.");

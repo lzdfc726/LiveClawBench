@@ -14,9 +14,8 @@
  * Usage: bun run scripts/build-task-images.ts [--dry-run]
  */
 
-import { readFileSync, existsSync, statSync } from "node:fs";
-import { join } from "node:path";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { readFileSync, existsSync, statSync, mkdirSync, writeFileSync, readdirSync, realpathSync } from "node:fs";
+import { join, relative, resolve, sep } from "node:path";
 
 const DIST_DIR = join(import.meta.dir, "..", "dist");
 const CONFIG_PATH = join(import.meta.dir, "..", "config", "task-binary-map.json");
@@ -34,7 +33,7 @@ const BINARY_PORTS: Record<string, number> = {
   email: 5001,
   shop: 1234,
   todolist: 5002,
-  "browser-portal": 8123,
+  "doc-search": 8123,
 };
 
 // All 30 benchmark task names (canonical source of truth)
@@ -51,9 +50,18 @@ const ALL_TASK_NAMES = new Set([
   "conflict-repair-acb", "skill-combination",
 ]);
 
+interface AssetMapping {
+  /** Source path relative to the repository root */
+  src: string;
+  /** Destination path inside the per-task Docker image */
+  dest: string;
+}
+
 interface TaskMapping {
   binaries: string[];
   startup_extra?: string;
+  /** Optional per-task assets to COPY into the image */
+  assets?: AssetMapping[];
 }
 
 interface MappingConfig {
@@ -160,6 +168,28 @@ function validateMapping(raw: unknown): MappingConfig {
         errors.push(`Task "${taskName}" 'startup_extra' must be a string path`);
       }
     }
+
+    // Validate optional assets field
+    if ("assets" in taskObj) {
+      if (!Array.isArray(taskObj.assets)) {
+        errors.push(`Task "${taskName}" 'assets' must be an array`);
+      } else {
+        for (let ai = 0; ai < (taskObj.assets as unknown[]).length; ai++) {
+          const asset = (taskObj.assets as unknown[])[ai];
+          if (typeof asset !== "object" || asset === null) {
+            errors.push(`Task "${taskName}" assets[${ai}] must be an object`);
+            continue;
+          }
+          const assetObj = asset as Record<string, unknown>;
+          if (typeof assetObj.src !== "string" || !assetObj.src) {
+            errors.push(`Task "${taskName}" assets[${ai}] missing 'src' string`);
+          }
+          if (typeof assetObj.dest !== "string" || !assetObj.dest) {
+            errors.push(`Task "${taskName}" assets[${ai}] missing 'dest' string`);
+          }
+        }
+      }
+    }
   }
 
   // Check for missing tasks
@@ -205,44 +235,155 @@ function generateStartupScript(task: string, binaries: string[], startupExtra?: 
     "",
   ];
 
-  // NOTE: Bun mock binaries are currently stubs without real API implementations.
-  // They are included in the image but NOT started in Plan 1 to avoid port conflicts
-  // with the existing Python Flask services that provide the actual API functionality.
-  // Stub startup will be enabled in Plan 2 when Bun mocks implement real APIs.
+  // Step 0: Data directory initialization for shop tasks
+  // The shop binary stores data at /var/lib/mock-data/shop/ and verifiers
+  // read from /tmp/mosi_shop_*.json via symlinks.
+  if (binaries.includes("shop")) {
+    lines.push("# Initialize shop data directory and verifier-compatible symlinks");
+    lines.push("mkdir -p /var/lib/mock-data/shop");
+    lines.push("chown mock:mock /var/lib/mock-data/shop");
+    lines.push("chmod 700 /var/lib/mock-data/shop");
+    lines.push("ln -sf /var/lib/mock-data/shop/mosi_shop_orders.json /tmp/mosi_shop_orders.json");
+    lines.push("ln -sf /var/lib/mock-data/shop/mosi_shop_cart.json /tmp/mosi_shop_cart.json");
+    lines.push("ln -sf /var/lib/mock-data/shop/mosi_shop_user.json /tmp/mosi_shop_user.json");
+    lines.push("");
+  }
 
-  // Embed task-specific extra startup content (e.g. browser mock server init)
+  // Binaries that are stubs (health/sentinel only) — the real services are
+  // started by the task's startup.sh.  Implemented binaries (shop, doc-search)
+  // are full Bun replacements and should be launched directly.
+  const STUB_BINARIES = new Set(["email", "airline", "todolist"]);
+  const implementedBinaries = binaries.filter((b) => !STUB_BINARIES.has(b));
+  const hasStubBinaries = binaries.some((b) => STUB_BINARIES.has(b));
+
+  // Step 1: Launch implemented Bun mock binaries (skip stubs)
+  if (implementedBinaries.length > 0) {
+    lines.push("# Start Bun mock binaries (implemented services)");
+    for (const bin of implementedBinaries) {
+      const port = BINARY_PORTS[bin];
+      if (bin === "doc-search") {
+        // Doc-search requires explicit --database and --log flags for verifier
+        const outputBase = "${HOME:-/home/node}/.openclaw/output";
+        lines.push(`/opt/mock/bin/mock-doc-search --port ${port} --database "${outputBase}/browser_mock_documents.sqlite" --log "${outputBase}/browser_mock_access.jsonl" &`);
+        // Signal to solution/solve.sh that Bun mock is already running,
+        // preventing it from starting the legacy Python sidecar on the same port
+        lines.push(`export BROWSER_MOCK_BASE_URL="http://127.0.0.1:${port}"`);
+      } else {
+        lines.push(`/opt/mock/bin/mock-${bin} --port ${port} &`);
+      }
+    }
+    lines.push("");
+    lines.push("# Wait for mock binaries to bind their ports");
+    lines.push("sleep 2");
+    lines.push("");
+  }
+
+  // Step 2: Embed task-specific extra startup content (e.g. Python email services)
   // This content is read from the repo at image build time and embedded in the
   // read-only /opt/mock/startup.d/{task}.sh — not executed from writable paths.
+  // Both Bun binaries AND legacy startup can coexist (e.g. Bun shop + Python email).
   if (startupExtra) {
     // Strip shebang line and bash-specific set options from embedded content
     // since the outer script uses /bin/sh (POSIX). The embedded content runs
     // in the same shell context, so shebang is irrelevant and set -euo pipefail
     // would fail in dash. We keep set -e from the outer script.
-    const stripped = startupExtra
+    let filtered = startupExtra
       .split("\n")
-      .filter((line) => !line.startsWith("#!") && line.trim() !== "set -euo pipefail")
-      .join("\n")
-      .trimEnd();
-    lines.push("# Task-specific service startup (embedded from startup_extra)");
-    lines.push(stripped);
-    lines.push("");
-  } else if (binaries.length > 0) {
-    // For service-backed tasks without startup_extra, delegate to the task's
-    // Python startup script. The Bun mock binaries are stubs that will replace
-    // these Python services in Plan 2; until then, the Python services provide
-    // the real API that the agent and verifier expect.
-    // startup.sh is available at /workspace/environment/startup.sh because the
-    // task Dockerfile does COPY . /workspace/environment/ (includes startup.sh).
-    lines.push("# Start task-specific Python mock services");
-    lines.push("# NOTE: Bun stub binaries are not started (see note above)");
+      .filter((line) => !line.startsWith("#!") && line.trim() !== "set -euo pipefail");
+
+    // -------------------------------------------------------------------------
+    // Regex-based startup script filtering contract
+    // -------------------------------------------------------------------------
+    // The filters below rely on EXACT comment conventions used in task
+    // startup_extra files. Any change to these conventions in the source
+    // files MUST be mirrored here.
+    //
+    // Shop-app block filter (port-conflict avoidance):
+    //   - Trigger: a line matching /^#\s*Start\s+shop-app/i  (case-insensitive)
+    //   - Terminator: the next line matching /^#\s*Start\s+/i (any service)
+    //   - Behavior: drops every line between trigger (exclusive) and
+    //     terminator (exclusive). The terminator line is KEPT because it
+    //     begins a different service block.
+    //   - Example:
+    //       # Start shop-app
+    //       cd /workspace/environment/shop-app && python3 app.py &
+    //       # Start email-service   <-- terminator, kept
+    //
+    // Doc-search SQLite bootstrap filter (DB lifecycle collision avoidance):
+    //   - Trigger: a line matching /^python3\s+-.*documents\.sql.*<<'PY'$/
+    //   - Terminator: a line that is exactly "PY" (heredoc end marker)
+    //   - Behavior: drops trigger, terminator, and every line in between.
+    //   - Also drops: /^:\s*>\s*"\$\{BROWSER_MOCK_LOG\}"$/ (log truncation
+    //     that collides with Bun binary log init).
+    // -------------------------------------------------------------------------
+
+    // When implemented binaries include 'shop', strip Python shop-app startup lines
+    // to avoid port conflicts (Python start.sh kills processes on port 1234).
+    if (implementedBinaries.includes("shop")) {
+      let inShopBlock = false;
+      filtered = filtered.filter((line) => {
+        const l = line.trim();
+        if (l.match(/^#\s*Start\s+shop-app/i)) {
+          inShopBlock = true;
+          return false;
+        }
+        if (inShopBlock && l.match(/^#\s*Start\s+/i)) {
+          inShopBlock = false;
+          // Keep this line (it's a new block)
+          return true;
+        }
+        if (inShopBlock) return false;
+        return true;
+      });
+    }
+
+    // When implemented binaries include 'doc-search', strip Python sqlite bootstrap
+    // because the Bun binary handles DB initialization via initDatabase().
+    // The Python bootstrap would delete/recreate the DB after Bun has opened it.
+    if (implementedBinaries.includes("doc-search")) {
+      let inSqliteBlock = false;
+      filtered = filtered.filter((line) => {
+        const l = line.trim();
+        // Match the python3 sqlite bootstrap heredoc
+        if (l.match(/^python3\s+-.*documents\.sql.*<<'PY'$/)) {
+          inSqliteBlock = true;
+          return false;
+        }
+        if (inSqliteBlock) {
+          if (l === "PY") {
+            inSqliteBlock = false;
+          }
+          return false;
+        }
+        // Also strip the log truncation line (Bun binary handles this)
+        if (l.match(/^:\s*>\s*"\$\{BROWSER_MOCK_LOG\}"$/)) {
+          return false;
+        }
+        return true;
+      });
+    }
+
+    const stripped = filtered.join("\n").trimEnd();
+    if (stripped) {
+      lines.push("# Task-specific legacy startup (embedded from startup_extra)");
+      lines.push(stripped);
+      lines.push("");
+    }
+  } else if (hasStubBinaries) {
+    // Tasks with stub binaries (email, airline, todolist) and no startup_extra:
+    // start the real Python/Node services from the task's startup.sh instead.
+    // Run via bash since startup.sh files use Bash-specific features.
+    lines.push("# Legacy app fallback — stub binaries, run real services via bash");
     lines.push("if [ -f /workspace/environment/startup.sh ]; then");
-    lines.push("  bash /workspace/environment/startup.sh &");
-    lines.push("elif [ -f /workspace/startup.sh ]; then");
-    lines.push("  bash /workspace/startup.sh &");
+    lines.push("  bash /workspace/environment/startup.sh");
     lines.push("fi");
-    lines.push("# Wait for services to bind their ports");
-    lines.push("# Preserves 5-second delay from original per-task entrypoints");
-    lines.push("sleep 5");
+    lines.push("");
+  }
+
+  // Step 3: Final wait for all services to be ready
+  if (implementedBinaries.length > 0 || startupExtra || hasStubBinaries) {
+    lines.push("# Wait for all services to be ready");
+    lines.push("sleep 3");
     lines.push("");
   }
 
@@ -254,6 +395,7 @@ async function buildTaskImage(
   binaries: string[],
   dryRun: boolean,
   startupExtraPath?: string,
+  assets?: AssetMapping[],
 ): Promise<BuildTaskImageResult> {
   const imageTag = `liveclawbench-${task}-base:latest`;
 
@@ -276,8 +418,11 @@ async function buildTaskImage(
       };
     }
 
-    // Reject stale binaries (source newer than compiled artifact)
-    const entryPoint = join(MOCKS_DIR, bin, "src", "index.ts");
+    // Reject stale binaries (any source file newer than compiled artifact)
+    const srcDir = join(MOCKS_DIR, bin, "src");
+    const tsEp = join(srcDir, "index.ts");
+    const tsxEp = join(srcDir, "index.tsx");
+    const entryPoint = existsSync(tsxEp) ? tsxEp : tsEp;
     if (!existsSync(entryPoint)) {
       return {
         task,
@@ -289,8 +434,34 @@ async function buildTaskImage(
     }
 
     const binaryStat = statSync(binaryPath);
-    const sourceStat = statSync(entryPoint);
-    if (sourceStat.mtimeMs > binaryStat.mtimeMs) {
+    // Check all .ts/.tsx files in the src directory, not just the entry point,
+    // since imported modules (e.g. search-algorithm.ts) may have changed.
+    function collectTsFiles(dir: string, visited = new Set<string>()): string[] {
+      // Symlink cycle protection: track realpaths to avoid infinite recursion
+      let realDir: string;
+      try {
+        realDir = realpathSync(dir);
+      } catch {
+        realDir = dir;
+      }
+      if (visited.has(realDir)) return [];
+      visited.add(realDir);
+
+      const results: string[] = [];
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const full = join(dir, entry.name);
+        if (entry.isDirectory()) {
+          results.push(...collectTsFiles(full, visited));
+        } else if (entry.name.endsWith(".ts") || entry.name.endsWith(".tsx")) {
+          results.push(full);
+        }
+      }
+      return results;
+    }
+    const srcFiles = collectTsFiles(srcDir);
+    const staleFile = srcFiles.find((f) => statSync(f).mtimeMs > binaryStat.mtimeMs);
+    if (staleFile) {
+      const sourceStat = statSync(staleFile);
       return {
         task,
         success: false,
@@ -328,9 +499,89 @@ async function buildTaskImage(
     "",
   ];
 
+  // Create mock user for shop data directory ownership
+  // Tolerate only user-exists error (exit code 9); fail on other errors.
+  if (binaries.includes("shop")) {
+    dockerfileLines.push("RUN useradd -r -s /bin/false mock 2>/dev/null || [ $? -eq 9 ] || (echo 'mock user creation failed' >&2 && exit 1)");
+    dockerfileLines.push("");
+  }
+
   // COPY mock binaries (if any)
   for (const bin of binaries) {
     dockerfileLines.push(`COPY mock-${bin} /opt/mock/bin/mock-${bin}`);
+  }
+
+  // Stage and COPY per-task assets (CSS, JSON, SQL sidecars)
+  // Asset source files are copied into DIST_DIR (build context) so Docker COPY can find them.
+  if (assets && assets.length > 0) {
+    const repoRoot = resolve(import.meta.dir, "..", "..");
+    const canonicalRepoRoot = realpathSync(repoRoot);
+    const destDirs = new Set<string>();
+    const assetCopyLines: string[] = [];
+
+    for (let i = 0; i < assets.length; i++) {
+      const asset = assets[i];
+      const destDir = asset.dest.substring(0, asset.dest.lastIndexOf("/"));
+      if (destDir) destDirs.add(destDir);
+
+      // Validate asset.src has no trailing slash (prevents empty filename from pop())
+      if (asset.src.endsWith("/")) {
+        return {
+          task,
+          success: false,
+          imageTag,
+          binariesIncluded: binaries,
+          error: `Asset src must not end with trailing slash: "${asset.src}"`,
+        };
+      }
+
+      // Resolve to absolute path and validate containment within repo root
+      const srcAbsPath = resolve(repoRoot, asset.src);
+      if (!srcAbsPath.startsWith(repoRoot + sep)) {
+        return {
+          task,
+          success: false,
+          imageTag,
+          binariesIncluded: binaries,
+          error: `Asset path escapes repo root: "${asset.src}" -> ${srcAbsPath}`,
+        };
+      }
+
+      if (!existsSync(srcAbsPath)) {
+        return {
+          task,
+          success: false,
+          imageTag,
+          binariesIncluded: binaries,
+          error: `Asset source not found: ${srcAbsPath}`,
+        };
+      }
+
+      // Canonical symlink-safe containment check
+      const canonicalSrcPath = realpathSync(srcAbsPath);
+      if (
+        canonicalSrcPath !== canonicalRepoRoot &&
+        !canonicalSrcPath.startsWith(canonicalRepoRoot + sep)
+      ) {
+        return {
+          task,
+          success: false,
+          imageTag,
+          binariesIncluded: binaries,
+          error: `Asset path escapes repo root (symlink): "${asset.src}" -> ${canonicalSrcPath}`,
+        };
+      }
+      const srcFileName = asset.src.split("/").pop()!;
+      const contextName = `asset-${task}-${i}-${srcFileName}`;
+      writeFileSync(join(DIST_DIR, contextName), readFileSync(srcAbsPath));
+      assetCopyLines.push(`COPY ${contextName} ${asset.dest}`);
+    }
+
+    // Emit RUN mkdir before asset COPY lines (creates destination dirs in the image)
+    if (destDirs.size > 0) {
+      dockerfileLines.push(`RUN mkdir -p ${[...destDirs].join(" ")}`);
+    }
+    dockerfileLines.push(...assetCopyLines);
   }
 
   // COPY startup script to deterministic /opt/mock/startup.d/{task}.sh
@@ -384,10 +635,16 @@ async function buildTaskImage(
     return { task, success: true, imageTag, binariesIncluded: binaries };
   }
 
-  const proc = Bun.spawn(
-    ["docker", "build", "-t", imageTag, "-f", dockerfilePath, DIST_DIR],
-    { stdout: "pipe", stderr: "pipe" },
-  );
+  let proc;
+  try {
+    proc = Bun.spawn(
+      ["docker", "build", "-t", imageTag, "-f", dockerfilePath, DIST_DIR],
+      { stdout: "pipe", stderr: "pipe" },
+    );
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { task, success: false, imageTag, binariesIncluded: binaries, error: `docker spawn failed: ${msg}` };
+  }
   const exitCode = await proc.exited;
   if (exitCode !== 0) {
     const stderr = await new Response(proc.stderr).text();
@@ -421,7 +678,7 @@ async function main() {
   const results: BuildTaskImageResult[] = [];
   for (const [task, config] of Object.entries(mapping.tasks)) {
     process.stdout.write(`Building ${task} (${config.binaries.length} binaries)... `);
-    const result = await buildTaskImage(task, config.binaries, dryRun, config.startup_extra);
+    const result = await buildTaskImage(task, config.binaries, dryRun, config.startup_extra, config.assets);
     results.push(result);
 
     if (result.success) {
