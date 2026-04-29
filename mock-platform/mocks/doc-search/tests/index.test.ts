@@ -1,8 +1,8 @@
 import { describe, expect, test, beforeEach, afterEach } from "bun:test";
-import { mkdtempSync, rmSync, readFileSync, mkdirSync, chmodSync } from "node:fs";
+import { mkdtempSync, rmSync, readFileSync, mkdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { createDocSearchApp } from "./index";
+import { createDocSearchApp } from "../src/index";
 import type { OpenAPIApp } from "mock-lib";
 
 // Path to the checked-in SQL seed fixture
@@ -18,7 +18,7 @@ describe("createDocSearchApp — Layer 1 route tests", () => {
   let docSearch: ReturnType<typeof createDocSearchApp>;
   let app: OpenAPIApp;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     // Create fresh temp directories for each test
     tmpDir = mkdtempSync(join(tmpdir(), "doc-search-test-"));
     dataDir = join(tmpDir, "data");
@@ -28,7 +28,7 @@ describe("createDocSearchApp — Layer 1 route tests", () => {
 
     // Copy SQL seed to data dir
     const sqlContent = readFileSync(SQL_PATH, "utf-8");
-    Bun.write(join(dataDir, "documents.sql"), sqlContent);
+    await Bun.write(join(dataDir, "documents.sql"), sqlContent);
 
     // Set env vars BEFORE creating the app
     process.env.HOME = tmpDir;
@@ -38,7 +38,7 @@ describe("createDocSearchApp — Layer 1 route tests", () => {
 
     docSearch = createDocSearchApp();
     app = docSearch.app;
-    docSearch.seed!();
+    await docSearch.seed!();
   });
 
   afterEach(() => {
@@ -253,7 +253,7 @@ describe("createDocSearchApp — Layer 1 route tests", () => {
 
     // Copy SQL seed
     const sqlContent = readFileSync(SQL_PATH, "utf-8");
-    Bun.write(join(badDataDir, "documents.sql"), sqlContent);
+    await Bun.write(join(badDataDir, "documents.sql"), sqlContent);
 
     const oldHome = process.env.HOME;
     const oldDb = process.env.BROWSER_MOCK_DB_PATH;
@@ -268,7 +268,7 @@ describe("createDocSearchApp — Layer 1 route tests", () => {
 
     // Create app and seed with valid log path
     const badApp = createDocSearchApp();
-    badApp.seed!();
+    await badApp.seed!();
 
     // Verify the app works before breaking the log
     const okRes = await badApp.app.request("/");
