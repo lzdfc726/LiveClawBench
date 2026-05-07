@@ -8,7 +8,7 @@
  */
 
 import { createMockApp, createRoute, startServer, registerStaticAssets } from "mock-lib";
-import type { MockAppV2, OpenAPIApp } from "mock-lib";
+import type { MockAppV2 } from "mock-lib";
 import { z } from "zod";
 import { Database } from "bun:sqlite";
 import { mkdirSync } from "node:fs";
@@ -94,7 +94,6 @@ export function createChatApp(options?: { dbPath?: string; stickerDir?: string }
 }
 
 if (import.meta.main) {
-  const config = resolveConfig();
-  const app = createChatApp({ dbPath: config.dbPath, stickerDir: config.stickerDir });
+  const app = createChatApp(resolveConfig());
   startServer(app);
 }

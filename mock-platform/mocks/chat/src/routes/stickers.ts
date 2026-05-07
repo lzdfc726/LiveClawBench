@@ -2,7 +2,7 @@ import { createRoute } from "mock-lib";
 import type { OpenAPIApp } from "mock-lib";
 import { z } from "zod";
 import { writeFileSync, unlinkSync } from "node:fs";
-import { join } from "node:path";
+import { basename, join } from "node:path";
 import {
   ListStickersQuerySchema,
   ListStickersResponseSchema,
@@ -12,7 +12,7 @@ import {
 import type { DbState, Sticker } from "../types.js";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
-const ALLOWED_MIME_TYPES = ["image/gif", "image/png", "image/jpeg"] as const;
+const ALLOWED_MIME_TYPES = new Set(["image/gif", "image/png", "image/jpeg"]);
 
 function mimeToExt(mime: string): string {
   switch (mime) {
@@ -31,9 +31,9 @@ function rowToSticker(row: Record<string, unknown>): Sticker {
   return {
     id: row.id as number,
     user_id: row.user_id as number,
-    category: row.category as "recent" | "favorite" | "custom",
+    category: row.category as Sticker["category"],
     storage_path: row.storage_path as string,
-    mime_type: row.mime_type as "image/gif" | "image/png" | "image/jpeg",
+    mime_type: row.mime_type as Sticker["mime_type"],
     created_at: row.created_at as string,
     sort_order: row.sort_order as number,
   };
@@ -41,10 +41,6 @@ function rowToSticker(row: Record<string, unknown>): Sticker {
 
 export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
   const { config } = dbState;
-
-  function getDb() {
-    return dbState.db;
-  }
 
   // GET /api/stickers
   const listRoute = createRoute({
@@ -67,7 +63,7 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
   });
 
   app.openApiRoute(listRoute, (c) => {
-    const db = getDb();
+    const db = dbState.db;
     if (!db) return c.json({ error: "service_not_ready" }, 503);
 
     const { category } = c.req.valid("query");
@@ -118,7 +114,7 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
   });
 
   app.openApiRoute(getRoute, (c) => {
-    const db = getDb();
+    const db = dbState.db;
     if (!db) return c.json({ error: "service_not_ready" }, 503);
 
     const { id } = c.req.valid("param");
@@ -167,7 +163,7 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
   });
 
   app.openApiRoute(postRoute, async (c) => {
-    const db = getDb();
+    const db = dbState.db;
     if (!db) return c.json({ error: "service_not_ready" }, 503);
 
     const contentType = c.req.header("content-type") ?? "";
@@ -198,7 +194,7 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
       return c.json({ error: "file_too_large" }, 413);
     }
 
-    if (!ALLOWED_MIME_TYPES.includes(file.type as (typeof ALLOWED_MIME_TYPES)[number])) {
+    if (!ALLOWED_MIME_TYPES.has(file.type)) {
       return c.json({ error: "unsupported_mime" }, 400);
     }
 
@@ -267,7 +263,7 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
   });
 
   app.openApiRoute(deleteRoute, (c) => {
-    const db = getDb();
+    const db = dbState.db;
     if (!db) return c.json({ error: "service_not_ready" }, 503);
 
     const { id } = c.req.valid("param");
@@ -280,13 +276,10 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
       return c.json({ error: "not_found" }, 404);
     }
 
-    const filename = row.storage_path.split("/").pop();
-    if (filename) {
-      try {
-        unlinkSync(join(config.stickerDir, filename));
-      } catch {
-        // Silently ignore if file does not exist
-      }
+    try {
+      unlinkSync(join(config.stickerDir, basename(row.storage_path)));
+    } catch {
+      // Silently ignore if file does not exist
     }
 
     db.run("DELETE FROM user_sticker WHERE id = ?", [id]);
