@@ -33,6 +33,7 @@ const BASE_IMAGE = "liveclawbench-base:latest";
  */
 const BINARY_PORTS: Record<string, number> = {
   airline: 5000,
+  chat: 5003,
   email: 5001,
   shop: 1234,
   todolist: 5002,

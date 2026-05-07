@@ -31,8 +31,14 @@
         "mock-lib": "workspace:*",
         "zod": "^3.24.0",
       },
-      "devDependencies": {
-        "@types/bcryptjs": "^2.4.6",
+    },
+    "mocks/chat": {
+      "name": "@mock/chat",
+      "version": "0.1.0",
+      "dependencies": {
+        "hono": "^4.8.0",
+        "mock-lib": "workspace:*",
+        "zod": "^3.22.0",
       },
     },
     "mocks/doc-search": {
@@ -165,6 +171,8 @@
     "@hono/zod-validator": ["@hono/zod-validator@0.7.6", "", { "peerDependencies": { "hono": ">=3.9.0", "zod": "^3.25.0 || ^4.0.0" } }, "sha512-Io1B6d011Gj1KknV4rXYz4le5+5EubcWEU/speUjuw9XMMIaP3n78yXLhjd2A3PXaXaUwEAluOiAyLqhBEJgsw=="],
 
     "@mock/airline": ["@mock/airline@workspace:mocks/airline"],
+
+    "@mock/chat": ["@mock/chat@workspace:mocks/chat"],
 
     "@mock/calendar": ["@mock/calendar@workspace:mocks/calendar"],
 
