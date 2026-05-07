@@ -20,6 +20,6 @@ export interface ChatConfig {
 }
 
 export interface DbState {
-  db: Database;
+  db: Database | null;
   config: ChatConfig;
 }

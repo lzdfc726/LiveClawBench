@@ -40,7 +40,11 @@ function rowToSticker(row: Record<string, unknown>): Sticker {
 }
 
 export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
-  const { db, config } = dbState;
+  const { config } = dbState;
+
+  function getDb() {
+    return dbState.db;
+  }
 
   // GET /api/stickers
   const listRoute = createRoute({
@@ -63,6 +67,9 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
   });
 
   app.openApiRoute(listRoute, (c) => {
+    const db = getDb();
+    if (!db) return c.json({ error: "service_not_ready" }, 503);
+
     const { category } = c.req.valid("query");
 
     let query =
@@ -111,6 +118,9 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
   });
 
   app.openApiRoute(getRoute, (c) => {
+    const db = getDb();
+    if (!db) return c.json({ error: "service_not_ready" }, 503);
+
     const { id } = c.req.valid("param");
     const row = db
       .query(
@@ -157,6 +167,9 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
   });
 
   app.openApiRoute(postRoute, async (c) => {
+    const db = getDb();
+    if (!db) return c.json({ error: "service_not_ready" }, 503);
+
     const contentType = c.req.header("content-type") ?? "";
     if (!contentType.includes("multipart/form-data")) {
       return c.json({ error: "invalid_body" }, 400);
@@ -249,6 +262,9 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
   });
 
   app.openApiRoute(deleteRoute, (c) => {
+    const db = getDb();
+    if (!db) return c.json({ error: "service_not_ready" }, 503);
+
     const { id } = c.req.valid("param");
 
     const row = db

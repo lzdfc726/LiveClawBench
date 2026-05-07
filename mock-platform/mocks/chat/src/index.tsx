@@ -31,15 +31,8 @@ function resolveConfig(options?: { dbPath?: string; stickerDir?: string }): Chat
 export function createChatApp(options?: { dbPath?: string; stickerDir?: string }): MockAppV2 {
   const config = resolveConfig(options);
 
-  if (config.dbPath !== ":memory:") {
-    mkdirSync(dirname(config.dbPath), { recursive: true });
-  }
-  mkdirSync(config.stickerDir, { recursive: true });
-
-  const db = new Database(config.dbPath, { create: true });
-  db.run("PRAGMA foreign_keys = ON");
-
-  const dbState: DbState = { db, config };
+  // No side effects here — db starts as null
+  const dbState: DbState = { db: null, config };
 
   const mockApp = createMockApp({
     name: "chat-mock",
@@ -85,6 +78,16 @@ export function createChatApp(options?: { dbPath?: string; stickerDir?: string }
   return {
     ...mockApp,
     seed: async () => {
+      // All side effects happen here
+      if (config.dbPath !== ":memory:") {
+        mkdirSync(dirname(config.dbPath), { recursive: true });
+      }
+      mkdirSync(config.stickerDir, { recursive: true });
+
+      const db = new Database(config.dbPath, { create: true });
+      db.run("PRAGMA foreign_keys = ON");
+      dbState.db = db;
+
       seed(db, config);
     },
   };
