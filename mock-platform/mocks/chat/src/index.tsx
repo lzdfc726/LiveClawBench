@@ -11,9 +11,8 @@ import { createMockApp, createRoute, startServer, registerStaticAssets } from "m
 import type { MockAppV2, OpenAPIApp } from "mock-lib";
 import { z } from "zod";
 import { Database } from "bun:sqlite";
-import { mkdirSync, unlinkSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { tmpdir } from "node:os";
+import { mkdirSync } from "node:fs";
+import { dirname } from "node:path";
 import { seed } from "./data/seed.js";
 import { registerStickerRoutes } from "./routes/stickers.js";
 import { StickerManagerPage } from "./components/sticker-manager-page.js";
@@ -32,29 +31,15 @@ function resolveConfig(options?: { dbPath?: string; stickerDir?: string }): Chat
 export function createChatApp(options?: { dbPath?: string; stickerDir?: string }): MockAppV2 {
   const config = resolveConfig(options);
 
-  let dbPath = config.dbPath;
-  let stickerDir = config.stickerDir;
-
-  if (dbPath !== ":memory:") {
-    try {
-      mkdirSync(dirname(dbPath), { recursive: true });
-    } catch {
-      dbPath = join(tmpdir(), "mock-chat", `chat-${Date.now()}.sqlite`);
-      mkdirSync(dirname(dbPath), { recursive: true });
-    }
+  if (config.dbPath !== ":memory:") {
+    mkdirSync(dirname(config.dbPath), { recursive: true });
   }
+  mkdirSync(config.stickerDir, { recursive: true });
 
-  try {
-    mkdirSync(stickerDir, { recursive: true });
-  } catch {
-    stickerDir = join(tmpdir(), "mock-chat", "stickers");
-    mkdirSync(stickerDir, { recursive: true });
-  }
-
-  const db = new Database(dbPath, { create: true });
+  const db = new Database(config.dbPath, { create: true });
   db.run("PRAGMA foreign_keys = ON");
 
-  const dbState: DbState = { db, config: { dbPath, stickerDir } };
+  const dbState: DbState = { db, config };
 
   const mockApp = createMockApp({
     name: "chat-mock",
@@ -70,7 +55,7 @@ export function createChatApp(options?: { dbPath?: string; stickerDir?: string }
   const { config: appConfig, app } = mockApp;
 
   registerStaticAssets(app, {
-    dir: stickerDir,
+    dir: config.stickerDir,
     prefix: "/static/chat/stickers",
   });
 
@@ -100,7 +85,7 @@ export function createChatApp(options?: { dbPath?: string; stickerDir?: string }
   return {
     ...mockApp,
     seed: async () => {
-      seed(db, { dbPath, stickerDir });
+      seed(db, config);
     },
   };
 }
