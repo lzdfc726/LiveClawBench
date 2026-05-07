@@ -106,6 +106,9 @@
                           "id": {
                             "type": "number"
                           },
+                          "user_id": {
+                            "type": "number"
+                          },
                           "category": {
                             "type": "string",
                             "enum": [
@@ -134,6 +137,7 @@
                         },
                         "required": [
                           "id",
+                          "user_id",
                           "category",
                           "storage_path",
                           "mime_type",
@@ -183,6 +187,9 @@
                     "id": {
                       "type": "number"
                     },
+                    "user_id": {
+                      "type": "number"
+                    },
                     "category": {
                       "type": "string",
                       "enum": [
@@ -211,6 +218,7 @@
                   },
                   "required": [
                     "id",
+                    "user_id",
                     "category",
                     "storage_path",
                     "mime_type",
@@ -285,6 +293,9 @@
                     "id": {
                       "type": "number"
                     },
+                    "user_id": {
+                      "type": "number"
+                    },
                     "category": {
                       "type": "string",
                       "enum": [
@@ -313,6 +324,7 @@
                   },
                   "required": [
                     "id",
+                    "user_id",
                     "category",
                     "storage_path",
                     "mime_type",

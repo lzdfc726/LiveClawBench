@@ -6,6 +6,7 @@ import { z } from "zod";
 
 export const StickerSchema = z.object({
   id: z.number(),
+  user_id: z.number(),
   category: z.enum(["recent", "favorite", "custom"]),
   storage_path: z.string(),
   mime_type: z.enum(["image/gif", "image/png", "image/jpeg"]),

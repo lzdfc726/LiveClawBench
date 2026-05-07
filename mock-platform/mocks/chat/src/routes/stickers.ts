@@ -211,31 +211,36 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
     const buffer = await file.arrayBuffer();
     writeFileSync(filePath, new Uint8Array(buffer));
 
-    const maxSort = db
-      .query(
-        "SELECT COALESCE(MAX(sort_order), -1) as max_sort FROM user_sticker WHERE category = ?",
-      )
-      .get(category.data) as { max_sort: number } | null;
-    const sortOrder = (maxSort?.max_sort ?? -1) + 1;
+    try {
+      const maxSort = db
+        .query(
+          "SELECT COALESCE(MAX(sort_order), -1) as max_sort FROM user_sticker WHERE category = ?",
+        )
+        .get(category.data) as { max_sort: number } | null;
+      const sortOrder = (maxSort?.max_sort ?? -1) + 1;
 
-    const createdAt = new Date().toISOString();
+      const createdAt = new Date().toISOString();
 
-    const result = db.run(
-      "INSERT INTO user_sticker (user_id, category, storage_path, mime_type, created_at, sort_order) VALUES (?, ?, ?, ?, ?, ?)",
-      [1, category.data, storagePath, file.type, createdAt, sortOrder],
-    );
+      const result = db.run(
+        "INSERT INTO user_sticker (user_id, category, storage_path, mime_type, created_at, sort_order) VALUES (?, ?, ?, ?, ?, ?)",
+        [1, category.data, storagePath, file.type, createdAt, sortOrder],
+      );
 
-    const sticker: Sticker = {
-      id: Number(result.lastInsertRowid),
-      user_id: 1,
-      category: category.data,
-      storage_path: storagePath,
-      mime_type: file.type as "image/gif" | "image/png" | "image/jpeg",
-      created_at: createdAt,
-      sort_order: sortOrder,
-    };
+      const sticker: Sticker = {
+        id: Number(result.lastInsertRowid),
+        user_id: 1,
+        category: category.data,
+        storage_path: storagePath,
+        mime_type: file.type as "image/gif" | "image/png" | "image/jpeg",
+        created_at: createdAt,
+        sort_order: sortOrder,
+      };
 
-    return c.json(sticker, 201);
+      return c.json(sticker, 201);
+    } catch {
+      try { unlinkSync(filePath); } catch { /* ignore */ }
+      return c.json({ error: "db_error" }, 500);
+    }
   });
 
   // DELETE /api/stickers/:id
