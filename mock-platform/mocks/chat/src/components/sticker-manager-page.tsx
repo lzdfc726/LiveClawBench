@@ -155,9 +155,9 @@ export function StickerManagerPage() {
         </div>
         <div class="container">
           <div class="tabs">
-            <div class="tab active">常用</div>
-            <div class="tab">收藏</div>
-            <div class="tab">自定义</div>
+            <div class="tab active">recent</div>
+            <div class="tab">favorite</div>
+            <div class="tab">custom</div>
           </div>
           <div class="grid" id="sticker-grid">
             <div class="card add" onclick="openModal()">

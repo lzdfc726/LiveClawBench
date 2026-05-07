@@ -34,12 +34,7 @@ export function seed(db: Database, config: ChatConfig): void {
     seedMockUser(db);
     seedChannel(db);
 
-    try {
-      mkdirSync(config.stickerDir, { recursive: true });
-    } catch {
-      // stickerDir may be a fallback path already created by the factory;
-      // ignore EACCES here.
-    }
+    mkdirSync(config.stickerDir, { recursive: true });
   } catch (err) {
     console.error(
       "mock-chat: FATAL: seed failed:",

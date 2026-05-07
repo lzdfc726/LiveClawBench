@@ -126,9 +126,37 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
   });
 
   // POST /api/stickers — multipart upload
-  // Fallback to plain app.post() because @hono/zod-openapi struggles with
-  // multipart/form-data schema generation for File fields.
-  app.post("/api/stickers", async (c) => {
+  const postRoute = createRoute({
+    method: "post",
+    path: "/api/stickers",
+    summary: "Upload a sticker",
+    request: {
+      // For multipart, we can't easily express File in Zod for OpenAPI.
+      // Use minimal request shape; validation happens in handler.
+    },
+    responses: {
+      201: {
+        content: {
+          "application/json": { schema: StickerSchema },
+        },
+        description: "Created",
+      },
+      400: {
+        content: {
+          "application/json": { schema: z.object({ error: z.string() }) },
+        },
+        description: "Bad request",
+      },
+      413: {
+        content: {
+          "application/json": { schema: z.object({ error: z.string() }) },
+        },
+        description: "File too large",
+      },
+    },
+  });
+
+  app.openApiRoute(postRoute, async (c) => {
     const contentType = c.req.header("content-type") ?? "";
     if (!contentType.includes("multipart/form-data")) {
       return c.json({ error: "invalid_body" }, 400);
@@ -146,7 +174,7 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
       .enum(["recent", "favorite", "custom"])
       .safeParse(categoryRaw);
     if (!category.success) {
-      return c.json({ error: "validation_error: invalid category" }, 400);
+      return c.json({ error: "invalid_category" }, 400);
     }
 
     if (file.size === 0) {
