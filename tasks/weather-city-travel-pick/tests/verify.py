@@ -47,7 +47,7 @@ dim_temp = 0.3 if isinstance(temp, int) and abs(temp - 22) <= 1 else 0.0
 reward = dim_city + dim_aqi + dim_temp
 write_reward(reward, dim_city, dim_aqi, dim_temp, city, aqi if aqi is not None else -1)
 print(f"Score: {reward}/1.0")
-# City must be correct; reason field is required by the task spec
-if dim_city == 0.0 or not isinstance(reason, str) or not reason.strip():
+# City, AQI, and temperature must all be correct; reason field is required
+if dim_city == 0.0 or dim_aqi == 0.0 or dim_temp == 0.0 or not isinstance(reason, str) or not reason.strip():
     sys.exit(1)
 sys.exit(0 if reward >= 0.5 else 1)

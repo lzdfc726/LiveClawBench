@@ -164,7 +164,7 @@ function collectSrcFiles(dir: string, visited = new Set<string>()): string[] {
   return results;
 }
 
-function writeBuildManifest(name: string, outputPath?: string): void {
+function computeBuildManifest(name: string): Record<string, string> {
   const srcDir = join(MOCKS_DIR, name, "src");
   const files = collectSrcFiles(srcDir).sort();
   const manifest: Record<string, string> = {};
@@ -172,7 +172,10 @@ function writeBuildManifest(name: string, outputPath?: string): void {
     const rel = relative(srcDir, f).replace(/\\/g, "/");
     manifest[rel] = createHash("sha256").update(readFileSync(f)).digest("hex");
   }
-  const destPath = outputPath ?? join(DIST_DIR, `manifest-${name}.json`);
+  return manifest;
+}
+
+function writeBuildManifest(manifest: Record<string, string>, destPath: string): void {
   writeFileSync(destPath, JSON.stringify(manifest, null, 2), "utf-8");
 }
 
@@ -192,8 +195,12 @@ async function main() {
   console.log(`Found ${mocks.length} mock(s): ${mocks.join(", ")}\n`);
 
   // Compile each mock independently (build compatibility gate)
+  // Snapshot source hashes BEFORE compilation so the manifest records the exact
+  // sources that were compiled, not any edits made while the build is running.
+  const manifestSnapshots = new Map<string, Record<string, string>>();
   const results: BuildResult[] = [];
   for (const name of mocks) {
+    manifestSnapshots.set(name, computeBuildManifest(name));
     process.stdout.write(`Compiling mock-${name}... `);
     const result = await compileMock(name);
     results.push(result);
@@ -259,7 +266,7 @@ async function main() {
 
       try {
         // Step 1: Write new manifest to temp path (no final paths touched yet)
-        writeBuildManifest(result.name, tempManifestPath);
+        writeBuildManifest(manifestSnapshots.get(result.name)!, tempManifestPath);
 
         // Step 2: Backup old binary
         if (hadFinal) {
