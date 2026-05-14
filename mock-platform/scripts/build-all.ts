@@ -10,7 +10,7 @@
 
 import { readdir, readFile } from "node:fs/promises";
 import { join, relative } from "node:path";
-import { mkdirSync, existsSync, readdirSync, readFileSync, writeFileSync, realpathSync } from "node:fs";
+import { mkdirSync, existsSync, readdirSync, readFileSync, writeFileSync, realpathSync, renameSync, unlinkSync } from "node:fs";
 import { createHash } from "node:crypto";
 
 const MOCKS_DIR = join(import.meta.dir, "..", "mocks");
@@ -37,7 +37,7 @@ async function compileMock(name: string): Promise<BuildResult> {
   const tsPath = join(MOCKS_DIR, name, "src", "index.ts");
   const tsxPath = join(MOCKS_DIR, name, "src", "index.tsx");
   const entryPoint = existsSync(tsxPath) ? tsxPath : tsPath;
-  const outputPath = join(DIST_DIR, `mock-${name}`);
+  const outputPath = join(DIST_DIR, `temp-mock-${name}`);
 
   try {
     // Auto-detect host architecture for cross-compilation target selection
@@ -200,7 +200,6 @@ async function main() {
     if (result.success) {
       const sizeMB = ((result.size ?? 0) / 1024 / 1024).toFixed(1);
       console.log(`OK (${sizeMB} MB)`);
-      writeBuildManifest(name);
     } else {
       console.log(`FAILED`);
       console.error(`  Error: ${result.error}`);
@@ -216,6 +215,41 @@ async function main() {
     if (result) {
       result.success = false;
       result.error = errorMsg;
+    }
+  }
+
+  // Atomic publish: only binaries that compiled AND passed isolation are published.
+  // For each passing mock: rename temp → final, then write manifest.
+  // For each failing mock: delete the temp binary, leave existing dist/mock-<name> and manifest untouched.
+  const isolationFailed = new Set<string>([
+    ...missingSentinels,
+    ...Array.from(violations.keys()),
+    ...Array.from(readErrors.keys()),
+  ]);
+
+  for (const result of results) {
+    const tempPath = join(DIST_DIR, `temp-mock-${result.name}`);
+    const finalPath = join(DIST_DIR, `mock-${result.name}`);
+
+    if (!existsSync(tempPath)) continue;
+
+    if (result.success && !isolationFailed.has(result.name)) {
+      try {
+        if (existsSync(finalPath)) unlinkSync(finalPath);
+        renameSync(tempPath, finalPath);
+        result.binaryPath = finalPath;
+        writeBuildManifest(result.name);
+      } catch (err) {
+        result.success = false;
+        result.error = `Publish failed: ${err}`;
+        try { unlinkSync(tempPath); } catch { /* ignore */ }
+      }
+    } else {
+      try { unlinkSync(tempPath); } catch { /* ignore */ }
+      if (isolationFailed.has(result.name) && result.success) {
+        result.success = false;
+        result.error = "Isolation verification failed";
+      }
     }
   }
 
