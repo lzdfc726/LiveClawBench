@@ -170,7 +170,10 @@ function computeBuildManifest(name: string): Record<string, string> {
   const manifest: Record<string, string> = {};
   for (const f of files) {
     const rel = relative(srcDir, f).replace(/\\/g, "/");
-    manifest[rel] = createHash("sha256").update(readFileSync(f)).digest("hex");
+    // Normalize CRLF → LF before hashing so manifests are identical whether
+    // built from a Windows checkout (core.autocrlf=true) or a Linux/WSL one.
+    const content = readFileSync(f, "utf-8").replace(/\r\n/g, "\n");
+    manifest[rel] = createHash("sha256").update(content).digest("hex");
   }
   return manifest;
 }
