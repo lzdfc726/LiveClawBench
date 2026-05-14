@@ -9,6 +9,16 @@ import urllib.request
 
 BASE = "http://localhost:3000"
 
+# Canonical Chinese city names keyed by URL slug.
+# Avoids relying on display_name from the API, which may be mis-decoded.
+SLUG_CITY = {
+    "shanghai": "上海",
+    "beijing":  "北京",
+    "shenzhen": "深圳",
+    "chengdu":  "成都",
+    "harbin":   "哈尔滨",
+}
+
 
 def fetch_json(url):
     with urllib.request.urlopen(url) as r:
@@ -17,7 +27,7 @@ def fetch_json(url):
 
 def fetch_html(url):
     with urllib.request.urlopen(url) as r:
-        return r.read().decode("utf-8")
+        return r.read().decode("utf-8", errors="replace")
 
 
 resp = fetch_json(f"{BASE}/api/locations")
@@ -28,13 +38,17 @@ best_aqi = 9999
 
 for city in cities:
     slug = city["slug"]
-    display = city["display_name"]
+    display = SLUG_CITY.get(slug)
+    if display is None:
+        continue
 
     aq = fetch_json(f"{BASE}/api/location/{slug}/air-quality")
     aqi = int(aq["data"]["aqi"])
 
     html = fetch_html(f"{BASE}/location/{slug}")
-    m = re.search(r"最高\s*(\d+)°C", html)
+    # High temp appears in <div style="font-size:48px;font-weight:200">22°C</div>.
+    # Match only the ASCII digits to avoid encoding-sensitive °C / Chinese text.
+    m = re.search(r"font-size:48px[^>]*>(\d+)", html)
     temp = int(m.group(1)) if m else 0
 
     if 15 <= temp <= 26 and aqi < best_aqi:

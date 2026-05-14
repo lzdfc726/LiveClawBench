@@ -9,8 +9,19 @@ OUTPUT_PATH = "/workspace/output/travel_pick.json"
 LOG_DIR = "/logs/verifier"
 os.makedirs(LOG_DIR, exist_ok=True)
 
+# Canonical Chinese city names keyed by URL slug.
+# Using the slug avoids relying on display_name from the API, which may be
+# mis-decoded in some container environments.
+_SLUG_TO_CITY = {
+    "shanghai": "上海",
+    "beijing":  "北京",
+    "shenzhen": "深圳",
+    "chengdu":  "成都",
+    "harbin":   "哈尔滨",
+}
+
 # Seeded weather data (mirrors mock-platform/mocks/weather/src/seed.ts).
-# Used as the fallback when the live service is unreachable.
+# Used as the fallback when the live service is unreachable or returns no match.
 _SEED = {
     "上海":   {"aqi": 35,  "temp_high_c": 22},
     "深圳":   {"aqi": 28,  "temp_high_c": 30},
@@ -30,7 +41,8 @@ _BEST_TEMP = _SEED[_BEST]["temp_high_c"]
 def get_ground_truth():
     """Query the live weather service to derive the best city.
 
-    Falls back to _SEED-derived values if the service is unreachable.
+    Falls back to _SEED-derived values if the service is unreachable or
+    the HTML yields no temperature matches.
     Selection rule: comfortable temp (15-26 °C), lowest AQI wins.
     """
     try:
@@ -41,7 +53,9 @@ def get_ground_truth():
         best_city, best_aqi, best_temp = None, 9999, 0
         for loc in locations:
             slug = loc["slug"]
-            display = loc["display_name"]
+            city_name = _SLUG_TO_CITY.get(slug)
+            if city_name is None:
+                continue
 
             with urllib.request.urlopen(
                 f"{base}/api/location/{slug}/air-quality", timeout=5
@@ -49,12 +63,17 @@ def get_ground_truth():
                 aqi = int(json.load(r)["data"]["aqi"])
 
             with urllib.request.urlopen(f"{base}/location/{slug}", timeout=5) as r:
-                html = r.read().decode("utf-8")
-            m = re.search(r"最高\s*(\d+)°C", html)
+                html = r.read().decode("utf-8", errors="replace")
+
+            # The high temperature is displayed in:
+            #   <div style="font-size:48px;font-weight:200">22°C</div>
+            # Matching only the ASCII-digit portion avoids encoding-sensitive
+            # characters (°C, Chinese text) that may render as mojibake.
+            m = re.search(r"font-size:48px[^>]*>(\d+)", html)
             temp = int(m.group(1)) if m else 0
 
             if _TEMP_MIN <= temp <= _TEMP_MAX and aqi < best_aqi:
-                best_aqi, best_temp, best_city = aqi, temp, display
+                best_aqi, best_temp, best_city = aqi, temp, city_name
 
         if best_city:
             return best_city, best_aqi, best_temp
