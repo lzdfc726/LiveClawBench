@@ -611,6 +611,7 @@ async function buildTaskImage(
   startupExtraPath?: string,
   assets?: AssetMapping[],
   frontends?: FrontendConfig[],
+  force = false,
 ): Promise<BuildTaskImageResult> {
   const imageTag = `liveclawbench-${task}-base:latest`;
 
@@ -675,7 +676,7 @@ async function buildTaskImage(
     }
     const srcFiles = collectTsFiles(srcDir);
     const staleFile = srcFiles.find((f) => statSync(f).mtimeMs > binaryStat.mtimeMs);
-    if (staleFile) {
+    if (staleFile && !force) {
       const sourceStat = statSync(staleFile);
       return {
         task,
@@ -1014,11 +1015,14 @@ async function buildTaskImage(
   writeFileSync(dockerfilePath, dockerfileLines.join("\n") + "\n");
 
   // Build context needs both dist/ (for binaries) and shared/ (for entrypoint.sh)
-  // We copy entrypoint.sh into the dist dir temporarily for the build context
+  // We copy entrypoint.sh into the dist dir temporarily for the build context.
+  // Normalize CRLF→LF so the shebang is executable on Linux regardless of
+  // the host OS checkout state (core.autocrlf=true writes CRLF on Windows).
   const entrypointDest = join(DIST_DIR, "entrypoint.sh");
   const entrypointSrc = ENTRYPOINT_SRC;
   if (existsSync(entrypointSrc)) {
-    writeFileSync(entrypointDest, readFileSync(entrypointSrc));
+    const raw = readFileSync(entrypointSrc, "utf-8");
+    writeFileSync(entrypointDest, raw.replace(/\r\n/g, "\n"), "utf-8");
   }
 
   if (dryRun) {
@@ -1047,11 +1051,16 @@ async function buildTaskImage(
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
+  const force = process.argv.includes("--force");
+  const taskArgIdx = process.argv.indexOf("--task");
+  const taskFilter = taskArgIdx !== -1 ? process.argv[taskArgIdx + 1] : undefined;
 
   console.log("=== LiveClawBench Task Image Builder ===\n");
   console.log(`Base image: ${BASE_IMAGE}`);
   console.log(`Mapping:    ${CONFIG_PATH}`);
   if (dryRun) console.log("Mode:       DRY RUN\n");
+  if (force) console.log("Mode:       FORCE (stale-check bypassed)\n");
+  if (taskFilter) console.log(`Filter:     --task ${taskFilter}\n`);
 
   // Schema validation gate — fail fast before any image build
   let mapping: MappingConfig;
@@ -1063,13 +1072,22 @@ async function main() {
     process.exit(1);
   }
 
+  // Apply optional task filter
+  if (taskFilter) {
+    if (!(taskFilter in mapping.tasks)) {
+      console.error(`Error: task "${taskFilter}" not found in task-binary-map.json`);
+      process.exit(1);
+    }
+    mapping.tasks = { [taskFilter]: mapping.tasks[taskFilter] };
+  }
+
   const taskCount = Object.keys(mapping.tasks).length;
   console.log(`Tasks:      ${taskCount}\n`);
 
   const results: BuildTaskImageResult[] = [];
   for (const [task, config] of Object.entries(mapping.tasks)) {
     process.stdout.write(`Building ${task} (${config.binaries.length} binaries)... `);
-    const result = await buildTaskImage(task, config.binaries, dryRun, config.startup_extra, config.assets, config.frontends);
+    const result = await buildTaskImage(task, config.binaries, dryRun, config.startup_extra, config.assets, config.frontends, force);
     results.push(result);
 
     if (result.success) {
