@@ -637,10 +637,10 @@ async function buildTaskImage(
 
     // Reject stale binaries using content-hash comparison.
     //
-    // Manifests are written exclusively by `bun run build` (build-all.ts)
-    // immediately after each successful compilation. This script never writes
-    // or updates manifests, so a stale detection cannot self-clear on the
-    // next invocation.
+    // Manifests are written exclusively by `bun run build` (build-all.ts) after
+    // isolation verification and transactional publish: compile→temp, isolate,
+    // backup old artifacts, promote temp binary+manifest atomically, delete backups.
+    // This script never writes manifests; stale detection cannot self-clear on re-invocation.
     //
     // Manifest path: dist/manifest-<bin>.json  (gitignored alongside binaries)
     // Format: { "<src-relative-path>": "<sha256-hex>", ... }
