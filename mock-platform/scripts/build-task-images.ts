@@ -16,6 +16,7 @@
 
 import { readFileSync, existsSync, statSync, mkdirSync, writeFileSync, readdirSync, realpathSync } from "node:fs";
 import { join, relative, resolve, sep } from "node:path";
+import { createHash } from "node:crypto";
 
 const DIST_DIR = join(import.meta.dir, "..", "dist");
 const CONFIG_PATH = join(import.meta.dir, "..", "config", "task-binary-map.json");
@@ -634,7 +635,22 @@ async function buildTaskImage(
       };
     }
 
-    // Reject stale binaries (any source file newer than compiled artifact)
+    // Reject stale binaries using content-hash comparison.
+    //
+    // Filesystem mtime is unreliable on Windows: `git checkout` with
+    // core.autocrlf=true sets all source file mtimes to the checkout
+    // timestamp, which is always newer than a binary compiled before the
+    // checkout — even when the source content is identical. Content hashing
+    // avoids this false-positive by comparing SHA-256 digests of each
+    // .ts/.tsx file against a manifest written at the last successful build.
+    //
+    // Manifest path: dist/manifest-<bin>.json  (gitignored alongside binaries)
+    // Format: { "<absolute-path>": "<sha256-hex>", ... }
+    //
+    // Bootstrap behaviour: if no manifest exists (first run after adding this
+    // check, or after a clean clone), generate it from the current source and
+    // treat the binary as non-stale so the image build can proceed.  The
+    // newly written manifest will catch real content changes on the next run.
     const srcDir = join(MOCKS_DIR, bin, "src");
     const tsEp = join(srcDir, "index.ts");
     const tsxEp = join(srcDir, "index.tsx");
@@ -649,11 +665,8 @@ async function buildTaskImage(
       };
     }
 
-    const binaryStat = statSync(binaryPath);
-    // Check all .ts/.tsx files in the src directory, not just the entry point,
-    // since imported modules (e.g. search-algorithm.ts) may have changed.
+    // Collect all .ts/.tsx files in the src directory.
     function collectTsFiles(dir: string, visited = new Set<string>()): string[] {
-      // Symlink cycle protection: track realpaths to avoid infinite recursion
       let realDir: string;
       try {
         realDir = realpathSync(dir);
@@ -674,16 +687,41 @@ async function buildTaskImage(
       }
       return results;
     }
-    const srcFiles = collectTsFiles(srcDir);
-    const staleFile = srcFiles.find((f) => statSync(f).mtimeMs > binaryStat.mtimeMs);
-    if (staleFile && !force) {
-      const sourceStat = statSync(staleFile);
+
+    const srcFiles = collectTsFiles(srcDir).sort();
+
+    // Compute SHA-256 of each source file.
+    function sha256File(path: string): string {
+      return createHash("sha256").update(readFileSync(path)).digest("hex");
+    }
+    const currentHashes: Record<string, string> = {};
+    for (const f of srcFiles) {
+      currentHashes[f] = sha256File(f);
+    }
+
+    const manifestPath = join(DIST_DIR, `manifest-${bin}.json`);
+    let isStale = false;
+    if (existsSync(manifestPath) && !force) {
+      try {
+        const cached: Record<string, string> = JSON.parse(readFileSync(manifestPath, "utf-8"));
+        // Stale if any current file is missing from the manifest or has a different hash.
+        isStale = srcFiles.some((f) => cached[f] !== currentHashes[f]) ||
+                  Object.keys(cached).some((f) => !existsSync(f));
+      } catch {
+        // Corrupt manifest — treat as stale to force a rebuild prompt.
+        isStale = true;
+      }
+    }
+    // Always write updated manifest (so it stays in sync after a successful build).
+    writeFileSync(manifestPath, JSON.stringify(currentHashes, null, 2), "utf-8");
+
+    if (isStale) {
       return {
         task,
         success: false,
         imageTag,
         binariesIncluded: binaries,
-        error: `Stale binary: ${binaryPath} (source ${sourceStat.mtimeMs} newer than binary ${binaryStat.mtimeMs})`,
+        error: `Stale binary: ${binaryPath} — source content changed since last build (manifest: ${manifestPath})`,
       };
     }
   }
