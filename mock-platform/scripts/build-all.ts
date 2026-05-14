@@ -223,14 +223,18 @@ async function main() {
   //
   // Publish sequence for passing mocks:
   //   1. Write new manifest to dist/temp-manifest-<name>.json (no final paths touched yet)
-  //   2. Rename existing dist/mock-<name>          → dist/backup-mock-<name>          (if present)
-  //   3. Rename existing dist/manifest-<name>.json → dist/backup-manifest-<name>.json (if present)
-  //   4. Rename dist/temp-mock-<name>          → dist/mock-<name>          (promote binary)
+  //   2. Backup dist/mock-<name> → dist/backup-mock-<name> (if present); track in backedUpFinal
+  //   3. Backup dist/manifest-<name>.json → dist/backup-manifest-<name>.json (if present);
+  //      if step 3 fails, step 2 is rolled back immediately before re-throwing
+  //   4. Rename dist/temp-mock-<name> → dist/mock-<name> (promote binary)
   //   5. Rename dist/temp-manifest-<name>.json → dist/manifest-<name>.json (promote manifest)
   //   6. Delete backups (publish complete)
   //
-  // On any failure at steps 4-5: restore backups, delete temp files; previous artifacts survive intact.
-  // For failing mocks: delete the temp binary, leave existing dist/mock-<name> and manifest untouched.
+  // Rollback guarantees per failure point:
+  //   Step 1 or 2 fails  → outer catch cleans temp files; final artifacts untouched
+  //   Step 3 fails       → inner catch restores backup-mock → mock, cleans temp files
+  //   Step 4 or 5 fails  → inner catch restores both backups, cleans temp files
+  // For failing mocks: delete the temp binary; leave existing dist/mock-<name> and manifest untouched.
   const isolationFailed = new Set<string>([
     ...missingSentinels,
     ...Array.from(violations.keys()),
@@ -250,30 +254,47 @@ async function main() {
     if (result.success && !isolationFailed.has(result.name)) {
       const hadFinal = existsSync(finalPath);
       const hadManifest = existsSync(finalManifestPath);
+      let backedUpFinal = false;
+      let backedUpManifest = false;
 
       try {
         // Step 1: Write new manifest to temp path (no final paths touched yet)
         writeBuildManifest(result.name, tempManifestPath);
 
-        // Steps 2-3: Preserve existing artifacts as backups
-        if (hadFinal) renameSync(finalPath, backupPath);
-        if (hadManifest) renameSync(finalManifestPath, backupManifestPath);
+        // Step 2: Backup old binary
+        if (hadFinal) {
+          renameSync(finalPath, backupPath);
+          backedUpFinal = true;
+        }
 
+        // Step 3: Backup old manifest; on failure, roll back step 2 immediately
+        if (hadManifest) {
+          try {
+            renameSync(finalManifestPath, backupManifestPath);
+            backedUpManifest = true;
+          } catch (backupErr) {
+            if (backedUpFinal) try { renameSync(backupPath, finalPath); } catch { /* ignore */ }
+            try { unlinkSync(tempPath); } catch { /* ignore */ }
+            try { unlinkSync(tempManifestPath); } catch { /* ignore */ }
+            throw backupErr;
+          }
+        }
+
+        // Steps 4-5: Promote temp binary and manifest into final positions
         try {
-          // Steps 4-5: Promote temp binary and manifest into final positions
           renameSync(tempPath, finalPath);
           renameSync(tempManifestPath, finalManifestPath);
 
           // Success: remove backups, record final path
           result.binaryPath = finalPath;
-          if (hadFinal) try { unlinkSync(backupPath); } catch { /* ignore */ }
-          if (hadManifest) try { unlinkSync(backupManifestPath); } catch { /* ignore */ }
+          if (backedUpFinal) try { unlinkSync(backupPath); } catch { /* ignore */ }
+          if (backedUpManifest) try { unlinkSync(backupManifestPath); } catch { /* ignore */ }
         } catch (promoteErr) {
           // Rollback: restore previous artifacts; clean up any partially promoted files
           try { unlinkSync(finalPath); } catch { /* ignore */ }
           try { unlinkSync(finalManifestPath); } catch { /* ignore */ }
-          if (hadFinal) try { renameSync(backupPath, finalPath); } catch { /* ignore */ }
-          if (hadManifest) try { renameSync(backupManifestPath, finalManifestPath); } catch { /* ignore */ }
+          if (backedUpFinal) try { renameSync(backupPath, finalPath); } catch { /* ignore */ }
+          if (backedUpManifest) try { renameSync(backupManifestPath, finalManifestPath); } catch { /* ignore */ }
           try { unlinkSync(tempPath); } catch { /* ignore */ }
           try { unlinkSync(tempManifestPath); } catch { /* ignore */ }
           throw promoteErr;
@@ -281,7 +302,7 @@ async function main() {
       } catch (err) {
         result.success = false;
         result.error = `Publish failed: ${err}`;
-        // Clean up remaining temp files
+        // Clean up any remaining temp files (step 1 may have created them)
         try { if (existsSync(tempPath)) unlinkSync(tempPath); } catch { /* ignore */ }
         try { if (existsSync(tempManifestPath)) unlinkSync(tempManifestPath); } catch { /* ignore */ }
       }
