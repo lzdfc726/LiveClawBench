@@ -9,8 +9,9 @@
  */
 
 import { readdir, readFile } from "node:fs/promises";
-import { join } from "node:path";
-import { mkdirSync, existsSync } from "node:fs";
+import { join, relative } from "node:path";
+import { mkdirSync, existsSync, readdirSync, readFileSync, writeFileSync, realpathSync } from "node:fs";
+import { createHash } from "node:crypto";
 
 const MOCKS_DIR = join(import.meta.dir, "..", "mocks");
 const DIST_DIR = join(import.meta.dir, "..", "dist");
@@ -146,6 +147,34 @@ async function verifyIsolation(results: BuildResult[]): Promise<{ violations: Ma
   return { violations, missingSentinels, readErrors };
 }
 
+function collectSrcFiles(dir: string, visited = new Set<string>()): string[] {
+  let realDir: string;
+  try { realDir = realpathSync(dir); } catch { realDir = dir; }
+  if (visited.has(realDir)) return [];
+  visited.add(realDir);
+  const results: string[] = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      results.push(...collectSrcFiles(full, visited));
+    } else if (entry.name.endsWith(".ts") || entry.name.endsWith(".tsx")) {
+      results.push(full);
+    }
+  }
+  return results;
+}
+
+function writeBuildManifest(name: string): void {
+  const srcDir = join(MOCKS_DIR, name, "src");
+  const files = collectSrcFiles(srcDir).sort();
+  const manifest: Record<string, string> = {};
+  for (const f of files) {
+    const rel = relative(srcDir, f).replace(/\\/g, "/");
+    manifest[rel] = createHash("sha256").update(readFileSync(f)).digest("hex");
+  }
+  writeFileSync(join(DIST_DIR, `manifest-${name}.json`), JSON.stringify(manifest, null, 2), "utf-8");
+}
+
 async function main() {
   console.log("=== LiveClawBench Mock Build Pipeline ===\n");
 
@@ -171,6 +200,7 @@ async function main() {
     if (result.success) {
       const sizeMB = ((result.size ?? 0) / 1024 / 1024).toFixed(1);
       console.log(`OK (${sizeMB} MB)`);
+      writeBuildManifest(name);
     } else {
       console.log(`FAILED`);
       console.error(`  Error: ${result.error}`);

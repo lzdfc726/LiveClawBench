@@ -637,20 +637,17 @@ async function buildTaskImage(
 
     // Reject stale binaries using content-hash comparison.
     //
-    // Filesystem mtime is unreliable on Windows: `git checkout` with
-    // core.autocrlf=true sets all source file mtimes to the checkout
-    // timestamp, which is always newer than a binary compiled before the
-    // checkout — even when the source content is identical. Content hashing
-    // avoids this false-positive by comparing SHA-256 digests of each
-    // .ts/.tsx file against a manifest written at the last successful build.
+    // Manifests are written exclusively by `bun run build` (build-all.ts)
+    // immediately after each successful compilation. This script never writes
+    // or updates manifests, so a stale detection cannot self-clear on the
+    // next invocation.
     //
     // Manifest path: dist/manifest-<bin>.json  (gitignored alongside binaries)
-    // Format: { "<absolute-path>": "<sha256-hex>", ... }
+    // Format: { "<src-relative-path>": "<sha256-hex>", ... }
+    //         paths use forward slashes for cross-platform consistency.
     //
-    // Bootstrap behaviour: if no manifest exists (first run after adding this
-    // check, or after a clean clone), generate it from the current source and
-    // treat the binary as non-stale so the image build can proceed.  The
-    // newly written manifest will catch real content changes on the next run.
+    // Missing manifest  → fail (binary has no build provenance; run `bun run build`).
+    // Corrupt/mismatched → fail (source changed; run `bun run build` to rebuild).
     const srcDir = join(MOCKS_DIR, bin, "src");
     const tsEp = join(srcDir, "index.ts");
     const tsxEp = join(srcDir, "index.tsx");
@@ -690,39 +687,49 @@ async function buildTaskImage(
 
     const srcFiles = collectTsFiles(srcDir).sort();
 
-    // Compute SHA-256 of each source file.
+    // Compute SHA-256 of each source file using src-relative forward-slash paths
+    // so manifests written on Linux (WSL bun run build) compare correctly on Windows.
     function sha256File(path: string): string {
       return createHash("sha256").update(readFileSync(path)).digest("hex");
     }
     const currentHashes: Record<string, string> = {};
     for (const f of srcFiles) {
-      currentHashes[f] = sha256File(f);
+      const rel = relative(srcDir, f).replace(/\\/g, "/");
+      currentHashes[rel] = sha256File(f);
     }
 
     const manifestPath = join(DIST_DIR, `manifest-${bin}.json`);
-    let isStale = false;
-    if (existsSync(manifestPath) && !force) {
+
+    // Image builder is read-only for manifests; build-all.ts owns manifest writes.
+    if (!force) {
+      if (!existsSync(manifestPath)) {
+        return {
+          task,
+          success: false,
+          imageTag,
+          binariesIncluded: binaries,
+          error: `No build manifest for mock-${bin}. Run \`bun run build\` in mock-platform/ to compile the binary and generate the manifest.`,
+        };
+      }
+      let isStale: boolean;
       try {
         const cached: Record<string, string> = JSON.parse(readFileSync(manifestPath, "utf-8"));
-        // Stale if any current file is missing from the manifest or has a different hash.
-        isStale = srcFiles.some((f) => cached[f] !== currentHashes[f]) ||
-                  Object.keys(cached).some((f) => !existsSync(f));
+        const relFiles = new Set(Object.keys(currentHashes));
+        isStale =
+          Object.keys(currentHashes).some((r) => cached[r] !== currentHashes[r]) ||
+          Object.keys(cached).some((r) => !relFiles.has(r));
       } catch {
-        // Corrupt manifest — treat as stale to force a rebuild prompt.
         isStale = true;
       }
-    }
-    // Always write updated manifest (so it stays in sync after a successful build).
-    writeFileSync(manifestPath, JSON.stringify(currentHashes, null, 2), "utf-8");
-
-    if (isStale) {
-      return {
-        task,
-        success: false,
-        imageTag,
-        binariesIncluded: binaries,
-        error: `Stale binary: ${binaryPath} — source content changed since last build (manifest: ${manifestPath})`,
-      };
+      if (isStale) {
+        return {
+          task,
+          success: false,
+          imageTag,
+          binariesIncluded: binaries,
+          error: `Stale binary: mock-${bin} — source changed since last build. Run \`bun run build\` in mock-platform/ to rebuild.`,
+        };
+      }
     }
   }
 
