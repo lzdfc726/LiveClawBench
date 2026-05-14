@@ -72,7 +72,7 @@ def get_ground_truth():
             m = re.search(r"font-size:48px[^>]*>(\d+)", html)
             temp = int(m.group(1)) if m else 0
 
-            if _TEMP_MIN <= temp <= _TEMP_MAX and aqi < best_aqi:
+            if _TEMP_MIN <= temp <= _TEMP_MAX and aqi <= 50 and aqi < best_aqi:
                 best_aqi, best_temp, best_city = aqi, temp, city_name
 
         if best_city:

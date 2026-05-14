@@ -61,7 +61,7 @@ single, clean environment without structural complexity.
 |      29 | live-web-research-sqlite-fts5     |     M      | ✓  |    |    | ✓  | Deep Research & Report     |
 |      31 | mint-diet-snack-log               |     E      |    |    |    |    | Health & Fitness           |
 |      32 | weather-aqi-report                |     E      |    |    |    |    | Deep Research & Report     |
-|     110 | weather-city-travel-pick *(planned)* |     H      |    |    | ✓  |    | Health & Wellness          |
+|     110 | weather-city-travel-pick *(planned)* |     M      |    |    |    |    | Health & Wellness          |
 
 ---
 

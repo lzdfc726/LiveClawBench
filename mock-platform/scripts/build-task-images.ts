@@ -689,8 +689,10 @@ async function buildTaskImage(
 
     // Compute SHA-256 of each source file using src-relative forward-slash paths
     // so manifests written on Linux (WSL bun run build) compare correctly on Windows.
+    // Normalize CRLF→LF before hashing to match build-all.ts manifest generation.
     function sha256File(path: string): string {
-      return createHash("sha256").update(readFileSync(path)).digest("hex");
+      const content = readFileSync(path, "utf-8").replace(/\r\n/g, "\n");
+      return createHash("sha256").update(content).digest("hex");
     }
     const currentHashes: Record<string, string> = {};
     for (const f of srcFiles) {

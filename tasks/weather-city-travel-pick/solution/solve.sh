@@ -51,7 +51,7 @@ for city in cities:
     m = re.search(r"font-size:48px[^>]*>(\d+)", html)
     temp = int(m.group(1)) if m else 0
 
-    if 15 <= temp <= 26 and aqi < best_aqi:
+    if 15 <= temp <= 26 and aqi <= 50 and aqi < best_aqi:
         best_aqi = aqi
         best = {"city": display, "aqi": aqi, "temp_high_c": temp}
 
