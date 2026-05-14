@@ -200,7 +200,18 @@ async function main() {
   const manifestSnapshots = new Map<string, Record<string, string>>();
   const results: BuildResult[] = [];
   for (const name of mocks) {
-    manifestSnapshots.set(name, computeBuildManifest(name));
+    let snapshot: Record<string, string>;
+    try {
+      snapshot = computeBuildManifest(name);
+    } catch (err) {
+      // Source snapshot failure counts as a build failure for this mock only;
+      // other mocks are unaffected (build compatibility gate).
+      console.log(`Compiling mock-${name}... FAILED`);
+      console.error(`  Error: manifest snapshot failed: ${err}`);
+      results.push({ name, success: false, error: `Manifest snapshot failed: ${err}` });
+      continue;
+    }
+    manifestSnapshots.set(name, snapshot);
     process.stdout.write(`Compiling mock-${name}... `);
     const result = await compileMock(name);
     results.push(result);
