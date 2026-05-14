@@ -213,6 +213,7 @@
       ]
     },
     "skill-combination": { "binaries": [] },
-    "mint-diet-snack-log": { "binaries": ["mint-diet"] }
+    "mint-diet-snack-log": { "binaries": ["mint-diet"] },
+    "weather-city-travel-pick": { "binaries": ["weather"] }
   }
 }
