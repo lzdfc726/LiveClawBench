@@ -34,10 +34,10 @@ for city in cities:
     aqi = int(aq["data"]["aqi"])
 
     html = fetch_html(f"{BASE}/location/{slug}")
-    m = re.search(r"最高\s+(\d+)°C", html)
+    m = re.search(r"最高\s*(\d+)°C", html)
     temp = int(m.group(1)) if m else 0
 
-    if aqi < 100 and 15 <= temp <= 28 and aqi < best_aqi:
+    if 15 <= temp <= 26 and aqi < best_aqi:
         best_aqi = aqi
         best = {"city": display, "aqi": aqi, "temp_high_c": temp}
 
