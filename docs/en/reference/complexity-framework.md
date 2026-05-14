@@ -62,6 +62,7 @@ single, clean environment without structural complexity.
 |      31 | mint-diet-snack-log               |     E      |    |    |    |    | Health & Fitness           |
 |      32 | weather-aqi-report                |     E      |    |    |    |    | Deep Research & Report     |
 |     110 | weather-city-travel-pick *(planned)* |     M      |    |    |    |    | Health & Wellness          |
+|     111 | weather-outdoor-window               |     H      |    |    | ✓  |    | Health & Wellness          |
 
 ---
 
