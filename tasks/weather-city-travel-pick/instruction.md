@@ -7,7 +7,7 @@ Select the city that meets **all** of the following criteria:
 3. Among cities that satisfy both conditions, choose the one with the **lowest AQI**.
 
 Save your recommendation to `/workspace/output/travel_pick.json` with the following keys:
-- `"city"` — the city name in Chinese
+- `"city"` — the city's URL slug (the identifier appearing in `/location/<slug>` URLs, e.g., `"shanghai"`)
 - `"aqi"` — integer AQI value
 - `"temp_high_c"` — integer high temperature in Celsius
 - `"reason"` — one sentence explaining why this city was chosen

@@ -9,15 +9,9 @@ import urllib.request
 
 BASE = "http://localhost:3000"
 
-# Canonical Chinese city names keyed by URL slug.
-# Avoids relying on display_name from the API, which may be mis-decoded.
-SLUG_CITY = {
-    "shanghai": "上海",
-    "beijing":  "北京",
-    "shenzhen": "深圳",
-    "chengdu":  "成都",
-    "harbin":   "哈尔滨",
-}
+# Known slugs for the five seeded cities.
+# The task asks for the city slug (URL identifier), not the display name.
+KNOWN_SLUGS = {"shanghai", "beijing", "shenzhen", "chengdu", "harbin"}
 
 
 def fetch_json(url):
@@ -38,8 +32,7 @@ best_aqi = 9999
 
 for city in cities:
     slug = city["slug"]
-    display = SLUG_CITY.get(slug)
-    if display is None:
+    if slug not in KNOWN_SLUGS:
         continue
 
     aq = fetch_json(f"{BASE}/api/location/{slug}/air-quality")
@@ -53,7 +46,7 @@ for city in cities:
 
     if 15 <= temp <= 26 and aqi <= 50 and aqi < best_aqi:
         best_aqi = aqi
-        best = {"city": display, "aqi": aqi, "temp_high_c": temp}
+        best = {"city": slug, "aqi": aqi, "temp_high_c": temp}
 
 if best is None:
     raise RuntimeError("No qualifying city found")
@@ -63,8 +56,8 @@ result = {
     "aqi": best["aqi"],
     "temp_high_c": best["temp_high_c"],
     "reason": (
-        f"{best['city']} 的空气质量指数 (AQI={best['aqi']}) "
-        f"在所有符合条件的城市中最低，且气温 {best['temp_high_c']}°C 适合出行。"
+        f"{best['city']} has the lowest AQI ({best['aqi']}) among qualifying cities "
+        f"and a comfortable high of {best['temp_high_c']}°C."
     ),
 }
 
