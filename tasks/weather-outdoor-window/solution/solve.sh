@@ -12,14 +12,20 @@ BASE = "http://localhost:3000"
 with urllib.request.urlopen(f"{BASE}/location/shanghai/hourly") as r:
     html = r.read().decode("utf-8", errors="replace")
 
-# The page shows 24 today-rows then 6 tomorrow-rows.
+# Extract only the "今天" section: content between <h2>今天</h2> and the next <h2> tag.
+today_match = re.search(r"<h2>今天</h2>(.*?)(?=<h2>|$)", html, re.DOTALL)
+if not today_match:
+    raise RuntimeError("Could not find today's hourly section in page")
+today_section = today_match.group(1)
+
+# Parse hourly rows from today's section only.
 # Each row: <tr><td>HH:00</td><td>temp</td><td>feels</td><td>cond</td><td>precip</td>...
-# Match ASCII-only pattern to avoid encoding issues with Chinese condition text.
-rows = re.findall(
+today_rows = re.findall(
     r"<tr><td>(\d{2}):00</td><td>[^<]+</td><td>[^<]+</td><td>[^<]+</td><td>([^<]+)</td>",
-    html,
+    today_section,
 )
-today_rows = rows[:24]  # first 24 are today's hourly rows
+if len(today_rows) != 24:
+    raise RuntimeError(f"Expected 24 today rows, got {len(today_rows)}")
 
 # Find longest consecutive block where precipitation is "0.0".
 # Treat any non-"0.0" precip value as rain (covers "0.4", "0.5", etc.).

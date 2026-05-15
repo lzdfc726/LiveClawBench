@@ -1,7 +1,7 @@
 # LiveClawBench Complexity Framework
 
 This document is the single reference for task complexity annotations in LiveClawBench.
-It covers factor definitions, the full 32-case annotation table (32 implemented),
+It covers factor definitions, the full 34-case annotation table (34 implemented),
 summary statistics, domain coverage, and controlled pairs.
 
 ## Complexity Factor Definitions
@@ -23,7 +23,7 @@ single, clean environment without structural complexity.
 
 ---
 
-## 1. 32-Case Factor Annotation Table
+## 1. 34-Case Factor Annotation Table
 
 `✓` indicates the case carries the corresponding factor.
 
@@ -61,7 +61,7 @@ single, clean environment without structural complexity.
 |      29 | live-web-research-sqlite-fts5     |     M      | ✓  |    |    | ✓  | Deep Research & Report     |
 |      31 | mint-diet-snack-log               |     E      |    |    |    |    | Health & Fitness           |
 |      32 | weather-aqi-report                |     E      |    |    |    |    | Deep Research & Report     |
-|     110 | weather-city-travel-pick *(planned)* |     M      |    |    |    |    | Health & Wellness          |
+|     110 | weather-city-travel-pick             |     M      |    |    |    |    | Health & Wellness          |
 |     111 | weather-outdoor-window               |     H      |    |    | ✓  |    | Health & Wellness          |
 
 ---
@@ -70,20 +70,20 @@ single, clean environment without structural complexity.
 
 | Factor | Description                    | Count | Percentage | Representative Cases                                          |
 |--------|--------------------------------|------:|-----------:|---------------------------------------------------------------|
-| A1     | Cross-Service Dependency       |    10 |      31.3% | flight-seat-selection, email-watch-shop, conflict-repair-acb  |
-| A2     | Contaminated Initial State     |     6 |      18.8% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering |
-| B1     | Implicit Goal Resolution       |     4 |      12.5% | flight-seat-selection-failed, flight-cancel-claim, flight-info-change-notice, baggage-tracking-application |
-| B2     | Knowledge System Maintenance   |    11 |      34.4% | skill-creation, skill-dependency-fix, noise-filtering         |
+| A1     | Cross-Service Dependency       |    10 |      29.4% | flight-seat-selection, email-watch-shop, conflict-repair-acb  |
+| A2     | Contaminated Initial State     |     6 |      17.6% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering |
+| B1     | Implicit Goal Resolution       |     5 |      14.7% | flight-seat-selection-failed, flight-cancel-claim, flight-info-change-notice, baggage-tracking-application, weather-outdoor-window |
+| B2     | Knowledge System Maintenance   |    11 |      32.4% | skill-creation, skill-dependency-fix, noise-filtering         |
 
-> Percentages are relative to 32 implemented cases.
+> Percentages are relative to 34 implemented cases.
 
 Factor combination distribution:
 
-- No factors (baseline): 10 cases (31.3%) — email-writing, email-reply, flight-booking, blog-site-from-scratch, washer-shop, watch-shop, washer-change, info-change, mint-diet-snack-log, weather-aqi-report
-- Single factor: 14 cases (43.8%)
-- Dual factor: 7 cases (21.9%) — flight-seat-selection-failed (A1+B1), flight-cancel-claim (A1+B1), flight-info-change-notice (A1+B1), noise-filtering (A2+B2), incremental-update-ctp (A2+B2), mixed-tool-memory (A1+B2), live-web-research-sqlite-fts5 (A1+B2)
-- Triple factor: 1 case (3.1%) — conflict-repair-acb (A1+A2+B2)
-- **Multi-factor (≥2 factors): 8 cases (25.0%)**
+- No factors (baseline): 11 cases (32.4%) — email-writing, email-reply, flight-booking, blog-site-from-scratch, washer-shop, watch-shop, washer-change, info-change, mint-diet-snack-log, weather-aqi-report, weather-city-travel-pick
+- Single factor: 15 cases (44.1%) — includes weather-outdoor-window (B1)
+- Dual factor: 7 cases (20.6%) — flight-seat-selection-failed (A1+B1), flight-cancel-claim (A1+B1), flight-info-change-notice (A1+B1), noise-filtering (A2+B2), incremental-update-ctp (A2+B2), mixed-tool-memory (A1+B2), live-web-research-sqlite-fts5 (A1+B2)
+- Triple factor: 1 case (2.9%) — conflict-repair-acb (A1+A2+B2)
+- **Multi-factor (≥2 factors): 8 cases (23.5%)**
 
 ---
 
@@ -101,11 +101,12 @@ Factor occurrence frequency per primary domain:
 | DevOps & Env Repair        |  0 |  2 |  0 |  0 |                      2 |
 | Deep Research & Report     |  1 |  1 |  0 |  2 |                      4 |
 | Health & Fitness           |  0 |  0 |  0 |  0 |                      0 |
+| Health & Wellness          |  0 |  0 |  1 |  0 |                      1 |
 
 Key observations:
 - **B2 is highly concentrated in Documents & Knowledge** (10/11), reflecting the nature of knowledge management tasks
 - **A1 is the most broadly distributed**, spanning 4 domains — cross-service coordination is a universal complexity source
-- **B1 only appears in E-commerce and Calendar**, where tasks most naturally produce implicit goals
+- **B1 spans E-commerce, Calendar, and Health & Wellness**, covering both failure-mode and inference-based implicit goals
 - **Communication & Email has no factors** — these cases serve as pure baselines
 - **Health & Fitness has no factors** — mint-diet-snack-log serves as a domain baseline
 
@@ -140,20 +141,20 @@ Pair design rationale:
 
 | Difficulty | Count | Percentage | Cases |
 |:----------:|------:|-----------:|-------|
-| Easy       |    19 |      61.3% | skill-conflict-resolution, skill-dependency-fix, skill-combination, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory, mint-diet-snack-log |
-| Medium     |     7 |      22.6% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5 |
-| Hard       |     5 |      16.1% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain |
+| Easy       |    20 |      58.8% | skill-conflict-resolution, skill-dependency-fix, skill-combination, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory, mint-diet-snack-log, weather-aqi-report |
+| Medium     |     8 |      23.5% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5, weather-city-travel-pick |
+| Hard       |     6 |      17.6% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain, weather-outdoor-window |
 
 Factor count vs difficulty:
 
 | Difficulty | Avg Factor Count | Baseline (0 factors) | Single Factor | Multi-Factor |
 |:----------:|:----------------:|:--------------------:|:-------------:|:------------:|
-| Easy       |             0.84 |          8           |       7       |       4      |
-| Medium     |             1.14 |          1           |       4       |       2      |
-| Hard       |             1.40 |          0           |       3       |       2      |
+| Easy       |             0.85 |          9           |       7       |       4      |
+| Medium     |             1.00 |          2           |       4       |       2      |
+| Hard       |             1.33 |          0           |       4       |       2      |
 
 The empirical reclassification (based on average solve rates across models) shows that Easy
-cases dominate (61.3%). Easy cases include both baselines (42.1%) and factor-bearing tasks
-(61.1%), indicating that many structural complexity factors do not pose significant difficulty
+cases dominate (58.8%). Easy cases include both baselines (45.0%) and factor-bearing tasks
+(55.0%), indicating that many structural complexity factors do not pose significant difficulty
 for current agents. Hard cases are concentrated in tasks requiring constraint failure handling
 (B1) or specific challenging environments (A2 in DevOps).
