@@ -28,7 +28,6 @@ resp = fetch_json(f"{BASE}/api/locations")
 cities = resp["data"]
 
 best = None
-best_aqi = 9999
 
 for city in cities:
     slug = city["slug"]
@@ -44,24 +43,18 @@ for city in cities:
     m = re.search(r"font-size:48px[^>]*>(\d+)", html)
     temp = int(m.group(1)) if m else 0
 
-    if 15 <= temp <= 26 and aqi <= 50 and aqi < best_aqi:
-        best_aqi = aqi
+    if 15 <= temp <= 26 and aqi <= 50 and (best is None or aqi < best["aqi"]):
         best = {"city": slug, "aqi": aqi, "temp_high_c": temp}
 
 if best is None:
     raise RuntimeError("No qualifying city found")
 
-result = {
-    "city": best["city"],
-    "aqi": best["aqi"],
-    "temp_high_c": best["temp_high_c"],
-    "reason": (
-        f"{best['city']} has the lowest AQI ({best['aqi']}) among qualifying cities "
-        f"and a comfortable high of {best['temp_high_c']}°C."
-    ),
-}
+best["reason"] = (
+    f"{best['city']} has the lowest AQI ({best['aqi']}) among qualifying cities "
+    f"and a comfortable high of {best['temp_high_c']}°C."
+)
 
 with open("/workspace/output/travel_pick.json", "w", encoding="utf-8") as f:
-    json.dump(result, f, ensure_ascii=False)
-print("Written:", result)
+    json.dump(best, f, ensure_ascii=False)
+print("Written:", best)
 PYEOF
