@@ -93,9 +93,9 @@ Factor occurrence frequency per primary domain:
 
 | Primary Domain             | A1 | A2 | B1 | B2 | Total Factor Instances |
 |----------------------------|----|----|----|----|-----------------------:|
-| Documents & Knowledge      |  2 |  2 |  0 | 10 |                     14 |
+| Documents & Knowledge      |  2 |  2 |  0 |  9 |                     13 |
 | Communication & Email      |  0 |  0 |  0 |  0 |                      0 |
-| E-commerce & Daily Svcs    |  5 |  0 |  2 |  0 |                      7 |
+| E-commerce & Daily Svcs    |  5 |  0 |  3 |  0 |                      8 |
 | Calendar & Task Mgmt       |  2 |  0 |  1 |  0 |                      3 |
 | Coding & Software Dev      |  0 |  1 |  0 |  0 |                      1 |
 | DevOps & Env Repair        |  0 |  2 |  0 |  0 |                      2 |
@@ -104,7 +104,7 @@ Factor occurrence frequency per primary domain:
 | Health & Wellness          |  0 |  0 |  1 |  0 |                      1 |
 
 Key observations:
-- **B2 is highly concentrated in Documents & Knowledge** (10/11), reflecting the nature of knowledge management tasks
+- **B2 is highly concentrated in Documents & Knowledge** (9/11), reflecting the nature of knowledge management tasks
 - **A1 is the most broadly distributed**, spanning 4 domains — cross-service coordination is a universal complexity source
 - **B1 spans E-commerce, Calendar, and Health & Wellness**, covering both failure-mode and inference-based implicit goals
 - **Communication & Email has no factors** — these cases serve as pure baselines
@@ -149,7 +149,7 @@ Factor count vs difficulty:
 
 | Difficulty | Avg Factor Count | Baseline (0 factors) | Single Factor | Multi-Factor |
 |:----------:|:----------------:|:--------------------:|:-------------:|:------------:|
-| Easy       |             0.85 |          9           |       7       |       4      |
+| Easy       |             0.80 |          9           |       7       |       4      |
 | Medium     |             1.00 |          2           |       4       |       2      |
 | Hard       |             1.33 |          0           |       4       |       2      |
 
