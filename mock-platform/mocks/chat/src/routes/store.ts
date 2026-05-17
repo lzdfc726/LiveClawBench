@@ -1,7 +1,7 @@
 import { createRoute } from "mock-lib";
 import type { OpenAPIApp } from "mock-lib";
 import { z } from "zod";
-import { readFileSync, copyFileSync, unlinkSync } from "node:fs";
+import { readFileSync, copyFileSync, unlinkSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import {
   ListStorePacksResponseSchema,
@@ -9,7 +9,20 @@ import {
 } from "../schemas.js";
 import type { DbState } from "../types.js";
 
-const STORE_ASSETS_DIR = join(import.meta.dir, "../../static/store");
+function resolveStoreAssetsDir(): string {
+  if (process.env.CHAT_STORE_ASSETS_DIR) return process.env.CHAT_STORE_ASSETS_DIR;
+  const candidates = [
+    "/opt/mock/static/store",
+    join(import.meta.dir, "../../static/store"),
+    join(import.meta.dir, "../static/store"),
+  ];
+  for (const c of candidates) {
+    if (existsSync(c)) return c;
+  }
+  return "/opt/mock/static/store";
+}
+
+const STORE_ASSETS_DIR = resolveStoreAssetsDir();
 
 function getPreviewFilenames(previewsJson: string): { filename: string; label: string }[] {
   try {

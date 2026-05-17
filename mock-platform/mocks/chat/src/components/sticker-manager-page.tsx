@@ -229,7 +229,7 @@ export function StickerManagerPage({ db }: StickerManagerPageProps) {
           </div>
           <div class="grid" id="sticker-grid">
             {allStickers.map((sticker) => (
-              <div class="card" data-category={sticker.category}>
+              <div class="card" data-category={sticker.category} data-sort-order={sticker.sort_order} data-sticker-id={sticker.id}>
                 <img src={sticker.storage_path} alt="sticker" />
                 <div class="sticker-controls">
                   <select
@@ -240,8 +240,8 @@ export function StickerManagerPage({ db }: StickerManagerPageProps) {
                     <option value="custom" selected={sticker.category === "custom"}>Custom</option>
                   </select>
                   <div class="sticker-arrows">
-                    <button onclick={`moveUp(${sticker.id})`}>&uarr;</button>
-                    <button onclick={`moveDown(${sticker.id})`}>&darr;</button>
+                    <button onclick={`moveUp(this)`}>&uarr;</button>
+                    <button onclick={`moveDown(this)`}>&darr;</button>
                   </div>
                 </div>
               </div>
@@ -305,9 +305,10 @@ export function StickerManagerPage({ db }: StickerManagerPageProps) {
             }
           }
 
-          async function moveUp(id) {
-            const card = document.querySelector('.card:has(button[onclick="moveUp(' + id + ')"])');
+          async function moveUp(btn) {
+            const card = btn.closest('.card');
             if (!card) return;
+            const id = card.dataset.stickerId;
             const currentSort = parseInt(card.dataset.sortOrder || '0', 10);
             try {
               const res = await fetch('/api/stickers/' + id, {
@@ -323,9 +324,10 @@ export function StickerManagerPage({ db }: StickerManagerPageProps) {
             }
           }
 
-          async function moveDown(id) {
-            const card = document.querySelector('.card:has(button[onclick="moveDown(' + id + ')"])');
+          async function moveDown(btn) {
+            const card = btn.closest('.card');
             if (!card) return;
+            const id = card.dataset.stickerId;
             const currentSort = parseInt(card.dataset.sortOrder || '0', 10);
             try {
               const res = await fetch('/api/stickers/' + id, {

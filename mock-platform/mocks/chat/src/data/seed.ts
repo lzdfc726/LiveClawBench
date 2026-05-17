@@ -11,7 +11,20 @@ import type { Database } from "bun:sqlite";
 import { ensureTables } from "../db/schema.js";
 import type { ChatConfig } from "../types.js";
 
-const STORE_ASSETS_DIR = join(import.meta.dir, "../../static/store");
+function resolveStoreAssetsDir(): string {
+  if (process.env.CHAT_STORE_ASSETS_DIR) return process.env.CHAT_STORE_ASSETS_DIR;
+  const candidates = [
+    "/opt/mock/static/store",
+    join(import.meta.dir, "../../static/store"),
+    join(import.meta.dir, "../static/store"),
+  ];
+  for (const c of candidates) {
+    if (existsSync(c)) return c;
+  }
+  return "/opt/mock/static/store";
+}
+
+const STORE_ASSETS_DIR = resolveStoreAssetsDir();
 
 function seedMockUser(db: Database): void {
   const existing = db.query("SELECT 1 FROM mock_user WHERE id = 1").get();

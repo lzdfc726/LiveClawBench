@@ -170,8 +170,8 @@ export function registerChatRoutes(app: OpenAPIApp, dbState: DbState) {
       }
 
       const sticker = db
-        .query("SELECT id, storage_path, user_id FROM user_sticker WHERE id = ?")
-        .get(sticker_id) as { id: number; storage_path: string; user_id: number } | null;
+        .query("SELECT id, storage_path, user_id, pack_id FROM user_sticker WHERE id = ?")
+        .get(sticker_id) as { id: number; storage_path: string; user_id: number; pack_id: number | null } | null;
 
       if (!sticker) {
         return c.json({ error: "sticker_not_found" }, 400);
@@ -182,9 +182,31 @@ export function registerChatRoutes(app: OpenAPIApp, dbState: DbState) {
       }
 
       sourceRef = String(sticker.id);
-      // Extract label from filename for fallback body
-      const filename = sticker.storage_path.split("/").pop() ?? "sticker";
-      messageBody = `[sticker: ${filename}]`;
+
+      if (sticker.pack_id != null) {
+        // Determine 0-based index of this sticker within its pack
+        const indexRow = db
+          .query("SELECT COUNT(*) as count FROM user_sticker WHERE pack_id = ? AND id < ?")
+          .get(sticker.pack_id, sticker.id) as { count: number } | null;
+        const index = indexRow?.count ?? 0;
+
+        const packRow = db
+          .query("SELECT previews_json FROM sticker_pack WHERE id = ?")
+          .get(sticker.pack_id) as { previews_json: string } | null;
+
+        let label: string | undefined;
+        if (packRow) {
+          try {
+            const previews = JSON.parse(packRow.previews_json) as { filename: string; label: string }[];
+            label = previews[index]?.label;
+          } catch {
+            // ignore parse errors
+          }
+        }
+        messageBody = `[sticker: ${label ?? "sticker"}]`;
+      } else {
+        messageBody = "[sticker: custom]";
+      }
     }
 
     const sentAt = new Date().toISOString();

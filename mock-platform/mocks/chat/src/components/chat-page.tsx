@@ -9,6 +9,7 @@ const WHATSAPP_GREEN = "#25D366";
 
 interface ChatPageProps {
   db: Database | null;
+  selectedChannelId?: number;
 }
 
 function getChannels(db: Database) {
@@ -29,9 +30,14 @@ function getStickers(db: Database) {
     .all() as { id: number; storage_path: string; category: string }[];
 }
 
-export function ChatRoomPage({ db }: ChatPageProps) {
+export function ChatRoomPage({ db, selectedChannelId: initialChannelId }: ChatPageProps) {
   const channels = db ? getChannels(db) : [];
-  const selectedChannelId = channels.length > 0 ? channels[0].id : 1;
+  const selectedChannelId =
+    initialChannelId && channels.some((ch) => ch.id === initialChannelId)
+      ? initialChannelId
+      : channels.length > 0
+        ? channels[0].id
+        : 1;
   const messages = db ? getMessages(db, selectedChannelId) : [];
   const stickers = db ? getStickers(db) : [];
 

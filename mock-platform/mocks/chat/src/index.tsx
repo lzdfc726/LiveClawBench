@@ -87,7 +87,9 @@ export function createChatApp(options?: { dbPath?: string; stickerDir?: string }
 
   app.page("/chat", (c) => {
     const db = dbState.db;
-    return c.html(<ChatRoomPage db={db} />);
+    const channelParam = c.req.query("channel");
+    const channelId = channelParam ? parseInt(channelParam, 10) : undefined;
+    return c.html(<ChatRoomPage db={db} selectedChannelId={channelId} />);
   });
 
   app.page("/stickers", (c) => {
