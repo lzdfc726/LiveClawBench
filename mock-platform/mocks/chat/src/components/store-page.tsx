@@ -152,10 +152,10 @@ export function StorePage({ db }: StorePageProps) {
                   ))}
                 </div>
                 <button
+                  type="button"
                   class="acquire-btn"
                   data-pack-id={pack.id}
                   disabled={pack.acquired}
-                  onclick={`acquirePack(${pack.id})`}
                 >
                   {pack.acquired ? "Acquired" : "Acquire"}
                 </button>
@@ -164,21 +164,21 @@ export function StorePage({ db }: StorePageProps) {
           </div>
         </div>
         <script>{`
-          async function acquirePack(id) {
-            const btn = document.querySelector('button[data-pack-id="' + id + '"]');
+          document.getElementById('pack-grid').addEventListener('click', async function(e) {
+            const btn = e.target.closest('.acquire-btn');
             if (!btn || btn.disabled) return;
+            const id = btn.dataset.packId;
             try {
               const res = await fetch('/api/store/packs/' + id + '/acquire', { method: 'POST' });
               if (res.ok) {
-                btn.disabled = true;
-                btn.textContent = 'Acquired';
+                window.location.reload();
               } else {
                 alert('Failed to acquire pack');
               }
-            } catch (e) {
+            } catch (err) {
               alert('Network error');
             }
-          }
+          });
         `}</script>
       </body>
     </html>
