@@ -7,7 +7,7 @@ const WHATSAPP_GREEN = "#25D366";
 
 export function StickerManagerPage() {
   return (
-    <html lang="zh-CN">
+    <html lang="en">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -162,23 +162,23 @@ export function StickerManagerPage() {
           <div class="grid" id="sticker-grid">
             <div class="card add" onclick="openModal()">
               <div class="plus">+</div>
-              <div>创建</div>
+              <div>Create</div>
             </div>
           </div>
         </div>
         <div class="modal-overlay" id="modal">
           <div class="modal">
-            <h3>上传贴纸</h3>
+            <h3>Upload Sticker</h3>
             <form id="upload-form" action="/api/stickers" method="post" enctype="multipart/form-data">
               <input type="file" name="file" accept="image/gif,image/png,image/jpeg" required />
               <select name="category">
-                <option value="recent">常用</option>
-                <option value="favorite">收藏</option>
-                <option value="custom">自定义</option>
+                <option value="recent">Recent</option>
+                <option value="favorite">Favorite</option>
+                <option value="custom">Custom</option>
               </select>
               <div class="actions">
-                <button type="button" class="cancel" onclick="closeModal()">取消</button>
-                <button type="submit" class="submit">上传</button>
+                <button type="button" class="cancel" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="submit">Upload</button>
               </div>
             </form>
           </div>
