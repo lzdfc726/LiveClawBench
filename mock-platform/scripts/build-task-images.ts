@@ -37,6 +37,7 @@ const BINARY_PORTS: Record<string, number> = {
   shop: 1234,
   todolist: 5002,
   "doc-search": 8123,
+  finance: 1235,
   insurance: 6000,
   calendar: 5006,
   "mint-diet": 5003,
@@ -90,6 +91,7 @@ const ALL_TASK_NAMES = new Set([
   "conflict-repair-acb", "skill-combination", "insurance-deductible-selection", "health-insurance-optimization",
   "mint-diet-snack-log", "weather-aqi-report",
   "social-media-posting", "social-unlike-post", "expense-draft-delete",
+  "finance-portfolio-rebalancing", "finance-monthly-close",
   "health-daily-record",
 ]);
 
