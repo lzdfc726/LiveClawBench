@@ -1,11 +1,34 @@
 /** @jsxImportSource hono/jsx */
 /**
  * Sticker Manager page — WhatsApp-style green top bar + category grid + upload modal.
+ * Enhanced with per-sticker category select and sort-order arrows.
  */
+
+import type { Database } from "bun:sqlite";
 
 const WHATSAPP_GREEN = "#25D366";
 
-export function StickerManagerPage() {
+interface StickerManagerPageProps {
+  db: Database | null;
+}
+
+interface StickerRow {
+  id: number;
+  storage_path: string;
+  category: string;
+  sort_order: number;
+}
+
+function getStickers(db: Database): StickerRow[] {
+  return db
+    .query("SELECT id, storage_path, category, sort_order FROM user_sticker ORDER BY category, sort_order ASC")
+    .all() as StickerRow[];
+}
+
+export function StickerManagerPage({ db }: StickerManagerPageProps) {
+  const allStickers = db ? getStickers(db) : [];
+  const categories = ["recent", "favorite", "custom"];
+
   return (
     <html lang="en">
       <head>
@@ -27,21 +50,23 @@ export function StickerManagerPage() {
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
           }
-          .top-bar .logo {
-            width: 28px;
-            height: 28px;
-            background: white;
-            border-radius: 50%;
+          .nav-links {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            gap: 16px;
+          }
+          .nav-links a {
+            color: white;
+            text-decoration: none;
             font-size: 14px;
-            color: ${WHATSAPP_GREEN};
+            font-weight: 500;
+          }
+          .nav-links a:hover {
+            text-decoration: underline;
           }
           .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
           }
@@ -66,32 +91,66 @@ export function StickerManagerPage() {
           }
           .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 16px;
           }
           .card {
             background: white;
             border-radius: 12px;
-            padding: 16px;
+            padding: 12px;
             text-align: center;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            aspect-ratio: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.15s;
+            gap: 8px;
           }
-          .card:hover { transform: translateY(-2px); }
+          .card img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+          }
           .card.add {
             border: 2px dashed #ccc;
             color: #888;
+            justify-content: center;
+            cursor: pointer;
+            min-height: 160px;
           }
           .card.add .plus {
             font-size: 32px;
             color: ${WHATSAPP_GREEN};
             margin-bottom: 4px;
+          }
+          .sticker-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+          }
+          .sticker-controls select {
+            padding: 6px 8px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 13px;
+            width: 100%;
+          }
+          .sticker-arrows {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+          }
+          .sticker-arrows button {
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+          }
+          .sticker-arrows button:hover {
+            background: #f0f2f5;
           }
           .modal-overlay {
             display: none;
@@ -150,16 +209,43 @@ export function StickerManagerPage() {
       </head>
       <body>
         <div class="top-bar">
-          <div class="logo">S</div>
           <span>Sticker Manager</span>
+          <div class="nav-links">
+            <a href="/store">Store</a>
+            <a href="/chat">Chat</a>
+          </div>
         </div>
         <div class="container">
           <div class="tabs">
-            <div class="tab active">recent</div>
-            <div class="tab">favorite</div>
-            <div class="tab">custom</div>
+            {categories.map((cat) => (
+              <div
+                class="tab"
+                data-tab={cat}
+                onclick={`switchTab('${cat}')`}
+              >
+                {cat}
+              </div>
+            ))}
           </div>
           <div class="grid" id="sticker-grid">
+            {allStickers.map((sticker) => (
+              <div class="card" data-category={sticker.category}>
+                <img src={sticker.storage_path} alt="sticker" />
+                <div class="sticker-controls">
+                  <select
+                    onchange={`updateCategory(${sticker.id}, this.value)`}
+                  >
+                    <option value="recent" selected={sticker.category === "recent"}>Recent</option>
+                    <option value="favorite" selected={sticker.category === "favorite"}>Favorite</option>
+                    <option value="custom" selected={sticker.category === "custom"}>Custom</option>
+                  </select>
+                  <div class="sticker-arrows">
+                    <button onclick={`moveUp(${sticker.id})`}>&uarr;</button>
+                    <button onclick={`moveDown(${sticker.id})`}>&darr;</button>
+                  </div>
+                </div>
+              </div>
+            ))}
             <div class="card add" onclick="openModal()">
               <div class="plus">+</div>
               <div>Create</div>
@@ -193,6 +279,70 @@ export function StickerManagerPage() {
           document.getElementById('modal').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
           });
+
+          function switchTab(cat) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === cat));
+            document.querySelectorAll('.card[data-category]').forEach(c => {
+              c.style.display = c.dataset.category === cat ? 'flex' : 'none';
+            });
+            document.querySelector('.card.add').style.display = 'flex';
+          }
+
+          async function updateCategory(id, category) {
+            try {
+              const res = await fetch('/api/stickers/' + id, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ category: category })
+              });
+              if (res.ok) {
+                window.location.reload();
+              } else {
+                alert('Failed to update category');
+              }
+            } catch (e) {
+              alert('Network error');
+            }
+          }
+
+          async function moveUp(id) {
+            const card = document.querySelector('.card:has(button[onclick="moveUp(' + id + ')"])');
+            if (!card) return;
+            const currentSort = parseInt(card.dataset.sortOrder || '0', 10);
+            try {
+              const res = await fetch('/api/stickers/' + id, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ sort_order: Math.max(0, currentSort - 1) })
+              });
+              if (res.ok) {
+                window.location.reload();
+              }
+            } catch (e) {
+              alert('Network error');
+            }
+          }
+
+          async function moveDown(id) {
+            const card = document.querySelector('.card:has(button[onclick="moveDown(' + id + ')"])');
+            if (!card) return;
+            const currentSort = parseInt(card.dataset.sortOrder || '0', 10);
+            try {
+              const res = await fetch('/api/stickers/' + id, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ sort_order: currentSort + 1 })
+              });
+              if (res.ok) {
+                window.location.reload();
+              }
+            } catch (e) {
+              alert('Network error');
+            }
+          }
+
+          // Initialize first tab as active
+          switchTab('recent');
         `}</script>
       </body>
     </html>

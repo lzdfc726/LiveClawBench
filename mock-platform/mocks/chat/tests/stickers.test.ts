@@ -132,7 +132,7 @@ describe("stickers endpoints", () => {
   // ---------------------------------------------------------------------------
 
   it("GET without category -> returns all stickers sorted by sort_order ASC, created_at DESC", async () => {
-    // Upload two stickers
+    // Seed already creates 2 initial stickers. Upload two more.
     const buffer = new Uint8Array([0x47, 0x49, 0x46]);
 
     const form1 = new FormData();
@@ -151,7 +151,7 @@ describe("stickers endpoints", () => {
     expect(listRes.status).toBe(200);
 
     const body = await listRes.json();
-    expect(body.stickers.length).toBe(2);
+    expect(body.stickers.length).toBe(4); // 2 seeded + 2 uploaded
     // sort_order ASC: both have sort_order 0 and 0, tie-break by created_at DESC
     // When timestamps are identical the tie-break is non-deterministic, so only assert presence.
     const ids = body.stickers.map((s: any) => s.id);
@@ -160,6 +160,7 @@ describe("stickers endpoints", () => {
   });
 
   it("GET with category=recent -> returns only recent stickers", async () => {
+    // Seed already creates 2 initial recent stickers.
     const buffer = new Uint8Array([0x47, 0x49, 0x46]);
 
     const form1 = new FormData();
@@ -176,7 +177,7 @@ describe("stickers endpoints", () => {
     expect(listRes.status).toBe(200);
 
     const body = await listRes.json();
-    expect(body.stickers.length).toBe(1);
+    expect(body.stickers.length).toBe(3); // 2 seeded + 1 uploaded
     expect(body.stickers[0].category).toBe("recent");
   });
 

@@ -12,10 +12,14 @@ import type { MockAppV2 } from "mock-lib";
 import { z } from "zod";
 import { Database } from "bun:sqlite";
 import { mkdirSync } from "node:fs";
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 import { seed } from "./data/seed.js";
 import { registerStickerRoutes } from "./routes/stickers.js";
+import { registerStoreRoutes } from "./routes/store.js";
+import { registerChatRoutes } from "./routes/chat.js";
 import { StickerManagerPage } from "./components/sticker-manager-page.js";
+import { StorePage } from "./components/store-page.js";
+import { ChatRoomPage } from "./components/chat-page.js";
 import type { ChatConfig, DbState } from "./types.js";
 
 const DEFAULT_DB_PATH = "/opt/mock/data/chat/chat.sqlite";
@@ -52,6 +56,11 @@ export function createChatApp(options?: { dbPath?: string; stickerDir?: string }
     prefix: "/static/chat/stickers",
   });
 
+  registerStaticAssets(app, {
+    dir: join(import.meta.dir, "../static/store"),
+    prefix: "/static/chat/store",
+  });
+
   const sentinelRoute = createRoute({
     method: "get",
     path: "/__mock_sentinel__/chat",
@@ -69,11 +78,26 @@ export function createChatApp(options?: { dbPath?: string; stickerDir?: string }
   });
   app.openApiRoute(sentinelRoute, (c) => c.json({ ok: true }));
 
-  app.page("/", (c) => {
-    return c.html(<StickerManagerPage />);
+  app.get("/", (c) => c.redirect("/chat"));
+
+  app.page("/store", (c) => {
+    const db = dbState.db;
+    return c.html(<StorePage db={db} />);
+  });
+
+  app.page("/chat", (c) => {
+    const db = dbState.db;
+    return c.html(<ChatRoomPage db={db} />);
+  });
+
+  app.page("/stickers", (c) => {
+    const db = dbState.db;
+    return c.html(<StickerManagerPage db={db} />);
   });
 
   registerStickerRoutes(app, dbState);
+  registerStoreRoutes(app, dbState);
+  registerChatRoutes(app, dbState);
 
   return {
     ...mockApp,

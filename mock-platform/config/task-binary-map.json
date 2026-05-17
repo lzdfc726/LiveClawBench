@@ -267,5 +267,40 @@
     },
     "weather-city-travel-pick": { "binaries": ["weather"] },
     "weather-outdoor-window": { "binaries": ["weather"] }
+    "health-daily-record": { "binaries": ["health"] },
+    "sticker-store-acquire": {
+      "binaries": ["chat"],
+      "assets": [
+        { "src": "mock-platform/mocks/chat/static/store/cat-1.svg", "dest": "/opt/mock/static/store/cat-1.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/cat-2.svg", "dest": "/opt/mock/static/store/cat-2.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/cat-3.svg", "dest": "/opt/mock/static/store/cat-3.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/space-1.svg", "dest": "/opt/mock/static/store/space-1.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/space-2.svg", "dest": "/opt/mock/static/store/space-2.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/space-3.svg", "dest": "/opt/mock/static/store/space-3.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/dog-1.svg", "dest": "/opt/mock/static/store/dog-1.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/dog-2.svg", "dest": "/opt/mock/static/store/dog-2.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/dog-3.svg", "dest": "/opt/mock/static/store/dog-3.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/food-1.svg", "dest": "/opt/mock/static/store/food-1.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/food-2.svg", "dest": "/opt/mock/static/store/food-2.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/food-3.svg", "dest": "/opt/mock/static/store/food-3.svg" }
+      ]
+    },
+    "chat-sticker-engagement": {
+      "binaries": ["chat"],
+      "assets": [
+        { "src": "mock-platform/mocks/chat/static/store/cat-1.svg", "dest": "/opt/mock/static/store/cat-1.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/cat-2.svg", "dest": "/opt/mock/static/store/cat-2.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/cat-3.svg", "dest": "/opt/mock/static/store/cat-3.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/space-1.svg", "dest": "/opt/mock/static/store/space-1.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/space-2.svg", "dest": "/opt/mock/static/store/space-2.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/space-3.svg", "dest": "/opt/mock/static/store/space-3.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/dog-1.svg", "dest": "/opt/mock/static/store/dog-1.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/dog-2.svg", "dest": "/opt/mock/static/store/dog-2.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/dog-3.svg", "dest": "/opt/mock/static/store/dog-3.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/food-1.svg", "dest": "/opt/mock/static/store/food-1.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/food-2.svg", "dest": "/opt/mock/static/store/food-2.svg" },
+        { "src": "mock-platform/mocks/chat/static/store/food-3.svg", "dest": "/opt/mock/static/store/food-3.svg" }
+      ]
+    }
   }
 }

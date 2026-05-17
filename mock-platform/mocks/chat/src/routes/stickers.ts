@@ -8,6 +8,7 @@ import {
   ListStickersResponseSchema,
   StickerSchema,
   StickerIdParamSchema,
+  PatchStickerBodySchema,
 } from "../schemas.js";
 import type { DbState, Sticker } from "../types.js";
 
@@ -31,6 +32,7 @@ function rowToSticker(row: Record<string, unknown>): Sticker {
   return {
     id: row.id as number,
     user_id: row.user_id as number,
+    pack_id: (row.pack_id as number | null) ?? null,
     category: row.category as Sticker["category"],
     storage_path: row.storage_path as string,
     mime_type: row.mime_type as Sticker["mime_type"],
@@ -69,7 +71,7 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
     const { category } = c.req.valid("query");
 
     let query =
-      "SELECT id, user_id, category, storage_path, mime_type, created_at, sort_order FROM user_sticker";
+      "SELECT id, user_id, pack_id, category, storage_path, mime_type, created_at, sort_order FROM user_sticker";
     const params: (string | number)[] = [];
 
     if (category) {
@@ -120,7 +122,7 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
     const { id } = c.req.valid("param");
     const row = db
       .query(
-        "SELECT id, user_id, category, storage_path, mime_type, created_at, sort_order FROM user_sticker WHERE id = ?",
+        "SELECT id, user_id, pack_id, category, storage_path, mime_type, created_at, sort_order FROM user_sticker WHERE id = ?",
       )
       .get(id) as Record<string, unknown> | null;
 
@@ -237,6 +239,130 @@ export function registerStickerRoutes(app: OpenAPIApp, dbState: DbState) {
       try { unlinkSync(filePath); } catch { /* ignore */ }
       return c.json({ error: "db_error" }, 500);
     }
+  });
+
+  // PATCH /api/stickers/:id
+  const patchRoute = createRoute({
+    method: "patch",
+    path: "/api/stickers/{id}",
+    summary: "Update a sticker",
+    request: {
+      params: StickerIdParamSchema,
+    },
+    responses: {
+      200: {
+        content: {
+          "application/json": { schema: StickerSchema },
+        },
+        description: "OK",
+      },
+      400: {
+        content: {
+          "application/json": { schema: z.object({ error: z.string() }) },
+        },
+        description: "Bad request",
+      },
+      404: {
+        content: {
+          "application/json": { schema: z.object({ error: z.string() }) },
+        },
+        description: "Not found",
+      },
+    },
+  });
+
+  app.openApiRoute(patchRoute, async (c) => {
+    const db = dbState.db;
+    if (!db) return c.json({ error: "service_not_ready" }, 503);
+
+    const { id } = c.req.valid("param");
+
+    const sticker = db
+      .query("SELECT id, user_id, pack_id, category, storage_path, mime_type, created_at, sort_order FROM user_sticker WHERE id = ?")
+      .get(id) as Record<string, unknown> | null;
+
+    if (!sticker) {
+      return c.json({ error: "not_found" }, 404);
+    }
+
+    let body: unknown;
+    try {
+      body = await c.req.json();
+    } catch {
+      return c.json({ error: "invalid_body" }, 400);
+    }
+    const parsed = PatchStickerBodySchema.safeParse(body);
+    if (!parsed.success) {
+      return c.json({ error: "invalid_body" }, 400);
+    }
+
+    const { category, sort_order } = parsed.data;
+    const currentCategory = sticker.category as Sticker["category"];
+    const targetCategory = category ?? currentCategory;
+    const isCategoryChange = category && category !== currentCategory;
+
+    // Validate category if provided
+    if (category && !["recent", "favorite", "custom"].includes(category)) {
+      return c.json({ error: "invalid_category" }, 400);
+    }
+
+    // Compute the target sort_order.
+    // When moving categories, the valid range is [0, count_of_target_category],
+    // where count includes the space the moving sticker will occupy.
+    let targetSortOrder: number;
+    if (sort_order !== undefined) {
+      const countQuery = isCategoryChange
+        ? "SELECT COUNT(*) as count FROM user_sticker WHERE category = ? AND id != ?"
+        : "SELECT COUNT(*) as count FROM user_sticker WHERE category = ?";
+      const countParams = isCategoryChange ? [targetCategory, id] : [targetCategory];
+      const countRow = db.query(countQuery).get(...countParams) as { count: number } | null;
+      // Clamp to [0, count] — count is the new valid max index after insertion
+      targetSortOrder = Math.max(0, Math.min(sort_order, (countRow?.count ?? 0)));
+    } else if (isCategoryChange) {
+      // Category change without explicit sort_order: append to end
+      const maxSort = db
+        .query("SELECT COALESCE(MAX(sort_order), -1) as max_sort FROM user_sticker WHERE category = ?")
+        .get(category) as { max_sort: number } | null;
+      targetSortOrder = (maxSort?.max_sort ?? -1) + 1;
+    } else {
+      // No change
+      targetSortOrder = sticker.sort_order as number;
+    }
+
+    // Update the sticker
+    db.run(
+      "UPDATE user_sticker SET category = ?, sort_order = ? WHERE id = ?",
+      [targetCategory, targetSortOrder, id],
+    );
+
+    // Renumber affected categories sequentially from 0
+    const tx = db.transaction(() => {
+      if (isCategoryChange) {
+        // Renumber the old category to eliminate gaps
+        const oldRows = db
+          .query("SELECT id FROM user_sticker WHERE category = ? ORDER BY sort_order ASC, id ASC")
+          .all(currentCategory) as { id: number }[];
+        for (let i = 0; i < oldRows.length; i++) {
+          db.run("UPDATE user_sticker SET sort_order = ? WHERE id = ?", [i, oldRows[i].id]);
+        }
+      }
+
+      // Renumber the target category
+      const targetRows = db
+        .query("SELECT id FROM user_sticker WHERE category = ? ORDER BY sort_order ASC, id ASC")
+        .all(targetCategory) as { id: number }[];
+      for (let i = 0; i < targetRows.length; i++) {
+        db.run("UPDATE user_sticker SET sort_order = ? WHERE id = ?", [i, targetRows[i].id]);
+      }
+    });
+    tx();
+
+    // Fetch updated sticker
+    const updatedRow = db
+      .query("SELECT id, user_id, pack_id, category, storage_path, mime_type, created_at, sort_order FROM user_sticker WHERE id = ?")
+      .get(id) as Record<string, unknown>;
+
+    return c.json(rowToSticker(updatedRow));
   });
 
   // DELETE /api/stickers/:id
