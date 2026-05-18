@@ -6,6 +6,7 @@ Reward (sum = 1.0):
   0.4  sent email to leo.qin@work.mosi.inc
   0.2  no sent email to nina.zhou@ or sam.park@work.mosi.inc
 """
+
 import json
 import os
 import sys
@@ -37,7 +38,14 @@ def check():
             print(f"  (penalty: unimpacted notified: {unimpacted_hits})")
         os.makedirs("/logs/verifier", exist_ok=True)
         with open("/logs/verifier/reward.json", "w") as f:
-            json.dump({"reward": reward, "impacted_score": impacted_score, "unimpacted_score": unimpacted_score}, f)
+            json.dump(
+                {
+                    "reward": reward,
+                    "impacted_score": impacted_score,
+                    "unimpacted_score": unimpacted_score,
+                },
+                f,
+            )
         return reward
 
 

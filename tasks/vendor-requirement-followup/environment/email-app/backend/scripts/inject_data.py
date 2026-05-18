@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Seed data for vendor-requirement-followup."""
+
 import os
 import sys
 

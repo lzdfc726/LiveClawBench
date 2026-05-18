@@ -6,6 +6,7 @@ Reward (sum = 1.0):
        '15:15-16:00' in subject or body
   0.2  reply does not contain a disallowed slot string
 """
+
 import json
 import os
 import re
@@ -46,7 +47,14 @@ def check():
         print(f"slot_score={slot_score}  distractor_score={distractor_score}")
         os.makedirs("/logs/verifier", exist_ok=True)
         with open("/logs/verifier/reward.json", "w") as f:
-            json.dump({"reward": reward, "slot_score": slot_score, "distractor_score": distractor_score}, f)
+            json.dump(
+                {
+                    "reward": reward,
+                    "slot_score": slot_score,
+                    "distractor_score": distractor_score,
+                },
+                f,
+            )
         return reward
 
 

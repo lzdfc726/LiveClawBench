@@ -1,4 +1,5 @@
 """Minimal expense-app -- Flask backend on port 5180 serving HTML + JSON API."""
+
 import os
 from datetime import datetime
 
@@ -125,7 +126,11 @@ def list_drafts():
 @app.route("/api/drafts", methods=["POST"])
 def create_draft():
     data = request.get_json(force=True, silent=True) or {}
-    if not data.get("vendor_name") or data.get("amount") is None or not data.get("invoice_date"):
+    if (
+        not data.get("vendor_name")
+        or data.get("amount") is None
+        or not data.get("invoice_date")
+    ):
         return jsonify({"error": "vendor_name, amount, invoice_date are required"}), 400
     d = ExpenseDraft(
         vendor_name=data["vendor_name"],

@@ -70,15 +70,30 @@ def main():
             db.session.add(rfq)
 
         replies = [
-            (asterbyte, "Re: Procurement RFQ -- 24 x LaptopX1",
-             "Hi Peter,\n\nWe can offer LaptopX1 at USD 1180 per unit. "
-             "Delivery: 5 business days from PO confirmation.\n\nBest,\nAsterByte sales", 1, 4),
-            (northpeak, "Re: Procurement RFQ -- 24 x LaptopX1",
-             "Peter,\n\nOur unit price is USD 1090. Delivery: 6 weeks "
-             "(we are out of stock; next batch from factory).\n\nThanks,\nNorthPeak", 1, 2),
-            (latticepro, "Re: Procurement RFQ -- 24 x LaptopX1",
-             "Hello,\n\nLatticePro can deliver LaptopX1 at USD 1240 per unit. "
-             "Delivery: 4 business days. Premium support included.\n\nLatticePro desk", 1, 1),
+            (
+                asterbyte,
+                "Re: Procurement RFQ -- 24 x LaptopX1",
+                "Hi Peter,\n\nWe can offer LaptopX1 at USD 1180 per unit. "
+                "Delivery: 5 business days from PO confirmation.\n\nBest,\nAsterByte sales",
+                1,
+                4,
+            ),
+            (
+                northpeak,
+                "Re: Procurement RFQ -- 24 x LaptopX1",
+                "Peter,\n\nOur unit price is USD 1090. Delivery: 6 weeks "
+                "(we are out of stock; next batch from factory).\n\nThanks,\nNorthPeak",
+                1,
+                2,
+            ),
+            (
+                latticepro,
+                "Re: Procurement RFQ -- 24 x LaptopX1",
+                "Hello,\n\nLatticePro can deliver LaptopX1 at USD 1240 per unit. "
+                "Delivery: 4 business days. Premium support included.\n\nLatticePro desk",
+                1,
+                1,
+            ),
         ]
         for sender, subject, body, days, hours in replies:
             email = Email(
@@ -94,7 +109,9 @@ def main():
             db.session.add(email)
 
         db.session.commit()
-        print(f"Seeded {Email.query.count()} emails for procurement-quote-compare-reply")
+        print(
+            f"Seeded {Email.query.count()} emails for procurement-quote-compare-reply"
+        )
 
 
 if __name__ == "__main__":

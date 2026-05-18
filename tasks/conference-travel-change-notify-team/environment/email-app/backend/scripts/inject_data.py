@@ -4,6 +4,7 @@
 Organizer moves the team's arrival from 14:10 to 17:45 on 2026-04-11.
 Calendar (separate mock) shows which teammate has events before/after 17:45.
 """
+
 import os
 import sys
 
@@ -67,7 +68,9 @@ def main():
         db.session.add(breakfast)
 
         db.session.commit()
-        print(f"Seeded {Email.query.count()} emails (conference-travel-change-notify-team)")
+        print(
+            f"Seeded {Email.query.count()} emails (conference-travel-change-notify-team)"
+        )
 
 
 if __name__ == "__main__":

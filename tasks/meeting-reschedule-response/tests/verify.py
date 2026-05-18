@@ -7,6 +7,7 @@ Reward (sum = 1.0):
   0.2  no mention of either conflicting slot ('10:00-10:30' or '13:30-14:00')
        in any matching reply
 """
+
 import json
 import os
 import re
@@ -47,7 +48,12 @@ def check():
         os.makedirs("/logs/verifier", exist_ok=True)
         with open("/logs/verifier/reward.json", "w") as f:
             json.dump(
-                {"reward": reward, "slot_score": slot_score, "distractor_score": distractor_score}, f
+                {
+                    "reward": reward,
+                    "slot_score": slot_score,
+                    "distractor_score": distractor_score,
+                },
+                f,
             )
         return reward
 

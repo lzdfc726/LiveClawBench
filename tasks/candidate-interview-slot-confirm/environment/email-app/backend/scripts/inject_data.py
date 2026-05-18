@@ -5,6 +5,7 @@ Priya proposes 3 windows on 2026-04-05. Only the free segment
 15:15-16:00 (inside window 3) is a 45-minute opening; windows 1 and 2 are
 fully busy in the calendar.
 """
+
 import os
 import sys
 

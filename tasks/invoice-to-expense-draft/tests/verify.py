@@ -11,6 +11,7 @@ Reward (sum = 1.0):
   0.2 distractor: no draft references the purchase-ack distractor
       (vendor matching 'northbound', or amount ~ 920.00)
 """
+
 import importlib.util
 import json
 import os
@@ -57,10 +58,19 @@ def check():
         distractor_score = 0.0 if distractor_hit else 0.2
 
         reward = round(field_score + distractor_score, 3)
-        print(f"drafts={len(drafts)}  field_score={field_score}  distractor_score={distractor_score}")
+        print(
+            f"drafts={len(drafts)}  field_score={field_score}  distractor_score={distractor_score}"
+        )
         os.makedirs("/logs/verifier", exist_ok=True)
         with open("/logs/verifier/reward.json", "w") as f:
-            json.dump({"reward": reward, "field_score": field_score, "distractor_score": distractor_score}, f)
+            json.dump(
+                {
+                    "reward": reward,
+                    "field_score": field_score,
+                    "distractor_score": distractor_score,
+                },
+                f,
+            )
         return reward
 
 

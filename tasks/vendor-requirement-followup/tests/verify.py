@@ -8,6 +8,7 @@ Reward (sum = 1.0):
   0.2 preservation: prior non-target tracker lines remain byte-identical
        to the seed snapshot, AND no sent rows to either distractor recipient
 """
+
 import json
 import os
 import sys
@@ -68,15 +69,24 @@ def check():
     )
 
     reward = round(reply_score + tracker_score + preservation_score, 3)
-    print(f"reply_score={reply_score}  tracker_score={tracker_score}  preservation_score={preservation_score}")
+    print(
+        f"reply_score={reply_score}  tracker_score={tracker_score}  preservation_score={preservation_score}"
+    )
     if distractor_email_hit:
         print("  preservation penalty: distractor recipient(s) received a reply")
     if not preserved_lines_present:
         print("  preservation penalty: prior tracker entries missing or mutated")
     os.makedirs("/logs/verifier", exist_ok=True)
     with open("/logs/verifier/reward.json", "w") as f:
-        json.dump({"reward": reward, "reply_score": reply_score,
-                   "tracker_score": tracker_score, "preservation_score": preservation_score}, f)
+        json.dump(
+            {
+                "reward": reward,
+                "reply_score": reply_score,
+                "tracker_score": tracker_score,
+                "preservation_score": preservation_score,
+            },
+            f,
+        )
     return reward
 
 

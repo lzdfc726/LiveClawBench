@@ -1,7 +1,6 @@
 """Minimal calendar-app — Flask backend serving HTML + JSON API on a single port."""
+
 import json
-import os
-from datetime import datetime
 
 from flask import Flask, jsonify, render_template_string, request
 from flask_cors import CORS
@@ -18,9 +17,9 @@ class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     start_time = db.Column(db.String(40), nullable=False)  # ISO datetime
-    end_time = db.Column(db.String(40), nullable=False)    # ISO datetime
-    day_key = db.Column(db.String(10), nullable=False)     # YYYY-MM-DD
-    attendees = db.Column(db.Text, default="[]")           # JSON string list
+    end_time = db.Column(db.String(40), nullable=False)  # ISO datetime
+    day_key = db.Column(db.String(10), nullable=False)  # YYYY-MM-DD
+    attendees = db.Column(db.Text, default="[]")  # JSON string list
     busy = db.Column(db.Boolean, default=True)
     location = db.Column(db.String(255), default="")
 
@@ -103,7 +102,9 @@ def list_events():
         q = q.filter(Event.day_key >= from_d)
     if to_d:
         q = q.filter(Event.day_key <= to_d)
-    return jsonify({"events": [e.to_dict() for e in q.order_by(Event.start_time.asc()).all()]})
+    return jsonify(
+        {"events": [e.to_dict() for e in q.order_by(Event.start_time.asc()).all()]}
+    )
 
 
 @app.route("/api/events", methods=["POST"])

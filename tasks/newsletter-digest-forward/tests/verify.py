@@ -9,6 +9,7 @@ Reward (sum = 1.0):
   0.2 distractor: 'April mascot giveaway' substring NOT present in digest
        file or any matching sent email.
 """
+
 import json
 import os
 import sys
@@ -59,11 +60,20 @@ def check():
         distractor_score = 0.0
 
     reward = round(digest_score + email_score + distractor_score, 3)
-    print(f"digest_score={digest_score}  email_score={email_score}  distractor_score={distractor_score}")
+    print(
+        f"digest_score={digest_score}  email_score={email_score}  distractor_score={distractor_score}"
+    )
     os.makedirs("/logs/verifier", exist_ok=True)
     with open("/logs/verifier/reward.json", "w") as f:
-        json.dump({"reward": reward, "digest_score": digest_score,
-                   "email_score": email_score, "distractor_score": distractor_score}, f)
+        json.dump(
+            {
+                "reward": reward,
+                "digest_score": digest_score,
+                "email_score": email_score,
+                "distractor_score": distractor_score,
+            },
+            f,
+        )
     return reward
 
 

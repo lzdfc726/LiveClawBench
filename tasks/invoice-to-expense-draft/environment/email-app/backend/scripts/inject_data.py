@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Seed data for invoice-to-expense-draft."""
+
 import os
 import sys
 
@@ -29,7 +30,9 @@ def main():
 
         # Target invoice
         target = Email(
-            sender_id=northwind.id, recipient_id=peter.id, recipient_email=peter.email,
+            sender_id=northwind.id,
+            recipient_id=peter.id,
+            recipient_email=peter.email,
             subject="Invoice INV-NC-2048 -- April 2026",
             body=(
                 "Hi Peter,\n\n"
@@ -42,14 +45,17 @@ def main():
                 "Payment due in 30 days.\n\n"
                 "Best,\nNorthwind AP"
             ),
-            folder="inbox", is_read=False,
+            folder="inbox",
+            is_read=False,
             created_at=datetime.utcnow() - timedelta(hours=4),
         )
         db.session.add(target)
 
         # Distractor: purchase ack, similar-looking sender domain
         distractor = Email(
-            sender_id=northbound.id, recipient_id=peter.id, recipient_email=peter.email,
+            sender_id=northbound.id,
+            recipient_id=peter.id,
+            recipient_email=peter.email,
             subject="Order Acknowledgement -- Purchase #87412",
             body=(
                 "Hi Peter,\n\n"
@@ -60,7 +66,8 @@ def main():
                 "We will follow up with the invoice once items ship.\n\n"
                 "--Northbound billing"
             ),
-            folder="inbox", is_read=False,
+            folder="inbox",
+            is_read=False,
             created_at=datetime.utcnow() - timedelta(hours=10),
         )
         db.session.add(distractor)

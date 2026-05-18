@@ -11,6 +11,7 @@ Reward (sum = 1.0):
   0.2 preservation: prior log lines remain present AND no sent email to ops
        mentions any distractor client.
 """
+
 import json
 import os
 import re
@@ -71,10 +72,7 @@ def check():
             log_score = max(log_score, 0.2)
 
     # 3. preservation
-    preserved_lines_ok = (
-        bool(seed_lines)
-        and seed_lines.issubset(set(current_lines))
-    )
+    preserved_lines_ok = bool(seed_lines) and seed_lines.issubset(set(current_lines))
     distractor_hit = False
     for r in ops_rows:
         t = (r.subject or "") + "\n" + (r.body or "")
@@ -84,11 +82,20 @@ def check():
     preservation_score = 0.2 if (preserved_lines_ok and not distractor_hit) else 0.0
 
     reward = round(escalation_score + log_score + preservation_score, 3)
-    print(f"escalation_score={escalation_score}  log_score={log_score}  preservation_score={preservation_score}")
+    print(
+        f"escalation_score={escalation_score}  log_score={log_score}  preservation_score={preservation_score}"
+    )
     os.makedirs("/logs/verifier", exist_ok=True)
     with open("/logs/verifier/reward.json", "w") as f:
-        json.dump({"reward": reward, "escalation_score": escalation_score,
-                   "log_score": log_score, "preservation_score": preservation_score}, f)
+        json.dump(
+            {
+                "reward": reward,
+                "escalation_score": escalation_score,
+                "log_score": log_score,
+                "preservation_score": preservation_score,
+            },
+            f,
+        )
     return reward
 
 

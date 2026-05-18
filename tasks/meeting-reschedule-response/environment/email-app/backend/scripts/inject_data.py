@@ -4,6 +4,7 @@
 Alice proposes three slots on 2026-04-04; the calendar (separate mock) has
 busy blocks covering two of them, leaving 16:00-16:30 free.
 """
+
 import os
 import sys
 
