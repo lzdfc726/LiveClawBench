@@ -114,8 +114,10 @@ def register():
         return jsonify(
             {
                 "message": "User registered successfully",
-                "user": user.to_dict(),
-                "access_token": access_token,
+                "data": {
+                    "user": user.to_dict(),
+                    "access_token": access_token,
+                },
             }
         ), 201
 
@@ -148,8 +150,10 @@ def login():
         return jsonify(
             {
                 "message": "Login successful",
-                "user": user.to_dict(),
-                "access_token": access_token,
+                "data": {
+                    "user": user.to_dict(),
+                    "access_token": access_token,
+                },
             }
         ), 200
 
@@ -168,7 +172,7 @@ def get_current_user():
         if not user:
             return jsonify({"error": "User not found"}), 404
 
-        return jsonify({"user": user.to_dict()}), 200
+        return jsonify({"data": {"user": user.to_dict()}}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
