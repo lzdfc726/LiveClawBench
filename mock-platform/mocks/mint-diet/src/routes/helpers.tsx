@@ -19,6 +19,10 @@ export async function parseBodyOrBadRequest(c: Context<AppEnv>): Promise<ParsedB
   }
 }
 
+/**
+ * Run a database mutation with error handling.
+ * Returns JSON error response on failure for API consistency.
+ */
 export function runDbMutation<T>(c: Context<AppEnv>, action: () => T): T | Response {
   try {
     return action();
