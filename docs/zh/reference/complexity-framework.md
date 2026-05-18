@@ -1,7 +1,7 @@
 # LiveClawBench 复杂度框架
 
 本文档是 LiveClawBench 任务复杂度标注的唯一参考来源。
-涵盖因子定义、完整的 45 case 标注表（45 个已实现）、
+涵盖因子定义、完整的 53 case 标注表（53 个已实现）、
 摘要统计、领域覆盖和控制对。
 
 ## 复杂度因子定义
@@ -17,7 +17,7 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 
 ---
 
-## 1. 43 Case 因子标注表
+## 1. 53 Case 因子标注表
 
 `✓` 表示该 case 包含对应因子。
 
@@ -68,6 +68,14 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 |      43 | smarthome-test                    |  M   |    |    | ✓  |    | E-commerce & Daily Svcs    |
 |      44 | grocery-reorder                   |  M   | ✓  |    | ✓  |    | E-commerce & Daily Svcs    |
 |      45 | morning-comfort-setup             |  M   |    | ✓  | ✓  |    | Health & Fitness           |
+|      46 | vendor-requirement-followup       |  H   | ✓  |    | ✓  | ✓  | Communication & Email      |
+|      47 | invoice-to-expense-draft          |  M   | ✓  |    | ✓  |    | Communication & Email      |
+|      48 | meeting-reschedule-response       |  M   | ✓  |    |    |    | Communication & Email      |
+|      49 | candidate-interview-slot-confirm  |  M   | ✓  |    |    |    | Communication & Email      |
+|      50 | newsletter-digest-forward         |  M   | ✓  |    | ✓  |    | Communication & Email      |
+|      51 | procurement-quote-compare-reply   |  M   |    |    | ✓  |    | Communication & Email      |
+|      52 | conference-travel-change-notify-team | H  | ✓  |    | ✓  |    | Communication & Email      |
+|      53 | stale-client-escalation           |  H   | ✓  |    | ✓  | ✓  | Communication & Email      |
 
 ---
 
@@ -75,20 +83,20 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 
 | 因子 | 描述                     | 数量 | 占比   | 代表性 Case                                                     |
 |------|--------------------------|-----:|-------:|----------------------------------------------------------------|
-| A1   | 跨服务依赖               |   12 |  26.7% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder |
-| A2   | 初始状态污染             |    7 |  15.6% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup |
-| B1   | 隐式目标解析             |    7 |  15.6% | flight-seat-selection-failed, flight-cancel-claim, flight-info-change-notice, baggage-tracking-application, grocery-reorder, smarthome-test, morning-comfort-setup |
-| B2   | 知识系统维护             |   11 |  24.4% | skill-creation, skill-dependency-fix, noise-filtering          |
+| A1   | 跨服务依赖               |   19 |  35.8% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, vendor-requirement-followup |
+| A2   | 初始状态污染             |    7 |  13.2% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup |
+| B1   | 隐式目标解析             |   13 |  24.5% | flight-seat-selection-failed, flight-cancel-claim, grocery-reorder, procurement-quote-compare-reply, stale-client-escalation |
+| B2   | 知识系统维护             |   13 |  24.5% | skill-creation, skill-dependency-fix, noise-filtering, vendor-requirement-followup, stale-client-escalation |
 
-> 占比以 45 个已实现 case 总数为分母。
+> 占比以 53 个已实现 case 总数为分母。
 
 因子组合分布：
 
-- 无因子（基准）：19 个 case（42.2%）— email-writing, email-reply, flight-booking, blog-site-from-scratch, washer-shop, watch-shop, washer-change, info-change, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, finance-portfolio-rebalancing, finance-monthly-close, nutrition-log-meal, mint-diet-comprehensive
-- 单因子：16 个 case（35.6%）
-- 双因子：9 个 case（20.0%）— flight-seat-selection-failed (A1+B1), flight-cancel-claim (A1+B1), flight-info-change-notice (A1+B1), grocery-reorder (A1+B1), noise-filtering (A2+B2), incremental-update-ctp (A2+B2), mixed-tool-memory (A1+B2), live-web-research-sqlite-fts5 (A1+B2), morning-comfort-setup (A2+B1)
-- 三因子：1 个 case（2.2%）— conflict-repair-acb (A1+A2+B2)
-- **多因子（≥2 个因子）：10 个 case（22.2%）**
+- 无因子（基准）：19 个 case（35.8%）— email-writing, email-reply, flight-booking, blog-site-from-scratch, washer-shop, watch-shop, washer-change, info-change, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, finance-portfolio-rebalancing, finance-monthly-close, nutrition-log-meal, mint-diet-comprehensive
+- 单因子：19 个 case（35.8%）
+- 双因子：12 个 case（22.6%）— flight-seat-selection-failed (A1+B1), flight-cancel-claim (A1+B1), flight-info-change-notice (A1+B1), grocery-reorder (A1+B1), noise-filtering (A2+B2), incremental-update-ctp (A2+B2), mixed-tool-memory (A1+B2), live-web-research-sqlite-fts5 (A1+B2), morning-comfort-setup (A2+B1), invoice-to-expense-draft (A1+B1), newsletter-digest-forward (A1+B1), conference-travel-change-notify-team (A1+B1)
+- 三因子：3 个 case（5.7%）— conflict-repair-acb (A1+A2+B2), vendor-requirement-followup (A1+B1+B2), stale-client-escalation (A1+B1+B2)
+- **多因子（≥2 个因子）：15 个 case（28.3%）**
 
 ---
 
@@ -98,8 +106,8 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 
 | 主要领域                   | A1 | A2 | B1 | B2 | 因子实例总数 |
 |----------------------------|----|----|----|----|:------------:|
-| Documents & Knowledge      |  2 |  2 |  0 | 10 |           14 |
-| Communication & Email      |  0 |  0 |  0 |  0 |            0 |
+| Documents & Knowledge      |  2 |  2 |  0 |  9 |           13 |
+| Communication & Email      |  7 |  0 |  6 |  2 |           15 |
 | E-commerce & Daily Svcs    |  7 |  0 |  5 |  0 |           12 |
 | Calendar & Task Mgmt       |  2 |  0 |  1 |  0 |            3 |
 | Coding & Software Dev      |  0 |  1 |  0 |  0 |            1 |
@@ -111,10 +119,10 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 | Health & Wellness          |  0 |  0 |  0 |  0 |            0 |
 
 关键观察：
-- **B2 高度集中在 Documents & Knowledge**（10/11），反映了知识管理任务的本质
-- **A1 分布最广**，横跨 5 个领域——跨服务协调是普遍的复杂度来源
-- **B1 出现在 E-commerce、Calendar 和 Health & Fitness** ——这些领域最自然地产生隐式目标
-- **Communication & Email 没有任何因子** ——这些 case 作为纯基准
+- **B2 仍集中在 Documents & Knowledge，同时新增 Communication & Email 中的持久工作区更新任务**（13 个 B2 中 9 个以 Documents & Knowledge 为主领域），反映了知识管理任务的本质
+- **A1 分布最广**，覆盖 Communication & Email 以及多个服务密集型领域——跨服务协调是普遍的复杂度来源
+- **B1 出现在 E-commerce、Calendar、Health & Fitness 和 Communication & Email** ——这些领域最自然地产生隐式约束和目标选择歧义
+- **Communication & Email 现在同时包含基准任务和带因子任务** ——新增 case 强调以邮件为中心的跨服务协调和持久工作区更新
 - **Health & Fitness 现在有了因子** ——morning-comfort-setup 引入 A2+B1，从基准变为多因子任务
 - **Social Media、Finance & Data Analytics 和 Health & Wellness 没有因子** ——这些领域作为基准
 
@@ -147,17 +155,17 @@ LiveClawBench 包含 2 个经验证具有有效难度梯度的控制对。
 
 | 难度 | 数量 | 占比   | Case 列表 |
 |:----:|-----:|-------:|-----------|
-| 简单 |   27 |  60.0% | skill-conflict-resolution, skill-dependency-fix, skill-combination, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, nutrition-log-meal, mint-diet-comprehensive |
-| 中等 |   12 |  26.7% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5, health-insurance-optimization, finance-monthly-close, smarthome-test, grocery-reorder, morning-comfort-setup |
-| 困难 |    6 |  13.3% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain, finance-portfolio-rebalancing |
+| 简单 |   27 |  50.9% | skill-conflict-resolution, skill-dependency-fix, skill-combination, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, nutrition-log-meal, mint-diet-comprehensive |
+| 中等 |   17 |  32.1% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5, health-insurance-optimization, finance-monthly-close, smarthome-test, grocery-reorder, morning-comfort-setup, invoice-to-expense-draft, meeting-reschedule-response, candidate-interview-slot-confirm, newsletter-digest-forward, procurement-quote-compare-reply |
+| 困难 |    9 |  17.0% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain, finance-portfolio-rebalancing, vendor-requirement-followup, conference-travel-change-notify-team, stale-client-escalation |
 
 因子数量与难度关系：
 
 | 难度 | 平均因子数 | 基准（0 因子） | 单因子 | 多因子 |
 |:----:|:----------:|:--------------:|:------:|:------:|
 | 简单 |       0.59 |             16 |      7 |      4 |
-| 中等 |       1.17 |              2 |      6 |      4 |
-| 困难 |       1.17 |              1 |      3 |      2 |
+| 中等 |       1.24 |              2 |      9 |      6 |
+| 困难 |       1.67 |              1 |      3 |      5 |
 
-基于多模型平均通过率的经验重分类显示，简单 case 占主导（60.0%）。简单 case 同时包含基准任务（59.3%）和带因子任务（40.7%），
-表明许多结构性复杂度因子对当前 agent 并不构成显著难度。困难 case 集中在需要约束失败处理（B1）或特定挑战性环境（DevOps 中的 A2）的任务上。
+基于多模型平均通过率的经验重分类显示，简单 case 仍是最大组（50.9%）。简单 case 同时包含基准任务（59.3%）和带因子任务（40.7%），
+表明许多结构性复杂度因子对当前 agent 并不构成显著难度。困难 case 集中在需要约束失败处理（B1）、特定挑战性环境（DevOps 中的 A2）、高精度领域执行或多输出 Communication & Email 工作流的任务上。

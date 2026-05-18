@@ -1,7 +1,7 @@
 # LiveClawBench Complexity Framework
 
 This document is the single reference for task complexity annotations in LiveClawBench.
-It covers factor definitions, the full 45-case annotation table (45 implemented),
+It covers factor definitions, the full 53-case annotation table (53 implemented),
 summary statistics, domain coverage, and controlled pairs.
 
 ## Complexity Factor Definitions
@@ -23,7 +23,7 @@ single, clean environment without structural complexity.
 
 ---
 
-## 1. 43-Case Factor Annotation Table
+## 1. 53-Case Factor Annotation Table
 
 `✓` indicates the case carries the corresponding factor.
 
@@ -74,6 +74,14 @@ single, clean environment without structural complexity.
 |      43 | smarthome-test                    |     M      |    |    | ✓  |    | E-commerce & Daily Svcs    |
 |      44 | grocery-reorder                   |     M      | ✓  |    | ✓  |    | E-commerce & Daily Svcs    |
 |      45 | morning-comfort-setup             |     M      |    | ✓  | ✓  |    | Health & Fitness           |
+|      46 | vendor-requirement-followup       |     H      | ✓  |    | ✓  | ✓  | Communication & Email      |
+|      47 | invoice-to-expense-draft          |     M      | ✓  |    | ✓  |    | Communication & Email      |
+|      48 | meeting-reschedule-response       |     M      | ✓  |    |    |    | Communication & Email      |
+|      49 | candidate-interview-slot-confirm  |     M      | ✓  |    |    |    | Communication & Email      |
+|      50 | newsletter-digest-forward         |     M      | ✓  |    | ✓  |    | Communication & Email      |
+|      51 | procurement-quote-compare-reply   |     M      |    |    | ✓  |    | Communication & Email      |
+|      52 | conference-travel-change-notify-team |  H      | ✓  |    | ✓  |    | Communication & Email      |
+|      53 | stale-client-escalation           |     H      | ✓  |    | ✓  | ✓  | Communication & Email      |
 
 ---
 
@@ -81,20 +89,20 @@ single, clean environment without structural complexity.
 
 | Factor | Description                    | Count | Percentage | Representative Cases                                          |
 |--------|--------------------------------|------:|-----------:|---------------------------------------------------------------|
-| A1     | Cross-Service Dependency       |    12 |      26.7% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder |
-| A2     | Contaminated Initial State     |     7 |      15.6% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup |
-| B1     | Implicit Goal Resolution       |     7 |      15.6% | flight-seat-selection-failed, flight-cancel-claim, flight-info-change-notice, baggage-tracking-application, grocery-reorder, smarthome-test, morning-comfort-setup |
-| B2     | Knowledge System Maintenance   |    11 |      24.4% | skill-creation, skill-dependency-fix, noise-filtering         |
+| A1     | Cross-Service Dependency       |    19 |      35.8% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, vendor-requirement-followup |
+| A2     | Contaminated Initial State     |     7 |      13.2% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup |
+| B1     | Implicit Goal Resolution       |    13 |      24.5% | flight-seat-selection-failed, flight-cancel-claim, grocery-reorder, procurement-quote-compare-reply, stale-client-escalation |
+| B2     | Knowledge System Maintenance   |    13 |      24.5% | skill-creation, skill-dependency-fix, noise-filtering, vendor-requirement-followup, stale-client-escalation |
 
-> Percentages are relative to 45 implemented cases.
+> Percentages are relative to 53 implemented cases.
 
 Factor combination distribution:
 
-- No factors (baseline): 19 cases (42.2%) — email-writing, email-reply, flight-booking, blog-site-from-scratch, washer-shop, watch-shop, washer-change, info-change, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, finance-portfolio-rebalancing, finance-monthly-close, nutrition-log-meal, mint-diet-comprehensive
-- Single factor: 16 cases (35.6%)
-- Dual factor: 9 cases (20.0%) — flight-seat-selection-failed (A1+B1), flight-cancel-claim (A1+B1), flight-info-change-notice (A1+B1), grocery-reorder (A1+B1), noise-filtering (A2+B2), incremental-update-ctp (A2+B2), mixed-tool-memory (A1+B2), live-web-research-sqlite-fts5 (A1+B2), morning-comfort-setup (A2+B1)
-- Triple factor: 1 case (2.2%) — conflict-repair-acb (A1+A2+B2)
-- **Multi-factor (≥2 factors): 10 cases (22.2%)**
+- No factors (baseline): 19 cases (35.8%) — email-writing, email-reply, flight-booking, blog-site-from-scratch, washer-shop, watch-shop, washer-change, info-change, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, finance-portfolio-rebalancing, finance-monthly-close, nutrition-log-meal, mint-diet-comprehensive
+- Single factor: 19 cases (35.8%)
+- Dual factor: 12 cases (22.6%) — flight-seat-selection-failed (A1+B1), flight-cancel-claim (A1+B1), flight-info-change-notice (A1+B1), grocery-reorder (A1+B1), noise-filtering (A2+B2), incremental-update-ctp (A2+B2), mixed-tool-memory (A1+B2), live-web-research-sqlite-fts5 (A1+B2), morning-comfort-setup (A2+B1), invoice-to-expense-draft (A1+B1), newsletter-digest-forward (A1+B1), conference-travel-change-notify-team (A1+B1)
+- Triple factor: 3 cases (5.7%) — conflict-repair-acb (A1+A2+B2), vendor-requirement-followup (A1+B1+B2), stale-client-escalation (A1+B1+B2)
+- **Multi-factor (≥2 factors): 15 cases (28.3%)**
 
 ---
 
@@ -104,8 +112,8 @@ Factor occurrence frequency per primary domain:
 
 | Primary Domain             | A1 | A2 | B1 | B2 | Total Factor Instances |
 |----------------------------|----|----|----|----|-----------------------:|
-| Documents & Knowledge      |  2 |  2 |  0 | 10 |                     14 |
-| Communication & Email      |  0 |  0 |  0 |  0 |                      0 |
+| Documents & Knowledge      |  2 |  2 |  0 |  9 |                     13 |
+| Communication & Email      |  7 |  0 |  6 |  2 |                     15 |
 | E-commerce & Daily Svcs    |  7 |  0 |  5 |  0 |                     12 |
 | Calendar & Task Mgmt       |  2 |  0 |  1 |  0 |                      3 |
 | Coding & Software Dev      |  0 |  1 |  0 |  0 |                      1 |
@@ -117,10 +125,10 @@ Factor occurrence frequency per primary domain:
 | Health & Wellness          |  0 |  0 |  0 |  0 |                      0 |
 
 Key observations:
-- **B2 is highly concentrated in Documents & Knowledge** (10/11), reflecting the nature of knowledge management tasks
-- **A1 is the most broadly distributed**, spanning 5 domains — cross-service coordination is a universal complexity source
-- **B1 appears in E-commerce, Calendar and Health & Fitness** — these domains most naturally produce implicit goals
-- **Communication & Email has no factors** — these cases serve as pure baselines
+- **B2 is concentrated in Documents & Knowledge, with newer Communication & Email cases adding durable workspace updates** (9/13 remain Documents & Knowledge primary), reflecting the nature of knowledge management tasks
+- **A1 is the most broadly distributed**, spanning Communication & Email plus multiple service-heavy domains — cross-service coordination is a universal complexity source
+- **B1 appears in E-commerce, Calendar, Health & Fitness, and Communication & Email** — these domains naturally produce implicit constraints and target-selection ambiguity
+- **Communication & Email now includes both baseline and factor-bearing tasks** — the added cases stress email-centered cross-service coordination and durable workspace updates
 - **Health & Fitness now has factors** — morning-comfort-setup introduces A2+B1, moving from baseline to multi-factor task
 - **Social Media, Finance & Data Analytics, and Health & Wellness have no factors** — these domains serve as baselines
 
@@ -155,20 +163,21 @@ Pair design rationale:
 
 | Difficulty | Count | Percentage | Cases |
 |:----------:|------:|-----------:|-------|
-| Easy       |    27 |      60.0% | skill-conflict-resolution, skill-dependency-fix, skill-combination, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, nutrition-log-meal, mint-diet-comprehensive |
-| Medium     |    12 |      26.7% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5, health-insurance-optimization, finance-monthly-close, smarthome-test, grocery-reorder, morning-comfort-setup |
-| Hard       |     6 |      13.3% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain, finance-portfolio-rebalancing |
+| Easy       |    27 |      50.9% | skill-conflict-resolution, skill-dependency-fix, skill-combination, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, nutrition-log-meal, mint-diet-comprehensive |
+| Medium     |    17 |      32.1% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5, health-insurance-optimization, finance-monthly-close, smarthome-test, grocery-reorder, morning-comfort-setup, invoice-to-expense-draft, meeting-reschedule-response, candidate-interview-slot-confirm, newsletter-digest-forward, procurement-quote-compare-reply |
+| Hard       |     9 |      17.0% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain, finance-portfolio-rebalancing, vendor-requirement-followup, conference-travel-change-notify-team, stale-client-escalation |
 
 Factor count vs difficulty:
 
 | Difficulty | Avg Factor Count | Baseline (0 factors) | Single Factor | Multi-Factor |
 |:----------:|:----------------:|:--------------------:|:-------------:|:------------:|
 | Easy       |             0.59 |          16          |       7       |       4      |
-| Medium     |             1.17 |           2          |       6       |       4      |
-| Hard       |             1.17 |           1          |       3       |       2      |
+| Medium     |             1.24 |           2          |       9       |       6      |
+| Hard       |             1.67 |           1          |       3       |       5      |
 
 The empirical reclassification (based on average solve rates across models) shows that Easy
-cases dominate (60.0%). Easy cases include both baselines (59.3%) and factor-bearing tasks
-(40.7%), indicating that many structural complexity factors do not pose significant difficulty
-for current agents. Hard cases are concentrated in tasks requiring constraint failure handling
-(B1), specific challenging environments (A2 in DevOps), or high-precision domain execution.
+cases remain the largest group (50.9%). Easy cases include both baselines (59.3%) and
+factor-bearing tasks (40.7%), indicating that many structural complexity factors do not pose
+significant difficulty for current agents. Hard cases are concentrated in tasks requiring
+constraint failure handling (B1), specific challenging environments (A2 in DevOps),
+high-precision domain execution, or multi-output Communication & Email workflows.

@@ -1,0 +1,1 @@
+I have received an interview scheduling email in my company email system (http://localhost:5174/, open it in browser). Please compare the candidate's proposed windows with my calendar (http://localhost:3000/, open it in browser) and confirm one 45-minute interview slot that fits.

@@ -2,7 +2,7 @@
   {
     "name": "liveclawbench",
     "version": "0.1.0",
-    "description": "LiveClawBench: Benchmarking LLM Agents on Complex, Real-World Assistant Tasks. 45 tasks with 4 complexity factors (A1/A2/B1/B2) across 10 task domains.",
+    "description": "LiveClawBench: Benchmarking LLM Agents on Complex, Real-World Assistant Tasks. 53 tasks with 4 complexity factors (A1/A2/B1/B2) across 10 task domains.",
     "tasks": [
       {"name": "skill-creation", "path": "tasks/skill-creation"},
       {"name": "skill-supplementation", "path": "tasks/skill-supplementation"},
@@ -48,7 +48,15 @@
       {"name": "smarthome-test", "path": "tasks/smarthome-test"},
       {"name": "weather-aqi-report", "path": "tasks/weather-aqi-report"},
       {"name": "grocery-reorder", "path": "tasks/grocery-reorder"},
-      {"name": "morning-comfort-setup", "path": "tasks/morning-comfort-setup"}
+      {"name": "morning-comfort-setup", "path": "tasks/morning-comfort-setup"},
+      {"name": "vendor-requirement-followup", "path": "tasks/vendor-requirement-followup"},
+      {"name": "invoice-to-expense-draft", "path": "tasks/invoice-to-expense-draft"},
+      {"name": "meeting-reschedule-response", "path": "tasks/meeting-reschedule-response"},
+      {"name": "candidate-interview-slot-confirm", "path": "tasks/candidate-interview-slot-confirm"},
+      {"name": "newsletter-digest-forward", "path": "tasks/newsletter-digest-forward"},
+      {"name": "procurement-quote-compare-reply", "path": "tasks/procurement-quote-compare-reply"},
+      {"name": "conference-travel-change-notify-team", "path": "tasks/conference-travel-change-notify-team"},
+      {"name": "stale-client-escalation", "path": "tasks/stale-client-escalation"}
     ]
   }
 ]

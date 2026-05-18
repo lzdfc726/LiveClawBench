@@ -1,0 +1,1 @@
+Please open my company email system (http://localhost:5174/, open it in browser) and check whether Alice has asked to move tomorrow's design review. If she has, compare the options in her email with my availability in the calendar app (http://localhost:3000/, open it in browser) and reply with one slot that actually works for me.
