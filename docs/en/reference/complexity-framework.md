@@ -76,6 +76,8 @@ single, clean environment without structural complexity.
 |      45 | morning-comfort-setup             |     M      |    | ✓  | ✓  |    | Health & Fitness           |
 |      46 | weather-city-travel-pick          |     M      |    |    |    |    | Health & Wellness          |
 |      47 | weather-outdoor-window            |     H      |    |    |    |    | Health & Wellness          |
+|      48 | pre-meeting-research-brief        |     M      |    |    | ✓  | ✓  | Deep Research & Report     |
+|      49 | vendor-due-diligence-brief        |     M      | ✓  |    | ✓  |    | Deep Research & Report     |
 
 ---
 
