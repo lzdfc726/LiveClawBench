@@ -387,8 +387,8 @@ pre-commit install      # hooks run automatically on git commit — replaces man
 
 ## Ground Truth Numbers (verified from task.toml)
 
-39 implemented tasks: A1=12, A2=6, B1=4, B2=11.
-Difficulty: Easy=23, Medium=9, Hard=6.
+37 implemented tasks: A1=12, A2=6, B1=4, B2=11.
+Difficulty: Easy=23, Medium=8, Hard=5.
 
 ## Known Issues
 
