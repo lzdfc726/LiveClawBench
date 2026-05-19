@@ -74,6 +74,8 @@ single, clean environment without structural complexity.
 |      43 | smarthome-test                    |     M      |    |    | ✓  |    | E-commerce & Daily Svcs    |
 |      44 | grocery-reorder                   |     M      | ✓  |    | ✓  |    | E-commerce & Daily Svcs    |
 |      45 | morning-comfort-setup             |     M      |    | ✓  | ✓  |    | Health & Fitness           |
+|      46 | weather-city-travel-pick          |     M      |    |    |    |    | Health & Wellness          |
+|      47 | weather-outdoor-window            |     H      |    |    |    |    | Health & Wellness          |
 
 ---
 
