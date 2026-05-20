@@ -463,32 +463,6 @@ Marketing Team`,
   is_read: 0,
 };
 
-// --- Calendar/scheduling task emails ---
-
-const SENDER_HR = { username: "hr.department", email: "hr@work.mosi.inc" };
-const SENDER_DR = { username: "dr.harris", email: "dr.harris@citymedical.com" };
-const SENDER_CONTENT = { username: "content.team", email: "content@work.mosi.inc" };
-
-const INBOX_MEETING_RESCHEDULE = {
-  subject: "Meeting Reschedule - Project Sync",
-  body: `Hi Peter,
-
-Your weekly project sync meeting has been rescheduled. Here are the updated details:
-
-Original: Friday, May 22, 2026, 2:00 PM - 3:00 PM
-New Time: Saturday, May 23, 2026, 10:00 AM - 11:00 AM
-
-Please update your calendar accordingly. The meeting will still be held in Conference Room B.
-
-If the new time doesn't work for you, please let me know by end of day today.
-
-Best regards,
-HR Department
-Mosi Inc.`,
-  days_ago: 0,
-  is_read: 0,
-};
-
 const INBOX_PINNED_POST = {
   subject: "Update Pinned Post on Social Media",
   body: `Hi,
@@ -503,51 +477,6 @@ Social Media Team`,
   is_read: 0,
 };
 
-const INBOX_INTERVIEW_SLOT = {
-  subject: "Interview Confirmation - Senior Developer Candidate",
-  body: `Hi Peter,
-
-We have a candidate coming in for the Senior Developer position interview. Please confirm the following interview slot by adding it to your calendar:
-
-Candidate: Alex Thompson
-Position: Senior Developer
-Date: Tuesday, May 26, 2026
-Time: 2:00 PM - 3:00 PM
-Location: Conference Room A
-
-Please add this to your calendar and send me a confirmation email so I can notify the candidate.
-
-Thank you,
-HR Department
-Mosi Inc.`,
-  days_ago: 0,
-  is_read: 0,
-};
-
-const INBOX_PRESCRIPTION_UPDATE = {
-  subject: "Updated Prescription from Dr. Harris",
-  body: `Dear Peter,
-
-Following your recent checkup, I've updated your medication regimen. Here are the changes:
-
-NEW MEDICATION:
-- Metformin 500mg - Take twice daily with meals (morning and evening)
-- Start date: immediately
-
-Please make sure to:
-1. Update your medication records in the health portal (http://localhost:5007/)
-2. Add calendar reminders for your medication intake times (8:00 AM and 6:00 PM daily)
-3. Discontinue any conflicting medications
-
-Your health is important to us. Please schedule a follow-up in 4 weeks.
-
-Best regards,
-Dr. Harris
-City Medical Center`,
-  days_ago: 0,
-  is_read: 0,
-};
-
 const INBOX_EVENT_CAMPAIGN = {
   subject: "Publish Event Campaign Post",
   body: `Hi,
@@ -558,27 +487,6 @@ Please review the draft and publish it. After publishing, send a notification em
 
 Thanks,
 Events Team`,
-  days_ago: 0,
-  is_read: 0,
-};
-
-const INBOX_HEALTH_SCHEDULE_CHECK = {
-  subject: "Please Review Your Health Schedule",
-  body: `Hi Peter,
-
-Could you check if everything looks good with your health schedule? I noticed you have an upcoming appointment in the insurance system (http://localhost:6000/). Please verify:
-
-1. Your appointment details are correct
-2. The provider is in-network under your current plan
-3. The appointment time works with your calendar
-
-If anything needs fixing, please update it and add the correct appointment to your company calendar (http://localhost:5006/).
-
-Login: peter.griffin@work.mosi.inc / password123
-
-Thanks,
-HR Department
-Mosi Inc.`,
   days_ago: 0,
   is_read: 0,
 };
@@ -635,6 +543,114 @@ Data Integrity Team`,
   is_read: 0,
 };
 
+const INBOX_VENDOR_INTRO = {
+  subject: "Vendor Introduction – CloudEdge Systems Security Middleware",
+  body: `Dear Peter,
+
+I hope this finds you well. I'm Marcus Webb, VP of Partnerships at CloudEdge Systems. Following up on our initial conversation at the TechConnect Summit last month, I wanted to formally introduce our data security middleware solution.
+
+CloudEdge Systems specializes in enterprise-grade security middleware that integrates seamlessly with existing cloud infrastructure. We work with organizations across financial services, healthcare, and government sectors to provide encrypted data pipelines and access control layers.
+
+I've compiled a set of supporting materials in your document workspace (corpus/) for your team's due diligence review. These include our technical proposal, security questionnaire responses, a customer case study, and pricing summary.
+
+We're excited about the potential to support your data infrastructure needs and would welcome a formal due diligence review from your team. Please feel free to reach out with any questions.
+
+Best regards,
+Marcus Webb
+VP Partnerships, CloudEdge Systems
+partnerships@cloudedge.io`,
+  days_ago: 1,
+  is_read: 0,
+};
+
+// --- Calendar/scheduling task emails ---
+
+const INBOX_MEETING_RESCHEDULE = {
+  subject: "Meeting Reschedule - Project Sync",
+  body: `Hi Peter,
+
+Your weekly project sync meeting has been rescheduled. Here are the updated details:
+
+Original: Friday, May 22, 2026, 2:00 PM - 3:00 PM
+New Time: Saturday, May 23, 2026, 10:00 AM - 11:00 AM
+
+Please update your calendar accordingly. The meeting will still be held in Conference Room B.
+
+If the new time doesn't work for you, please let me know by end of day today.
+
+Best regards,
+HR Department
+Mosi Inc.`,
+  days_ago: 0,
+  is_read: 0,
+};
+
+const INBOX_INTERVIEW_SLOT = {
+  subject: "Interview Confirmation - Senior Developer Candidate",
+  body: `Hi Peter,
+
+We have a candidate coming in for the Senior Developer position interview. Please confirm the following interview slot by adding it to your calendar:
+
+Candidate: Alex Thompson
+Position: Senior Developer
+Date: Tuesday, May 26, 2026
+Time: 2:00 PM - 3:00 PM
+Location: Conference Room A
+
+Please add this to your calendar and send me a confirmation email so I can notify the candidate.
+
+Thank you,
+HR Department
+Mosi Inc.`,
+  days_ago: 0,
+  is_read: 0,
+};
+
+const INBOX_PRESCRIPTION_UPDATE = {
+  subject: "Updated Prescription from Dr. Harris",
+  body: `Dear Peter,
+
+Following your recent checkup, I've updated your medication regimen. Here are the changes:
+
+NEW MEDICATION:
+- Metformin 500mg - Take twice daily with meals (morning and evening)
+- Start date: immediately
+
+Please make sure to:
+1. Update your medication records in the health portal (http://localhost:5007/)
+2. Add calendar reminders for your medication intake times (8:00 AM and 6:00 PM daily)
+3. Discontinue any conflicting medications
+
+Your health is important to us. Please schedule a follow-up in 4 weeks.
+
+Best regards,
+Dr. Harris
+City Medical Center`,
+  days_ago: 0,
+  is_read: 0,
+};
+
+const INBOX_HEALTH_SCHEDULE_CHECK = {
+  subject: "Please Review Your Health Schedule",
+  body: `Hi Peter,
+
+Could you check if everything looks good with your health schedule? I noticed you have an upcoming appointment in the insurance system (http://localhost:6000/). Please verify:
+
+1. Your appointment details are correct
+2. The provider is in-network under your current plan
+3. The appointment time works with your calendar
+
+If anything needs fixing, please update it and add the correct appointment to your company calendar (http://localhost:5006/).
+
+Login: peter.griffin@work.mosi.inc / password123
+
+Thanks,
+HR Department
+Mosi Inc.`,
+  days_ago: 0,
+  is_read: 0,
+};
+
 const INBOX_CONTENT_BRIEF = {
   subject: "New Content Brief - Product Launch Campaign",
   body: `Hi Peter,
@@ -661,22 +677,78 @@ Mosi Inc.`,
   is_read: 0,
 };
 
-const INBOX_VENDOR_INTRO = {
-  subject: "Vendor Introduction – CloudEdge Systems Security Middleware",
-  body: `Dear Peter,
+const SENDER_ACME_BILLING = { username: "billing.acme", email: "billing@acmecorp.com" };
+const SENDER_INITECH_BILLING = { username: "billing.initech", email: "billing@initech.com" };
+const SENDER_TAX_AUTHORITY = { username: "tax.authority", email: "notifications@tax-authority.gov" };
+const SENDER_HR = { username: "hr.department", email: "hr@work.mosi.inc" };
+const SENDER_DR = { username: "dr.harris", email: "dr.harris@citymedical.com" };
+const SENDER_CONTENT = { username: "content.team", email: "content@work.mosi.inc" };
 
-I hope this finds you well. I'm Marcus Webb, VP of Partnerships at CloudEdge Systems. Following up on our initial conversation at the TechConnect Summit last month, I wanted to formally introduce our data security middleware solution.
+const INBOX_ACME_INVOICE = {
+  subject: "Invoice INV-2026-010 - Software License Renewal",
+  body: `Dear Peter Griffin,
 
-CloudEdge Systems specializes in enterprise-grade security middleware that integrates seamlessly with existing cloud infrastructure. We work with organizations across financial services, healthcare, and government sectors to provide encrypted data pipelines and access control layers.
+Please find below the invoice for services rendered.
 
-I've compiled a set of supporting materials in your document workspace (corpus/) for your team's due diligence review. These include our technical proposal, security questionnaire responses, a customer case study, and pricing summary.
+Invoice Details:
+- Invoice Number: INV-2026-010
+- Invoice Date: 2026-03-01
+- Vendor: Acme Corp
 
-We're excited about the potential to support your data infrastructure needs and would welcome a formal due diligence review from your team. Please feel free to reach out with any questions.
+Line Items:
+1. Software License Renewal - Category 5300 - $15,000.00
+2. Technical Support Package - Category 5400 - $5,000.00
+
+Total Amount Due: $20,000.00
+Payment Terms: Net 30
+
+Please process this invoice at your earliest convenience.
 
 Best regards,
-Marcus Webb
-VP Partnerships, CloudEdge Systems
-partnerships@cloudedge.io`,
+Acme Corp Billing Department`,
+  days_ago: 2,
+  is_read: 0,
+};
+
+const INBOX_INITECH_INVOICE = {
+  subject: "Invoice INV-2026-011 - Consulting Services",
+  body: `Dear Peter Griffin,
+
+Attached is our invoice for consulting services provided in February.
+
+Invoice Details:
+- Invoice Number: INV-2026-011
+- Invoice Date: 2026-03-05
+- Vendor: Initech Solutions
+
+Line Items:
+1. System Integration - Category 5400 - $8,000.00
+2. Training Services - Category 5400 - $3,500.00
+
+Total Amount Due: $11,500.00
+
+Thank you for your business.
+
+Best regards,
+Initech Solutions Billing`,
+  days_ago: 1,
+  is_read: 0,
+};
+
+const INBOX_TAX_NOTIFICATION = {
+  subject: "Q1 2026 VAT Filing Reminder - Action Required",
+  body: `Dear Finance Team,
+
+This is a reminder that Q1 2026 VAT returns are due by April 15, 2026.
+
+You have the following invoices requiring VAT calculation:
+- INV-2026-001 from Acme Corp (dated 2026-01-15, Software License $12,500.50 + Support $3,000.00)
+- INV-2026-002 from Globex Systems (dated 2026-02-01, Travel Expenses $52,000.00)
+- INV-2026-010 from Acme Corp (dated 2026-03-01, Software License $15,000.00 + Support $5,000.00)
+
+Please calculate the applicable VAT for each invoice based on the current rates and file your return.
+
+Tax Authority Automated Notification System`,
   days_ago: 1,
   is_read: 0,
 };
@@ -926,6 +998,47 @@ function makeSeedConfig(taskName: string): SeedConfig {
           ...baselineInbox,
           { senderUsername: "content.team", ...INBOX_CONTENT_BRIEF },
         ],
+        sent: baselineSent,
+      };
+    }
+
+    case "finance-invoice-process": {
+      const senders = [...BASELINE_SENDERS, SENDER_ACME_BILLING, SENDER_INITECH_BILLING];
+      return {
+        senders,
+        inbox: [
+          ...baselineInbox,
+          { senderUsername: "billing.acme", ...INBOX_ACME_INVOICE },
+          { senderUsername: "billing.initech", ...INBOX_INITECH_INVOICE },
+        ],
+        sent: baselineSent,
+      };
+    }
+
+    case "finance-tax-prepare": {
+      const senders = [...BASELINE_SENDERS, SENDER_TAX_AUTHORITY, SENDER_ACME_BILLING];
+      return {
+        senders,
+        inbox: [
+          ...baselineInbox,
+          { senderUsername: "tax.authority", ...INBOX_TAX_NOTIFICATION },
+          { senderUsername: "billing.acme", ...INBOX_ACME_INVOICE },
+        ],
+        sent: baselineSent,
+      };
+    }
+
+    case "finance-budget-alert":
+    case "finance-analysis-generate":
+    case "finance-expense-log":
+    case "finance-anomaly-detect":
+    case "finance-depreciation-audit":
+    case "finance-dashboard-repair":
+    case "finance-portfolio-rebalancing":
+    case "finance-monthly-close": {
+      return {
+        senders: [...BASELINE_SENDERS],
+        inbox: baselineInbox,
         sent: baselineSent,
       };
     }

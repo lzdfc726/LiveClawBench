@@ -79,7 +79,7 @@ function portProxyLines(listenPort: number, targetPort: number): string[] {
   ];
 }
 
-// All 61 benchmark task names (canonical source of truth)
+// All 69 benchmark task names (canonical source of truth)
 const ALL_TASK_NAMES = new Set([
   "watch-shop", "washer-shop", "info-change", "washer-change",
   "email-watch-shop", "email-washer-change", "email-writing", "email-reply",
@@ -95,6 +95,9 @@ const ALL_TASK_NAMES = new Set([
   "social-media-posting", "social-unlike-post", "expense-draft-delete",
   "health-daily-record",
   "finance-portfolio-rebalancing", "finance-monthly-close",
+  "finance-expense-log", "finance-anomaly-detect", "finance-budget-alert",
+  "finance-invoice-process", "finance-tax-prepare", "finance-analysis-generate",
+  "finance-depreciation-audit", "finance-dashboard-repair",
   "smarthome-test", "grocery-reorder", "morning-comfort-setup",
   "weather-city-travel-pick", "weather-outdoor-window",
   "pre-meeting-research-brief", "vendor-due-diligence-brief",
