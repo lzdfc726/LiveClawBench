@@ -4,6 +4,7 @@ import sys
 
 DB_PATH = "/opt/mock/data/chat/chat.sqlite"
 
+
 def main():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -33,6 +34,7 @@ def main():
     else:
         print("Score: 0.0/1.0")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

@@ -428,8 +428,6 @@ Peter`,
   days_ago: 5,
 };
 
-<<<<<<< HEAD
-=======
 // --- Social media cross-service emails ---
 
 const SENDER_SOCIAL_TEAM = { username: "social.team", email: "social-team@mosi.inc" };
@@ -545,7 +543,6 @@ Data Integrity Team`,
   is_read: 0,
 };
 
->>>>>>> origin/main
 const INBOX_VENDOR_INTRO = {
   subject: "Vendor Introduction – CloudEdge Systems Security Middleware",
   body: `Dear Peter,
@@ -566,8 +563,6 @@ partnerships@cloudedge.io`,
   is_read: 0,
 };
 
-<<<<<<< HEAD
-=======
 // --- Calendar/scheduling task emails ---
 
 const INBOX_MEETING_RESCHEDULE = {
@@ -758,7 +753,6 @@ Tax Authority Automated Notification System`,
   is_read: 0,
 };
 
->>>>>>> origin/main
 // --- Seed configuration per task ---
 
 interface SeedConfig {
@@ -864,8 +858,6 @@ function makeSeedConfig(taskName: string): SeedConfig {
       };
     }
 
-<<<<<<< HEAD
-=======
     case "social-cross-publish": {
       const senders = [...BASELINE_SENDERS, SENDER_SOCIAL_TEAM];
       return {
@@ -938,7 +930,6 @@ function makeSeedConfig(taskName: string): SeedConfig {
       };
     }
 
->>>>>>> origin/main
     case "vendor-due-diligence-brief": {
       const senders = [...BASELINE_SENDERS, SENDER_CLOUDEDGE];
       return {
@@ -951,8 +942,6 @@ function makeSeedConfig(taskName: string): SeedConfig {
       };
     }
 
-<<<<<<< HEAD
-=======
     case "meeting-reschedule-response": {
       const senders = [...BASELINE_SENDERS, SENDER_HR];
       return {
@@ -1054,7 +1043,6 @@ function makeSeedConfig(taskName: string): SeedConfig {
       };
     }
 
->>>>>>> origin/main
     default:
       // Fallback to baseline for unknown tasks
       return {

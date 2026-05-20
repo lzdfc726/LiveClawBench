@@ -4,6 +4,7 @@ import sys
 
 DB_PATH = "/opt/mock/data/chat/chat.sqlite"
 
+
 def main():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -32,9 +33,7 @@ def main():
         "SELECT COUNT(*) as cnt FROM user_sticker WHERE pack_id = 1 AND category != 'favorite'"
     )
     not_favorite = cursor.fetchone()["cnt"]
-    cursor.execute(
-        "SELECT COUNT(*) as cnt FROM user_sticker WHERE pack_id = 1"
-    )
+    cursor.execute("SELECT COUNT(*) as cnt FROM user_sticker WHERE pack_id = 1")
     total_cat = cursor.fetchone()["cnt"]
     if total_cat > 0 and not_favorite == 0:
         checks_passed += 1
@@ -48,6 +47,7 @@ def main():
     else:
         print("Score: 0.0/1.0")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

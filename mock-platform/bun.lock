@@ -31,6 +31,9 @@
         "mock-lib": "workspace:*",
         "zod": "^3.24.0",
       },
+      "devDependencies": {
+        "@types/bcryptjs": "^2.4.6",
+      },
     },
     "mocks/chat": {
       "name": "@mock/chat",
@@ -172,9 +175,9 @@
 
     "@mock/airline": ["@mock/airline@workspace:mocks/airline"],
 
-    "@mock/chat": ["@mock/chat@workspace:mocks/chat"],
-
     "@mock/calendar": ["@mock/calendar@workspace:mocks/calendar"],
+
+    "@mock/chat": ["@mock/chat@workspace:mocks/chat"],
 
     "@mock/doc-search": ["@mock/doc-search@workspace:mocks/doc-search"],
 
