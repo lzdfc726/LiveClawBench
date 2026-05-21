@@ -18,7 +18,8 @@
     "expense",
     "health",
     "finance",
-    "smarthome"
+    "smarthome",
+    "workspace"
   ],
   "tasks": {
     "weather-aqi-report": {
