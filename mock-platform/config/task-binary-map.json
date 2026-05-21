@@ -773,28 +773,6 @@
         }
       ]
     },
-    "weather-city-travel-pick": { "binaries": ["weather"] },
-    "weather-outdoor-window": { "binaries": ["weather"] },
-    "pre-meeting-research-brief": {
-      "binaries": ["todolist"],
-      "frontends": [
-        {
-          "src": "tasks/schedule-change-request/environment/todolist-app/frontend",
-          "buildDir": "build",
-          "dest": "/opt/mock/frontend/todolist"
-        }
-      ]
-    },
-    "vendor-due-diligence-brief": {
-      "binaries": ["email"],
-      "frontends": [
-        {
-          "src": "tasks/email-writing/environment/email-app/frontend",
-          "buildDir": "dist",
-          "dest": "/opt/mock/frontend/email"
-        }
-      ]
-    },
     "sticker-store-acquire": {
       "binaries": ["chat"],
       "assets": [
