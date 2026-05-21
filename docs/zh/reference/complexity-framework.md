@@ -68,14 +68,14 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 |      43 | smarthome-test                    |  M   |    |    | ✓  |    | E-commerce & Daily Svcs    |
 |      44 | grocery-reorder                   |  M   | ✓  |    | ✓  |    | E-commerce & Daily Svcs    |
 |      45 | morning-comfort-setup             |  M   |    | ✓  | ✓  |    | Health & Fitness           |
-|      46 | vendor-requirement-followup       |  H   | ✓  |    | ✓  | ✓  | Communication & Email      |
-|      47 | invoice-to-expense-draft          |  M   | ✓  |    | ✓  |    | Communication & Email      |
-|      48 | meeting-reschedule-response       |  M   | ✓  |    |    |    | Communication & Email      |
-|      49 | candidate-interview-slot-confirm  |  M   | ✓  |    |    |    | Communication & Email      |
-|      50 | newsletter-digest-forward         |  M   | ✓  |    | ✓  |    | Communication & Email      |
-|      51 | procurement-quote-compare-reply   |  M   |    |    | ✓  |    | Communication & Email      |
-|      52 | conference-travel-change-notify-team | H  | ✓  |    | ✓  |    | Communication & Email      |
-|      53 | stale-client-escalation           |  H   | ✓  |    | ✓  | ✓  | Communication & Email      |
+|     72 | vendor-requirement-followup       |  H   | ✓  |    | ✓  | ✓  | Communication & Email      |
+|     73 | invoice-to-expense-draft          |  M   | ✓  |    | ✓  |    | Communication & Email      |
+|     74 | meeting-reschedule-response-calendar |  M   | ✓  |    |    |    | Communication & Email      |
+|     75 | candidate-interview-slot-confirm-calendar |  M   | ✓  |    |    |    | Communication & Email      |
+|     76 | newsletter-digest-forward         |  M   | ✓  |    | ✓  |    | Communication & Email      |
+|     77 | procurement-quote-compare-reply   |  M   |    |    | ✓  |    | Communication & Email      |
+|     78 | conference-travel-change-notify-team | H  | ✓  |    | ✓  |    | Communication & Email      |
+|     79 | stale-client-escalation           |  H   | ✓  |    | ✓  | ✓  | Communication & Email      |
 
 ---
 
@@ -156,7 +156,7 @@ LiveClawBench 包含 2 个经验证具有有效难度梯度的控制对。
 | 难度 | 数量 | 占比   | Case 列表 |
 |:----:|-----:|-------:|-----------|
 | 简单 |   27 |  50.9% | skill-conflict-resolution, skill-dependency-fix, skill-combination, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, nutrition-log-meal, mint-diet-comprehensive |
-| 中等 |   17 |  32.1% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5, health-insurance-optimization, finance-monthly-close, smarthome-test, grocery-reorder, morning-comfort-setup, invoice-to-expense-draft, meeting-reschedule-response, candidate-interview-slot-confirm, newsletter-digest-forward, procurement-quote-compare-reply |
+| 中等 |   17 |  32.1% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5, health-insurance-optimization, finance-monthly-close, smarthome-test, grocery-reorder, morning-comfort-setup, invoice-to-expense-draft, meeting-reschedule-response-calendar, candidate-interview-slot-confirm-calendar, newsletter-digest-forward, procurement-quote-compare-reply |
 | 困难 |    9 |  17.0% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain, finance-portfolio-rebalancing, vendor-requirement-followup, conference-travel-change-notify-team, stale-client-escalation |
 
 因子数量与难度关系：
