@@ -40,8 +40,6 @@ Constraints the grader enforces:
   this two-step check explicitly.
 - Tests must reference the new parameter set and the idempotency invariant
   in a non-trivial way. Tautological tests will be rejected.
-- Parameter validation must include the appropriate `mutually_exclusive`
-  constraints for the new flags.
 
 You do not need to update documentation unless required to keep the
 project's existing self-tests passing.

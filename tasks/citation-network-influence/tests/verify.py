@@ -42,7 +42,7 @@ FORBIDDEN_ATTR_CHAINS = (
 )
 
 
-def emit(score: float, breakdown: dict | None = None, *, reason: str = "") -> None:
+def emit(score: float, breakdown: dict | None = None, *, reason: str = "", meta: dict | None = None) -> None:
     score = max(0.0, min(1.0, score))
     if reason:
         print(reason)
@@ -54,6 +54,10 @@ def emit(score: float, breakdown: dict | None = None, *, reason: str = "") -> No
     (LOG_DIR / "reward.json").write_text(
         json.dumps(payload, indent=2), encoding="utf-8"
     )
+    if meta:
+        (LOG_DIR / "metadata.json").write_text(
+            json.dumps(meta, indent=2, default=str), encoding="utf-8"
+        )
 
 
 def hard_gate() -> tuple[bool, str]:
@@ -378,13 +382,15 @@ def main() -> int:
         "schema_credit": round(c_sch, 4),
         "html_credit": round(c_html, 4),
         "surface_multiplier": mult,
-        "_meta_pagerank": m_pr,
-        "_meta_cascades": m_cas,
-        "_meta_yearly": m_yr,
-        "_meta_schema": m_sch,
-        "_meta_html": m_html,
     }
-    emit(final, breakdown=breakdown)
+    meta = {
+        "pagerank": m_pr,
+        "cascades": m_cas,
+        "yearly": m_yr,
+        "schema": m_sch,
+        "html": m_html,
+    }
+    emit(final, breakdown=breakdown, meta=meta)
     return 0 if final >= 0.5 else 1
 
 

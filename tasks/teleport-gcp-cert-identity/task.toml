@@ -14,7 +14,7 @@ factor_a2 = 0   # A2: Contaminated Initial State
 factor_b1 = 0   # B1: Implicit Goal Resolution
 factor_b2 = 1   # B2: Knowledge System Maintenance (extend CloudIdentityProvider abstraction; don't add 3rd sibling branch)
 
-case_id = 78
+case_id = 103
 
 [verifier]
 timeout_sec = 1500.0
