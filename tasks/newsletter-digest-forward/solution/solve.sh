@@ -1,38 +1,30 @@
 #!/usr/bin/env bash
-set -uo pipefail
-bash /workspace/startup.sh
+set -euo pipefail
 
+# Write the digest note
 mkdir -p /workspace/notes
-cat > /workspace/notes/newsletter-digest.md <<'EOF'
+cat > /workspace/notes/newsletter-digest.md <<'NOTE'
 # Newsletter digest -- 2026-04-03
 
 - VectorDB Cloud row-level ACLs
 - OpenBrowse persistent sessions
 - NovaStack Series A
-EOF
+NOTE
 
-python3 <<'PY'
-import sys
-sys.path.insert(0, "/workspace/environment/email-app/backend")
-from app import app, db
-from models import Email, User
+# Login to email mock
+LOGIN=$(curl -s -X POST "http://localhost:5001/api/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"peter","password":"password123"}')
+TOKEN=$(echo "$LOGIN" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['access_token'])")
 
-with app.app_context():
-    peter = User.query.filter_by(username="peter").first()
-    db.session.add(Email(
-        sender_id=peter.id,
-        recipient_id=None,
-        recipient_email="research@work.mosi.inc",
-        subject="Newsletter digest -- 2026-04-03",
-        body=(
-            "Top three updates this cycle:\n\n"
-            "  - VectorDB Cloud row-level ACLs\n"
-            "  - OpenBrowse persistent sessions\n"
-            "  - NovaStack Series A\n"
-        ),
-        folder="sent",
-        is_read=True,
-    ))
-    db.session.commit()
-    print("Oracle: digest file + email sent")
-PY
+# Send the digest email
+curl -s -X POST "http://localhost:5001/api/emails" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${TOKEN}" \
+  -d '{
+    "recipient": "research@work.mosi.inc",
+    "subject": "Newsletter digest -- 2026-04-03",
+    "body": "Top three updates this cycle:\n\n  - VectorDB Cloud row-level ACLs\n  - OpenBrowse persistent sessions\n  - NovaStack Series A\n",
+    "send_now": true
+  }' > /dev/null
+echo "Oracle: digest file + email sent"

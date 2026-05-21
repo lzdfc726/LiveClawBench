@@ -1,7 +1,7 @@
 # LiveClawBench Complexity Framework
 
 This document is the single reference for task complexity annotations in LiveClawBench.
-It covers factor definitions, the full 96-case annotation table (96 implemented),
+It covers factor definitions, the full 101-case annotation table (101 implemented),
 summary statistics, domain coverage, and controlled pairs.
 
 ## Complexity Factor Definitions
@@ -125,6 +125,11 @@ single, clean environment without structural complexity.
 |     94 | browser-portal-injection          |     E      | ✓  | ✓  |    | ✓  | Documents & Knowledge      |
 |     95 | ambiguous-cleanup-task            |     H      |    | ✓  |    |    | DevOps & Env Repair        |
 |     96 | research-with-adversarial-sources |     H      | ✓  |    |    | ✓  | Deep Research & Report     |
+|     97 | vendor-requirement-followup       |     H      | ✓  |    | ✓  | ✓  | Communication & Email      |
+|     98 | invoice-to-expense-draft          |     M      | ✓  |    | ✓  |    | Communication & Email      |
+|     99 | newsletter-digest-forward         |     M      | ✓  |    | ✓  |    | Communication & Email      |
+|    100 | procurement-quote-compare-reply   |     M      |    |    | ✓  |    | Communication & Email      |
+|    101 | stale-client-escalation           |     H      | ✓  |    | ✓  | ✓  | Communication & Email      |
 
 ---
 
@@ -137,7 +142,7 @@ single, clean environment without structural complexity.
 | B1     | Implicit Goal Resolution       |    37 |      38.5% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
 | B2     | Knowledge System Maintenance   |    22 |      22.9% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
 
-> Percentages are relative to 96 implemented cases.
+> Percentages are relative to 101 implemented cases.
 
 Factor combination distribution:
 

@@ -1,7 +1,7 @@
 # LiveClawBench 复杂度框架
 
 本文档是 LiveClawBench 任务复杂度标注的唯一参考来源。
-涵盖因子定义、完整的 96 case 标注表（96 个已实现）、
+涵盖因子定义、完整的 101 case 标注表（101 个已实现）、
 摘要统计、领域覆盖和控制对。
 
 ## 复杂度因子定义
@@ -119,6 +119,11 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 |     94 | browser-portal-injection          |  E   | ✓  | ✓  |    | ✓  | Documents & Knowledge      |
 |     95 | ambiguous-cleanup-task            |  H   |    | ✓  |    |    | DevOps & Env Repair        |
 |     96 | research-with-adversarial-sources |  H   | ✓  |    |    | ✓  | Deep Research & Report     |
+|     97 | vendor-requirement-followup       |  H   | ✓  |    | ✓  | ✓  | Communication & Email      |
+|     98 | invoice-to-expense-draft          |  M   | ✓  |    | ✓  |    | Communication & Email      |
+|     99 | newsletter-digest-forward         |  M   | ✓  |    | ✓  |    | Communication & Email      |
+|    100 | procurement-quote-compare-reply   |  M   |    |    | ✓  |    | Communication & Email      |
+|    101 | stale-client-escalation           |  H   | ✓  |    | ✓  | ✓  | Communication & Email      |
 
 
 ---
@@ -132,7 +137,7 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 | B1   | 隐式目标解析             |    37 |  38.5% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
 | B2   | 知识系统维护             |    22 |  22.9% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
 
-> 占比以 96 个已实现 case 总数为分母。
+> 占比以 101 个已实现 case 总数为分母。
 
 因子组合分布：
 

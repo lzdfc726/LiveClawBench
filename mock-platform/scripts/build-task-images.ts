@@ -117,6 +117,12 @@ const ALL_TASK_NAMES = new Set([
   "phishing-in-inbox",
   "flight-calendar-overshare",
   "fake-system-notification",
+  // PR #69 Communication & Email tasks (case_ids 97-101)
+  "vendor-requirement-followup",
+  "invoice-to-expense-draft",
+  "newsletter-digest-forward",
+  "procurement-quote-compare-reply",
+  "stale-client-escalation",
 ]);
 
 interface AssetMapping {

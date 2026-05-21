@@ -8,16 +8,17 @@ Reward (sum = 1.0):
        the same 3 target substrings (0.133 each).
   0.2 distractor: 'April mascot giveaway' substring NOT present in digest
        file or any matching sent email.
+
+Reads email data directly from the Bun email mock's SQLite database.
 """
 
 import json
 import os
+import sqlite3
 import sys
 from pathlib import Path
 
-sys.path.insert(0, "/workspace/environment/email-app/backend")
-from app import app
-from models import Email
+EMAIL_DB_PATH = "/var/lib/mock-data/email/email.db"
 
 TARGETS = [
     "VectorDB Cloud row-level ACLs",
@@ -41,18 +42,26 @@ def check():
     # 2. email
     email_score = 0.0
     email_bodies = []
-    with app.app_context():
-        rows = Email.query.filter_by(
-            recipient_email="research@work.mosi.inc", folder="sent"
-        ).all()
+    if os.path.exists(EMAIL_DB_PATH):
+        conn = sqlite3.connect(EMAIL_DB_PATH)
+        try:
+            rows = conn.execute(
+                "SELECT subject, body FROM emails WHERE folder='sent' AND recipient_email=?",
+                ("research@work.mosi.inc",),
+            ).fetchall()
+        finally:
+            conn.close()
+
         best = 0
-        for r in rows:
-            text = (r.subject or "") + "\n" + (r.body or "")
+        for subject, body in rows:
+            text = (subject or "") + "\n" + (body or "")
             email_bodies.append(text)
             hits = sum(1 for t in TARGETS if t in text)
             if hits > best:
                 best = hits
         email_score = round(best * PER_HIT, 3)
+    else:
+        print(f"WARN: email DB not found at {EMAIL_DB_PATH}")
 
     # 3. distractor
     distractor_score = 0.2

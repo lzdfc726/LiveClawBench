@@ -995,6 +995,67 @@
           "dest": "/opt/mock/frontend/airline"
         }
       ]
+    },
+    "vendor-requirement-followup": {
+      "binaries": [
+        "email"
+      ],
+      "frontends": [
+        {
+          "src": "tasks/vendor-requirement-followup/environment/email-app/frontend",
+          "buildDir": "dist",
+          "dest": "/opt/mock/frontend/email"
+        }
+      ]
+    },
+    "invoice-to-expense-draft": {
+      "binaries": [
+        "email",
+        "expense"
+      ],
+      "frontends": [
+        {
+          "src": "tasks/invoice-to-expense-draft/environment/email-app/frontend",
+          "buildDir": "dist",
+          "dest": "/opt/mock/frontend/email"
+        }
+      ]
+    },
+    "newsletter-digest-forward": {
+      "binaries": [
+        "email"
+      ],
+      "frontends": [
+        {
+          "src": "tasks/newsletter-digest-forward/environment/email-app/frontend",
+          "buildDir": "dist",
+          "dest": "/opt/mock/frontend/email"
+        }
+      ]
+    },
+    "procurement-quote-compare-reply": {
+      "binaries": [
+        "email"
+      ],
+      "frontends": [
+        {
+          "src": "tasks/procurement-quote-compare-reply/environment/email-app/frontend",
+          "buildDir": "dist",
+          "dest": "/opt/mock/frontend/email"
+        }
+      ]
+    },
+    "stale-client-escalation": {
+      "binaries": [
+        "email"
+      ],
+      "frontends": [
+        {
+          "src": "tasks/stale-client-escalation/environment/email-app/frontend",
+          "buildDir": "dist",
+          "dest": "/opt/mock/frontend/email"
+        }
+      ]
     }
   }
 }

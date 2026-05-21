@@ -1,31 +1,11 @@
-FROM liveclawbench-base:latest
+FROM liveclawbench-newsletter-digest-forward-base:latest
 
-# Copy environment apps + notes
+# Copy environment apps (frontend SPA is pre-built into the per-task base image).
 COPY . /workspace/environment/
 
-# Install email-app backend dependencies + seed
-RUN cd /workspace/environment/email-app/backend && pip install --break-system-packages -r requirements.txt
-RUN cd /workspace/environment/email-app/backend && python3 scripts/inject_data.py
-
-# Install email-app frontend dependencies
-RUN cd /workspace/environment/email-app/frontend && npm install --include=dev 2>&1 | tee /tmp/email-npm-install.log
-
-# Stage workspace notes directory (empty — the agent must author newsletter-digest.md)
+# Empty notes/ directory — the agent must author newsletter-digest.md there.
 RUN mkdir -p /workspace/notes
 
-# Copy startup script
-COPY startup.sh /workspace/startup.sh
-RUN chmod +x /workspace/startup.sh
+RUN mkdir -p /workspace/output
 
-RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|g' /etc/apt/sources.list.d/debian.sources && \
-    PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright \
-    node /app/node_modules/playwright-core/cli.js install --with-deps chromium && \
-    CHROME_PATH=$(find /root/.cache/ms-playwright -name 'chrome' -type f | head -1) && \
-    ln -sf "$CHROME_PATH" /usr/bin/chromium
-
-RUN mkdir -p /workspace/output /logs/artifacts
-
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
 CMD ["sh", "-c", "sleep infinity"]

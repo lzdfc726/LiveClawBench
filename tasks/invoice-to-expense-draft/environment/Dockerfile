@@ -1,32 +1,10 @@
-FROM liveclawbench-base:latest
+FROM liveclawbench-invoice-to-expense-draft-base:latest
 
-# Copy environment apps
+# Copy environment apps (frontend SPAs are pre-built into the per-task base
+# image; this layer just ensures workspace-side files are present for tasks
+# that need them at runtime).
 COPY . /workspace/environment/
 
-# Install email-app backend + seed
-RUN cd /workspace/environment/email-app/backend && pip install --break-system-packages -r requirements.txt
-RUN cd /workspace/environment/email-app/backend && python3 scripts/inject_data.py
+RUN mkdir -p /workspace/output
 
-# Install email-app frontend dependencies
-RUN cd /workspace/environment/email-app/frontend && npm install --include=dev 2>&1 | tee /tmp/email-npm-install.log
-
-# Install expense-app backend + initialise empty DB
-RUN cd /workspace/environment/expense-app/backend && pip install --break-system-packages -r requirements.txt
-RUN cd /workspace/environment/expense-app/backend && python3 scripts/inject_data.py
-
-# Copy startup script
-COPY startup.sh /workspace/startup.sh
-RUN chmod +x /workspace/startup.sh
-
-RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|g' /etc/apt/sources.list.d/debian.sources && \
-    PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright \
-    node /app/node_modules/playwright-core/cli.js install --with-deps chromium && \
-    CHROME_PATH=$(find /root/.cache/ms-playwright -name 'chrome' -type f | head -1) && \
-    ln -sf "$CHROME_PATH" /usr/bin/chromium
-
-RUN mkdir -p /workspace/output /logs/artifacts
-
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
 CMD ["sh", "-c", "sleep infinity"]

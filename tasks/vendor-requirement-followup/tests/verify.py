@@ -11,12 +11,11 @@ Reward (sum = 1.0):
 
 import json
 import os
+import sqlite3
 import sys
 from pathlib import Path
 
-sys.path.insert(0, "/workspace/environment/email-app/backend")
-from app import app
-from models import Email
+EMAIL_DB_PATH = "/var/lib/mock-data/email/email.db"
 
 TRACKER = Path("/workspace/notes/requirements-tracker.md")
 SNAPSHOT = Path("/tests/_seed_snapshots/requirements-tracker.md")
@@ -29,20 +28,28 @@ PRESERVED_TOPICS = [
 ]
 
 
+def sent_to(conn: sqlite3.Connection, recipient_email: str) -> bool:
+    row = conn.execute(
+        "SELECT 1 FROM emails WHERE folder='sent' AND recipient_email=? LIMIT 1",
+        (recipient_email,),
+    ).fetchone()
+    return row is not None
+
+
 def check():
-    # 1. reply
-    with app.app_context():
-        reply = Email.query.filter_by(
-            recipient_email="ops@orchid-systems.com", folder="sent"
-        ).first()
-        reply_score = 0.4 if reply else 0.0
-        d1 = Email.query.filter_by(
-            recipient_email="partners@orchid-partners.com", folder="sent"
-        ).first()
-        d2 = Email.query.filter_by(
-            recipient_email="finance@work.mosi.inc", folder="sent"
-        ).first()
-        distractor_email_hit = bool(d1 or d2)
+    if not os.path.exists(EMAIL_DB_PATH):
+        print(f"FAIL: email DB not found at {EMAIL_DB_PATH}")
+        return 0.0
+
+    conn = sqlite3.connect(EMAIL_DB_PATH)
+    try:
+        # 1. reply
+        reply_score = 0.4 if sent_to(conn, "ops@orchid-systems.com") else 0.0
+        distractor_email_hit = sent_to(conn, "partners@orchid-partners.com") or sent_to(
+            conn, "finance@work.mosi.inc"
+        )
+    finally:
+        conn.close()
 
     # 2. tracker
     tracker_score = 0.0

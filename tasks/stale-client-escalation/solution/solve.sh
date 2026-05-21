@@ -1,30 +1,25 @@
 #!/usr/bin/env bash
-set -uo pipefail
-bash /workspace/startup.sh
+set -euo pipefail
 
-python3 <<'PY'
-import sys
-sys.path.insert(0, "/workspace/environment/email-app/backend")
-from app import app, db
-from models import Email, User
+# Login to email mock
+LOGIN=$(curl -s -X POST "http://localhost:5001/api/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"peter","password":"password123"}')
+TOKEN=$(echo "$LOGIN" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['access_token'])")
 
-with app.app_context():
-    peter = User.query.filter_by(username="peter").first()
-    db.session.add(Email(
-        sender_id=peter.id, recipient_id=None,
-        recipient_email="ops@work.mosi.inc",
-        subject="Escalation: BlueHarbor Labs -- stale > 48h",
-        body=(
-            "Heads up -- BlueHarbor Labs has been waiting since 2026-04-01 on "
-            "contract redline blocked by missing DPA. No reply has gone out from "
-            "our side. Flagging for ops follow-up."
-        ),
-        folder="sent", is_read=True,
-    ))
-    db.session.commit()
-    print("Oracle: escalation email to ops")
-PY
+# Send escalation email
+curl -s -X POST "http://localhost:5001/api/emails" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${TOKEN}" \
+  -d '{
+    "recipient": "ops@work.mosi.inc",
+    "subject": "Escalation: BlueHarbor Labs -- stale > 48h",
+    "body": "Heads up -- BlueHarbor Labs has been waiting since 2026-04-01 on contract redline blocked by missing DPA. No reply has gone out from our side. Flagging for ops follow-up.",
+    "send_now": true
+  }' > /dev/null
+echo "Oracle: escalation email to ops"
 
+# Append log entry (preserve existing lines)
 python3 <<'PY'
 from pathlib import Path
 p = Path("/workspace/notes/client-escalation-log.md")

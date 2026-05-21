@@ -10,17 +10,18 @@ Reward (sum = 1.0):
        Partial: 0.2 if BlueHarbor+redline present but date missing.
   0.2 preservation: prior log lines remain present AND no sent email to ops
        mentions any distractor client.
+
+Reads email data directly from the Bun email mock's SQLite database.
 """
 
 import json
 import os
 import re
+import sqlite3
 import sys
 from pathlib import Path
 
-sys.path.insert(0, "/workspace/environment/email-app/backend")
-from app import app
-from models import Email
+EMAIL_DB_PATH = "/var/lib/mock-data/email/email.db"
 
 LOG = Path("/workspace/notes/client-escalation-log.md")
 SNAPSHOT = Path("/tests/_seed_snapshots/client-escalation-log.md")
@@ -36,13 +37,21 @@ DISTRACTOR_PATTERNS = [
 def check():
     # 1. escalation email
     escalation_score = 0.0
-    ops_rows = []
-    with app.app_context():
-        ops_rows = Email.query.filter_by(
-            recipient_email="ops@work.mosi.inc", folder="sent"
-        ).all()
-        for r in ops_rows:
-            t = ((r.subject or "") + "\n" + (r.body or "")).lower()
+    ops_rows: list[tuple[str | None, str | None]] = []
+    if os.path.exists(EMAIL_DB_PATH):
+        conn = sqlite3.connect(EMAIL_DB_PATH)
+        try:
+            ops_rows = list(
+                conn.execute(
+                    "SELECT subject, body FROM emails WHERE folder='sent' AND recipient_email=?",
+                    ("ops@work.mosi.inc",),
+                ).fetchall()
+            )
+        finally:
+            conn.close()
+
+        for subject, body in ops_rows:
+            t = ((subject or "") + "\n" + (body or "")).lower()
             has_bh = "blueharbor" in t
             has_redline = "contract redline" in t
             if has_bh and has_redline:
@@ -50,6 +59,8 @@ def check():
                 break
             if has_bh or has_redline:
                 escalation_score = max(escalation_score, 0.2)
+    else:
+        print(f"WARN: email DB not found at {EMAIL_DB_PATH}")
 
     # 2. log
     log_score = 0.0
@@ -74,8 +85,8 @@ def check():
     # 3. preservation
     preserved_lines_ok = bool(seed_lines) and seed_lines.issubset(set(current_lines))
     distractor_hit = False
-    for r in ops_rows:
-        t = (r.subject or "") + "\n" + (r.body or "")
+    for subject, body in ops_rows:
+        t = (subject or "") + "\n" + (body or "")
         if any(p.search(t) for p in DISTRACTOR_PATTERNS):
             distractor_hit = True
             break
