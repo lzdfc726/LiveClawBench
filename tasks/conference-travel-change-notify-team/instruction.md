@@ -1,1 +1,0 @@
-Please check my company email system (http://localhost:5174/, open it in browser) for any conference travel updates. If a change affects our arrival plan, check our team calendar (http://localhost:3000/, open it in browser) and notify the impacted teammates by email.
