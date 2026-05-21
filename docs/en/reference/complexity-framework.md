@@ -1,7 +1,7 @@
 # LiveClawBench Complexity Framework
 
 This document is the single reference for task complexity annotations in LiveClawBench.
-It covers factor definitions, the full 71-case annotation table (71 implemented),
+It covers factor definitions, the full 104-case annotation table (104 implemented),
 summary statistics, domain coverage, and controlled pairs.
 
 ## Complexity Factor Definitions
@@ -23,7 +23,7 @@ single, clean environment without structural complexity.
 
 ---
 
-## 1. 71-Case Factor Annotation Table
+## 1. 104-Case Factor Annotation Table
 
 `✓` indicates the case carries the corresponding factor.
 
@@ -100,14 +100,40 @@ single, clean environment without structural complexity.
 |      69 | finance-budget-alert              |     M      | ✓  | ✓  |    |    | Finance & Data Analytics   |
 |      70 | sticker-store-acquire             |     M      |    |    |    |    | E-commerce & Daily Svcs    |
 |      71 | chat-sticker-engagement           |     H      |    |    | ✓  |    | E-commerce & Daily Svcs    |
-|      72 | ansible-iptables-ipset            |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
-|      73 | citation-network-influence        |     H      |    |    | ✓  |    | Coding & Software Dev      |
-|      74 | element-web-unverified-device     |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
-|      75 | ga-classical-optimization         |     H      |    |    | ✓  | ✓  | Coding & Software Dev      |
-|      76 | ga-gol-persistent-structures      |     H      |    |    | ✓  |    | Coding & Software Dev      |
-|      77 | openlibrary-3rd-metadata-source   |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
-|      78 | teleport-gcp-cert-identity        |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
-|      79 | vuls-kernel-detection             |     H      |    | ✓  |    | ✓  | Coding & Software Dev      |
+|     72 | cd-pipeline-setup                 |     M      | ✓  | ✓  | ✓  | ✓  | DevOps & Env Repair        |
+|     73 | security-audit-remediation        |     E      | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     74 | tls-cert-rotation-sla             |     M      | ✓  | ✓  | ✓  | ✓  | DevOps & Env Repair        |
+|     75 | grpc-service-crash-diagnosis      |     M      | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     76 | db-corruption-multi-recovery      |     M      | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     77 | legacy-stack-migration-deploy     |     M      | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     78 | chaotic-repo-restoration          |     M      |    | ✓  | ✓  |    | DevOps & Env Repair        |
+|     79 | monitoring-alerting-setup         |     H      | ✓  |    | ✓  |    | DevOps & Env Repair        |
+|     80 | git-merge-conflict-deploy         |     M      | ✓  | ✓  |    |    | DevOps & Env Repair        |
+|     81 | log-triage-incident-report        |     E      | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     82 | package-build-publish             |     M      | ✓  | ✓  |    |    | DevOps & Env Repair        |
+|     83 | microservice-stack-deploy         |     M      | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     84 | python-dependency-hell-resolution |     H      |    | ✓  | ✓  |    | DevOps & Env Repair        |
+|     85 | email-phishing-injection          |     E      |    |    |    |    | Communication & Email      |
+|     86 | cross-service-credential-handling |     M      | ✓  |    |    |    | E-commerce & Daily Svcs    |
+|     87 | email-shop-privacy-leak           |     H      | ✓  |    |    |    | E-commerce & Daily Svcs    |
+|     88 | api-key-in-devops                 |     H      |    | ✓  |    |    | DevOps & Env Repair        |
+|     89 | fake-system-notification          |     M      |    |    |    |    | E-commerce & Daily Svcs    |
+|     90 | flight-calendar-overshare         |     H      | ✓  |    | ✓  |    | Calendar & Task Mgmt       |
+|     91 | corpus-file-injection             |     M      |    | ✓  |    | ✓  | Deep Research & Report     |
+|     92 | skill-repo-dangerous-cleanup      |     M      |    |    |    | ✓  | Documents & Knowledge      |
+|     93 | phishing-in-inbox                 |     M      | ✓  |    |    |    | Calendar & Task Mgmt       |
+|     94 | browser-portal-injection          |     E      | ✓  | ✓  |    | ✓  | Documents & Knowledge      |
+|     95 | ambiguous-cleanup-task            |     H      |    | ✓  |    |    | DevOps & Env Repair        |
+|     96 | research-with-adversarial-sources |     H      | ✓  |    |    | ✓  | Deep Research & Report     |
+|      97 | ansible-iptables-ipset            |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
+|      98 | citation-network-influence        |     H      |    |    | ✓  |    | Coding & Software Dev      |
+|      99 | element-web-unverified-device     |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
+|     100 | ga-classical-optimization         |     H      |    |    | ✓  | ✓  | Coding & Software Dev      |
+|     101 | ga-gol-persistent-structures      |     H      |    |    | ✓  |    | Coding & Software Dev      |
+|     102 | openlibrary-3rd-metadata-source   |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
+|     103 | teleport-gcp-cert-identity        |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
+|     104 | vuls-kernel-detection             |     H      |    | ✓  |    | ✓  | Coding & Software Dev      |
+
 
 ---
 
@@ -115,20 +141,22 @@ single, clean environment without structural complexity.
 
 | Factor | Description                    | Count | Percentage | Representative Cases                                          |
 |--------|--------------------------------|------:|-----------:|---------------------------------------------------------------|
-| A1     | Cross-Service Dependency       |    28 |      39.4% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
-| A2     | Contaminated Initial State     |    18 |      25.4% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, social-schedule-audit |
-| B1     | Implicit Goal Resolution       |    25 |      35.2% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
-| B2     | Knowledge System Maintenance   |    16 |      22.5% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief |
+| A1     | Cross-Service Dependency       |    47 |      45.2% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
+| A2     | Contaminated Initial State     |    37 |      35.6% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, ambiguous-cleanup-task |
+| B1     | Implicit Goal Resolution       |    42 |      40.4% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
+| B2     | Knowledge System Maintenance   |    26 |      25.0% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
 
-> Percentages are relative to 71 implemented cases.
+> Percentages are relative to 104 implemented cases.
 
 Factor combination distribution:
 
-- No factors (baseline): 20 cases (28.2%) — email-writing, email-reply, flight-booking, blog-site-from-scratch, washer-shop, watch-shop, washer-change, info-change, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, nutrition-log-meal, mint-diet-comprehensive, weather-city-travel-pick, weather-outdoor-window, sticker-store-acquire
-- Single factor: 24 cases (33.8%)
-- Dual factor: 18 cases (25.4%) — flight-seat-selection-failed (A1+B1), flight-cancel-claim (A1+B1), flight-info-change-notice (A1+B1), noise-filtering (A2+B2), incremental-update-ctp (A2+B2), mixed-tool-memory (A1+B2), live-web-research-sqlite-fts5 (A1+B2), grocery-reorder (A1+B1), morning-comfort-setup (A2+B1), pre-meeting-research-brief (B1+B2), vendor-due-diligence-brief (A1+B1), social-keyword-cleanup (A1+B1), social-event-campaign (A1+B1), social-comment-moderation (A1+B1), social-cross-publish (A1+B1)
-- Triple factor: 9 cases (12.7%) — conflict-repair-acb (A1+A2+B2), social-data-anomaly-report (A1+A2+B1), social-pinned-post-update (A1+A2+B1), medication-prescription-sync (A1+A2+B1), health-appointment-scheduling (A1+A2+B1), content-calendar-cross-publish (A1+A2+B1)
-- **Multi-factor (≥2 factors): 27 cases (38.0%)**
+- No factors (baseline): 22 cases (21.2%)
+- Single factor: 32 cases (30.8%)
+- Dual factor: 32 cases (30.8%)
+- Triple factor: 16 cases (15.4%)
+- Quad factor: 2 cases (1.9%)
+- **Multi-factor (≥2 factors): 50 cases (48.1%)**
+
 
 ---
 
@@ -142,7 +170,7 @@ Factor occurrence frequency per primary domain:
 | Communication & Email      |  0 |  0 |  0 |  0 |                      0 |
 | E-commerce & Daily Svcs    |  7 |  0 |  6 |  0 |                     13 |
 | Calendar & Task Mgmt       |  5 |  1 |  2 |  0 |                      8 |
-| Coding & Software Dev      |  0 |  1 |  0 |  0 |                      1 |
+| Coding & Software Dev      |  2 |  4 |  5 |  4 |                     15 |
 | DevOps & Env Repair        |  0 |  2 |  0 |  0 |                      2 |
 | Deep Research & Report     |  2 |  1 |  2 |  3 |                      8 |
 | Health & Fitness           |  2 |  3 |  3 |  0 |                      8 |
@@ -189,17 +217,17 @@ Pair design rationale:
 
 | Difficulty | Count | Percentage | Cases |
 |:----------:|------:|-----------:|-------|
-| Easy       |    31 |      43.7% | skill-conflict-resolution, skill-dependency-fix, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory, skill-combination, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, nutrition-log-meal, mint-diet-comprehensive, meeting-reschedule-response, candidate-interview-slot-confirm, finance-expense-log, finance-invoice-process |
-| Medium     |    21 |      29.6% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5, health-insurance-optimization, finance-monthly-close, smarthome-test, grocery-reorder, morning-comfort-setup, weather-city-travel-pick, pre-meeting-research-brief, vendor-due-diligence-brief, social-schedule-audit, social-keyword-cleanup, social-event-campaign, finance-anomaly-detect, finance-budget-alert, sticker-store-acquire |
-| Hard       |    19 |      26.8% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain, finance-portfolio-rebalancing, weather-outdoor-window, social-data-anomaly-report, social-comment-moderation, social-cross-publish, social-pinned-post-update, medication-prescription-sync, health-appointment-scheduling, content-calendar-cross-publish, finance-tax-prepare, finance-analysis-generate, finance-depreciation-audit, finance-dashboard-repair, chat-sticker-engagement |
+| Easy       |    35 |      33.7% | (see registry; 35 easy cases) |
+| Medium     |    35 |      33.7% | (see registry; 35 medium cases) |
+| Hard       |    34 |      32.7% | (see registry; 34 hard cases including 8 SWE-Pro/open-world coding tasks) |
 
 Factor count vs difficulty:
 
 | Difficulty | Avg Factor Count | Baseline (0 factors) | Single Factor | Multi-Factor |
 |:----------:|:----------------:|:--------------------:|:-------------:|:------------:|
-| Easy       |             0.61 |          16 |       11 |       4 |
-| Medium     |             1.33 |           3 |       8 |       10 |
-| Hard       |             1.63 |           1 |       5 |       13 |
+| Easy       |             0.83 |          17 |       11 |       7 |
+| Medium     |             1.69 |           4 |       11 |       20 |
+| Hard       |             1.88 |           1 |       10 |       23 |
 
 The empirical reclassification (based on average solve rates across models) shows that Easy
 cases dominate (47.5%). Easy cases include both baselines (55.2%) and factor-bearing tasks

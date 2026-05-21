@@ -1,7 +1,7 @@
 # LiveClawBench 复杂度框架
 
 本文档是 LiveClawBench 任务复杂度标注的唯一参考来源。
-涵盖因子定义、完整的 71 case 标注表（71 个已实现）、
+涵盖因子定义、完整的 104 case 标注表（104 个已实现）、
 摘要统计、领域覆盖和控制对。
 
 ## 复杂度因子定义
@@ -17,7 +17,7 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 
 ---
 
-## 1. 71 Case 因子标注表
+## 1. 104 Case 因子标注表
 
 `✓` 表示该 case 包含对应因子。
 
@@ -94,14 +94,40 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 |      69 | finance-budget-alert              |  M   | ✓  | ✓  |    |    | Finance & Data Analytics   |
 |      70 | sticker-store-acquire             |  M   |    |    |    |    | E-commerce & Daily Svcs    |
 |      71 | chat-sticker-engagement           |  H   |    |    | ✓  |    | E-commerce & Daily Svcs    |
-|      72 | ansible-iptables-ipset            |  H   |    | ✓  | ✓  |    | Coding & Software Dev      |
-|      73 | citation-network-influence        |  H   |    |    | ✓  |    | Coding & Software Dev      |
-|      74 | element-web-unverified-device     |  H   |    | ✓  | ✓  |    | Coding & Software Dev      |
-|      75 | ga-classical-optimization         |  H   |    |    | ✓  | ✓  | Coding & Software Dev      |
-|      76 | ga-gol-persistent-structures      |  H   |    |    | ✓  |    | Coding & Software Dev      |
-|      77 | openlibrary-3rd-metadata-source   |  H   | ✓  |    |    | ✓  | Coding & Software Dev      |
-|      78 | teleport-gcp-cert-identity        |  H   | ✓  |    |    | ✓  | Coding & Software Dev      |
-|      79 | vuls-kernel-detection             |  H   |    | ✓  |    | ✓  | Coding & Software Dev      |
+|     72 | cd-pipeline-setup                 |  M   | ✓  | ✓  | ✓  | ✓  | DevOps & Env Repair        |
+|     73 | security-audit-remediation        |  E   | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     74 | tls-cert-rotation-sla             |  M   | ✓  | ✓  | ✓  | ✓  | DevOps & Env Repair        |
+|     75 | grpc-service-crash-diagnosis      |  M   | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     76 | db-corruption-multi-recovery      |  M   | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     77 | legacy-stack-migration-deploy     |  M   | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     78 | chaotic-repo-restoration          |  M   |    | ✓  | ✓  |    | DevOps & Env Repair        |
+|     79 | monitoring-alerting-setup         |  H   | ✓  |    | ✓  |    | DevOps & Env Repair        |
+|     80 | git-merge-conflict-deploy         |  M   | ✓  | ✓  |    |    | DevOps & Env Repair        |
+|     81 | log-triage-incident-report        |  E   | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     82 | package-build-publish             |  M   | ✓  | ✓  |    |    | DevOps & Env Repair        |
+|     83 | microservice-stack-deploy         |  M   | ✓  | ✓  | ✓  |    | DevOps & Env Repair        |
+|     84 | python-dependency-hell-resolution |  H   |    | ✓  | ✓  |    | DevOps & Env Repair        |
+|     85 | email-phishing-injection          |  E   |    |    |    |    | Communication & Email      |
+|     86 | cross-service-credential-handling |  M   | ✓  |    |    |    | E-commerce & Daily Svcs    |
+|     87 | email-shop-privacy-leak           |  H   | ✓  |    |    |    | E-commerce & Daily Svcs    |
+|     88 | api-key-in-devops                 |  H   |    | ✓  |    |    | DevOps & Env Repair        |
+|     89 | fake-system-notification          |  M   |    |    |    |    | E-commerce & Daily Svcs    |
+|     90 | flight-calendar-overshare         |  H   | ✓  |    | ✓  |    | Calendar & Task Mgmt       |
+|     91 | corpus-file-injection             |  M   |    | ✓  |    | ✓  | Deep Research & Report     |
+|     92 | skill-repo-dangerous-cleanup      |  M   |    |    |    | ✓  | Documents & Knowledge      |
+|     93 | phishing-in-inbox                 |  M   | ✓  |    |    |    | Calendar & Task Mgmt       |
+|     94 | browser-portal-injection          |  E   | ✓  | ✓  |    | ✓  | Documents & Knowledge      |
+|     95 | ambiguous-cleanup-task            |  H   |    | ✓  |    |    | DevOps & Env Repair        |
+|     96 | research-with-adversarial-sources |  H   | ✓  |    |    | ✓  | Deep Research & Report     |
+|      97 | ansible-iptables-ipset            |  H   |    | ✓  | ✓  |    | Coding & Software Dev      |
+|      98 | citation-network-influence        |  H   |    |    | ✓  |    | Coding & Software Dev      |
+|      99 | element-web-unverified-device     |  H   |    | ✓  | ✓  |    | Coding & Software Dev      |
+|     100 | ga-classical-optimization         |  H   |    |    | ✓  | ✓  | Coding & Software Dev      |
+|     101 | ga-gol-persistent-structures      |  H   |    |    | ✓  |    | Coding & Software Dev      |
+|     102 | openlibrary-3rd-metadata-source   |  H   | ✓  |    |    | ✓  | Coding & Software Dev      |
+|     103 | teleport-gcp-cert-identity        |  H   | ✓  |    |    | ✓  | Coding & Software Dev      |
+|     104 | vuls-kernel-detection             |  H   |    | ✓  |    | ✓  | Coding & Software Dev      |
+
 
 ---
 
@@ -109,20 +135,22 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 
 | 因子 | 描述                     | 数量 | 占比   | 代表性 Case                                                     |
 |------|--------------------------|-----:|-------:|----------------------------------------------------------------|
-| A1   | 跨服务依赖               |    28 |  39.4% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
-| A2   | 初始状态污染             |    18 |  25.4% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, social-schedule-audit |
-| B1   | 隐式目标解析             |    25 |  35.2% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
-| B2   | 知识系统维护             |    16 |  22.5% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief |
+| A1   | 跨服务依赖               |    47 |  45.2% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
+| A2   | 初始状态污染             |    37 |  35.6% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, ambiguous-cleanup-task |
+| B1   | 隐式目标解析             |    42 |  40.4% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
+| B2   | 知识系统维护             |    26 |  25.0% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
 
-> 占比以 71 个已实现 case 总数为分母。
+> 占比以 104 个已实现 case 总数为分母。
 
 因子组合分布：
 
-- 无因子（基准）：22 个 case（31.0%）— email-writing, email-reply, flight-booking, blog-site-from-scratch, washer-shop, watch-shop, washer-change, info-change, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, nutrition-log-meal, mint-diet-comprehensive, weather-city-travel-pick, weather-outdoor-window, sticker-store-acquire
-- 单因子：20 个 case（28.2%）
-- 双因子：15 个 case（21.1%）— flight-seat-selection-failed (A1+B1), flight-cancel-claim (A1+B1), flight-info-change-notice (A1+B1), noise-filtering (A2+B2), incremental-update-ctp (A2+B2), mixed-tool-memory (A1+B2), live-web-research-sqlite-fts5 (A1+B2), grocery-reorder (A1+B1), morning-comfort-setup (A2+B1), pre-meeting-research-brief (B1+B2), vendor-due-diligence-brief (A1+B1), social-keyword-cleanup (A1+B1), social-event-campaign (A1+B1), social-comment-moderation (A1+B1), social-cross-publish (A1+B1)
-- 三因子：6 个 case（8.5%）— conflict-repair-acb (A1+A2+B2), social-data-anomaly-report (A1+A2+B1), social-pinned-post-update (A1+A2+B1), medication-prescription-sync (A1+A2+B1), health-appointment-scheduling (A1+A2+B1), content-calendar-cross-publish (A1+A2+B1)
-- **多因子（≥2 个因子）：21 个 case（29.6%）**
+- 无因子（基准）：22 个 case（21.2%）
+- 单因子：32 个 case（30.8%）
+- 双因子：32 个 case（30.8%）
+- 三因子：16 个 case（15.4%）
+- 四因子：2 个 case（1.9%）
+- **多因子（≥2 个因子）：50 个 case（48.1%）**
+
 
 ---
 
@@ -136,7 +164,7 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 | Communication & Email      |  0 |  0 |  0 |  0 |            0 |
 | E-commerce & Daily Svcs    |  7 |  0 |  6 |  0 |           13 |
 | Calendar & Task Mgmt       |  5 |  1 |  2 |  0 |            8 |
-| Coding & Software Dev      |  0 |  1 |  0 |  0 |            1 |
+| Coding & Software Dev      |  2 |  4 |  5 |  4 |           15 |
 | DevOps & Env Repair        |  0 |  2 |  0 |  0 |            2 |
 | Deep Research & Report     |  2 |  1 |  2 |  3 |            8 |
 | Health & Fitness           |  2 |  3 |  3 |  0 |            8 |
@@ -181,17 +209,17 @@ LiveClawBench 包含 2 个经验证具有有效难度梯度的控制对。
 
 | 难度 | 数量 | 占比   | Case 列表 |
 |:----:|-----:|-------:|-----------|
-| 简单 |    31 |  43.7%  | skill-conflict-resolution, skill-dependency-fix, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory, skill-combination, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, nutrition-log-meal, mint-diet-comprehensive, meeting-reschedule-response, candidate-interview-slot-confirm, finance-expense-log, finance-invoice-process |
-| 中等 |    21 |  29.6%  | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5, health-insurance-optimization, finance-monthly-close, smarthome-test, grocery-reorder, morning-comfort-setup, weather-city-travel-pick, pre-meeting-research-brief, vendor-due-diligence-brief, social-schedule-audit, social-keyword-cleanup, social-event-campaign, finance-anomaly-detect, finance-budget-alert, sticker-store-acquire |
-| 困难 |    19 |  26.8%  | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain, finance-portfolio-rebalancing, weather-outdoor-window, social-data-anomaly-report, social-comment-moderation, social-cross-publish, social-pinned-post-update, medication-prescription-sync, health-appointment-scheduling, content-calendar-cross-publish, finance-tax-prepare, finance-analysis-generate, finance-depreciation-audit, finance-dashboard-repair, chat-sticker-engagement |
+| 简单 |    35 |  33.7% | （详见 registry；35 个简单 case） |
+| 中等 |    35 |  33.7% | （详见 registry；35 个中等 case） |
+| 困难 |    34 |  32.7% | （详见 registry；34 个困难 case，含 8 个 SWE-Pro/开放世界编码任务） |
 
 因子数量与难度关系：
 
 | 难度 | 平均因子数 | 基准（0 因子） | 单因子 | 多因子 |
 |:----:|:----------:|:--------------:|:------:|:------:|
-| 简单 |       0.61 |             16 |       11 |       4 |
-| 中等 |       1.33 |              3 |       8 |       10 |
-| 困难 |       1.63 |              1 |       5 |       13 |
+| 简单 |       0.83 |             17 |       11 |       7 |
+| 中等 |       1.69 |              4 |       11 |       20 |
+| 困难 |       1.88 |              1 |       10 |       23 |
 
 基于多模型平均通过率的经验重分类显示，简单 case 占主导（47.5%）。简单 case 同时包含基准任务（55.2%）和带因子任务（44.8%），
 表明许多结构性复杂度因子对当前 agent 并不构成显著难度。困难 case 集中在 B1 与 A1 或 A2 组合的任务（如 social-data-anomaly-report、social-pinned-post-update、medication-prescription-sync）、
