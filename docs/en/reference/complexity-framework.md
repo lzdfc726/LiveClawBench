@@ -1,7 +1,7 @@
 # LiveClawBench Complexity Framework
 
 This document is the single reference for task complexity annotations in LiveClawBench.
-It covers factor definitions, the full 104-case annotation table (104 implemented),
+It covers factor definitions, the full 106-case annotation table (106 implemented),
 summary statistics, domain coverage, and controlled pairs.
 
 ## Complexity Factor Definitions
@@ -23,7 +23,7 @@ single, clean environment without structural complexity.
 
 ---
 
-## 1. 104-Case Factor Annotation Table
+## 1. 106-Case Factor Annotation Table
 
 `✓` indicates the case carries the corresponding factor.
 
@@ -125,15 +125,16 @@ single, clean environment without structural complexity.
 |     94 | browser-portal-injection          |     E      | ✓  | ✓  |    | ✓  | Documents & Knowledge      |
 |     95 | ambiguous-cleanup-task            |     H      |    | ✓  |    |    | DevOps & Env Repair        |
 |     96 | research-with-adversarial-sources |     H      | ✓  |    |    | ✓  | Deep Research & Report     |
-|      97 | ansible-iptables-ipset            |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
-|      98 | citation-network-influence        |     H      |    |    | ✓  |    | Coding & Software Dev      |
-|      99 | element-web-unverified-device     |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
-|     100 | ga-classical-optimization         |     H      |    |    | ✓  | ✓  | Coding & Software Dev      |
-|     101 | ga-gol-persistent-structures      |     H      |    |    | ✓  |    | Coding & Software Dev      |
-|     102 | openlibrary-3rd-metadata-source   |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
-|     103 | teleport-gcp-cert-identity        |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
-|     104 | vuls-kernel-detection             |     H      |    | ✓  |    | ✓  | Coding & Software Dev      |
-
+|     97 | workspace-task-record-batch       |     M      |    |    |    |    | Calendar & Task Mgmt       |
+|     98 | workspace-brief-tracking          |     M      |    |    |    |    | Documents & Knowledge      |
+|      99 | ansible-iptables-ipset            |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
+|     100 | citation-network-influence        |     H      |    |    | ✓  |    | Coding & Software Dev      |
+|     101 | element-web-unverified-device     |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
+|     102 | ga-classical-optimization         |     H      |    |    | ✓  | ✓  | Coding & Software Dev      |
+|     103 | ga-gol-persistent-structures      |     H      |    |    | ✓  |    | Coding & Software Dev      |
+|     104 | openlibrary-3rd-metadata-source   |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
+|     105 | teleport-gcp-cert-identity        |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
+|     106 | vuls-kernel-detection             |     H      |    | ✓  |    | ✓  | Coding & Software Dev      |
 
 ---
 
@@ -141,21 +142,21 @@ single, clean environment without structural complexity.
 
 | Factor | Description                    | Count | Percentage | Representative Cases                                          |
 |--------|--------------------------------|------:|-----------:|---------------------------------------------------------------|
-| A1     | Cross-Service Dependency       |    47 |      45.2% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
-| A2     | Contaminated Initial State     |    37 |      35.6% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, ambiguous-cleanup-task |
-| B1     | Implicit Goal Resolution       |    42 |      40.4% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
-| B2     | Knowledge System Maintenance   |    26 |      25.0% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
+| A1     | Cross-Service Dependency       |    47 |      44.3% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
+| A2     | Contaminated Initial State     |    37 |      34.9% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, ambiguous-cleanup-task |
+| B1     | Implicit Goal Resolution       |    42 |      39.6% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
+| B2     | Knowledge System Maintenance   |    26 |      24.5% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
 
-> Percentages are relative to 104 implemented cases.
+> Percentages are relative to 106 implemented cases.
 
 Factor combination distribution:
 
-- No factors (baseline): 22 cases (21.2%)
-- Single factor: 32 cases (30.8%)
-- Dual factor: 32 cases (30.8%)
-- Triple factor: 16 cases (15.4%)
+- No factors (baseline): 24 cases (22.6%)
+- Single factor: 32 cases (30.2%)
+- Dual factor: 32 cases (30.2%)
+- Triple factor: 16 cases (15.1%)
 - Quad factor: 2 cases (1.9%)
-- **Multi-factor (≥2 factors): 50 cases (48.1%)**
+- **Multi-factor (≥2 factors): 50 cases (47.2%)**
 
 
 ---
@@ -217,16 +218,16 @@ Pair design rationale:
 
 | Difficulty | Count | Percentage | Cases |
 |:----------:|------:|-----------:|-------|
-| Easy       |    35 |      33.7% | (see registry; 35 easy cases) |
-| Medium     |    35 |      33.7% | (see registry; 35 medium cases) |
-| Hard       |    34 |      32.7% | (see registry; 34 hard cases including 8 SWE-Pro/open-world coding tasks) |
+| Easy       |    35 |      33.0% | (see registry; 35 easy cases) |
+| Medium     |    37 |      34.9% | (see registry; 37 medium cases including 2 workspace tasks) |
+| Hard       |    34 |      32.1% | (see registry; 34 hard cases including 8 SWE-Pro/open-world coding tasks) |
 
 Factor count vs difficulty:
 
 | Difficulty | Avg Factor Count | Baseline (0 factors) | Single Factor | Multi-Factor |
 |:----------:|:----------------:|:--------------------:|:-------------:|:------------:|
 | Easy       |             0.83 |          17 |       11 |       7 |
-| Medium     |             1.69 |           4 |       11 |       20 |
+| Medium     |             1.59 |           6 |       11 |       20 |
 | Hard       |             1.88 |           1 |       10 |       23 |
 
 The empirical reclassification (based on average solve rates across models) shows that Easy

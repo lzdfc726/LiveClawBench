@@ -42,7 +42,13 @@ FORBIDDEN_ATTR_CHAINS = (
 )
 
 
-def emit(score: float, breakdown: dict | None = None, *, reason: str = "", meta: dict | None = None) -> None:
+def emit(
+    score: float,
+    breakdown: dict | None = None,
+    *,
+    reason: str = "",
+    meta: dict | None = None,
+) -> None:
     score = max(0.0, min(1.0, score))
     if reason:
         print(reason)

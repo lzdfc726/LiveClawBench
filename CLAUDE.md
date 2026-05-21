@@ -12,7 +12,7 @@ complexity factors along three axes (Environment Complexity, Cognitive Demand, R
 
 | Repository | Role | URL |
 |---|---|---|
-| **LiveClawBench** (this repo) | Task corpus — 104 harbor-format benchmark tasks | — |
+| **LiveClawBench** (this repo) | Task corpus — 106 harbor-format benchmark tasks | — |
 | **claw-harbor** | Evaluation framework (fork of harbor with OpenClaw support) | https://github.com/Mosi-AI/claw-harbor |
 | **OpenClaw** | Agent platform running inside task containers | https://github.com/openclaw/openclaw |
 
@@ -443,6 +443,8 @@ pre-commit install      # hooks run automatically on git commit — replaces man
 | `browser-portal-injection` | Documents & Knowledge | easy | **llm_judge** |
 | `ambiguous-cleanup-task` | DevOps & Env Repair | hard | verify.py |
 | `research-with-adversarial-sources` | Deep Research & Report | hard | **llm_judge** |
+| `workspace-task-record-batch` | Calendar & Task Mgmt | medium | verify.py |
+| `workspace-brief-tracking` | Documents & Knowledge | medium | verify.py |
 | `ansible-iptables-ipset` | Coding & Software Dev | hard | verify.py |
 | `citation-network-influence` | Coding & Software Dev | hard | verify.py |
 | `element-web-unverified-device` | Coding & Software Dev | hard | verify.py |
@@ -458,8 +460,8 @@ pre-commit install      # hooks run automatically on git commit — replaces man
 
 ## Ground Truth Numbers (verified from task.toml)
 
-104 implemented tasks: A1=47, A2=37, B1=42, B2=26.
-Difficulty: Easy=35, Medium=35, Hard=34.
+106 implemented tasks: A1=47, A2=37, B1=42, B2=26.
+Difficulty: Easy=35, Medium=37, Hard=34.
 
 ## Known Issues
 
