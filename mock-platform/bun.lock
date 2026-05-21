@@ -35,6 +35,15 @@
         "@types/bcryptjs": "^2.4.6",
       },
     },
+    "mocks/chat": {
+      "name": "@mock/chat",
+      "version": "0.1.0",
+      "dependencies": {
+        "hono": "^4.8.0",
+        "mock-lib": "workspace:*",
+        "zod": "^3.22.0",
+      },
+    },
     "mocks/doc-search": {
       "name": "@mock/doc-search",
       "version": "0.1.0",
@@ -167,6 +176,8 @@
     "@mock/airline": ["@mock/airline@workspace:mocks/airline"],
 
     "@mock/calendar": ["@mock/calendar@workspace:mocks/calendar"],
+
+    "@mock/chat": ["@mock/chat@workspace:mocks/chat"],
 
     "@mock/doc-search": ["@mock/doc-search@workspace:mocks/doc-search"],
 
