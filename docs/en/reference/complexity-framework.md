@@ -100,6 +100,14 @@ single, clean environment without structural complexity.
 |      69 | finance-budget-alert              |     M      | ✓  | ✓  |    |    | Finance & Data Analytics   |
 |      70 | sticker-store-acquire             |     M      |    |    |    |    | E-commerce & Daily Svcs    |
 |      71 | chat-sticker-engagement           |     H      |    |    | ✓  |    | E-commerce & Daily Svcs    |
+|      72 | ansible-iptables-ipset            |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
+|      73 | citation-network-influence        |     H      |    |    | ✓  |    | Coding & Software Dev      |
+|      74 | element-web-unverified-device     |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
+|      75 | ga-classical-optimization         |     H      |    |    | ✓  | ✓  | Coding & Software Dev      |
+|      76 | ga-gol-persistent-structures      |     H      |    |    | ✓  |    | Coding & Software Dev      |
+|      77 | openlibrary-3rd-metadata-source   |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
+|      78 | teleport-gcp-cert-identity        |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
+|      79 | vuls-kernel-detection             |     H      |    | ✓  |    | ✓  | Coding & Software Dev      |
 
 ---
 
