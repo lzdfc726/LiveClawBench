@@ -3,7 +3,7 @@ version = "1.0"
 [metadata]
 difficulty = "hard"
 category = "open-world"
-tags = ["communication_and_email", "documents_and_knowledge"]
+tags = ["communication_email", "documents_knowledge"]
 
 domain = "Communication & Email"
 domains_multi = ["Communication & Email", "Documents & Knowledge"]

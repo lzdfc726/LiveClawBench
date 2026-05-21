@@ -3,7 +3,7 @@ version = "1.0"
 [metadata]
 difficulty = "hard"
 category = "open-world"
-tags = ["communication_and_email", "calendar_and_task_mgmt"]
+tags = ["communication_email", "calendar_task_mgmt"]
 
 domain = "Communication & Email"
 domains_multi = ["Communication & Email", "Calendar & Task Mgmt"]
