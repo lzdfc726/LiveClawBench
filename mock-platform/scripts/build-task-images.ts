@@ -39,6 +39,7 @@ const BINARY_PORTS: Record<string, number> = {
   shop: 1234,
   todolist: 5002,
   "doc-search": 8123,
+  workspace: 5009,
   finance: 1235,
   insurance: 6000,
   calendar: 5006,
@@ -80,7 +81,7 @@ function portProxyLines(listenPort: number, targetPort: number): string[] {
   ];
 }
 
-// All 69 benchmark task names (canonical source of truth)
+// All 71 benchmark task names (canonical source of truth)
 const ALL_TASK_NAMES = new Set([
   "watch-shop", "washer-shop", "info-change", "washer-change",
   "email-watch-shop", "email-washer-change", "email-writing", "email-reply",
