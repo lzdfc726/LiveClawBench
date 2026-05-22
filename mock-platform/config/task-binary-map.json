@@ -997,22 +997,98 @@
         }
       ]
     },
-    "ai-copyright-international-jurisprudence": {
+    "ambiguous-cleanup-task": {
       "binaries": []
     },
-    "autonomous-weapons-ethics": {
+    "ansible-iptables-ipset": {
       "binaries": []
     },
-    "crispr-off-target-mitigation": {
+    "api-key-in-devops": {
       "binaries": []
     },
-    "cross-border-data-privacy-comparison": {
+    "browser-portal-injection": {
       "binaries": []
     },
-    "defi-systemic-risk-contagion": {
+    "cd-pipeline-setup": {
       "binaries": []
     },
-    "digital-religion-ai-vr": {
+    "chaotic-repo-restoration": {
+      "binaries": []
+    },
+    "citation-network-influence": {
+      "binaries": []
+    },
+    "corpus-file-injection": {
+      "binaries": []
+    },
+    "db-corruption-multi-recovery": {
+      "binaries": []
+    },
+    "element-web-unverified-device": {
+      "binaries": []
+    },
+    "ga-classical-optimization": {
+      "binaries": []
+    },
+    "ga-gol-persistent-structures": {
+      "binaries": []
+    },
+    "git-merge-conflict-deploy": {
+      "binaries": []
+    },
+    "grpc-service-crash-diagnosis": {
+      "binaries": []
+    },
+    "legacy-stack-migration-deploy": {
+      "binaries": []
+    },
+    "log-triage-incident-report": {
+      "binaries": []
+    },
+    "microservice-stack-deploy": {
+      "binaries": []
+    },
+    "monitoring-alerting-setup": {
+      "binaries": []
+    },
+    "openlibrary-3rd-metadata-source": {
+      "binaries": []
+    },
+    "package-build-publish": {
+      "binaries": []
+    },
+    "python-dependency-hell-resolution": {
+      "binaries": []
+    },
+    "research-with-adversarial-sources": {
+      "binaries": []
+    },
+    "security-audit-remediation": {
+      "binaries": []
+    },
+    "skill-repo-dangerous-cleanup": {
+      "binaries": []
+    },
+    "teleport-gcp-cert-identity": {
+      "binaries": []
+    },
+    "tls-cert-rotation-sla": {
+      "binaries": []
+    },
+    "vuls-kernel-detection": {
+      "binaries": []
+    },
+    "workspace-brief-tracking": {
+      "binaries": [
+        "workspace"
+      ]
+    },
+    "workspace-task-record-batch": {
+      "binaries": [
+        "workspace"
+      ]
+    },
+    "long-covid-neurological-hypotheses": {
       "binaries": []
     },
     "formal-verification-vs-fuzzing": {
@@ -1021,7 +1097,22 @@
     "fusion-energy-commercial-viability": {
       "binaries": []
     },
-    "long-covid-neurological-hypotheses": {
+    "cross-border-data-privacy-comparison": {
+      "binaries": []
+    },
+    "autonomous-weapons-ethics": {
+      "binaries": []
+    },
+    "crispr-off-target-mitigation": {
+      "binaries": []
+    },
+    "digital-religion-ai-vr": {
+      "binaries": []
+    },
+    "defi-systemic-risk-contagion": {
+      "binaries": []
+    },
+    "ai-copyright-international-jurisprudence": {
       "binaries": []
     },
     "mrna-cancer-vaccines-landscape": {

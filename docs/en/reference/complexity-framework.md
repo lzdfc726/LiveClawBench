@@ -1,7 +1,7 @@
 # LiveClawBench Complexity Framework
 
 This document is the single reference for task complexity annotations in LiveClawBench.
-It covers factor definitions, the full 108-case annotation table (108 implemented),
+It covers factor definitions, the full 116-case annotation table (116 implemented),
 summary statistics, domain coverage, and controlled pairs.
 
 ## Complexity Factor Definitions
@@ -23,7 +23,7 @@ single, clean environment without structural complexity.
 
 ---
 
-## 1. 108-Case Factor Annotation Table
+## 1. 116-Case Factor Annotation Table
 
 `✓` indicates the case carries the corresponding factor.
 
@@ -137,6 +137,14 @@ single, clean environment without structural complexity.
 |     106 | fusion-energy-commercial-viability |    M      |    |    |    |    | Deep Research & Report     |
 |     107 | ai-copyright-international-jurisprudence | M    |    |    |    |    | Deep Research & Report     |
 |     108 | long-covid-neurological-hypotheses |    M      |    |    |    |    | Deep Research & Report     |
+|     109 | ansible-iptables-ipset            |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
+|     110 | citation-network-influence        |     H      |    |    | ✓  |    | Coding & Software Dev      |
+|     111 | element-web-unverified-device     |     H      |    | ✓  | ✓  |    | Coding & Software Dev      |
+|     112 | ga-classical-optimization         |     H      |    |    | ✓  | ✓  | Coding & Software Dev      |
+|     113 | ga-gol-persistent-structures      |     H      |    |    | ✓  |    | Coding & Software Dev      |
+|     114 | openlibrary-3rd-metadata-source   |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
+|     115 | teleport-gcp-cert-identity        |     H      | ✓  |    |    | ✓  | Coding & Software Dev      |
+|     116 | vuls-kernel-detection             |     H      |    | ✓  |    | ✓  | Coding & Software Dev      |
 
 ---
 
@@ -144,21 +152,22 @@ single, clean environment without structural complexity.
 
 | Factor | Description                    | Count | Percentage | Representative Cases                                          |
 |--------|--------------------------------|------:|-----------:|---------------------------------------------------------------|
-| A1     | Cross-Service Dependency       |    45 |      41.7% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
-| A2     | Contaminated Initial State     |    34 |      31.5% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, ambiguous-cleanup-task |
-| B1     | Implicit Goal Resolution       |    37 |      34.3% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
-| B2     | Knowledge System Maintenance   |    22 |      20.4% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
+| A1     | Cross-Service Dependency       |    47 |      40.5% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
+| A2     | Contaminated Initial State     |    37 |      31.9% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, ambiguous-cleanup-task |
+| B1     | Implicit Goal Resolution       |    42 |      36.2% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
+| B2     | Knowledge System Maintenance   |    26 |      22.4% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
 
-> Percentages are relative to 108 implemented cases.
+> Percentages are relative to 116 implemented cases.
 
 Factor combination distribution:
 
-- No factors (baseline): 32 cases (29.6%)
-- Single factor: 30 cases (27.8%)
-- Dual factor: 26 cases (24.1%)
-- Triple factor: 16 cases (14.8%)
-- Quad factor: 2 cases (1.9%)
-- **Multi-factor (≥2 factors): 44 cases (40.7%)**
+- No factors (baseline): 34 cases (29.3%)
+- Single factor: 32 cases (27.6%)
+- Dual factor: 32 cases (27.6%)
+- Triple factor: 16 cases (13.8%)
+- Quad factor: 2 cases (1.7%)
+- **Multi-factor (≥2 factors): 50 cases (43.1%)**
+
 
 ---
 
@@ -172,7 +181,7 @@ Factor occurrence frequency per primary domain:
 | Communication & Email      |  0 |  0 |  0 |  0 |                      0 |
 | E-commerce & Daily Svcs    |  7 |  0 |  6 |  0 |                     13 |
 | Calendar & Task Mgmt       |  5 |  1 |  2 |  0 |                      8 |
-| Coding & Software Dev      |  0 |  1 |  0 |  0 |                      1 |
+| Coding & Software Dev      |  2 |  4 |  5 |  4 |                     15 |
 | DevOps & Env Repair        |  0 |  2 |  0 |  0 |                      2 |
 | Deep Research & Report     |  2 |  1 |  2 |  3 |                      8 |
 | Health & Fitness           |  2 |  3 |  3 |  0 |                      8 |
@@ -219,17 +228,17 @@ Pair design rationale:
 
 | Difficulty | Count | Percentage | Cases |
 |:----------:|------:|-----------:|-------|
-| Easy       |    35 |      32.4% | skill-conflict-resolution, skill-dependency-fix, email-writing, email-reply, flight-seat-selection, flight-info-change-notice, baggage-tracking-application, blog-site-from-scratch, blog-site-completion-from-starter, washer-shop, watch-shop, washer-change, info-change, email-washer-change, incremental-update-ctp, conflict-repair-acb, mixed-tool-memory, skill-combination, mint-diet-snack-log, weather-aqi-report, social-media-posting, social-unlike-post, expense-draft-delete, insurance-deductible-selection, health-daily-record, nutrition-log-meal, mint-diet-comprehensive, meeting-reschedule-response, candidate-interview-slot-confirm, finance-expense-log, finance-invoice-process |
-| Medium     |    47 |      43.5% | skill-creation, skill-supplementation, skill-repository-curation, flight-booking, schedule-change-request, noise-filtering, live-web-research-sqlite-fts5, health-insurance-optimization, finance-monthly-close, smarthome-test, grocery-reorder, morning-comfort-setup, weather-city-travel-pick, pre-meeting-research-brief, vendor-due-diligence-brief, social-schedule-audit, social-keyword-cleanup, social-event-campaign, finance-anomaly-detect, finance-budget-alert, sticker-store-acquire, crispr-off-target-mitigation, autonomous-weapons-ethics, cross-border-data-privacy-comparison, defi-systemic-risk-contagion, formal-verification-vs-fuzzing, mrna-cancer-vaccines-landscape, digital-religion-ai-vr, fusion-energy-commercial-viability, ai-copyright-international-jurisprudence, long-covid-neurological-hypotheses |
-| Hard       |    26 |      24.1% | flight-seat-selection-failed, flight-cancel-claim, email-watch-shop, vue-build-fix-single, vue-build-fix-chain, finance-portfolio-rebalancing, weather-outdoor-window, social-data-anomaly-report, social-comment-moderation, social-cross-publish, social-pinned-post-update, medication-prescription-sync, health-appointment-scheduling, content-calendar-cross-publish, finance-tax-prepare, finance-analysis-generate, finance-depreciation-audit, finance-dashboard-repair, chat-sticker-engagement, monitoring-alerting-setup, python-dependency-hell-resolution, email-shop-privacy-leak, api-key-in-devops, flight-calendar-overshare, ambiguous-cleanup-task, research-with-adversarial-sources |
+| Easy       |    35 |      30.2% | (see registry; 35 easy cases) |
+| Medium     |    47 |      40.5% | (see registry; 47 medium cases including 10 deep research and 2 workspace tasks) |
+| Hard       |    34 |      29.3% | (see registry; 34 hard cases including 8 SWE-Pro/open-world coding tasks) |
 
 Factor count vs difficulty:
 
 | Difficulty | Avg Factor Count | Baseline (0 factors) | Single Factor | Multi-Factor |
 |:----------:|:----------------:|:--------------------:|:-------------:|:------------:|
-| Easy       |             0.46 |          19 |       12 |       4 |
-| Medium     |             1.09 |           7 |      16 |       24 |
-| Hard       |             1.58 |           1 |       5 |       20 |
+| Easy       |             0.83 |          17 |       11 |       7 |
+| Medium     |             1.26 |          16 |       11 |       20 |
+| Hard       |             1.88 |           1 |       10 |       23 |
 
 The empirical reclassification (based on average solve rates across models) shows that Easy
 cases remain the largest group (32.4%). Easy cases include both baselines (54.3%) and factor-bearing tasks

@@ -12,7 +12,7 @@ complexity factors along three axes (Environment Complexity, Cognitive Demand, R
 
 | Repository | Role | URL |
 |---|---|---|
-| **LiveClawBench** (this repo) | Task corpus — 69 harbor-format benchmark tasks | — |
+| **LiveClawBench** (this repo) | Task corpus — 116 harbor-format benchmark tasks | — |
 | **claw-harbor** | Evaluation framework (fork of harbor with OpenClaw support) | https://github.com/Mosi-AI/claw-harbor |
 | **OpenClaw** | Agent platform running inside task containers | https://github.com/openclaw/openclaw |
 
@@ -457,6 +457,16 @@ pre-commit install      # hooks run automatically on git commit — replaces man
 | `browser-portal-injection` | Documents & Knowledge | easy | **llm_judge** |
 | `ambiguous-cleanup-task` | DevOps & Env Repair | hard | verify.py |
 | `research-with-adversarial-sources` | Deep Research & Report | hard | **llm_judge** |
+| `workspace-task-record-batch` | Calendar & Task Mgmt | medium | verify.py |
+| `workspace-brief-tracking` | Documents & Knowledge | medium | verify.py |
+| `ansible-iptables-ipset` | Coding & Software Dev | hard | verify.py |
+| `citation-network-influence` | Coding & Software Dev | hard | verify.py |
+| `element-web-unverified-device` | Coding & Software Dev | hard | verify.py |
+| `ga-classical-optimization` | Coding & Software Dev | hard | verify.py |
+| `ga-gol-persistent-structures` | Coding & Software Dev | hard | verify.py |
+| `openlibrary-3rd-metadata-source` | Coding & Software Dev | hard | verify.py |
+| `teleport-gcp-cert-identity` | Coding & Software Dev | hard | verify.py |
+| `vuls-kernel-detection` | Coding & Software Dev | hard | verify.py |
 
 > **ty and `tasks/*/tests/`**: `verify.py` files use `sys.path.insert(0, "/workspace/environment/...")` which
 > only resolves inside Docker containers, so ty cannot check them in CI without Docker. Tracked as a TODO in
@@ -464,8 +474,8 @@ pre-commit install      # hooks run automatically on git commit — replaces man
 
 ## Ground Truth Numbers (verified from task.toml)
 
-108 implemented tasks: A1=45, A2=34, B1=37, B2=22.
-Difficulty: Easy=35, Medium=47, Hard=26.
+116 implemented tasks: A1=47, A2=37, B1=42, B2=26.
+Difficulty: Easy=35, Medium=47, Hard=34.
 
 ## Known Issues
 
