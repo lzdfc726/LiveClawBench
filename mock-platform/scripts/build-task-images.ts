@@ -81,7 +81,7 @@ function portProxyLines(listenPort: number, targetPort: number): string[] {
   ];
 }
 
-// All 106 benchmark task names (canonical source of truth)
+// All 116 benchmark task names (canonical source of truth)
 const ALL_TASK_NAMES = new Set([
   "watch-shop", "washer-shop", "info-change", "washer-change",
   "email-watch-shop", "email-washer-change", "email-writing", "email-reply",
@@ -129,7 +129,13 @@ const ALL_TASK_NAMES = new Set([
   "python-dependency-hell-resolution",
   // PR #71 — workspace mock and its tasks (case_ids 97-98)
   "workspace-task-record-batch", "workspace-brief-tracking",
-  // PR70 v2 — SWE-Pro + open-world coding tasks (case_ids 99-106)
+  // PR #73 — deep research tasks (case_ids 99-108)
+  "ai-copyright-international-jurisprudence", "autonomous-weapons-ethics",
+  "crispr-off-target-mitigation", "cross-border-data-privacy-comparison",
+  "defi-systemic-risk-contagion", "digital-religion-ai-vr",
+  "formal-verification-vs-fuzzing", "fusion-energy-commercial-viability",
+  "long-covid-neurological-hypotheses", "mrna-cancer-vaccines-landscape",
+  // PR70 v2 — SWE-Pro + open-world coding tasks (case_ids 109-116)
   "ansible-iptables-ipset",
   "citation-network-influence",
   "element-web-unverified-device",

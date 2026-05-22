@@ -1087,6 +1087,36 @@
       "binaries": [
         "workspace"
       ]
+    },
+    "long-covid-neurological-hypotheses": {
+      "binaries": []
+    },
+    "formal-verification-vs-fuzzing": {
+      "binaries": []
+    },
+    "fusion-energy-commercial-viability": {
+      "binaries": []
+    },
+    "cross-border-data-privacy-comparison": {
+      "binaries": []
+    },
+    "autonomous-weapons-ethics": {
+      "binaries": []
+    },
+    "crispr-off-target-mitigation": {
+      "binaries": []
+    },
+    "digital-religion-ai-vr": {
+      "binaries": []
+    },
+    "defi-systemic-risk-contagion": {
+      "binaries": []
+    },
+    "ai-copyright-international-jurisprudence": {
+      "binaries": []
+    },
+    "mrna-cancer-vaccines-landscape": {
+      "binaries": []
     }
   }
 }

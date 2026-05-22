@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verifier for swe-pro-openlibrary-3rd-metadata-source-stripped (case_id 104).
+"""Verifier for swe-pro-openlibrary-3rd-metadata-source-stripped (case_id 114).
 
 Adversarial hooks per plan 04:
   - Reject a 3rd hard-coded `if google_books:` branch alongside the two

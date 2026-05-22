@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verifier for swe-pro-vuls-kernel-detection-stripped (case_id 106).
+"""Verifier for swe-pro-vuls-kernel-detection-stripped (case_id 116).
 
 Adversarial hooks per plan 04:
   - Reject single-distro patches (e.g. fixing only Red Hat path; leaving

@@ -1,7 +1,7 @@
 # LiveClawBench 复杂度框架
 
 本文档是 LiveClawBench 任务复杂度标注的唯一参考来源。
-涵盖因子定义、完整的 106 case 标注表（106 个已实现）、
+涵盖因子定义、完整的 116 case 标注表（116 个已实现）、
 摘要统计、领域覆盖和控制对。
 
 ## 复杂度因子定义
@@ -17,7 +17,7 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 
 ---
 
-## 1. 106 Case 因子标注表
+## 1. 116 Case 因子标注表
 
 `✓` 表示该 case 包含对应因子。
 
@@ -121,14 +121,24 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 |     96 | research-with-adversarial-sources |  H   | ✓  |    |    | ✓  | Deep Research & Report     |
 |     97 | workspace-task-record-batch       |  M   |    |    |    |    | Calendar & Task Mgmt       |
 |     98 | workspace-brief-tracking          |  M   |    |    |    |    | Documents & Knowledge      |
-|      99 | ansible-iptables-ipset            |  H   |    | ✓  | ✓  |    | Coding & Software Dev      |
-|     100 | citation-network-influence        |  H   |    |    | ✓  |    | Coding & Software Dev      |
-|     101 | element-web-unverified-device     |  H   |    | ✓  | ✓  |    | Coding & Software Dev      |
-|     102 | ga-classical-optimization         |  H   |    |    | ✓  | ✓  | Coding & Software Dev      |
-|     103 | ga-gol-persistent-structures      |  H   |    |    | ✓  |    | Coding & Software Dev      |
-|     104 | openlibrary-3rd-metadata-source   |  H   | ✓  |    |    | ✓  | Coding & Software Dev      |
-|     105 | teleport-gcp-cert-identity        |  H   | ✓  |    |    | ✓  | Coding & Software Dev      |
-|     106 | vuls-kernel-detection             |  H   |    | ✓  |    | ✓  | Coding & Software Dev      |
+|      99 | crispr-off-target-mitigation      |  M   |    |    |    |    | Deep Research & Report     |
+|     100 | autonomous-weapons-ethics         |  M   |    |    |    |    | Deep Research & Report     |
+|     101 | cross-border-data-privacy-comparison |  M   |    |    |    |    | Deep Research & Report     |
+|     102 | defi-systemic-risk-contagion      |  M   |    |    |    |    | Deep Research & Report     |
+|     103 | formal-verification-vs-fuzzing    |  M   |    |    |    |    | Deep Research & Report     |
+|     104 | mrna-cancer-vaccines-landscape    |  M   |    |    |    |    | Deep Research & Report     |
+|     105 | digital-religion-ai-vr            |  M   |    |    |    |    | Deep Research & Report     |
+|     106 | fusion-energy-commercial-viability |  M   |    |    |    |    | Deep Research & Report     |
+|     107 | ai-copyright-international-jurisprudence | M |    |    |    |    | Deep Research & Report     |
+|     108 | long-covid-neurological-hypotheses |  M   |    |    |    |    | Deep Research & Report     |
+|     109 | ansible-iptables-ipset            |  H   |    | ✓  | ✓  |    | Coding & Software Dev      |
+|     110 | citation-network-influence        |  H   |    |    | ✓  |    | Coding & Software Dev      |
+|     111 | element-web-unverified-device     |  H   |    | ✓  | ✓  |    | Coding & Software Dev      |
+|     112 | ga-classical-optimization         |  H   |    |    | ✓  | ✓  | Coding & Software Dev      |
+|     113 | ga-gol-persistent-structures      |  H   |    |    | ✓  |    | Coding & Software Dev      |
+|     114 | openlibrary-3rd-metadata-source   |  H   | ✓  |    |    | ✓  | Coding & Software Dev      |
+|     115 | teleport-gcp-cert-identity        |  H   | ✓  |    |    | ✓  | Coding & Software Dev      |
+|     116 | vuls-kernel-detection             |  H   |    | ✓  |    | ✓  | Coding & Software Dev      |
 
 
 ---
@@ -137,21 +147,21 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 
 | 因子 | 描述                     | 数量 | 占比   | 代表性 Case                                                     |
 |------|--------------------------|-----:|-------:|----------------------------------------------------------------|
-| A1   | 跨服务依赖               |    47 |  44.3% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
-| A2   | 初始状态污染             |    37 |  34.9% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, ambiguous-cleanup-task |
-| B1   | 隐式目标解析             |    42 |  39.6% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
-| B2   | 知识系统维护             |    26 |  24.5% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
+| A1   | 跨服务依赖               |    47 |  40.5% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
+| A2   | 初始状态污染             |    37 |  31.9% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, ambiguous-cleanup-task |
+| B1   | 隐式目标解析             |    42 |  36.2% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
+| B2   | 知识系统维护             |    26 |  22.4% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
 
-> 占比以 106 个已实现 case 总数为分母。
+> 占比以 116 个已实现 case 总数为分母。
 
 因子组合分布：
 
-- 无因子（基准）：24 个 case（22.6%）
-- 单因子：32 个 case（30.2%）
-- 双因子：32 个 case（30.2%）
-- 三因子：16 个 case（15.1%）
-- 四因子：2 个 case（1.9%）
-- **多因子（≥2 个因子）：50 个 case（47.2%）**
+- 无因子（基准）：34 个 case（29.3%）
+- 单因子：32 个 case（27.6%）
+- 双因子：32 个 case（27.6%）
+- 三因子：16 个 case（13.8%）
+- 四因子：2 个 case（1.7%）
+- **多因子（≥2 个因子）：50 个 case（43.1%）**
 
 
 ---
@@ -171,7 +181,7 @@ LiveClawBench 定义了四个正交复杂度因子，用于描述超出基础任
 | Deep Research & Report     |  2 |  1 |  2 |  3 |            8 |
 | Health & Fitness           |  2 |  3 |  3 |  0 |            8 |
 | Social Media               |  6 |  3 |  6 |  0 |           15 |
-| Finance & Data Analytics   |   4 |   5 |   6 |   4 |                      19 |
+| Finance & Data Analytics   |  4 |  5 |  6 |  4 |                     19 |
 
 关键观察：
 - **B2 高度集中在 Documents & Knowledge**（9/12），反映了知识管理任务的本质
@@ -211,18 +221,17 @@ LiveClawBench 包含 2 个经验证具有有效难度梯度的控制对。
 
 | 难度 | 数量 | 占比   | Case 列表 |
 |:----:|-----:|-------:|-----------|
-| 简单 |    35 |  33.0% | （详见 registry；35 个简单 case） |
-| 中等 |    37 |  34.9% | （详见 registry；37 个中等 case，含 2 个 workspace 任务） |
-| 困难 |    34 |  32.1% | （详见 registry；34 个困难 case，含 8 个 SWE-Pro/开放世界编码任务） |
+| 简单 |    35 |  30.2% | （详见 registry；35 个简单 case） |
+| 中等 |    47 |  40.5% | （详见 registry；47 个中等 case，含 10 个深度研究和 2 个 workspace 任务） |
+| 困难 |    34 |  29.3% | （详见 registry；34 个困难 case，含 8 个 SWE-Pro/开放世界编码任务） |
 
 因子数量与难度关系：
 
 | 难度 | 平均因子数 | 基准（0 因子） | 单因子 | 多因子 |
 |:----:|:----------:|:--------------:|:------:|:------:|
 | 简单 |       0.83 |             17 |       11 |       7 |
-| 中等 |       1.59 |              6 |       11 |       20 |
+| 中等 |       1.26 |             16 |       11 |       20 |
 | 困难 |       1.88 |              1 |       10 |       23 |
 
-基于多模型平均通过率的经验重分类显示，简单 case 占主导（47.5%）。简单 case 同时包含基准任务（55.2%）和带因子任务（44.8%），
-表明许多结构性复杂度因子对当前 agent 并不构成显著难度。困难 case 集中在 B1 与 A1 或 A2 组合的任务（如 social-data-anomaly-report、social-pinned-post-update、medication-prescription-sync）、
-污染初始状态的 DevOps 环境，以及高精度领域执行（finance-portfolio-rebalancing、weather-outdoor-window）。
+基于多模型平均通过率的经验重分类显示，简单 case 仍占最大比例（32.4%）。简单 case 同时包含基准任务（54.3%）和带因子任务（45.7%），
+中等 case 因新增 10 个深度研究任务而占比最大。困难 case 集中在需要约束失败处理（B1）或特定挑战性环境（DevOps 中的 A2）的任务上。

@@ -14,7 +14,7 @@ factor_a2 = 0   # A2: Contaminated Initial State
 factor_b1 = 0   # B1: Implicit Goal Resolution
 factor_b2 = 1   # B2: Knowledge System Maintenance (resolver abstraction must accept N sources without per-source branching)
 
-case_id = 104
+case_id = 114
 
 [verifier]
 timeout_sec = 1500.0
