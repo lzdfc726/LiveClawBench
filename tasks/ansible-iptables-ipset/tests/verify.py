@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verifier for swe-pro-ansible-iptables-ipset-stripped (case_id 61).
+"""Verifier for swe-pro-ansible-iptables-ipset-stripped (case_id 99).
 
 Adversarial hooks per plan 04:
   - Reject rule strings that fail the second check_mode (non-idempotent

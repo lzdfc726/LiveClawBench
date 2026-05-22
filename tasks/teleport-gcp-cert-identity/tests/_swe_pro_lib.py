@@ -1,4 +1,4 @@
-"""Shared utilities for swe-pro-* verifiers (case_id 57-62).
+"""Shared utilities for swe-pro-* verifiers (case_id 99-106).
 
 Design notes:
   - Two-tier scoring: try the canonical *gold-overlay* check first (which

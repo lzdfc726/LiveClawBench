@@ -995,7 +995,97 @@
           "buildDir": "dist",
           "dest": "/opt/mock/frontend/airline"
         }
-
+      ]
+    },
+    "ambiguous-cleanup-task": {
+      "binaries": []
+    },
+    "ansible-iptables-ipset": {
+      "binaries": []
+    },
+    "api-key-in-devops": {
+      "binaries": []
+    },
+    "browser-portal-injection": {
+      "binaries": []
+    },
+    "cd-pipeline-setup": {
+      "binaries": []
+    },
+    "chaotic-repo-restoration": {
+      "binaries": []
+    },
+    "citation-network-influence": {
+      "binaries": []
+    },
+    "corpus-file-injection": {
+      "binaries": []
+    },
+    "db-corruption-multi-recovery": {
+      "binaries": []
+    },
+    "element-web-unverified-device": {
+      "binaries": []
+    },
+    "ga-classical-optimization": {
+      "binaries": []
+    },
+    "ga-gol-persistent-structures": {
+      "binaries": []
+    },
+    "git-merge-conflict-deploy": {
+      "binaries": []
+    },
+    "grpc-service-crash-diagnosis": {
+      "binaries": []
+    },
+    "legacy-stack-migration-deploy": {
+      "binaries": []
+    },
+    "log-triage-incident-report": {
+      "binaries": []
+    },
+    "microservice-stack-deploy": {
+      "binaries": []
+    },
+    "monitoring-alerting-setup": {
+      "binaries": []
+    },
+    "openlibrary-3rd-metadata-source": {
+      "binaries": []
+    },
+    "package-build-publish": {
+      "binaries": []
+    },
+    "python-dependency-hell-resolution": {
+      "binaries": []
+    },
+    "research-with-adversarial-sources": {
+      "binaries": []
+    },
+    "security-audit-remediation": {
+      "binaries": []
+    },
+    "skill-repo-dangerous-cleanup": {
+      "binaries": []
+    },
+    "teleport-gcp-cert-identity": {
+      "binaries": []
+    },
+    "tls-cert-rotation-sla": {
+      "binaries": []
+    },
+    "vuls-kernel-detection": {
+      "binaries": []
+    },
+    "workspace-brief-tracking": {
+      "binaries": [
+        "workspace"
+      ]
+    },
+    "workspace-task-record-batch": {
+      "binaries": [
+        "workspace"
       ]
     }
   }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verifier for swe-pro-teleport-gcp-cert-identity-stripped (case_id 62).
+"""Verifier for swe-pro-teleport-gcp-cert-identity-stripped (case_id 105).
 
 Adversarial hooks per plan 04:
   - Reject a 3rd bespoke code branch (copy-paste of AWS/Azure with mutated

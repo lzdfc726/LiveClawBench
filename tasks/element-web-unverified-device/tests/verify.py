@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verifier for swe-pro-element-web-unverified-device-stripped (case_id 57).
+"""Verifier for swe-pro-element-web-unverified-device-stripped (case_id 101).
 
 Scoring follows the SWE-bench Pro f2p / p2p pattern with the adversarial hooks
 defined in plans/04-final-6-case-distribution.md:

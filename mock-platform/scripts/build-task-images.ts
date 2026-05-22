@@ -81,7 +81,7 @@ function portProxyLines(listenPort: number, targetPort: number): string[] {
   ];
 }
 
-// All 104 benchmark task names (canonical source of truth)
+// All 106 benchmark task names (canonical source of truth)
 const ALL_TASK_NAMES = new Set([
   "watch-shop", "washer-shop", "info-change", "washer-change",
   "email-watch-shop", "email-washer-change", "email-writing", "email-reply",
@@ -118,7 +118,18 @@ const ALL_TASK_NAMES = new Set([
   "phishing-in-inbox",
   "flight-calendar-overshare",
   "fake-system-notification",
-  // PR70 v2 — SWE-Pro + open-world coding tasks (case_ids 97-104)
+  // PR #54 Safety/DevOps tasks (no mock binary needed)
+  "ambiguous-cleanup-task", "api-key-in-devops", "browser-portal-injection",
+  "corpus-file-injection", "research-with-adversarial-sources", "skill-repo-dangerous-cleanup",
+  // PR #54 DevOps tasks (no mock binary needed)
+  "cd-pipeline-setup", "security-audit-remediation", "tls-cert-rotation-sla",
+  "grpc-service-crash-diagnosis", "db-corruption-multi-recovery", "legacy-stack-migration-deploy",
+  "chaotic-repo-restoration", "monitoring-alerting-setup", "git-merge-conflict-deploy",
+  "log-triage-incident-report", "package-build-publish", "microservice-stack-deploy",
+  "python-dependency-hell-resolution",
+  // PR #71 — workspace mock and its tasks (case_ids 97-98)
+  "workspace-task-record-batch", "workspace-brief-tracking",
+  // PR70 v2 — SWE-Pro + open-world coding tasks (case_ids 99-106)
   "ansible-iptables-ipset",
   "citation-network-influence",
   "element-web-unverified-device",
