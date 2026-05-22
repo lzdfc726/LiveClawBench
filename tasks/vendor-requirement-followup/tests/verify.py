@@ -18,7 +18,6 @@ from pathlib import Path
 EMAIL_DB_PATH = "/var/lib/mock-data/email/email.db"
 
 TRACKER = Path("/workspace/notes/requirements-tracker.md")
-SNAPSHOT = Path("/tests/_seed_snapshots/requirements-tracker.md")
 
 TARGET_TOPIC = "Phoenix Analytics pilot API scope"
 TARGET_DATE = "2026-04-03"
