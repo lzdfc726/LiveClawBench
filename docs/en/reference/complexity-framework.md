@@ -178,10 +178,10 @@ single, clean environment without structural complexity.
 
 | Factor | Description                    | Count | Percentage | Representative Cases                                          |
 |--------|--------------------------------|------:|-----------:|---------------------------------------------------------------|
-| A1     | Cross-Service Dependency       |    49 |      38.0% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
-| A2     | Contaminated Initial State     |    39 |      30.2% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, ambiguous-cleanup-task |
-| B1     | Implicit Goal Resolution       |    42 |      32.6% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
-| B2     | Knowledge System Maintenance   |    26 |      20.2% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
+| A1     | Cross-Service Dependency       |    54 |      40.3% | flight-seat-selection, email-watch-shop, conflict-repair-acb, grocery-reorder, content-calendar-cross-publish |
+| A2     | Contaminated Initial State     |    39 |      29.1% | blog-site-completion-from-starter, vue-build-fix-single, noise-filtering, morning-comfort-setup, ambiguous-cleanup-task |
+| B1     | Implicit Goal Resolution       |    47 |      35.1% | flight-seat-selection-failed, flight-cancel-claim, baggage-tracking-application, smarthome-test, pre-meeting-research-brief |
+| B2     | Knowledge System Maintenance   |    28 |      20.9% | skill-creation, skill-dependency-fix, noise-filtering, pre-meeting-research-brief, research-with-adversarial-sources |
 | C1     | Environmental State Invalidation |  7 |       5.4% | email-reply-context-shift, watch-shop-stockout, meeting-slot-race, social-post-rate-limit, vue-fix-rebreak |
 | C2     | Outcome Verification under Altered State | 6 | 4.7% | email-sending-verify, watch-shop-silent-fail, interview-slot-verify, health-record-verify, expense-submit-verify |
 
@@ -189,13 +189,12 @@ single, clean environment without structural complexity.
 
 Factor combination distribution:
 
-- No factors (baseline): 34 cases (26.4%)
-- Single factor: 38 cases (29.5%)
-- Dual factor: 34 cases (26.4%)
-- Triple factor: 19 cases (14.7%)
-- Quad factor: 2 cases (1.6%)
-- Five factors: 2 cases (1.6%)
-- **Multi-factor (≥2 factors): 57 cases (44.2%)**
+- No factors (baseline): 34 cases (25.4%)
+- Single factor: 42 cases (31.3%)
+- Dual factor: 37 cases (27.6%)
+- Triple factor: 19 cases (14.2%)
+- Quad factor: 2 cases (1.5%)
+- **Multi-factor (≥2 factors): 58 cases (43.3%)**
 
 
 ---
@@ -206,24 +205,24 @@ Factor occurrence frequency per primary domain:
 
 | Primary Domain             | A1 | A2 | B1 | B2 | C1 | C2 | Total Factor Instances |
 |----------------------------|----|----|----|----|----|----|-----------------------:|
-| Documents & Knowledge      |  2 |  2 |  0 |  9 |  0 |  0 |                     13 |
-| Communication & Email      |  0 |  0 |  0 |  0 |  1 |  1 |                      2 |
-| E-commerce & Daily Svcs    |  7 |  0 |  6 |  0 |  1 |  1 |                     15 |
-| Calendar & Task Mgmt       |  7 |  1 |  2 |  0 |  1 |  1 |                     12 |
+| Documents & Knowledge      |  3 |  3 |  0 | 11 |  0 |  0 |                     17 |
+| Communication & Email      |  4 |  0 |  5 |  2 |  1 |  1 |                     13 |
+| E-commerce & Daily Svcs    |  9 |  0 |  6 |  0 |  1 |  1 |                     17 |
+| Calendar & Task Mgmt       |  9 |  1 |  3 |  0 |  1 |  1 |                     15 |
 | Coding & Software Dev      |  2 |  4 |  5 |  4 |  0 |  0 |                     15 |
-| DevOps & Env Repair        |  0 |  3 |  0 |  0 |  1 |  0 |                      4 |
-| Deep Research & Report     |  2 |  1 |  2 |  3 |  0 |  0 |                      8 |
+| DevOps & Env Repair        | 11 | 17 | 11 |  2 |  1 |  0 |                     42 |
+| Deep Research & Report     |  3 |  2 |  2 |  5 |  0 |  0 |                     12 |
 | Health & Fitness           |  2 |  3 |  3 |  0 |  1 |  1 |                     10 |
 | Social Media               |  6 |  3 |  6 |  0 |  1 |  1 |                     17 |
 | Finance & Data Analytics   |  5 |  6 |  6 |  4 |  1 |  1 |                     23 |
 
 Key observations:
-- **B2 is highly concentrated in Documents & Knowledge** (9/12), reflecting the nature of knowledge management tasks
-- **A1 is the most broadly distributed**, spanning 7 domains — cross-service coordination is a universal complexity source
-- **C1 and C2 are distributed across 7 domains**, reflecting the cross-cutting nature of runtime adaptability
-- **Communication & Email gains C1/C2 coverage** through 2 new tasks — no longer a pure zero-factor domain
-- **Finance & Data Analytics gains C1 coverage** via finance-budget-shift (A1+A2+C1), adding to its already high factor density
-- **DevOps & Env Repair gains C1** via vue-fix-rebreak (A2+C1), introducing cascading failure testing
+- **B2 is highly concentrated in Documents & Knowledge** (11/17), reflecting the nature of knowledge management tasks
+- **A1 is the most broadly distributed**, spanning 8 domains — cross-service coordination is a universal complexity source
+- **C1 and C2 are distributed across 8 domains**, reflecting the cross-cutting nature of runtime adaptability
+- **Communication & Email is no longer a pure zero-factor domain** — it now carries B1, B2, C1, and C2 coverage via 10 tasks spanning email, calendar, and procurement workflows
+- **Finance & Data Analytics gains C1/C2 coverage** via finance-budget-shift and finance-anomaly-detect, adding to its already high factor density
+- **DevOps & Env Repair is the most factor-dense domain** (42 total instances) with heavy A2 and B1 load from environment repair tasks
 
 ---
 
