@@ -1243,6 +1243,207 @@ function makeSeedConfig(taskName: string): SeedConfig {
       };
     }
 
+    case "vendor-requirement-followup": {
+      const vendor = { username: "orchid_systems_ops", email: "ops@orchid-systems.com" };
+      const nearVendor = { username: "orchid_partners", email: "partners@orchid-partners.com" };
+      const finance = { username: "finance_ops", email: "finance@work.mosi.inc" };
+      return {
+        senders: [...BASELINE_SENDERS, vendor, nearVendor, finance],
+        inbox: [
+          ...baselineInbox,
+          {
+            senderUsername: "orchid_systems_ops",
+            subject: "Requirement Summary: Phoenix Analytics pilot API scope",
+            body: "Hi Peter,\n\nAttached is the latest requirement summary for the Phoenix Analytics pilot. Key items:\n  - Authentication: OAuth2 client credentials, scoped per tenant\n  - Data freshness: 5-minute incremental sync\n  - Rate limits: 200 rps per project\n  - Optional features: row-level ACLs (deferred to phase 2)\n\nBest,\nOps @ Orchid Systems",
+            days_ago: 0,
+            is_read: 0,
+          },
+          {
+            senderUsername: "orchid_partners",
+            subject: "Quarterly partner sync",
+            body: "Hi Peter,\n\nQuick reminder about Orchid Partners' quarterly sync next month. Nothing actionable today.\n\nThanks,\nOrchid Partners",
+            days_ago: 0,
+            is_read: 0,
+          },
+          {
+            senderUsername: "finance_ops",
+            subject: "Phoenix budget check",
+            body: "Hey Peter, finance here. Just confirming the Phoenix Analytics pilot budget is still under the cap. No action required.",
+            days_ago: 0,
+            is_read: 0,
+          },
+        ],
+        sent: baselineSent,
+      };
+    }
+
+    case "invoice-to-expense-draft": {
+      const northwind = { username: "northwind_ap", email: "ap@northwind-components.com" };
+      const northbound = { username: "northbound_bill", email: "billing@northbound.io" };
+      return {
+        senders: [...BASELINE_SENDERS, northwind, northbound],
+        inbox: [
+          ...baselineInbox,
+          {
+            senderUsername: "northwind_ap",
+            subject: "Invoice INV-NC-2048 -- April 2026",
+            body: "Hi Peter,\n\nPlease find this month's invoice details below.\n\n  Vendor: Northwind Components\n  Invoice #: INV-NC-2048\n  Bill Date: 2026-04-03\n  Total Due: USD 1840.50\n  Attachment ref: inv_nc_2048 (file: INV-NC-2048.pdf)\n\nPayment due in 30 days.\n\nBest,\nNorthwind AP",
+            days_ago: 0,
+            is_read: 0,
+          },
+          {
+            senderUsername: "northbound_bill",
+            subject: "Order Acknowledgement -- Purchase #87412",
+            body: "Hi Peter,\n\nConfirming receipt of your purchase order.\n\n  Order ID: 87412\n  Order Date: 2026-04-02\n  Estimated total: USD 920.00\n\nWe will follow up with the invoice once items ship.\n\n--Northbound billing",
+            days_ago: 0,
+            is_read: 0,
+          },
+        ],
+        sent: baselineSent,
+      };
+    }
+
+    case "newsletter-digest-forward": {
+      const vector = { username: "vectordb_news", email: "news@vectordb-cloud.io" };
+      const openbrowse = { username: "openbrowse_builders", email: "builders@openbrowse.dev" };
+      const founders = { username: "founders_editor", email: "editor@founders-brief.com" };
+      const pulse = { username: "marketing_pulse", email: "pulse@marketing-pulse.io" };
+      return {
+        senders: [...BASELINE_SENDERS, vector, openbrowse, founders, pulse],
+        inbox: [
+          ...baselineInbox,
+          {
+            senderUsername: "vectordb_news",
+            subject: "Weekly Vector Digest -- 2026-04-02",
+            body: "Top stories this week:\n\n  1. VectorDB Cloud row-level ACLs are now generally available...\n  2. New benchmark publication...\n  3. Customer story from FinTech\n\n--Vector Digest team",
+            days_ago: 1,
+            is_read: 0,
+          },
+          {
+            senderUsername: "openbrowse_builders",
+            subject: "OpenBrowse Builders Notes -- April",
+            body: "Hello builders!\n\nHeadline update: OpenBrowse persistent sessions are now in beta. Sessions survive a tab reload and auth restart -- huge unlock for long-running automation flows.\n\nOther items: tooling refresh, community office hours.\n\n--OpenBrowse",
+            days_ago: 1,
+            is_read: 0,
+          },
+          {
+            senderUsername: "founders_editor",
+            subject: "Founders Brief -- 2026-04-02",
+            body: "This week's headline: NovaStack Series A closed at $42M led by Crucible Ventures. Big news for the agent-platform space.\n\nOther items: regulatory roundup, hiring trends.\n\n--Founders Brief",
+            days_ago: 1,
+            is_read: 0,
+          },
+          {
+            senderUsername: "marketing_pulse",
+            subject: "Marketing Pulse Monthly -- March",
+            body: "Hot off the press: April mascot giveaway launches for our enterprise tier customers. Plus: brand survey results, content roadmap.\n\n--Marketing Pulse",
+            days_ago: 14,
+            is_read: 0,
+          },
+        ],
+        sent: baselineSent,
+      };
+    }
+
+    case "procurement-quote-compare-reply": {
+      const asterbyte = { username: "asterbyte_sales", email: "sales@asterbyte.io" };
+      const northpeak = { username: "northpeak_quotes", email: "quotes@northpeak.tech" };
+      const latticepro = { username: "latticepro_desk", email: "desk@latticepro.ai" };
+      const rfqSubject = "Procurement RFQ -- 24 x LaptopX1";
+      const rfqBody = "Hello vendors,\n\nPlease quote on 24 units of LaptopX1 (16GB RAM, 512GB SSD).\nBudget cap: USD 1200 per unit.\nDelivery expected within 7 business days.\nPlease reply with unit price and delivery commitment.\n\nQuote needed by 2026-04-04.\n\nThanks,\nPeter";
+      return {
+        senders: [...BASELINE_SENDERS, asterbyte, northpeak, latticepro],
+        inbox: [
+          ...baselineInbox,
+          {
+            senderUsername: "asterbyte_sales",
+            subject: "Re: Procurement RFQ -- 24 x LaptopX1",
+            body: "Hi Peter,\n\nWe can offer LaptopX1 at USD 1180 per unit. Delivery: 5 business days from PO confirmation.\n\nBest,\nAsterByte sales",
+            days_ago: 1,
+            is_read: 0,
+          },
+          {
+            senderUsername: "northpeak_quotes",
+            subject: "Re: Procurement RFQ -- 24 x LaptopX1",
+            body: "Peter,\n\nOur unit price is USD 1090. Delivery: 6 weeks (we are out of stock; next batch from factory).\n\nThanks,\nNorthPeak",
+            days_ago: 1,
+            is_read: 0,
+          },
+          {
+            senderUsername: "latticepro_desk",
+            subject: "Re: Procurement RFQ -- 24 x LaptopX1",
+            body: "Hello,\n\nLatticePro can deliver LaptopX1 at USD 1240 per unit. Delivery: 4 business days. Premium support included.\n\nLatticePro desk",
+            days_ago: 1,
+            is_read: 0,
+          },
+        ],
+        sent: [
+          ...baselineSent,
+          { recipient_email: "sales@asterbyte.io", subject: rfqSubject, body: rfqBody, days_ago: 2 },
+          { recipient_email: "quotes@northpeak.tech", subject: rfqSubject, body: rfqBody, days_ago: 2 },
+          { recipient_email: "desk@latticepro.ai", subject: rfqSubject, body: rfqBody, days_ago: 2 },
+        ],
+      };
+    }
+
+    case "stale-client-escalation": {
+      const bh = { username: "blueharbor_procurement", email: "procurement@blueharbor.example.com" };
+      const nd = { username: "nimbus_acct", email: "acct@nimbus-data.example.com" };
+      const ss = { username: "stratoscape_legal", email: "legal@stratoscape.example.com" };
+      const mp = { username: "market_pulse_news", email: "news@market-pulse.io" };
+      const colin = { username: "colin_eng", email: "colin@work.mosi.inc" };
+      return {
+        senders: [...BASELINE_SENDERS, bh, nd, ss, mp, colin],
+        inbox: [
+          ...baselineInbox,
+          {
+            senderUsername: "blueharbor_procurement",
+            subject: "Contract redline blocked -- DPA needed",
+            body: "Hi Peter,\n\nWe're stuck on the contract redline -- our legal team can't sign off without the Data Processing Addendum. Can you confirm the DPA is on its way? This is blocking signature.\n\nThanks,\nBlueHarbor procurement",
+            days_ago: 2,
+            is_read: 0,
+          },
+          {
+            senderUsername: "nimbus_acct",
+            subject: "Re: April invoice question",
+            body: "Hi Peter, quick clarification on the April invoice... -- Nimbus AE",
+            days_ago: 0,
+            is_read: 0,
+          },
+          {
+            senderUsername: "stratoscape_legal",
+            subject: "Schema migration question",
+            body: "Peter, please review the schema migration plan for Q2... -- Stratoscape legal",
+            days_ago: 3,
+            is_read: 1,
+          },
+          {
+            senderUsername: "market_pulse_news",
+            subject: "Market Pulse -- March wrap-up",
+            body: "Top marketing trends... --Market Pulse",
+            days_ago: 9,
+            is_read: 0,
+          },
+          {
+            senderUsername: "colin_eng",
+            subject: "Lunch tomorrow?",
+            body: "Hey Peter -- want to grab lunch tomorrow? --Colin",
+            days_ago: 5,
+            is_read: 1,
+          },
+        ],
+        sent: [
+          ...baselineSent,
+          {
+            recipient_email: "legal@stratoscape.example.com",
+            subject: "Re: Schema migration question",
+            body: "Thanks -- approved, please proceed. --Peter",
+            days_ago: 1,
+          },
+        ],
+      };
+    }
+
     default:
       // Fallback to baseline for unknown tasks
       return {

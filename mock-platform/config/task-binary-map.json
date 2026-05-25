@@ -1047,6 +1047,32 @@
     },
     "mrna-cancer-vaccines-landscape": {
       "binaries": []
+    },
+    "vendor-requirement-followup": {
+      "binaries": [
+        "email"
+      ]
+    },
+    "invoice-to-expense-draft": {
+      "binaries": [
+        "email",
+        "expense"
+      ]
+    },
+    "newsletter-digest-forward": {
+      "binaries": [
+        "email"
+      ]
+    },
+    "procurement-quote-compare-reply": {
+      "binaries": [
+        "email"
+      ]
+    },
+    "stale-client-escalation": {
+      "binaries": [
+        "email"
+      ]
     }
   }
 }

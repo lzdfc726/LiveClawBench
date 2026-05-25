@@ -12,7 +12,7 @@ complexity factors along three axes (Environment Complexity, Cognitive Demand, R
 
 | Repository | Role | URL |
 |---|---|---|
-| **LiveClawBench** (this repo) | Task corpus — 129 harbor-format benchmark tasks | — |
+| **LiveClawBench** (this repo) | Task corpus — 134 harbor-format benchmark tasks | — |
 | **claw-harbor** | Evaluation framework (fork of harbor with OpenClaw support) | https://github.com/Mosi-AI/claw-harbor |
 | **OpenClaw** | Agent platform running inside task containers | https://github.com/openclaw/openclaw |
 
@@ -503,8 +503,8 @@ pre-commit install      # hooks run automatically on git commit — replaces man
 
 ## Ground Truth Numbers (verified from task.toml)
 
-129 implemented tasks: A1=50, A2=39, B1=42, B2=26, C1=7, C2=6.
-Difficulty: Easy=35, Medium=58, Hard=36.
+134 implemented tasks: A1=54, A2=39, B1=47, B2=28, C1=7, C2=6.
+Difficulty: Easy=37, Medium=63, Hard=34.
 
 ## Known Issues
 

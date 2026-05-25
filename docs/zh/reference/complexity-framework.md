@@ -1,7 +1,7 @@
 # LiveClawBench 复杂度框架
 
 本文档是 LiveClawBench 任务复杂度标注的唯一参考来源。
-涵盖因子定义、完整的 129 case 标注表（129 个已实现）、
+涵盖因子定义、完整的 134 case 标注表（134 个已实现）、
 摘要统计、领域覆盖和控制对。
 
 ## 复杂度因子定义
@@ -19,7 +19,7 @@ LiveClawBench 定义了六个正交复杂度因子，用于描述超出基础任
 
 ---
 
-## 1. 129 Case 因子标注表
+## 1. 134 Case 因子标注表
 
 `✓` 表示该 case 包含对应因子。
 
@@ -154,6 +154,11 @@ LiveClawBench 定义了六个正交复杂度因子，用于描述超出基础任
 |     127 | expense-submit-verify               |  M   |    |    |    |    |    | ✓  | Finance & Data Analytics   |
 |     128 | finance-budget-shift                |  H   | ✓  | ✓  |    |    | ✓  |    | Finance & Data Analytics   |
 |     129 | vue-fix-rebreak                     |  H   |    | ✓  |    |    | ✓  |    | DevOps & Env Repair        |
+|     130 | vendor-requirement-followup       |  H   | ✓  |    | ✓  | ✓  |    |    | Communication & Email      |
+|     131 | invoice-to-expense-draft          |  M   | ✓  |    | ✓  |    |    |    | Communication & Email      |
+|     132 | newsletter-digest-forward         |  M   | ✓  |    | ✓  |    |    |    | Communication & Email      |
+|     133 | procurement-quote-compare-reply   |  M   |    |    | ✓  |    |    |    | Communication & Email      |
+|     134 | stale-client-escalation           |  H   | ✓  |    | ✓  | ✓  |    |    | Communication & Email      |
 
 
 ---
@@ -169,7 +174,7 @@ LiveClawBench 定义了六个正交复杂度因子，用于描述超出基础任
 | C1   | 环境状态失效             |     7 |   5.4% | email-reply-context-shift, watch-shop-stockout, meeting-slot-race, social-post-rate-limit, vue-fix-rebreak |
 | C2   | 变更状态下结果验证       |     6 |   4.7% | email-sending-verify, watch-shop-silent-fail, interview-slot-verify, health-record-verify, expense-submit-verify |
 
-> 占比以 129 个已实现 case 总数为分母。
+> 占比以 134 个已实现 case 总数为分母。
 
 因子组合分布：
 

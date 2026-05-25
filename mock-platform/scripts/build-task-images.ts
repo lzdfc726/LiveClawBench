@@ -118,7 +118,7 @@ function portProxyLines(listenPort: number, targetPort: number): string[] {
   ];
 }
 
-// All 116 benchmark task names (canonical source of truth)
+// All 134 benchmark task names (canonical source of truth)
 const ALL_TASK_NAMES = new Set([
   "watch-shop", "washer-shop", "info-change", "washer-change",
   "email-watch-shop", "email-washer-change", "email-writing", "email-reply",
@@ -188,6 +188,12 @@ const ALL_TASK_NAMES = new Set([
   "mint-diet-stockout", "health-record-verify",
   "social-post-rate-limit", "social-unlike-verify",
   "finance-budget-shift", "vue-fix-rebreak",
+  // PR #69 Communication & Email tasks (case_ids 130-134)
+  "vendor-requirement-followup",
+  "invoice-to-expense-draft",
+  "newsletter-digest-forward",
+  "procurement-quote-compare-reply",
+  "stale-client-escalation",
 ]);
 
 interface AssetMapping {

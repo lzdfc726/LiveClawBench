@@ -1,7 +1,7 @@
 # LiveClawBench Complexity Framework
 
 This document is the single reference for task complexity annotations in LiveClawBench.
-It covers factor definitions, the full 129-case annotation table (129 implemented),
+It covers factor definitions, the full 134-case annotation table (134 implemented),
 summary statistics, domain coverage, and controlled pairs.
 
 ## Complexity Factor Definitions
@@ -31,7 +31,7 @@ single, clean environment without structural complexity.
 
 ---
 
-## 1. 129-Case Factor Annotation Table
+## 1. 134-Case Factor Annotation Table
 
 `✓` indicates the case carries the corresponding factor.
 
@@ -166,7 +166,11 @@ single, clean environment without structural complexity.
 |     127 | expense-submit-verify               |     M      |    |    |    |    |    | ✓  | Finance & Data Analytics   |
 |     128 | finance-budget-shift                |     H      | ✓  | ✓  |    |    | ✓  |    | Finance & Data Analytics   |
 |     129 | vue-fix-rebreak                     |     H      |    | ✓  |    |    | ✓  |    | DevOps & Env Repair        |
-
+|     130 | vendor-requirement-followup       |     H      | ✓  |    | ✓  | ✓  |    |    | Communication & Email      |
+|     131 | invoice-to-expense-draft          |     M      | ✓  |    | ✓  |    |    |    | Communication & Email      |
+|     132 | newsletter-digest-forward         |     M      | ✓  |    | ✓  |    |    |    | Communication & Email      |
+|     133 | procurement-quote-compare-reply   |     M      |    |    | ✓  |    |    |    | Communication & Email      |
+|     134 | stale-client-escalation           |     H      | ✓  |    | ✓  | ✓  |    |    | Communication & Email      |
 
 ---
 
@@ -181,7 +185,7 @@ single, clean environment without structural complexity.
 | C1     | Environmental State Invalidation |  7 |       5.4% | email-reply-context-shift, watch-shop-stockout, meeting-slot-race, social-post-rate-limit, vue-fix-rebreak |
 | C2     | Outcome Verification under Altered State | 6 | 4.7% | email-sending-verify, watch-shop-silent-fail, interview-slot-verify, health-record-verify, expense-submit-verify |
 
-> Percentages are relative to 129 implemented cases.
+> Percentages are relative to 134 implemented cases.
 
 Factor combination distribution:
 
