@@ -1,7 +1,7 @@
 FROM liveclawbench-stale-client-escalation-base:latest
 
-# Copy environment apps (frontend SPA is pre-built into the per-task base image;
-# notes/ are copied to /workspace/notes/ where the verifier expects them).
+# Copy environment apps (notes/ are copied to /workspace/notes/ where the
+# verifier expects them).
 COPY . /workspace/environment/
 
 # Stage the seed escalation log where the agent and verifier expect it
