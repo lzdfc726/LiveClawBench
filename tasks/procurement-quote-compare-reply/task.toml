@@ -13,8 +13,10 @@ factor_a1 = 0   # Cross-Service Dependency
 factor_a2 = 0   # Contaminated Initial State
 factor_b1 = 1   # Implicit Goal Resolution
 factor_b2 = 0   # Knowledge System Maintenance
+factor_c1 = 0   # Environmental State Invalidation
+factor_c2 = 0   # Outcome Verification under Altered State
 
-case_id = 120
+case_id = 133
 
 [verifier]
 timeout_sec = 900.0
