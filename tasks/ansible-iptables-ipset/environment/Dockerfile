@@ -18,7 +18,8 @@ HEALTHCHECK --interval=2s --timeout=1s --retries=1 CMD true
 
 USER root
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update -o Acquire::Retries=5 && \
+    apt-get install -y --no-install-recommends -o Acquire::Retries=5 \
         git ca-certificates curl build-essential \
         python3-dev iptables ipset && \
     rm -rf /var/lib/apt/lists/*

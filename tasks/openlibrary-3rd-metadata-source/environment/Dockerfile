@@ -20,7 +20,8 @@ HEALTHCHECK --interval=2s --timeout=1s --retries=1 CMD true
 USER root
 
 # openlibrary build deps: git, gcc, python headers, libxml2, libxslt, libpq.
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update -o Acquire::Retries=5 && \
+    apt-get install -y --no-install-recommends -o Acquire::Retries=5 \
         git ca-certificates curl build-essential \
         python3-dev libxml2-dev libxslt1-dev libpq-dev libffi-dev libssl-dev \
         libjpeg-dev zlib1g-dev libfreetype6-dev && \
