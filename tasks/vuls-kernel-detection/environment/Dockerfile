@@ -19,7 +19,8 @@ RUN apt-get update -o Acquire::Retries=3 && apt-get install -y --no-install-reco
 
 # Go toolchain via golang.google.cn (CN mirror).
 ARG GO_VERSION=1.23.4
-RUN curl -sL "https://golang.google.cn/dl/go${GO_VERSION}.linux-amd64.tar.gz" -o /tmp/go.tgz && \
+ARG TARGETARCH
+RUN curl -sL "https://golang.google.cn/dl/go${GO_VERSION}.linux-${TARGETARCH}.tar.gz" -o /tmp/go.tgz && \
     tar -C /usr/local -xzf /tmp/go.tgz && rm /tmp/go.tgz
 
 ENV PATH="/usr/local/go/bin:${PATH}" \

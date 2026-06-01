@@ -356,3 +356,26 @@ This means a bare path like `output/result.json` in `instruction.md` is interpre
 - **Option B — Explicit path in instruction**: use the full absolute path in `instruction.md` (`/home/node/.openclaw/output/result.json`). Removes ambiguity but is verbose and leaks container internals into the task description.
 
 The existing PKB tasks currently use Option B. New tasks should prefer Option A — letting the verifier handle both locations so the instruction stays readable.
+
+**Mock database path alignment**
+
+The mock runtime, verifier, instruction, and `solve.sh` must all use the same DB path. Check `build-task-images.ts` for the env var the mock's startup exports (e.g. `MOCK_DATA_DIR=/var/lib/mock-data`), then use that path in `verify.py`. Do not hard-code `/opt/mock/data/` unless the mock itself defaults to it.
+
+**Seed file placement**
+
+`seed.json` assets in `task-binary-map.json` must land where the mock reads them. If the mock startup sets `MOCK_DATA_DIR=/var/lib/mock-data`, copy the seed to `/var/lib/mock-data/seed.json`, not `/opt/mock/data/seed.json`.
+
+**Direct DB access in instructions**
+
+Prefer API-only instructions (do not mention DB paths). Only expose the DB path when the task inherently requires SQL-level analysis, and then the path must match the actual runtime location exactly.
+
+**Go Dockerfile cross-platform compilation**
+
+Do not hard-code `linux-amd64`. Use BuildKit's `TARGETARCH`:
+
+```dockerfile
+ARG GO_VERSION=1.23.4
+ARG TARGETARCH
+RUN curl -sL "https://golang.google.cn/dl/go${GO_VERSION}.linux-${TARGETARCH}.tar.gz" -o /tmp/go.tgz && \
+    tar -C /usr/local -xzf /tmp/go.tgz && rm /tmp/go.tgz
+```
