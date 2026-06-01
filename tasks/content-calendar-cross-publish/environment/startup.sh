@@ -1,9 +1,35 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Wait until a sqlite DB exists AND contains the listed tables.
+# Mitigates the race where this startup script runs before the underlying
+# mock service has finished schema bootstrap.
+wait_for_db_tables() {
+    local db="$1" timeout="${2:-60}" elapsed=0
+    shift 2 || true
+    local tables="$*"
+    while [ $elapsed -lt $timeout ]; do
+        if [ -f "$db" ]; then
+            local present
+            present=$(sqlite3 "$db" ".tables" 2>/dev/null || echo "")
+            local missing=0
+            for t in $tables; do
+                # Use word boundary check via grep -wF to avoid partial matches.
+                printf '%s\n' $present | grep -qwF "$t" || { missing=1; break; }
+            done
+            [ $missing -eq 0 ] && return 0
+        fi
+        sleep 1
+        elapsed=$((elapsed + 1))
+    done
+    echo "ERROR: wait_for_db_tables timed out after ${timeout}s: $db (need: $tables)" >&2
+    return 1
+}
+
 # A2 data injection: seed stale social posts and orphan calendar events
 # Social mock writes to $MOCK_DATA_DIR/social/social.db at runtime
 SOCIAL_DB="/var/lib/mock-data/social/social.db"
+wait_for_db_tables "$SOCIAL_DB" 60 post
 if [ ! -f "$SOCIAL_DB" ]; then
     echo "ERROR: Social DB not found at $SOCIAL_DB; cannot seed required A2 fixtures" >&2
     echo "       The social mock must be running and have initialized its database before this script runs." >&2
@@ -24,6 +50,7 @@ echo "Injected ${STALE_COUNT} stale social posts"
 
 # Inject orphan calendar events from a failed previous sync
 CALENDAR_DB="/var/lib/mock-data/calendar/calendar.db"
+wait_for_db_tables "$CALENDAR_DB" 60 calendar_event
 if [ ! -f "$CALENDAR_DB" ]; then
     echo "ERROR: Calendar DB not found at $CALENDAR_DB; cannot seed orphan A2 events" >&2
     echo "       The calendar mock must be running and have initialized its database before this script runs." >&2

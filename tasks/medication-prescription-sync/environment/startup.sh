@@ -1,6 +1,30 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Wait until a sqlite DB exists AND contains the listed tables.
+# Mitigates the race where this startup script runs before the underlying
+# mock service has finished schema bootstrap.
+wait_for_db_tables() {
+    local db="$1" timeout="${2:-60}" elapsed=0
+    shift 2 || true
+    local tables="$*"
+    while [ $elapsed -lt $timeout ]; do
+        if [ -f "$db" ]; then
+            local present
+            present=$(sqlite3 "$db" ".tables" 2>/dev/null || echo "")
+            local missing=0
+            for t in $tables; do
+                printf '%s\n' $present | grep -qwF "$t" || { missing=1; break; }
+            done
+            [ $missing -eq 0 ] && return 0
+        fi
+        sleep 1
+        elapsed=$((elapsed + 1))
+    done
+    echo "ERROR: wait_for_db_tables timed out after ${timeout}s: $db (need: $tables)" >&2
+    return 1
+}
+
 # A2 data injection: seed outdated active medications in health DB
 # Fixed IDs (100, 101 for medications; 200, 201 for calendar events) keep
 # re-runs of this script idempotent because INSERT OR IGNORE on the PRIMARY
@@ -8,6 +32,7 @@ set -euo pipefail
 # calendar table (no UNIQUE constraint on title+start_time) would duplicate
 # on every restart, leaving the verifier with a non-deterministic fixture.
 HEALTH_DB="/var/lib/mock-data/health/health.db"
+wait_for_db_tables "$HEALTH_DB" 60 medication
 if [ ! -f "$HEALTH_DB" ]; then
     echo "ERROR: Health DB not found at $HEALTH_DB; cannot seed required A2 fixtures" >&2
     echo "       The health mock must be running and have initialized its database before this script runs." >&2
@@ -26,6 +51,7 @@ echo "Injected ${MED_COUNT} active outdated medications into health DB"
 
 # Inject stale calendar reminders for the old medications
 CALENDAR_DB="/var/lib/mock-data/calendar/calendar.db"
+wait_for_db_tables "$CALENDAR_DB" 60 calendar_event
 if [ ! -f "$CALENDAR_DB" ]; then
     echo "ERROR: Calendar DB not found at $CALENDAR_DB; cannot seed stale reminders" >&2
     echo "       The calendar mock must be running and have initialized its database before this script runs." >&2

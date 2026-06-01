@@ -13,6 +13,48 @@ from datetime import date
 # build-task-images.ts sets MOCK_DATA_DIR=/var/lib/mock-data at runtime.
 DB_PATH = "/var/lib/mock-data/health/health.db"
 
+
+def _wait_for_tables(db_path: str, required_tables, timeout: int = 60) -> None:
+    """Defensive: wait for sqlite DB to exist AND contain required tables.
+
+    Mitigates the race where the verifier runs before the mock service has
+    finished schema bootstrap (Issue #108 §2.2: 'no such table: ...').
+    Fails loud with a diagnostic instead of silently raising OperationalError.
+    """
+    import os
+    import time
+
+    deadline = time.monotonic() + timeout
+    last_err = None
+    while time.monotonic() < deadline:
+        if os.path.isfile(db_path):
+            try:
+                with sqlite3.connect(db_path) as _c:
+                    names = {
+                        r[0]
+                        for r in _c.execute(
+                            "SELECT name FROM sqlite_master WHERE type='table'"
+                        )
+                    }
+                if all(t in names for t in required_tables):
+                    return
+                last_err = (
+                    f"missing={[t for t in required_tables if t not in names]} "
+                    f"present={sorted(names)[:10]}"
+                )
+            except sqlite3.Error as e:
+                last_err = str(e)
+        time.sleep(1)
+    print(
+        f"FAIL: DB {db_path} not ready after {timeout}s ({last_err})",
+        flush=True,
+    )
+    print("Score: 0.0/1.0")
+    raise SystemExit(1)
+
+
+_wait_for_tables(DB_PATH, ["allergen", "medication", "medication_intake_slot"])
+
 score = 0.0
 max_points = 3.0
 points = 0.0
