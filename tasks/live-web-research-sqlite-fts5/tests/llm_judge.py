@@ -14,6 +14,9 @@ import os
 import time
 import urllib.error
 import urllib.request
+import http.client  # PR-5: RemoteDisconnected / IncompleteRead retries
+import random  # PR-5: retry backoff jitter
+import ssl  # PR-5: SSLError retries
 from pathlib import Path
 
 import deterministic_checks as dc
@@ -160,22 +163,25 @@ def post_json(url: str, payload: dict, api_key: str) -> dict:
         },
         method="POST",
     )
-    for attempt in range(3):
+    # PR-5: bumped attempts 3 -> 5; added jitter; broadened retried exceptions
+    # to cover TLS EOF / RemoteDisconnected. (Issue #108 §2.4 / TRACKING B5.1)
+    last_exc: Exception | None = None
+    for attempt in range(5):
         try:
             with urllib.request.urlopen(request, timeout=180) as response:
                 return json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
             if 400 <= exc.code < 500:
-                raise
-            if attempt < 2:
-                time.sleep(2**attempt)
-                continue
-            raise
-        except (urllib.error.URLError, TimeoutError, ConnectionError):
-            if attempt < 2:
-                time.sleep(2**attempt)
-                continue
-            raise
+                raise  # 4xx is permanent — do not retry
+            last_exc = exc
+        except (urllib.error.URLError, TimeoutError, ConnectionError,
+                ssl.SSLError, http.client.RemoteDisconnected,
+                http.client.IncompleteRead, OSError) as exc:
+            last_exc = exc
+        if attempt < 4:
+            time.sleep((2 ** attempt) + random.uniform(0, 1.5))
+    assert last_exc is not None  # at least one attempt must have set it
+    raise last_exc
 
 
 DEFAULT_JUDGE_MODEL = "deepseek-v3.2"
