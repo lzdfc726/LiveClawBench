@@ -6,8 +6,8 @@ COPY . /workspace/environment/
 # Install airline-app backend dependencies
 RUN cd /workspace/environment/airline-app/backend && pip install --break-system-packages -r requirements.txt
 
-# Inject pre-defined data
-RUN cd /workspace/environment/airline-app/backend && python3 scripts/inject_data.py
+# (inject_data.py moved to startup.sh — datetime.now()-relative seeds must
+#  be computed at container start, not at image build. Issue #108 §2.1)
 
 # NODE_ENV=production is set by the base openclaw image, which causes npm install to
 # skip devDependencies (including vite). --include=dev forces them to be installed.
