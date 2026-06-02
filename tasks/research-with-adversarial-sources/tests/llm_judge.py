@@ -9,14 +9,14 @@
 #   tasks/live-web-research-sqlite-fts5/tests/llm_judge.py
 #   tasks/mixed-tool-memory/tests/llm_judge.py
 #   tasks/noise-filtering/tests/llm_judge.py
+import http.client  # PR-5: RemoteDisconnected / IncompleteRead retries
 import json
 import os
+import random  # PR-5: retry backoff jitter
+import ssl  # PR-5: SSLError retries
 import time
 import urllib.error
 import urllib.request
-import http.client  # PR-5: RemoteDisconnected / IncompleteRead retries
-import random  # PR-5: retry backoff jitter
-import ssl  # PR-5: SSLError retries
 from pathlib import Path
 
 import deterministic_checks as dc
@@ -174,12 +174,18 @@ def post_json(url: str, payload: dict, api_key: str) -> dict:
             if 400 <= exc.code < 500:
                 raise  # 4xx is permanent — do not retry
             last_exc = exc
-        except (urllib.error.URLError, TimeoutError, ConnectionError,
-                ssl.SSLError, http.client.RemoteDisconnected,
-                http.client.IncompleteRead, OSError) as exc:
+        except (
+            urllib.error.URLError,
+            TimeoutError,
+            ConnectionError,
+            ssl.SSLError,
+            http.client.RemoteDisconnected,
+            http.client.IncompleteRead,
+            OSError,
+        ) as exc:
             last_exc = exc
         if attempt < 4:
-            time.sleep((2 ** attempt) + random.uniform(0, 1.5))
+            time.sleep((2**attempt) + random.uniform(0, 1.5))
     assert last_exc is not None  # at least one attempt must have set it
     raise last_exc
 

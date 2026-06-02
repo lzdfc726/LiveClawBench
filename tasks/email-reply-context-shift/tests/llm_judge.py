@@ -4,16 +4,16 @@ Checks: final sent email acknowledges the meeting cancellation.
 Uses LLM judge to evaluate response quality, with heuristic fallback.
 """
 
+import http.client  # PR-5: RemoteDisconnected / IncompleteRead retries
 import json
 import os
+import random  # PR-5: retry backoff jitter
 import sqlite3
+import ssl  # PR-5: SSLError retries
 import sys
 import time
 import urllib.error
 import urllib.request
-import http.client  # PR-5: RemoteDisconnected / IncompleteRead retries
-import random  # PR-5: retry backoff jitter
-import ssl  # PR-5: SSLError retries
 
 DB_PATH = "/var/lib/mock-data/email/email.db"
 
@@ -115,12 +115,18 @@ def post_json(url: str, payload: dict, api_key: str) -> dict:
             if 400 <= exc.code < 500:
                 raise  # 4xx is permanent — do not retry
             last_exc = exc
-        except (urllib.error.URLError, TimeoutError, ConnectionError,
-                ssl.SSLError, http.client.RemoteDisconnected,
-                http.client.IncompleteRead, OSError) as exc:
+        except (
+            urllib.error.URLError,
+            TimeoutError,
+            ConnectionError,
+            ssl.SSLError,
+            http.client.RemoteDisconnected,
+            http.client.IncompleteRead,
+            OSError,
+        ) as exc:
             last_exc = exc
         if attempt < 4:
-            time.sleep((2 ** attempt) + random.uniform(0, 1.5))
+            time.sleep((2**attempt) + random.uniform(0, 1.5))
     assert last_exc is not None  # at least one attempt must have set it
     raise last_exc
 
@@ -225,12 +231,20 @@ def heuristic_score(sent_emails):
     return score
 
 
-def _write_breakdown(score: float, sent_emails, *, judge_used: int,
-                     judge_mode: str = "", judge_verdict: str = "",
-                     judge_failed: int = 0, judge_error: str = "") -> None:
+def _write_breakdown(
+    score: float,
+    sent_emails,
+    *,
+    judge_used: int,
+    judge_mode: str = "",
+    judge_verdict: str = "",
+    judge_failed: int = 0,
+    judge_error: str = "",
+) -> None:
     """PR-5 B5.4: write reward.json with breakdown fields. Stage-2 / harbor can
     inspect _meta_judge_* to distinguish a true 0-score from a judge failure."""
     import pathlib as _pl
+
     verifier_dir = _pl.Path("/logs/verifier")
     try:
         verifier_dir.mkdir(parents=True, exist_ok=True)
@@ -295,9 +309,13 @@ def main():
             score = 0.0
             print(f"JUDGE_FAILED: {judge_error}", file=sys.stderr)
         _write_breakdown(
-            score, sent_emails,
-            judge_used=1, judge_mode=judge_mode, judge_verdict=judge_verdict,
-            judge_failed=judge_failed, judge_error=judge_error,
+            score,
+            sent_emails,
+            judge_used=1,
+            judge_mode=judge_mode,
+            judge_verdict=judge_verdict,
+            judge_failed=judge_failed,
+            judge_error=judge_error,
         )
     else:
         # No JUDGE_BASE_URL configured — heuristic is the documented offline path.
