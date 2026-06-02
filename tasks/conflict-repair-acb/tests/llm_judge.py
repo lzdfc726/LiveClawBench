@@ -1,19 +1,14 @@
 #!/usr/bin/env python3
 # NOTE: The utility functions in this file (call_judge, post_json, extract_chat_text,
 # extract_responses_text, parse_json_blob, etc.) are intentionally duplicated across all
-# five LLM-judge tasks. Harbor's per-task build context (environment/ dir only) prevents
-# cross-task file sharing without baking shared logic into the base image. If you edit
-# these helpers, apply the same change to the counterparts in:
-#   tasks/conflict-repair-acb/tests/llm_judge.py
-#   tasks/incremental-update-ctp/tests/llm_judge.py
-#   tasks/live-web-research-sqlite-fts5/tests/llm_judge.py
-#   tasks/mixed-tool-memory/tests/llm_judge.py
-#   tasks/noise-filtering/tests/llm_judge.py
+# twenty-one LLM-judge tasks. Harbor's per-task build context (environment/ dir only)
+# prevents cross-task file sharing without baking shared logic into the base image.
+# If you edit these helpers, sync the change to every other tasks/*/tests/llm_judge.py
+# (21 files in total — see CLAUDE.md `LLM-judge tasks` for the canonical list).
 import http.client  # PR-5: RemoteDisconnected / IncompleteRead retries
 import json
 import os
 import random  # PR-5: retry backoff jitter
-import ssl  # PR-5: SSLError retries
 import time
 import urllib.error
 import urllib.request
@@ -175,19 +170,18 @@ def post_json(url: str, payload: dict, api_key: str) -> dict:
             if 400 <= exc.code < 500:
                 raise  # 4xx is permanent — do not retry
             last_exc = exc
-        except (
-            urllib.error.URLError,
-            TimeoutError,
-            ConnectionError,
-            ssl.SSLError,
-            http.client.RemoteDisconnected,
-            http.client.IncompleteRead,
-            OSError,
-        ) as exc:
+        except (OSError, http.client.IncompleteRead) as exc:
+            # URLError, TimeoutError, ConnectionError, ssl.SSLError, and
+            # http.client.RemoteDisconnected all inherit from OSError;
+            # IncompleteRead is a HTTPException so it must be listed
+            # separately. (PR-5 / PR #112 review simplification.)
             last_exc = exc
         if attempt < 4:
             time.sleep((2**attempt) + random.uniform(0, 1.5))
-    assert last_exc is not None  # at least one attempt must have set it
+    if last_exc is None:
+        # Defensive: retry loop must have set last_exc on every failure path;
+        # `if` instead of `assert` so behavior is identical under `python -O`.
+        raise RuntimeError("post_json retry loop exited without raising")
     raise last_exc
 
 

@@ -1,7 +1,17 @@
 """Verifier for email-reply-context-shift (C1).
 
 Checks: final sent email acknowledges the meeting cancellation.
-Uses LLM judge to evaluate response quality, with heuristic fallback.
+
+Scoring:
+  - When JUDGE_BASE_URL is set and the judge call succeeds, return the
+    judge's 0.0-1.0 score + write per-dimension breakdown to reward.json.
+  - When JUDGE_BASE_URL is set but the call fails (network outage, model
+    rejected, etc.), the retry loop exhausts and the verifier emits 0.0
+    with `_meta_judge_failed=1`. (Was previously a silent 0; PR-5 makes
+    the failure mode explicit so downstream stats can filter judge errors
+    out of agent-skill aggregates.)
+  - When JUDGE_BASE_URL is unset (offline / no-credentials run), fall back
+    to the deterministic heuristic scorer.
 """
 
 import http.client  # PR-5: RemoteDisconnected / IncompleteRead retries
@@ -9,7 +19,6 @@ import json
 import os
 import random  # PR-5: retry backoff jitter
 import sqlite3
-import ssl  # PR-5: SSLError retries
 import sys
 import time
 import urllib.error
@@ -115,19 +124,18 @@ def post_json(url: str, payload: dict, api_key: str) -> dict:
             if 400 <= exc.code < 500:
                 raise  # 4xx is permanent — do not retry
             last_exc = exc
-        except (
-            urllib.error.URLError,
-            TimeoutError,
-            ConnectionError,
-            ssl.SSLError,
-            http.client.RemoteDisconnected,
-            http.client.IncompleteRead,
-            OSError,
-        ) as exc:
+        except (OSError, http.client.IncompleteRead) as exc:
+            # URLError, TimeoutError, ConnectionError, ssl.SSLError, and
+            # http.client.RemoteDisconnected all inherit from OSError;
+            # IncompleteRead is a HTTPException so it must be listed
+            # separately. (PR-5 / PR #112 review simplification.)
             last_exc = exc
         if attempt < 4:
             time.sleep((2**attempt) + random.uniform(0, 1.5))
-    assert last_exc is not None  # at least one attempt must have set it
+    if last_exc is None:
+        # Defensive: retry loop must have set last_exc on every failure path;
+        # `if` instead of `assert` so behavior is identical under `python -O`.
+        raise RuntimeError("post_json retry loop exited without raising")
     raise last_exc
 
 
