@@ -31,13 +31,23 @@ ARG PIP_INDEX_URL=https://pypi.org/simple
 
 ARG BASE_COMMIT=e9e9d8be33f09cd487b905f339ec3e76ad75e0bb
 ARG FIX_COMMIT=910b08570210509f3bcfebf35c093a48243fe754
-RUN git clone https://github.com/internetarchive/openlibrary.git /workspace/repo && \
-    cd /workspace/repo && \
-    git fetch --depth=1 origin "${FIX_COMMIT}" && \
-    git fetch --depth=1 origin "${BASE_COMMIT}" && \
-    git checkout "${BASE_COMMIT}" && \
-    git tag base-commit HEAD && \
-    git tag gold-fix-commit "${FIX_COMMIT}"
+# Retry git clone + fetch + checkout as a single atomic block (PR-4 v2).
+# Naked `git clone github.com/...` is the most common build-time failure for
+# SWE-Pro tasks — network blips during the multi-GB transfer abort the whole
+# `docker build` (exit code 128). See pr_audit/results/pr4 for evidence.
+RUN for i in 1 2 3; do \
+        rm -rf /workspace/repo; \
+        ( git clone https://github.com/internetarchive/openlibrary.git /workspace/repo && \
+          cd /workspace/repo && \
+          git fetch --depth=1 origin "${FIX_COMMIT}" && \
+          git fetch --depth=1 origin "${BASE_COMMIT}" && \
+          git checkout "${BASE_COMMIT}" && \
+          git tag base-commit HEAD && \
+          git tag gold-fix-commit "${FIX_COMMIT}" \
+        ) && break; \
+        [ "$i" -eq 3 ] && exit 1; \
+        echo "git clone/fetch attempt $i failed; sleep 15"; sleep 15; \
+    done
 
 WORKDIR /workspace/repo
 
@@ -58,6 +68,12 @@ RUN python3 -m pip install --no-cache-dir --break-system-packages -i ${PIP_INDEX
 # Install infogami (openlibrary's framework dep, not on PyPI; lives in a sibling
 # GitHub repo). Without it, every openlibrary.* import fails during pytest
 # collection. We clone + pip install -e so test discovery works.
-RUN git clone --depth=1 https://github.com/internetarchive/infogami.git /opt/infogami && \
+# Infogami clone with same retry pattern as main repo (PR-4 v2).
+RUN for i in 1 2 3; do \
+        rm -rf /opt/infogami; \
+        git clone --depth=1 https://github.com/internetarchive/infogami.git /opt/infogami && break; \
+        [ "$i" -eq 3 ] && exit 1; \
+        echo "infogami clone attempt $i failed; sleep 10"; sleep 10; \
+    done && \
     python3 -m pip install --no-cache-dir --break-system-packages -e /opt/infogami && \
     python3 -c "import infogami; print('infogami OK:', infogami.__file__)"
