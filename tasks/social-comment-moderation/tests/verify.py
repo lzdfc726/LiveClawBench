@@ -30,8 +30,15 @@ def _wait_for_tables(db_path: str, required_tables, timeout: int = 60) -> None:
     """Defensive: wait for sqlite DB to exist AND contain required tables.
 
     Mitigates the race where the verifier runs before the mock service has
-    finished schema bootstrap (Issue #108 §2.3: 'unable to open database file').
-    Fails loud with a diagnostic instead of silently raising OperationalError.
+    finished schema bootstrap (Issue #108 §2.3).
+
+    On timeout: prints a WARNING with diagnostic info (parent-dir listing)
+    and RETURNS. We don't raise SystemExit because that would short-circuit
+    the verifier and turn a "DB late" condition into a hard 0 — observed
+    regression in pr_audit/results/pr2/social-schedule-audit (0.40 → 0.0).
+    The downstream sqlite3.connect() will surface a normal OperationalError
+    if the file truly does not exist, which the verifier's per-anomaly
+    try/except will score as 0 for that dimension only.
     """
     import os
     import time
@@ -57,12 +64,17 @@ def _wait_for_tables(db_path: str, required_tables, timeout: int = 60) -> None:
             except sqlite3.Error as e:
                 last_err = str(e)
         time.sleep(1)
+    parent = os.path.dirname(db_path) or "/"
+    try:
+        entries = os.listdir(parent) if os.path.isdir(parent) else "<no such dir>"
+    except OSError as e:
+        entries = f"<listdir failed: {e}>"
     print(
-        f"FAIL: DB {db_path} not ready after {timeout}s ({last_err})",
+        f"WARNING: DB {db_path} not ready after {timeout}s ({last_err}); "
+        f"parent {parent} contents: {entries}. "
+        f"Proceeding; downstream queries will fail per-dimension if mock truly absent.",
         flush=True,
     )
-    print("Score: 0.0/1.0")
-    raise SystemExit(1)
 
 
 _wait_for_tables(SOCIAL_DB, ["comment", "post"])
