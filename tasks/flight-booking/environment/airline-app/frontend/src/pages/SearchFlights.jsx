@@ -190,7 +190,7 @@ const SearchFlights = () => {
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '15px' }}>
                     <div style={{ textAlign: 'center' }}>
-                      <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#222' }}>{flight.origin.code}</div>
+                      <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#222' }}>{flight.origin?.code}</div>
                       <div style={{ fontSize: '14px', color: '#666' }}>{formatDateTime(flight.departure_time)}</div>
                     </div>
                     <div style={{ flex: '1', textAlign: 'center', color: '#999' }}>
@@ -198,7 +198,7 @@ const SearchFlights = () => {
                       <div style={{ fontSize: '13px', marginTop: '5px' }}>{formatDuration(flight.duration_minutes)}</div>
                     </div>
                     <div style={{ textAlign: 'center' }}>
-                      <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#222' }}>{flight.destination.code}</div>
+                      <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#222' }}>{flight.destination?.code}</div>
                       <div style={{ fontSize: '14px', color: '#666' }}>{formatDateTime(flight.arrival_time)}</div>
                     </div>
                   </div>

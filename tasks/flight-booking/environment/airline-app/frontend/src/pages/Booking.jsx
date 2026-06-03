@@ -179,7 +179,7 @@ const Booking = () => {
 
       <div className="card">
         <h3>Flight Details</h3>
-        <p><strong>Route:</strong> {flight.origin.code} → {flight.destination.code}</p>
+        <p><strong>Route:</strong> {flight.origin?.code} → {flight.destination?.code}</p>
         <p><strong>Departure:</strong> {formatDateTime(flight.departure_time)}</p>
         <p><strong>Cabin Class:</strong> {cabinClass.charAt(0).toUpperCase() + cabinClass.slice(1)}</p>
         <p><strong>Passengers:</strong> {passengerCount}</p>
