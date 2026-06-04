@@ -205,7 +205,7 @@ const SearchFlights = () => {
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px', fontSize: '14px', color: '#666' }}>
                     <div>🛩️ <strong>Aircraft:</strong> {flight.aircraft_type}</div>
-                    <div>💺 <strong>Available:</strong> {flight.available_seats[searchParams.cabin_class]} seats</div>
+                    <div>💺 <strong>Available:</strong> {flight.available_seats?.[searchParams.cabin_class] ?? '—'} seats</div>
                   </div>
 
                   {flight.status === 'delayed' && flight.delay_minutes > 0 && (
@@ -218,7 +218,7 @@ const SearchFlights = () => {
                 <div style={{ textAlign: 'right', marginLeft: '30px', minWidth: '180px' }}>
                   <div style={{ marginBottom: '5px', fontSize: '14px', color: '#666' }}>per passenger</div>
                   <div style={{ fontSize: '32px', fontWeight: 'bold', color: '#4a90e2', marginBottom: '15px' }}>
-                    ${flight.pricing[searchParams.cabin_class]?.toFixed(2) || 'N/A'}
+                    ${flight.pricing?.[searchParams.cabin_class]?.toFixed(2) || 'N/A'}
                   </div>
                   <button
                     className="btn-primary"

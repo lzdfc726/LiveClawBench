@@ -184,7 +184,7 @@ const Booking = () => {
         <p><strong>Cabin Class:</strong> {cabinClass.charAt(0).toUpperCase() + cabinClass.slice(1)}</p>
         <p><strong>Passengers:</strong> {passengerCount}</p>
         <p style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '10px' }}>
-          Total Price: ${((flight.pricing[cabinClass] || flight.pricing.economy) * passengerCount).toFixed(2)}
+          Total Price: ${(((flight.pricing?.[cabinClass]) || (flight.pricing?.economy) || 0) * passengerCount).toFixed(2)}
         </p>
       </div>
 
