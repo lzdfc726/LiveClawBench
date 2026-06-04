@@ -98,7 +98,7 @@ def baseline_guard():
         try:
             os.makedirs("/logs/verifier", exist_ok=True)
             with open("/logs/verifier/reward.json", "w") as f:
-                json.dump({"reward": 0.0, "baseline_guard": "failed"}, f)
+                json.dump({"reward": 0.0, "_meta_baseline_guard": "failed"}, f)
         except Exception:
             pass
         sys.exit(1)
