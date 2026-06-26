@@ -1,8 +1,15 @@
 ---
 import { getSiteConfig } from '../../data/site-config';
+import { getAllTasks } from '../../data/tasks';
+import { getAllMockApps } from '../../data/mocks';
 import { withBase } from '../../lib/urls';
 
 const config = getSiteConfig();
+const tasks = getAllTasks();
+const totalTasks = tasks.length;
+const totalDomains = new Set(tasks.map((task) => task.domain)).size;
+const totalMockApps = getAllMockApps().length;
+const totalFactors = config.factors.length;
 ---
 
 <section class="py-8 md:py-12">
@@ -41,7 +48,7 @@ const config = getSiteConfig();
 
     <!-- Brief Description -->
     <p class="mt-4 text-base text-gray-500 max-w-2xl mx-auto">
-      A <strong class="text-gray-700">"standardized exam"</strong> for LLM Agents with high fidelity— Including 134 Cases acrossing 10 domains, 22 reusable mock services, with 6 complexity factors to make task-distribution fidelity inspectable, auditable, and extensible.
+      A <strong class="text-gray-700">"standardized exam"</strong> for LLM agents with high fidelity, including {totalTasks} cases across {totalDomains} domains and {totalMockApps} reusable mock services, with {totalFactors} complexity factors to make task-distribution fidelity inspectable, auditable, and extensible.
     </p>
 
     <!-- Action Buttons (OSWorld-style: dark rounded with icons) -->
